@@ -8,7 +8,7 @@ Prepared and self-contained dev environment in a GitHub Codespaces instance.
     - The most convenient, works out-of-box. All you need is a browser or VS Code.
     - To connect from Cursor or IntelliJ IDEA requires setting up SSH access.
 
-2. [Local Docker/Podman container](dev-env-local-container) \
+2. [Local Docker/Podman container](dev-env-local-container.md) \
 Prepared and self-contained dev environment in a local Docker/Podman container.
 
     - Requires local Docker/Podman installation (plus WSL2 on Windows).
