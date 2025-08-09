@@ -1,5 +1,7 @@
 # Setup IntelliJ IDEA
 
+<!-- markdownlint-disable MD033 -->
+
 This setup assumes IntelliJ IDEA Ultimate edition.
 
 ## Plugins

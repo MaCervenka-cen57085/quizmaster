@@ -1,5 +1,7 @@
 # How to develop Quizmaster
 
+<!-- markdownlint-disable MD051 -->
+
 - [Running Quizmaster](#🚀-running-quizmaster)
 - [Running Vite dev server](#running-vite-development-server)
 - [Running end-to-end tests](#🧪-running-end-to-end-tests)
@@ -36,7 +38,8 @@ To run the application, in the `backend` directory execute:
 
 This command does not build the front end, so you need to run `pnpm run build` first.
 
-## <img src="https://vitejs.dev/logo.svg" height="20"> Running Vite Development Server
+<!-- markdownlint-disable-next-line MD045 MD033-->
+## <img alt="Vite logo" src="https://vitejs.dev/logo.svg" height="20"> Running Vite Development Server
 
 To avoid rebuilding frontend and backend every time you make a change, you can run the [Vite](https://vitejs.dev/guide/)
 development server in the `frontend` directory:
