@@ -5,7 +5,7 @@
 A **Question** tests user's knowledge of a specific topic. The user selects from multiple answers.
 For example:
 
-```
+```text
 What is the capital of France?
 - Paris
 - Montreal
