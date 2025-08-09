@@ -22,7 +22,7 @@ Prior to the class ge yourself familiar with the tech stack:
 1. **Create your development environment**. You have three options:
 
     - [GitHub Codespaces](docs/dev-environment/dev-env-codespaces.md) ⭐ recommended
-    - [Local Docker/Podman container](docs/dev-environment/dev-env-local-container.md)
+    - [Local Docker/Podman container](docs/dev-environment/dev-env-podman.md) 🤖 cursor, windsurf recommendation
     - [Local Environment](docs/dev-environment/dev-env-local.md)
 
     See more for [comparison](docs/dev-environment/dev-env-comparison.md).
