@@ -20,7 +20,7 @@
 
 - All features are covered by user-centric Specifications by Example
   - Features are described in Gherkin and stored in `frontend/specs`
-  - There is no funtionality not covered by a scenario
+  - There is no functionality not covered by a scenario
   - `*.feature` file names in PascalCase
 - Cucumber.js and Playwright are used to run the specs
   - Page Object pattern is used to organize test code
