@@ -8,8 +8,8 @@
 
 2. Depending on what IDE you want to use, select corresponding machine type:
 
-- VS Code - 2 cores / 8GB
-- IntelliJ - 4 cores / 16GB
+    - VS Code - 2 cores / 8GB
+    - IntelliJ - 4 cores / 16GB
 
 3. The codespace opens a web version of VS Code in a new browser tab.
 

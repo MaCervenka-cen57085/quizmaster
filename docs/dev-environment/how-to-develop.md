@@ -30,7 +30,7 @@ and becomes part of the JAR assembly.
 
 To run the application, in the `backend` directory execute:
 
-```
+```sh
 ./gradlew bootRun
 ```
 
@@ -41,7 +41,7 @@ This command does not build the front end, so you need to run `pnpm run build` f
 To avoid rebuilding frontend and backend every time you make a change, you can run the [Vite](https://vitejs.dev/guide/)
 development server in the `frontend` directory:
 
-```
+```sh
 pnpm dev
 ```
 
