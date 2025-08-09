@@ -28,4 +28,3 @@
 - All external dependencies are current and verified against the latest stable versions.
 - The CI system successfully processes all changes.
 - CI system builds are completed in 10 minutes or less.
-
