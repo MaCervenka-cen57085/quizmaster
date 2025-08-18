@@ -1,8 +1,21 @@
 # Quizmaster
 
-A quiz taking app that serves as a case study during
-[Applying Professional Scrum for Software Development](https://scrumdojo.cz/aps-sd)
-training with [ScrumDojo.cz](https://scrumdojo.cz).
+A training application for building stronger software teams.
+This repository is used in different formats, for example:
+- [Applying Professional Scrum for Software Development](https://scrumdojo.cz/aps-sd) with [ScrumDojo.cz](https://scrumdojo.cz) — a compact case study bringing Scrum to life with working code.
+- Multi-team product development workshop with [ScrumDojo.cz](https://scrumdojo.cz) and [SimplificationOfficers.com](https://simplificationofficers.com/) — three fast, hands-on days where several teams build one product together.
+- …
+
+**Outcomes**
+
+- One repo, one flow, no merge hell
+- Working vertical slices of product in three days
+- Mob / Ensemble / Whole Team Programming
+- (Acceptance) Test Driven Development
+- Trunk-Based Development habits to sustain velocity
+- Shared practices that cut rework and raise quality
+
+Different trainings. Different formats. Same lesson: code is the best teacher.
 
 ## Tech Stack
 
