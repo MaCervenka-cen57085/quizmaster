@@ -34,7 +34,7 @@ Then('both links should have correct href attributes', async function (this: Qui
 })
 
 
-Then('I should see a table of existing quizes', async function (this: QuizmasterWorld){
+Then('I should see a table of existing quizes', async function (this: QuizmasterWorld) {
     const listValid = await this.homePage.hasQuizTable()
     expect(listValid).toBe(true)
 })

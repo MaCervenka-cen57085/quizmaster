@@ -84,7 +84,7 @@ RUN npx -y @playwright/test@1.49.0 install-deps
 # ------------------------------
 # Helpers and services script
 # ------------------------------
-COPY services.sh /usr/local/bin/services.sh
+COPY .devcontainer/services.sh /usr/local/bin/services.sh
 RUN chmod +x /usr/local/bin/services.sh \
     && chown root:root /usr/local/bin/services.sh
 
