@@ -17,7 +17,7 @@ const QuizWelcomePage = () => {
 
     useEffect(() => {
         const fetchQuiz = async () => {
-            if (params.id && !isNaN(Number(params.id))) {
+            if (params.id && !Number.isNaN(Number(params.id))) {
                 try {
                     const quizId = Number(params.id)
                     setQuiz(await getQuiz(quizId))

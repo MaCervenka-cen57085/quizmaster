@@ -25,7 +25,7 @@ export const SkipButton = ({ onClick }: WithOnClick) => (
 )
 
 export const StartButton = ({ onClick }: WithOnClick) => (
-    <Button id="start" onClick={onClick}>
+    <Button id="start" type="button" onClick={onClick}>
         Start
     </Button>
 )
