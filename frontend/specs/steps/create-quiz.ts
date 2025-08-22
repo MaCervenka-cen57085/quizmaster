@@ -1,4 +1,4 @@
-import { Given, Then, When } from './fixture.ts'
+import { Given, Then, When, After } from './fixture.ts'
 import { expect } from '@playwright/test'
 import type { QuizmasterWorld } from './world/world.ts'
 
@@ -54,4 +54,39 @@ When('I save the quiz', async function () {
 Then('I see a link to take the quiz', async function () {
     const url = await this.createQuizPage.quizUrl()
     expect(url).not.toBe('')
+})
+
+After(async function () {
+    // Clean up the created quiz
+    if (this.quizWip.url) {
+        const quizId = this.quizWip.url.split('/').pop()
+        if (quizId) {
+            try {
+                await this.page.request.delete(`/api/quiz/${quizId}`)
+            } catch (error) {
+                console.log('Failed to delete quiz:', error)
+            }
+        }
+    }
+
+    // Also clean up any other test quizzes that might have been created
+    try {
+        const response = await this.page.request.get('/api/quiz/list')
+        const quizzes = await response.json()
+        interface Quiz {
+            id: number
+            title: string
+            description: string
+        }
+
+        const testQuizzes = quizzes.quizzes.filter((q: Quiz) =>
+            q.title === 'Math Quiz' && q.description === 'Lorem ipsum dolor sit amet'
+        )
+
+        for (const quiz of testQuizzes) {
+            await this.page.request.delete(`/api/quiz/${quiz.id}`)
+        }
+    } catch (error) {
+        console.log('Failed to clean up test quizzes:', error)
+    }
 })

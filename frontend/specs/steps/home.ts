@@ -33,7 +33,17 @@ Then('both links should have correct href attributes', async function (this: Qui
     expect(questionListHref).toBe('/q-list/new')
 })
 
-Then('I should see a table of existing quizes', async function (this: QuizmasterWorld) {
-    const listValid = await this.homePage.hasQuizTable()
-    expect(listValid).toBe(true)
+// Temporarily simplify this step to debug
+Then('I should see a grid of existing quizzes', async function (this: QuizmasterWorld) {
+    const hasGrid = await this.homePage.hasQuizGrid()
+    expect(hasGrid).toBe(true)
+
+    const cardCount = await this.homePage.getQuizCardCount()
+    expect(cardCount).toBeGreaterThan(0)
+
+    // Verify first card structure with specific locators
+    await expect(this.homePage.getFirstQuizCardTitle()).toBeVisible()     // Title (h4)
+    await expect(this.homePage.getFirstQuizCardDescription()).toBeVisible() // Description (first p)
+    await expect(this.homePage.getFirstQuizCardPassScore()).toBeVisible()  // Pass Score (second p)
+    await expect(this.homePage.getFirstQuizCardButton()).toBeVisible()    // Button
 })

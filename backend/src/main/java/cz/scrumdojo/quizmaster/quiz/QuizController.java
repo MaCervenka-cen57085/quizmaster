@@ -140,7 +140,12 @@ public class QuizController {
         if (id < 0) {
             quiz = quizzes.get(id);
         } else {
-            quiz = this.quizRepository.getReferenceById(id);
+            // Change from getReferenceById to findById to handle missing entities
+            quiz = this.quizRepository.findById(id).orElse(null);
+        }
+
+        if (quiz == null) {
+            return ResponseEntity.notFound().build();
         }
 
         QuizQuestion[] questions = new QuizQuestion[quiz.getQuestionIds().length];
@@ -177,5 +182,21 @@ public class QuizController {
             .quizzes(quizList)
             .build();
         return ResponseEntity.ok(response);
+    }
+
+    @Transactional
+    @DeleteMapping("/quiz/{id}")
+    public ResponseEntity<Void> deleteQuiz(@PathVariable Integer id) {
+        try {
+            Quiz quiz = quizRepository.findById(id).orElse(null);
+            if (quiz != null) {
+                quizRepository.delete(quiz);
+                return ResponseEntity.ok().build();
+            }
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            log.error("Error deleting quiz with ID: {}", id, e);
+            return ResponseEntity.internalServerError().build();
+        }
     }
 }
