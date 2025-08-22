@@ -90,7 +90,6 @@ public class QuizControllerTest {
 
     @Test
     public void getQuizList() {
-
         int quizId = createQuiz(createQuizInput());
 
         ResponseEntity<QuizListResponse> response = quizController.getQuizList();

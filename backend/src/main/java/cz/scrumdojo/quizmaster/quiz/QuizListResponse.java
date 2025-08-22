@@ -1,11 +1,11 @@
 package cz.scrumdojo.quizmaster.quiz;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import java.util.List;
 
-@Getter
-@Setter
-@ToString
+@Data
 @Builder
 public class QuizListResponse {
-    private java.util.List<Quiz> quizzes;
+    private List<Quiz> quizzes;
 }
