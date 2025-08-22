@@ -8,6 +8,7 @@ const QuizWelcomePage = () => {
     const navigate = useNavigate()
     const params = useParams()
     const [quiz, setQuiz] = useState<Quiz>()
+    const [error, setError] = useState<string | null>(null)
 
     const onStart = () => {
         console.log('Quiz started')
@@ -16,12 +17,29 @@ const QuizWelcomePage = () => {
 
     useEffect(() => {
         const fetchQuiz = async () => {
-            if (params.id) {
-                setQuiz(await getQuiz(Number(params.id)))
+            if (params.id && !isNaN(Number(params.id))) {
+                try {
+                    const quizId = Number(params.id)
+                    setQuiz(await getQuiz(quizId))
+                } catch (err) {
+                    setError('Failed to fetch quiz')
+                    console.error('Error fetching quiz:', err)
+                }
+            } else {
+                setError(`Invalid quiz ID: (${params.id})`)
             }
         }
         fetchQuiz()
     }, [params.id])
+
+    if (error) {
+        return (
+            <div>
+                <h2>Error</h2>
+                <p>{error}</p>
+            </div>
+        )
+    }
 
     if (quiz) {
         return (
@@ -44,6 +62,8 @@ const QuizWelcomePage = () => {
             </>
         )
     }
+
+    return <div>Loading quiz...</div>
 }
 
 export default QuizWelcomePage

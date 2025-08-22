@@ -1,10 +1,9 @@
-import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { getQuizList } from '../api/quiz'
 import type { QuizListResponse } from '../model/quiz-list-response'
 import { QuizTable } from '../components/QuizTable'
 
-export const HomePage = () => {
+export const QuizListPage = () => {
     const [quizList, setQuizList] = useState<QuizListResponse | null>(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
@@ -27,16 +26,9 @@ export const HomePage = () => {
     }, [])
 
     return (
-        <>
-            <h1>Welcome to Quizmaster! You rock.</h1>
-            <Link to="/question/new">Create new question</Link>
-            <br />
-            <Link to="/q-list/new">Create new question list</Link>
-
-            <div style={{ marginTop: '2rem' }}>
-                <h2>Existing Quizzes</h2>
-                <QuizTable quizList={quizList} loading={loading} error={error} />
-            </div>
-        </>
+        <div>
+            <h1>Quiz List</h1>
+            <QuizTable quizList={quizList} loading={loading} error={error} />
+        </div>
     )
 }
