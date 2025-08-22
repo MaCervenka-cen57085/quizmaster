@@ -167,4 +167,14 @@ public class QuizController {
 
         return ResponseEntity.ok(output.getId());
     }
+
+    public ResponseEntity<QuizListResponse> getQuizList() {
+
+        var quizList = this.quizRepository.findAll();
+
+        QuizListResponse response = QuizListResponse.builder()
+            .quizzes(quizList)
+            .build();
+        return ResponseEntity.ok(response);
+    }
 }

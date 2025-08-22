@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Optional;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,8 +26,7 @@ public class QuizControllerTest {
     @Autowired
     private QuizRepository quizRepository;
 
-    @Test
-    public void createAndGetQuiz() {
+    private Quiz createQuizInput(){
         QuizQuestion question = new QuizQuestion();
         question.setQuestion("nějakej string");
         question.setAnswers(Arrays.array("Odp1", "Odp2"));
@@ -43,30 +43,43 @@ public class QuizControllerTest {
         quizInput.setPassScore(85);
         quizInput.setQuestionIds(questions);
 
+        return quizInput;
+    }
+
+    private int createQuiz(Quiz quizInput) {
         ResponseEntity<Integer> resp = quizController.createQuiz(quizInput);
 
         assertNotNull(resp);
         assertEquals(HttpStatus.OK, resp.getStatusCode());
-        Integer body = resp.getBody();
-        assertNotNull(body);
+        Integer id = resp.getBody();
+        assertNotNull(id);
 
-        Optional<Quiz> byId = quizRepository.findById(body);
+        return id;
+    }
+
+    @Test
+    public void createAndGetQuiz() {
+
+        Quiz quizInput = createQuizInput();
+        Integer quizId = createQuiz(quizInput);
+
+        Optional<Quiz> byId = quizRepository.findById(quizId);
         assertTrue(byId.isPresent());
 
         Quiz quiz = byId.get();
-        assertEquals(body, quiz.getId());
+        assertEquals(quizId, quiz.getId());
         assertEquals(quizInput.getTitle(), quiz.getTitle());
         assertEquals(quizInput.getDescription(), quiz.getDescription());
         assertEquals(quizInput.getPassScore(), quiz.getPassScore());
         assertArrayEquals(quizInput.getQuestionIds(), quiz.getQuestionIds());
         assertEquals(quizInput.isAfterEach(), quiz.isAfterEach());
 
-        ResponseEntity<QuizResponse> quizGet = quizController.getQuiz(body);
+        ResponseEntity<QuizResponse> quizGet = quizController.getQuiz(quizId);
         assertNotNull(quizGet);
         assertEquals(HttpStatus.OK, quizGet.getStatusCode());
         QuizResponse quizGetBody = quizGet.getBody();
         assertNotNull(quizGetBody);
-        assertEquals(body, quizGetBody.getId());
+        assertEquals(quizId, quizGetBody.getId());
         assertEquals(quizInput.getTitle(), quizGetBody.getTitle());
         assertEquals(quizInput.getDescription(), quizGetBody.getDescription());
         QuizQuestion[] quizGetBodyQuestions = quizGetBody.getQuestions();
@@ -74,4 +87,23 @@ public class QuizControllerTest {
         assertEquals(quizInput.getQuestionIds().length, quizGetBodyQuestions.length);
         assertEquals(quizInput.getQuestionIds()[0], quizGetBodyQuestions[0].getId());
     }
+
+    @Test
+    public void getQuizList() {
+
+        int quizId = createQuiz(createQuizInput());
+
+        ResponseEntity<QuizListResponse> response = quizController.getQuizList();
+        assertNotNull(response);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        QuizListResponse body = response.getBody();
+        assertNotNull(body);
+
+        List<Quiz> quizzes = body.getQuizzes();
+        assertNotNull(quizzes);
+        assertTrue(quizzes.size() > 0);
+        assertTrue(quizzes.stream().anyMatch(q -> quizId == q.getId()));
+    }
+
 }
