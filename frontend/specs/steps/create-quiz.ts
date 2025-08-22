@@ -79,8 +79,8 @@ After(async function () {
             description: string
         }
 
-        const testQuizzes = quizzes.quizzes.filter((q: Quiz) =>
-            q.title === 'Math Quiz' && q.description === 'Lorem ipsum dolor sit amet'
+        const testQuizzes = quizzes.quizzes.filter(
+            (q: Quiz) => q.title === 'Math Quiz' && q.description === 'Lorem ipsum dolor sit amet',
         )
 
         for (const quiz of testQuizzes) {

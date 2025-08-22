@@ -42,8 +42,8 @@ Then('I should see a grid of existing quizzes', async function (this: Quizmaster
     expect(cardCount).toBeGreaterThan(0)
 
     // Verify first card structure with specific locators
-    await expect(this.homePage.getFirstQuizCardTitle()).toBeVisible()     // Title (h4)
+    await expect(this.homePage.getFirstQuizCardTitle()).toBeVisible() // Title (h4)
     await expect(this.homePage.getFirstQuizCardDescription()).toBeVisible() // Description (first p)
-    await expect(this.homePage.getFirstQuizCardPassScore()).toBeVisible()  // Pass Score (second p)
-    await expect(this.homePage.getFirstQuizCardButton()).toBeVisible()    // Button
+    await expect(this.homePage.getFirstQuizCardPassScore()).toBeVisible() // Pass Score (second p)
+    await expect(this.homePage.getFirstQuizCardButton()).toBeVisible() // Button
 })
