@@ -32,3 +32,9 @@ Then('both links should have correct href attributes', async function (this: Qui
     expect(questionHref).toBe('/question/new')
     expect(questionListHref).toBe('/q-list/new')
 })
+
+
+Then('I should see a table of existing quizes', async function (this: QuizmasterWorld){
+    const listValid = await this.homePage.hasQuizTable()
+    expect(listValid).toBe(true)
+})

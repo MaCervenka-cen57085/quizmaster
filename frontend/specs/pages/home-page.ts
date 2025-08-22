@@ -37,4 +37,13 @@ export class HomePage {
 
         return questionHref === '/question/new' && questionListHref === '/q-list/new'
     }
+
+    // Check if the quizzes table exists and has at least one row
+    hasQuizTable = async () => {
+        const table = this.page.locator('table')
+        await table.waitFor({ state: 'visible' })
+        // Check for at least one quiz row (excluding header)
+        const rows = await table.locator('tbody tr').count()
+        return rows > 0
+    }
 }
