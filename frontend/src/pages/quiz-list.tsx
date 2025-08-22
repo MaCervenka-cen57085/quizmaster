@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getQuizList } from '../api/quiz'
 import type { QuizListResponse } from '../model/quiz-list-response'
-import { QuizTable } from '../components/QuizTable'
+import { QuizGrid } from '../components/QuizGrid'
 
 export const QuizListPage = () => {
     const [quizList, setQuizList] = useState<QuizListResponse | null>(null)
@@ -28,7 +28,7 @@ export const QuizListPage = () => {
     return (
         <div>
             <h1>Quiz List</h1>
-            <QuizTable quizList={quizList} loading={loading} error={error} />
+            <QuizGrid quizList={quizList} loading={loading} error={error} />
         </div>
     )
 }

@@ -1,12 +1,12 @@
 import type { QuizListResponse, QuizListItem } from '../model/quiz-list-response'
 
-interface QuizTableProps {
+interface QuizGridProps {
     quizList: QuizListResponse | null
     loading: boolean
     error: string | null
 }
 
-export const QuizTable = ({ quizList, loading, error }: QuizTableProps) => {
+export const QuizGrid = ({ quizList, loading, error }: QuizGridProps) => {
     if (loading) {
         return <p>Loading quizzes...</p>
     }

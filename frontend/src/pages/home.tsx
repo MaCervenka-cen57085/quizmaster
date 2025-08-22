@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { getQuizList } from '../api/quiz'
 import type { QuizListResponse } from '../model/quiz-list-response'
-import { QuizTable } from '../components/QuizTable'
+import { QuizGrid } from '../components/QuizGrid'
 
 export const HomePage = () => {
     const [quizList, setQuizList] = useState<QuizListResponse | null>(null)
@@ -35,7 +35,7 @@ export const HomePage = () => {
 
             <div style={{ marginTop: '2rem' }}>
                 <h2>Existing Quizzes</h2>
-                <QuizTable quizList={quizList} loading={loading} error={error} />
+                <QuizGrid quizList={quizList} loading={loading} error={error} />
             </div>
         </>
     )
