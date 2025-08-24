@@ -12,7 +12,7 @@ import {
     HomePage,
 } from '../../pages'
 import { emptyQuestion, type Question } from './question.ts'
-import { type QuizBookmark } from './quiz.ts'
+import type { QuizBookmark } from './quiz.ts'
 
 export class QuizmasterWorld {
     constructor(

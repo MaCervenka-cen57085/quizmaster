@@ -1,6 +1,6 @@
 import { expectedNumberOfChildrenToBe, expectTextToBe, expectTextToContain } from '../common.ts'
 import { Given, When, Then } from '../fixture.ts'
-import type { QuizmasterWorld } from '../world/world.ts'
+import type { QuizmasterWorld } from '../world'
 
 const openQuestionList = async (world: QuizmasterWorld, guid: string) => {
     await world.questionListPage.goto(guid)

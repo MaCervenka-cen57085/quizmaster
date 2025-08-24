@@ -3,8 +3,7 @@ import { expect } from '@playwright/test'
 
 import type { TableOf } from '../common.ts'
 import { Given, Then, When } from '../fixture.ts'
-import type { QuizmasterWorld } from '../world/world.ts'
-import { emptyQuestion } from '../world/question.ts'
+import { emptyQuestion, type QuizmasterWorld } from '../world'
 
 type AnswerRaw = [string, '*' | '', string]
 
