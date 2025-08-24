@@ -31,5 +31,5 @@ Feature: Quiz progress bar
     When I answer the question
     Then progress shows 1 of 3
 
-    When I navigate to the next question
+    When I proceed to the next question
     Then progress shows 2 of 3

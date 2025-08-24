@@ -24,7 +24,3 @@ When('I answer {int} questions correctly', async function (correct: number) {
 When('I answer {int} questions incorrectly', async function (incorrect: number) {
     await nTimes(incorrect, answerIncorrectly(this))
 })
-
-When('I navigate to the next question', async function () {
-    await this.quizQuestionPage.next()
-})
