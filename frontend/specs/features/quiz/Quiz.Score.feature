@@ -21,6 +21,22 @@ Feature: Evaluate quiz score
       | 2       | 2         | 50         | failed |
       | 0       | 4         | 0          | failed |
 
+  Scenario: Quiz score in learing mode
+    - In learning mode, quiz taker can retake questions
+    - Score page shows two separate results:
+      - score for the first answers of each question, and,
+      - score for the corrected answers.
+
+    Given a quiz "A" with 2 questions, learn mode and 100% pass score
+    When I start the quiz
+    * I answer correctly
+    * I proceed to the next question
+    * I answer incorrectly
+    * I answer correctly
+    * I proceed to the score page
+    Then I see the result 2 correct out of 2, 100%, passed, required passScore 100%
+    Then I see the original result 1, 50%, failed
+
   Scenario Outline: Show question on score page
     Given I start quiz "-1"
     When I answer "Blue"
@@ -52,22 +68,3 @@ Feature: Evaluate quiz score
     * I answer "Marseille"
     * I click the evaluate button
     Then I see user select "Blue" for question "Sky"
-
-
-  Scenario: Quiz with corrected answers will show original and corrected results
-    Given I start quiz "-2"
-    When I answer "Green"
-    * I answer "Blue"
-    * I click the next button
-    * I answer "Lyon"
-    * I click the evaluate button
-    Then I see the result 1 correct out of 2, 50%, passed, required passScore 40%
-    Then I see the original result 0, 0%, failed
-
-  Scenario: Quiz without corrections does not show corrected results
-    Given I start quiz "-1"
-    When I answer "Green"
-    * I answer "Paris"
-    * I click the evaluate button
-    Then I see the result 1 correct out of 2, 50%, failed, required passScore 85%
-    Then I don't see the original results

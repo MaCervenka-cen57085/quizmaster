@@ -17,6 +17,14 @@ When('I answer the question', async function () {
     await answerCorrectly(this)()
 })
 
+When('I answer correctly', async function () {
+    await answerCorrectly(this)()
+})
+
+When('I answer incorrectly', async function () {
+    await answerIncorrectly(this)()
+})
+
 When('I answer {int} questions correctly', async function (correct: number) {
     await nTimes(correct, answerCorrectly(this))
 })
