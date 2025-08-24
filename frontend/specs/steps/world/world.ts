@@ -11,7 +11,7 @@ import {
     QuestionListPage,
     HomePage,
 } from '../../pages'
-import type { Question } from './question'
+import { emptyQuestion, type Question } from './question.ts'
 import { emptyQuiz, type Quiz } from './quiz.ts'
 
 export class QuizmasterWorld {
@@ -41,7 +41,7 @@ export class QuizmasterWorld {
     readonly homePage: HomePage
     quizId = ''
 
-    questionWip: Question = { url: '', editUrl: '', question: '', answers: [], explanation: '' }
+    questionWip: Question = emptyQuestion()
     quizWip: Quiz = emptyQuiz()
     questionListWipGuid = ''
     nextAnswerIdx = 0

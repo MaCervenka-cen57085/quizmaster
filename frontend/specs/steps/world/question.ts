@@ -11,3 +11,5 @@ export interface Question {
     answers: Answer[]
     explanation: string
 }
+
+export const emptyQuestion = (): Question => ({ url: '', editUrl: '', question: '', answers: [], explanation: '' })

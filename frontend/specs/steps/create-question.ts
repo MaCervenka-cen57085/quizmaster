@@ -4,6 +4,7 @@ import { expect } from '@playwright/test'
 import type { TableOf } from './common.ts'
 import { Given, Then, When } from './fixture.ts'
 import type { QuizmasterWorld } from './world/world.ts'
+import { emptyQuestion } from './world/question.ts'
 
 type AnswerRaw = [string, '*' | '', string]
 
@@ -12,7 +13,7 @@ const NUM_ANSWERS = 2
 
 const openCreatePage = async (world: QuizmasterWorld) => {
     world.createQuestionPage.gotoNew()
-    world.questionWip = { url: '', editUrl: '', question: '', answers: [], explanation: '' }
+    world.questionWip = emptyQuestion()
 }
 
 const enterQuestion = async (world: QuizmasterWorld, question: string) => {
