@@ -60,9 +60,8 @@ export class QuizQuestionPage {
     }
 
     /** Klikne na záložku s daným názvem v seznamu záložek */
-    clickAddQuestionToBookmark = async (title: string): Promise<void> => {
+    clickAddQuestionToBookmark = async (): Promise<void> => {
         await this.addQuestionToBookmarkButtonLocator().click()
-        console.log(`Bookmarking question ${title}`)
     }
 
     deleteBookmark = async (title: string): Promise<void> => {
