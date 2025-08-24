@@ -2,7 +2,7 @@ import type { QuizQuestion } from 'model/quiz-question.ts'
 import type { QuestionCreateResponse } from 'model/question-create-response.ts'
 import { fetchJson, postJson, patchJson } from './helpers.ts'
 
-export const getQuestion = async (questionId: number) =>
+export const getQuestion = async (questionId: string) =>
     await fetchJson<QuizQuestion>(`/api/quiz-question/${questionId}`)
 
 export const getQuestionByHash = async (hash: string) =>

@@ -1,6 +1,7 @@
 import './create-question.scss'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useApi } from 'api/hooks'
 import { type QuestionApiData, getQuestionByHash, updateQuestion } from 'api/quiz-question.ts'
 
 import { emptyQuestionFormData, toQuestionApiData, toQuestionFormData } from './form'
@@ -16,16 +17,10 @@ export function EditQuestionContainer() {
     const [linkToQuestion, setLinkToQuestion] = useState<string>('')
     const [errorMessage, setErrorMessage] = useState<string>('')
 
-    useEffect(() => {
-        const fetchQuestion = async () => {
-            if (questionHash) {
-                const quizQuestion = await getQuestionByHash(questionHash)
-                setQuestionData(toQuestionFormData(quizQuestion))
-                setIsLoaded(true)
-            }
-        }
-        fetchQuestion()
-    }, [questionHash])
+    useApi(questionHash, getQuestionByHash, quizQuestion => {
+        setQuestionData(toQuestionFormData(quizQuestion))
+        setIsLoaded(true)
+    })
 
     const patchData = async (formData: QuestionApiData) => {
         if (!questionHash) {
