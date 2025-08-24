@@ -4,7 +4,7 @@ import { HomePage } from 'pages/home'
 import { QuizPage } from 'pages/quiz'
 import { QuizListPage } from 'pages/quiz-list'
 
-import QuizWelcomePage from 'pages/quiz-welcome.tsx'
+import { QuizWelcomePage } from 'pages/quiz-welcome/quiz-welcome-page.tsx'
 
 import { CreateQuestionContainer } from 'pages/create-question/create-question-container'
 import { CreateQuestionListContainer } from 'pages/create-question-list/create-question-list-container'
