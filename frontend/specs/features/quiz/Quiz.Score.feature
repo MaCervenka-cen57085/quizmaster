@@ -6,19 +6,22 @@ Feature: Evaluate quiz score
       | Sky      | What is the standard colour of sky? | Red, Blue (*), Green, Black          |
       | France   | What is capital of France?          | Marseille, Lyon, Paris (*), Toulouse |
 
-  Scenario: Quiz score all question are correct
-    Given I start quiz "-1"
-    When I answer "Blue"
-    * I answer "Paris"
-    * I click the evaluate button
-    Then I see the result 2 correct out of 2, 100%, passed, required passScore 85%
+  Scenario Outline: Quiz score
+    Given quizes
+      | bookmark | questions | pass score | mode |
+      | A        | 4         | 75         | exam |
+    When I start quiz "A"
+    * I answer <correct> questions correctly
+    * I answer <incorrect> questions incorrectly
+    * I proceed to the score page
+    Then I see the result <correct> correct out of 4, <percentage>%, <result>, required passScore 75%
 
-  Scenario: Quiz score one question is inccorect
-    Given I start quiz "-1"
-    When I answer "Green"
-    * I answer "Paris"
-    * I click the evaluate button
-    Then I see the result 1 correct out of 2, 50%, failed, required passScore 85%
+    Examples:
+      | correct | incorrect | percentage | result |
+      | 4       | 0         | 100        | passed |
+      | 3       | 1         | 75         | passed |
+      | 2       | 2         | 50         | failed |
+      | 0       | 4         | 0          | failed |
 
   Scenario Outline: Show question on score page
     Given I start quiz "-1"
@@ -52,20 +55,6 @@ Feature: Evaluate quiz score
     * I click the evaluate button
     Then I see user select "Blue" for question "Sky"
 
-  Scenario: Quiz with passScore 85% and score 50% will fail
-    Given I start quiz "-1"
-    When I answer "Green"
-    * I answer "Paris"
-    * I click the evaluate button
-    Then I see the result 1 correct out of 2, 50%, failed, required passScore 85%
-
-  Scenario: Quiz with passScore 40% and score 50% will pass
-    Given I start quiz "-2"
-    When I answer "Green"
-    * I click the next button
-    * I answer "Paris"
-    * I click the evaluate button
-    Then I see the result 1 correct out of 2, 50%, passed, required passScore 40%
 
   Scenario: Quiz with corrected answers will show original and corrected results
     Given I start quiz "-2"

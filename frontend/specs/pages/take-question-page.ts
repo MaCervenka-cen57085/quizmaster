@@ -12,9 +12,11 @@ export class TakeQuestionPage {
     answerRowLocator = (answer: string) => this.answerLocator(answer).locator('.answer-input-row')
     answerFeedbackLocator = (answer: string) => this.answerRowLocator(answer).locator('.answer-feedback')
     answerCheckLocator = (answer: string) => this.answerRowLocator(answer).locator('input')
+    answerCheckNthLocator = (number: number) => this.answersLocator().nth(number).locator('input')
     answerExplanationLocator = (answer: string) => this.answerLocator(answer).locator('.explanation')
 
     selectAnswer = (answer: string) => this.answerCheckLocator(answer).check()
+    selectAnswerNth = (number: number) => this.answerCheckNthLocator(number).check()
     unselectAnswer = (answer: string) => this.answerCheckLocator(answer).uncheck()
     isAnswerSelected = (answer: string) => this.answerCheckLocator(answer).isChecked()
     selectedAnswersLocator = () => this.answersLocator().locator('input:checked')

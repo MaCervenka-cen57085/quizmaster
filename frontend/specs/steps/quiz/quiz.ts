@@ -75,6 +75,10 @@ Then('I click the evaluate button', async function () {
     await this.quizQuestionPage.evaluate()
 })
 
+Then('I proceed to the score page', async function () {
+    await this.quizQuestionPage.evaluate()
+})
+
 Given('I refresh page', async function () {
     await this.page.reload()
 })
