@@ -5,6 +5,6 @@ Feature: Create quiz GUI
     When I enter quiz title "Math Quiz"
     * I enter quiz description "Lorem ipsum dolor sit amet"
     * I select quiz mode "learning"
-    * I enter quiz passscore "65"
+    * I enter quiz pass score "65"
     * I save the quiz
     Then I see a link to take the quiz

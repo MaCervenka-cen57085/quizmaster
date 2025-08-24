@@ -4,7 +4,7 @@ import type { QuizmasterWorld } from './world/world.ts'
 
 const openCreateQuizPage = async (world: QuizmasterWorld) => {
     await world.createQuizPage.gotoNew()
-    world.quizWip = { url: '', title: '', description: '', mode: '', passscore: '' }
+    world.quizWip = { url: '', title: '', description: '', mode: '', passScore: '' }
 }
 
 const enterQuizTitle = async (world: QuizmasterWorld, title: string) => {
@@ -17,9 +17,9 @@ const enterQuizDescription = async (world: QuizmasterWorld, description: string)
     world.quizWip.description = description
 }
 
-const enterQuizPassscore = async (world: QuizmasterWorld, passscore: string) => {
-    await world.createQuizPage.enterPassscore(passscore)
-    world.quizWip.passscore = passscore
+const enterQuizPassScore = async (world: QuizmasterWorld, passScore: string) => {
+    await world.createQuizPage.enterPassscore(passScore)
+    world.quizWip.passScore = passScore
 }
 
 const saveQuiz = async (world: QuizmasterWorld) => {
@@ -43,8 +43,8 @@ When('I select quiz mode {string}', async function (mode: string) {
     await this.page.locator(`input[type="radio"][name="quiz-mode"][value="${mode}"]`).check()
 })
 
-When('I enter quiz passscore {string}', async function (passscore: string) {
-    await enterQuizPassscore(this, passscore)
+When('I enter quiz pass score {string}', async function (passScore: string) {
+    await enterQuizPassScore(this, passScore)
 })
 
 When('I save the quiz', async function () {
