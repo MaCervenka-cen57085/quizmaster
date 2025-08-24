@@ -1,10 +1,11 @@
 import { Given, Then, When, After } from './fixture.ts'
 import { expect } from '@playwright/test'
 import type { QuizmasterWorld } from './world/world.ts'
+import { emptyQuiz } from './world/quiz.ts'
 
 const openCreateQuizPage = async (world: QuizmasterWorld) => {
     await world.createQuizPage.gotoNew()
-    world.quizWip = { url: '', title: '', description: '', mode: '', passScore: '' }
+    world.quizWip = emptyQuiz()
 }
 
 const enterQuizTitle = async (world: QuizmasterWorld, title: string) => {

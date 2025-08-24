@@ -12,7 +12,7 @@ import {
     HomePage,
 } from '../../pages'
 import type { Question } from './question'
-export type Quiz = { url: string; title: string; description: string; mode: string; passScore: string }
+import { emptyQuiz, type Quiz } from './quiz.ts'
 
 export class QuizmasterWorld {
     constructor(
@@ -42,7 +42,7 @@ export class QuizmasterWorld {
     quizId = ''
 
     questionWip: Question = { url: '', editUrl: '', question: '', answers: [], explanation: '' }
-    quizWip: Quiz = { url: '', title: '', description: '', mode: '', passScore: '' }
+    quizWip: Quiz = emptyQuiz()
     questionListWipGuid = ''
     nextAnswerIdx = 0
     bookmarks: Record<string, Question> = {}
