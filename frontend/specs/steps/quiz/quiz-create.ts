@@ -2,7 +2,9 @@ import type { DataTable } from '@cucumber/cucumber'
 import { expect } from '@playwright/test'
 import { Given, Then, When } from '../fixture.ts'
 import type { QuizmasterWorld } from '../world/world.ts'
-import type { QuizMode } from '../world/quiz.ts'
+import type { Quiz, QuizMode } from '../world/quiz.ts'
+import { parseKey } from '../world/helpers.ts'
+import { Question } from '../world/question.ts'
 
 const openCreateQuizPage = async (world: QuizmasterWorld) => {
     await world.createQuizPage.gotoNew()
@@ -24,44 +26,39 @@ const saveQuiz = async (world: QuizmasterWorld) => {
     await world.createQuizPage.submit()
 }
 
-const postQuiz = async (
-    world: QuizmasterWorld,
-    quizBookmark: string,
-    questionBookmarks: string[],
-    mode: QuizMode,
-    passScore: string,
-) => {
-    const questionIds = questionBookmarks
-        .map(bookmark => world.questionBookmarks[bookmark])
-        .map(question => Number.parseInt(question.url.split('/').pop() || '0'))
+const postQuiz = async (world: QuizmasterWorld, quiz: Quiz) => {
+    const questionIds = quiz.questionIds
 
-    const quiz = {
-        title: quizBookmark,
-        description: quizBookmark,
+    const quizPayload = {
+        title: quiz.title,
+        description: quiz.description,
         questionIds,
-        afterEach: mode === 'learn',
-        passScore,
+        afterEach: quiz.mode === 'learn',
+        passScore: quiz.passScore,
     }
 
-    const response = await world.page.request.post('/api/quiz', { data: quiz })
+    const response = await world.page.request.post('/api/quiz', { data: quizPayload })
     const quizId = await response.json()
     const quizUrl = `/quiz/${quizId}`
 
-    world.quizBookmarks[quizBookmark] = {
-        url: quizUrl,
-        title: quizBookmark,
-        description: quizBookmark,
-        mode,
-        passScore,
+    world.quizBookmarks[quiz.title] = { url: quizUrl, ...quiz }
+}
+
+const toQuiz = (questionBookmarks: Record<string, Question>, row: Record<string, string>): Quiz => {
+    return {
+        title: row.title || row.bookmark,
+        description: row.description || row.bookmark,
+        questionIds: parseKey(row.questions)
+            .map(bookmark => questionBookmarks[bookmark])
+            .map(question => Number.parseInt(question.url.split('/').pop() || '0')),
+        mode: row.mode as QuizMode,
+        passScore: Number.parseInt(row['pass score']),
     }
 }
 
 Given('quizes', async function (data: DataTable) {
-    for (const row of data.rows()) {
-        const [quizBookmark, questionBookmarkList, mode, passScore] = row
-        const questionBookmarks = questionBookmarkList.split(',').map(q => q.trim())
-
-        await postQuiz(this, quizBookmark, questionBookmarks, mode as QuizMode, passScore)
+    for (const row of data.hashes()) {
+        await postQuiz(this, toQuiz(this.questionBookmarks, row))
     }
 })
 
