@@ -1,8 +1,10 @@
+export type QuizMode = 'learn' | 'exam' | ''
+
 export interface Quiz {
     url: string
     title: string
     description: string
-    mode: string
+    mode: QuizMode
     passScore: string
 }
 

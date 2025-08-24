@@ -51,6 +51,8 @@ export class QuizmasterWorld {
         return this.questionBookmarks[this.activeQuestionBookmark]
     }
 
+    quizBookmarks: Record<string, Quiz> = {}
+
     parseAnswers(answersString: string) {
         return answersString.split(',').map(answer => answer.trim())
     }
