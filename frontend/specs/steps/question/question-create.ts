@@ -89,24 +89,6 @@ Given('questions', async function (data: DataTable) {
     }
 })
 
-Given('bookmark', async function (data: DataTable) {
-    for (const row of data.rows()) {
-        const [bookmark, question, answers] = row
-        const answerRawTable = {
-            raw: () =>
-                answers.split(',').map(a => {
-                    const [answer, correct] = a.trim().split(' ')
-                    return [answer, correct === '(*)' ? '*' : '', '']
-                }),
-        } as TableOf<AnswerRaw>
-
-        await openCreatePage(this)
-        await enterQuestion(this, question)
-        await addAnswers(this, answerRawTable)
-        await saveQuestion(this, bookmark)
-    }
-})
-
 Given('with multi-choice selected', async function () {
     await this.createQuestionPage.setMultipleChoice()
 })
