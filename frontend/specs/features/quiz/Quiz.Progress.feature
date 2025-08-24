@@ -1,36 +1,35 @@
 Feature: Quiz progress bar
+  As a quiz taker, I want to see
+  - how much of the quiz I have completed, and,
+  - how much I have still left to answer.
 
-  Background:
-    Given questions
-      | bookmark  | question                                              | answers                   |
-      | Planet    | Which planet is known as the Red Planet?              | Mars (*), Venus           |
-      | Australia | What's the capital city of Australia?                 | Sydney, Canberra (*)      |
-      | Fruit     | Which fruit is known for having seeds on the outside? | Strawberry (*), Blueberry |
-
-  # And a quiz "D" with questions "Planet", "Australia", "Fruit" with "feedback at the end"
-  # And a quiz "E" with questions "Planet", "Australia", "Fruit" with "continuous feedback"
-
-  Scenario: Feedback at the end
+  Scenario: Exam mode
+    - In exam mode, next question is shown after answering the current question
     - Progress bar shows the current page of the quiz
 
-    When I start quiz "-4"
+    Given a quiz "Exam" with 3 questions, exam mode and 85% pass score
+
+    When I start the quiz
     Then progress shows 1 of 3
 
-    When I answer "Mars"
+    When I answer the question
     Then progress shows 2 of 3
 
-    When I answer "Sydney"
+    When I answer the question
     Then progress shows 3 of 3
 
 
-  Scenario: Continuous feedback
+  Scenario: Learning mode
+    - In learning mode, progress bar updates after navigating to the next question
     - Progress bar updates after navigating to the next question
 
-    When I start quiz "-5"
+    Given a quiz "Learn" with 3 questions, learn mode and 85% pass score
+
+    When I start the quiz
     Then progress shows 1 of 3
 
-    When I answer "Mars"
+    When I answer the question
     Then progress shows 1 of 3
 
-    When I proceed to the next question
+    When I navigate to the next question
     Then progress shows 2 of 3

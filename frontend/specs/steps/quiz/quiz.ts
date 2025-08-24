@@ -9,13 +9,21 @@ const openQuiz = async (world: QuizmasterWorld, quizId: string) => {
     await world.page.goto(quizUrl)
 }
 
+const startQuiz = async (world: QuizmasterWorld, quizId: string) => {
+    await openQuiz(world, quizId)
+    await world.quizWelcomePage.start()
+}
+
 Given('I open quiz {string}', async function (quizId: string) {
     await openQuiz(this, quizId)
 })
 
 Given('I start quiz {string}', async function (quizId: string) {
-    await openQuiz(this, quizId)
-    await this.quizWelcomePage.start()
+    await startQuiz(this, quizId)
+})
+
+Given('I start the quiz', async function () {
+    await startQuiz(this, this.activeQuizBookmark)
 })
 
 Then('I see question {string}', async function (bookmark: string) {

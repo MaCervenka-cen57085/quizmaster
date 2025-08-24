@@ -40,6 +40,7 @@ const postQuiz = async (world: QuizmasterWorld, bookmark: string, quiz: Quiz) =>
     const quizUrl = `/quiz/${quizId}`
 
     world.quizBookmarks[bookmark] = { url: quizUrl, ...quiz }
+    world.activeQuizBookmark = bookmark
 }
 
 const validateQuizRow = (questionBookmarks: Record<string, Question>, row: Record<string, string>) => {
@@ -93,6 +94,20 @@ const toQuiz = async (world: QuizmasterWorld, row: Record<string, string>): Prom
         passScore: Number.parseInt(row['pass score']),
     }
 }
+
+Given(
+    /a quiz "([^"]+)" with (\d+) questions, (exam|learn) mode and (\d+)% pass score/,
+    async function (bookmark: string, questions: number, mode: QuizMode, passScore: number) {
+        const quiz = await toQuiz(this, {
+            bookmark,
+            questions: questions.toString(),
+            mode,
+            'pass score': passScore.toString(),
+        })
+
+        await postQuiz(this, bookmark, quiz)
+    },
+)
 
 Given('quizes', async function (data: DataTable) {
     for (const row of data.hashes()) {

@@ -7,10 +7,8 @@ Feature: Evaluate quiz score
       | France   | What is capital of France?          | Marseille, Lyon, Paris (*), Toulouse |
 
   Scenario Outline: Quiz score
-    Given quizes
-      | bookmark | questions | pass score | mode |
-      | A        | 4         | 75         | exam |
-    When I start quiz "A"
+    Given a quiz "A" with 4 questions, exam mode and 75% pass score
+    When I start the quiz
     * I answer <correct> questions correctly
     * I answer <incorrect> questions incorrectly
     * I proceed to the score page
