@@ -9,10 +9,8 @@ Then('I see quiz name {string}', async function (quizName: string) {
     expect(await this.quizWelcomePage.name()).toBe(quizName)
 })
 
-Then('I see quiz description', async function () {
-    expect(await this.quizWelcomePage.description()).toBe(
-        'Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper pellentesque leo at porttitor. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam eu massa a neque imperdiet convallis in vel erat.',
-    )
+Then('I see quiz description {string}', async function (description: string) {
+    expect(await this.quizWelcomePage.description()).toBe(description)
 })
 
 Then('I see question count {int}', async function (questionCount: number) {

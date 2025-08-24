@@ -2,6 +2,7 @@ import type { DataTable } from '@cucumber/cucumber'
 import { expect } from '@playwright/test'
 import { Given, Then, When } from '../fixture.ts'
 import { type QuizmasterWorld, type Quiz, type QuizMode, type Question, parseKey } from '../world'
+import { createQuestion } from '../question/ops.ts'
 
 const openCreateQuizPage = async (world: QuizmasterWorld) => {
     await world.createQuizPage.gotoNew()
@@ -23,7 +24,7 @@ const saveQuiz = async (world: QuizmasterWorld) => {
     await world.createQuizPage.submit()
 }
 
-const postQuiz = async (world: QuizmasterWorld, quiz: Quiz) => {
+const postQuiz = async (world: QuizmasterWorld, bookmark: string, quiz: Quiz) => {
     const questionIds = quiz.questionIds
 
     const quizPayload = {
@@ -38,15 +39,55 @@ const postQuiz = async (world: QuizmasterWorld, quiz: Quiz) => {
     const quizId = await response.json()
     const quizUrl = `/quiz/${quizId}`
 
-    world.quizBookmarks[quiz.title] = { url: quizUrl, ...quiz }
+    world.quizBookmarks[bookmark] = { url: quizUrl, ...quiz }
 }
 
-const toQuiz = (questionBookmarks: Record<string, Question>, row: Record<string, string>): Quiz => {
+const validateQuizRow = (questionBookmarks: Record<string, Question>, row: Record<string, string>) => {
+    const hasBookmark = row.bookmark !== ''
+    const hasMode = row.mode === 'exam' || row.mode === 'learn'
+    const hasPassScore = row['pass score'] !== ''
+
+    const hasValidQuestions =
+        !Number.isNaN(Number.parseInt(row.questions)) ||
+        parseKey(row.questions).every(bookmark => questionBookmarks[bookmark] !== undefined)
+
+    return hasBookmark && hasMode && hasPassScore && hasValidQuestions
+}
+
+const createDummyQuestion = async (world: QuizmasterWorld, bookmark: string) => {
+    await createQuestion(world, bookmark, '1 + 1 = ?', {
+        raw: () => [
+            ['2', '*', ''],
+            ['3', '', ''],
+        ],
+    })
+}
+
+const createDummyQuestions = async (world: QuizmasterWorld, quizBookmark: string, count: number) => {
+    const questionBookmarks = Array.from({ length: count }, (_, i) => `${quizBookmark} ${i}`)
+
+    for (const bookmark of questionBookmarks) {
+        await createDummyQuestion(world, bookmark)
+    }
+
+    return questionBookmarks
+}
+
+const toQuiz = async (world: QuizmasterWorld, row: Record<string, string>): Promise<Quiz> => {
+    if (!validateQuizRow(world.questionBookmarks, row))
+        throw new Error(`Invalid quiz row: ${JSON.stringify(row, null, 2)}`)
+
+    const dummyQuestions = Number.parseInt(row.questions)
+
+    const questionBookmarks = Number.isNaN(dummyQuestions)
+        ? parseKey(row.questions)
+        : await createDummyQuestions(world, row.bookmark, dummyQuestions)
+
     return {
         title: row.title || row.bookmark,
         description: row.description || row.bookmark,
-        questionIds: parseKey(row.questions)
-            .map(bookmark => questionBookmarks[bookmark])
+        questionIds: questionBookmarks
+            .map(bookmark => world.questionBookmarks[bookmark])
             .map(question => Number.parseInt(question.url.split('/').pop() || '0')),
         mode: row.mode as QuizMode,
         passScore: Number.parseInt(row['pass score']),
@@ -55,7 +96,7 @@ const toQuiz = (questionBookmarks: Record<string, Question>, row: Record<string,
 
 Given('quizes', async function (data: DataTable) {
     for (const row of data.hashes()) {
-        await postQuiz(this, toQuiz(this.questionBookmarks, row))
+        await postQuiz(this, row.bookmark, await toQuiz(this, row))
     }
 })
 

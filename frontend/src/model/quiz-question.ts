@@ -20,10 +20,12 @@ export interface Answers {
 }
 
 export interface Quiz {
-    id: number
-    questions: QuizQuestion[]
-    afterEach: boolean
-    passScore: number
+    readonly id: number
+    readonly title: string
+    readonly description: string
+    readonly questions: QuizQuestion[]
+    readonly afterEach: boolean
+    readonly passScore: number
 }
 
 export interface QuizCreateRequest {

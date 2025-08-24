@@ -45,12 +45,8 @@ const QuizWelcomePage = () => {
         return (
             <>
                 <h2>Welcome to the quiz</h2>
-                <h3 id="quiz-name">{quiz.id}</h3>
-                <p id="quiz-description">
-                    Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper pellentesque leo
-                    at porttitor. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                    Nam eu massa a neque imperdiet convallis in vel erat.
-                </p>
+                <h3 id="quiz-name">{quiz.title}</h3>
+                <p id="quiz-description">{quiz.description}</p>
                 <p>
                     Question count: <span id="question-count">{quiz.questions.length}</span>
                 </p>

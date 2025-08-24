@@ -1,16 +1,19 @@
 Feature: Quiz Welcome page
 
   Scenario Outline: Quiz welcome page
-    # Given quiz "a" with 2 questions, pass score 85% and feedback at the end
-    # Given quiz "c" with 2 questions, pass score 40% and continuous feedback
+    Given quizes
+      | bookmark | title  | description   | questions | mode  | pass score |
+      | A        | Quiz A | Description A | 3         | exam  | 66         |
+      | B        | Quiz B | Description B | 4         | learn | 75         |
     When I open quiz "<quiz>"
     Then I see the welcome page
     * I see quiz name "<name>"
-    * I see quiz description
+    * I see quiz description "<description>"
     * I see question count <count>
     * I see pass score <score>%
-    * I see feedback type "<type>"
+    * I see feedback type "<mode>"
+
     Examples:
-      | quiz | name | count | score | type                |
-      | -1    | -1    | 2     | 85    | Feedback at the end |
-      | -2    | -2    | 2     | 40    | Continuous feedback |
+      | quiz | name   | description   | count | score | mode                |
+      | A    | Quiz A | Description A | 3     | 66    | Feedback at the end |
+      | B    | Quiz B | Description B | 4     | 75    | Continuous feedback |
