@@ -66,7 +66,7 @@ Then('I see the question {string}', async function (question: string) {
 })
 
 Then('I see all options for question {string}', async function (question: string) {
-    const answersOrig = this.bookmarks[question].answers
+    const answersOrig = this.questionBookmarks[question].answers
 
     const answers: string[] = await this.quizScorePage.answers(question)
 

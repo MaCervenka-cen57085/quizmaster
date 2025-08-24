@@ -36,7 +36,7 @@ const saveQuestion = async (world: QuizmasterWorld, bookmark: string) => {
     await world.createQuestionPage.submit()
     world.questionWip.url = (await world.createQuestionPage.questionUrl()) || ''
     world.questionWip.editUrl = (await world.createQuestionPage.questionEditUrl()) || ''
-    world.bookmarks[bookmark] = world.questionWip
+    world.questionBookmarks[bookmark] = world.questionWip
 }
 
 const addAnswer = async (world: QuizmasterWorld, i: number) => {
@@ -154,7 +154,7 @@ When('I save the question', async function () {
 
 When('I take the question', async function () {
     await this.createQuestionPage.followQuestionUrl()
-    this.activeBookmark = 'manual'
+    this.activeQuestionBookmark = 'manual'
 })
 
 When('I edit the question', async function () {

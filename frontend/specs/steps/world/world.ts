@@ -45,10 +45,10 @@ export class QuizmasterWorld {
     quizWip: Quiz = emptyQuiz()
     questionListWipGuid = ''
     nextAnswerIdx = 0
-    bookmarks: Record<string, Question> = {}
-    activeBookmark = ''
+    questionBookmarks: Record<string, Question> = {}
+    activeQuestionBookmark = ''
     get activeQuestion() {
-        return this.bookmarks[this.activeBookmark]
+        return this.questionBookmarks[this.activeQuestionBookmark]
     }
 
     parseAnswers(answersString: string) {

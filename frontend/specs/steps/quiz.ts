@@ -13,7 +13,7 @@ Given('I start quiz {string}', async function (quizId: string) {
 })
 
 Then('I see question {string}', async function (bookmark: string) {
-    const question = this.bookmarks[bookmark]
+    const question = this.questionBookmarks[bookmark]
     await expectQuestion(this.takeQuestionPage, question)
 })
 

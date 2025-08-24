@@ -6,8 +6,8 @@ import type { Question } from './world/question.ts'
 import type { TakeQuestionPage } from '../pages/take-question-page.ts'
 
 When('I take question {string}', async function (bookmark: string) {
-    await this.page.goto(this.bookmarks[bookmark].url)
-    this.activeBookmark = bookmark
+    await this.page.goto(this.questionBookmarks[bookmark].url)
+    this.activeQuestionBookmark = bookmark
 })
 
 export async function expectQuestion(takeQuestionPage: TakeQuestionPage, question: Question) {
