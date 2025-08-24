@@ -12,7 +12,7 @@ import {
     HomePage,
 } from '../../pages'
 import { emptyQuestion, type Question } from './question.ts'
-import { emptyQuiz, type Quiz } from './quiz.ts'
+import { type QuizBookmark } from './quiz.ts'
 
 export class QuizmasterWorld {
     constructor(
@@ -42,7 +42,6 @@ export class QuizmasterWorld {
     quizId = ''
 
     questionWip: Question = emptyQuestion()
-    quizWip: Quiz = emptyQuiz()
     questionListWipGuid = ''
     nextAnswerIdx = 0
     questionBookmarks: Record<string, Question> = {}
@@ -51,7 +50,7 @@ export class QuizmasterWorld {
         return this.questionBookmarks[this.activeQuestionBookmark]
     }
 
-    quizBookmarks: Record<string, Quiz> = {}
+    quizBookmarks: Record<string, QuizBookmark> = {}
 
     parseAnswers(answersString: string) {
         return answersString.split(',').map(answer => answer.trim())

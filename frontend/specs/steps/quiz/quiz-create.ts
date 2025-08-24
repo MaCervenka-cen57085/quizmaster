@@ -2,31 +2,26 @@ import type { DataTable } from '@cucumber/cucumber'
 import { expect } from '@playwright/test'
 import { Given, Then, When } from '../fixture.ts'
 import type { QuizmasterWorld } from '../world/world.ts'
-import { emptyQuiz, type QuizMode } from '../world/quiz.ts'
+import type { QuizMode } from '../world/quiz.ts'
 
 const openCreateQuizPage = async (world: QuizmasterWorld) => {
     await world.createQuizPage.gotoNew()
-    world.quizWip = emptyQuiz()
 }
 
 const enterQuizTitle = async (world: QuizmasterWorld, title: string) => {
     await world.createQuizPage.enterTitle(title)
-    world.quizWip.title = title
 }
 
 const enterQuizDescription = async (world: QuizmasterWorld, description: string) => {
     await world.createQuizPage.enterDescription(description)
-    world.quizWip.description = description
 }
 
 const enterQuizPassScore = async (world: QuizmasterWorld, passScore: string) => {
     await world.createQuizPage.enterPassscore(passScore)
-    world.quizWip.passScore = passScore
 }
 
 const saveQuiz = async (world: QuizmasterWorld) => {
     await world.createQuizPage.submit()
-    world.quizWip.url = (await world.createQuizPage.quizUrl()) || ''
 }
 
 const postQuiz = async (
