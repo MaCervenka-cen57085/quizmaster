@@ -14,7 +14,7 @@ export default defineConfig({
         { name: 'chromium', use: { browserName: 'chromium', baseURL: `http://localhost:${port}` } },
     ],
     testDir: defineBddConfig({
-        features: 'specs',
+        features: 'specs/features',
         steps: ['specs/steps/fixture.ts', 'specs/steps/index.ts'],
     })
 })
