@@ -11,8 +11,8 @@ Feature: Take a quiz
       | Exam     | Planet, Australia, Fruit | exam  | 100        |
       | Learn    | Planet, Australia, Fruit | learn | 100        |
 
-  Scenario: Feedback at the end
-    - Quiz with feedback at the end does not show feedback until the quiz is finished
+  Scenario: Exam mode
+    - Quiz in exam mode does not show feedback until the quiz is finished
     - Submitting an answer proceeds directly to the next question
 
     When I start quiz "Exam"
@@ -22,8 +22,8 @@ Feature: Take a quiz
     Then I see question "Australia"
 
 
-  Scenario: Continuous feedback
-    - Quiz with continuous feedback shows feedback after each question
+  Scenario: Learning mode
+    - Quiz on learning mode feedback shows feedback after each question
     - User must manually proceed to the next question
 
     When I start quiz "Learn"
@@ -36,7 +36,7 @@ Feature: Take a quiz
     Then I see question "Australia"
 
 
-  Scenario: Continuous feedback - Retake question
+  Scenario: Learning mode - Retake question
     - User can retake a question and see the feedback again
 
     When I start quiz "Learn"
