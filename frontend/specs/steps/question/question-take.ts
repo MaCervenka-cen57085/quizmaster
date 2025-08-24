@@ -1,9 +1,9 @@
 import type { DataTable } from '@cucumber/cucumber'
 import { expect } from '@playwright/test'
-import { expectTextToBe } from './common.ts'
-import { Then, When } from './fixture.ts'
-import type { Question } from './world/question.ts'
-import type { TakeQuestionPage } from '../pages/take-question-page.ts'
+import { expectTextToBe } from '../common.ts'
+import { Then, When } from '../fixture.ts'
+import type { Question } from '../world/question.ts'
+import type { TakeQuestionPage } from '../../pages/take-question-page.ts'
 
 When('I take question {string}', async function (bookmark: string) {
     await this.page.goto(this.questionBookmarks[bookmark].url)

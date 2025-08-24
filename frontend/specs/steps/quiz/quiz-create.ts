@@ -1,8 +1,8 @@
 import type { DataTable } from '@cucumber/cucumber'
 import { expect } from '@playwright/test'
-import { Given, Then, When, After } from './fixture.ts'
-import type { QuizmasterWorld } from './world/world.ts'
-import { emptyQuiz, type QuizMode } from './world/quiz.ts'
+import { Given, Then, When, After } from '../fixture.ts'
+import type { QuizmasterWorld } from '../world/world.ts'
+import { emptyQuiz, type QuizMode } from '../world/quiz.ts'
 
 const openCreateQuizPage = async (world: QuizmasterWorld) => {
     await world.createQuizPage.gotoNew()

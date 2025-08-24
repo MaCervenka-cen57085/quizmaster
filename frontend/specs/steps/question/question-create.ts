@@ -1,10 +1,10 @@
 import type { DataTable } from '@cucumber/cucumber'
 import { expect } from '@playwright/test'
 
-import type { TableOf } from './common.ts'
-import { Given, Then, When } from './fixture.ts'
-import type { QuizmasterWorld } from './world/world.ts'
-import { emptyQuestion } from './world/question.ts'
+import type { TableOf } from '../common.ts'
+import { Given, Then, When } from '../fixture.ts'
+import type { QuizmasterWorld } from '../world/world.ts'
+import { emptyQuestion } from '../world/question.ts'
 
 type AnswerRaw = [string, '*' | '', string]
 

@@ -1,8 +1,8 @@
 import { expect } from '@playwright/test'
-import { expectTextToBe, expectThatIsNotVisible, expectThatIsVisible } from './common.ts'
-import { Given, When, Then } from './fixture.ts'
-import { expectQuestion } from './take-question.ts'
-import type { QuizmasterWorld } from './world/world.ts'
+import { expectTextToBe, expectThatIsNotVisible, expectThatIsVisible } from '../common.ts'
+import { Given, When, Then } from '../fixture.ts'
+import { expectQuestion } from '../question/question-take.ts'
+import type { QuizmasterWorld } from '../world/world.ts'
 
 const openQuiz = async (world: QuizmasterWorld, quizId: string) => {
     const quizUrl = world.quizBookmarks[quizId]?.url || `/quiz/${quizId}`

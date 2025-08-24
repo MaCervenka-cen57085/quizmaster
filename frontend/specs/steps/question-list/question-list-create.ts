@@ -1,5 +1,5 @@
-import { Given, When } from './fixture.ts'
-import type { QuizmasterWorld } from './world/world.ts'
+import { Given, When } from '../fixture.ts'
+import type { QuizmasterWorld } from '../world/world.ts'
 
 const openCreateQuestionListPage = async (world: QuizmasterWorld) => {
     world.createQuestionListPage.gotoNew()

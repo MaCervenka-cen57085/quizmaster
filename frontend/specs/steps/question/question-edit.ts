@@ -1,5 +1,5 @@
 import { expect } from '@playwright/test'
-import { Then, When } from './fixture.ts'
+import { Then, When } from '../fixture.ts'
 
 When('I start editing question {string}', async function (bookmark: string) {
     await this.createQuestionPage.gotoEdit(this.questionBookmarks[bookmark].editUrl)

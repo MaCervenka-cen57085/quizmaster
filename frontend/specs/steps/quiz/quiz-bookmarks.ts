@@ -1,5 +1,5 @@
 import { expect } from '@playwright/test'
-import { When, Then } from './fixture.ts'
+import { When, Then } from '../fixture.ts'
 
 Then('I see bookmarked question {string}', async function () {
     const indicator = this.quizQuestionPage.bookmarkIndicator()
