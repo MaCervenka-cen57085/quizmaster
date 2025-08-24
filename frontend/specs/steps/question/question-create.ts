@@ -3,58 +3,16 @@ import { expect } from '@playwright/test'
 
 import type { TableOf } from '../common.ts'
 import { Given, Then, When } from '../fixture.ts'
-import { emptyQuestion, type QuizmasterWorld } from '../world'
-
-type AnswerRaw = [string, '*' | '', string]
-
-// if change this value, also change in frontend/src/pages/create-question/create-question.tsx
-const NUM_ANSWERS = 2
-
-const openCreatePage = async (world: QuizmasterWorld) => {
-    world.createQuestionPage.gotoNew()
-    world.questionWip = emptyQuestion()
-}
-
-const enterQuestion = async (world: QuizmasterWorld, question: string) => {
-    await world.createQuestionPage.enterQuestion(question)
-    world.questionWip.question = question
-}
-
-const enterAnswer = async (
-    world: QuizmasterWorld,
-    index: number,
-    answer: string,
-    isCorrect: boolean,
-    explanation: string,
-) => {
-    await world.createQuestionPage.enterAnswer(index, answer, isCorrect, explanation)
-    world.questionWip.answers[index] = { answer, isCorrect, explanation }
-}
-
-const saveQuestion = async (world: QuizmasterWorld, bookmark: string) => {
-    await world.createQuestionPage.submit()
-    world.questionWip.url = (await world.createQuestionPage.questionUrl()) || ''
-    world.questionWip.editUrl = (await world.createQuestionPage.questionEditUrl()) || ''
-    world.questionBookmarks[bookmark] = world.questionWip
-}
-
-const addAnswer = async (world: QuizmasterWorld, i: number) => {
-    await world.createQuestionPage.addAnswer(i)
-}
-
-const addAnswers = async (world: QuizmasterWorld, answerRawTable: TableOf<AnswerRaw>) => {
-    const raw = answerRawTable.raw()
-
-    const isMultipleChoice = raw.filter(([_, correct]) => correct === '*').length > 1
-    if (isMultipleChoice) await world.createQuestionPage.setMultipleChoice()
-
-    for (let i = 0; i < raw.length; i++) {
-        if (i >= NUM_ANSWERS) await addAnswer(world, i)
-        const [answer, correct, explanation] = raw[i]
-        const isCorrect = correct === '*'
-        await enterAnswer(world, i, answer, isCorrect, explanation || '')
-    }
-}
+import {
+    addAnswer,
+    addAnswers,
+    createQuestion,
+    enterAnswer,
+    enterQuestion,
+    openCreatePage,
+    saveQuestion,
+    type AnswerRaw,
+} from './ops.ts'
 
 Given('a question {string}', async function (question: string) {
     await openCreatePage(this)
@@ -64,10 +22,7 @@ Given('a question {string}', async function (question: string) {
 Given(
     'a question {string} bookmarked as {string}',
     async function (question: string, bookmark: string, answerRawTable: TableOf<AnswerRaw>) {
-        await openCreatePage(this)
-        await enterQuestion(this, question)
-        await addAnswers(this, answerRawTable)
-        await saveQuestion(this, bookmark)
+        await createQuestion(this, bookmark, question, answerRawTable)
     },
 )
 
@@ -82,10 +37,7 @@ Given('questions', async function (data: DataTable) {
                 }),
         } as TableOf<AnswerRaw>
 
-        await openCreatePage(this)
-        await enterQuestion(this, question)
-        await addAnswers(this, answerRawTable)
-        await saveQuestion(this, bookmark)
+        await createQuestion(this, bookmark, question, answerRawTable)
     }
 })
 
