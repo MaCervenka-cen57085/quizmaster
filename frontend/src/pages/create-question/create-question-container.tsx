@@ -1,34 +1,20 @@
 import './create-question.scss'
-import { useEffect, useState } from 'react'
-import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
-import { type QuestionApiData, saveQuestion, getQuestion } from 'api/quiz-question.ts'
+import { useState } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { type QuestionApiData, saveQuestion } from 'api/quiz-question.ts'
 
-import { emptyQuestionFormData, toQuestionApiData, toQuestionFormData } from './form'
+import { emptyQuestionFormData, toQuestionApiData } from './form'
 import { CreateQuestionForm } from './create-question'
 
 export function CreateQuestionContainer() {
-    const params = useParams()
-    const questionId = params.id ? Number.parseInt(params.id) : undefined
     const [searchParams] = useSearchParams()
     const questionListGuid = searchParams.get('listguid') ? searchParams.get('listguid') : ''
     const navigate = useNavigate()
 
     const [questionData, setQuestionData] = useState(emptyQuestionFormData())
-    const [isLoaded, setIsLoaded] = useState<boolean>(false)
     const [linkToQuestion, setLinkToQuestion] = useState<string>('')
     const [linkToEditQuestion, setLinkToEditQuestion] = useState<string>('')
     const [errorMessage, setErrorMessage] = useState<string>('')
-
-    useEffect(() => {
-        const fetchQuestion = async () => {
-            if (questionId) {
-                const quizQuestion = await getQuestion(questionId)
-                setQuestionData(toQuestionFormData(quizQuestion))
-                setIsLoaded(true)
-            }
-        }
-        fetchQuestion()
-    }, [questionId])
 
     const postData = async (formData: QuestionApiData) => {
         await saveQuestion(formData)
@@ -88,7 +74,7 @@ export function CreateQuestionContainer() {
         <CreateQuestionForm
             errorMessage={errorMessage}
             handleSubmit={handleSubmit}
-            isLoaded={isLoaded}
+            isLoaded={true}
             linkToEditQuestion={linkToEditQuestion}
             linkToQuestion={linkToQuestion}
             questionData={questionData}
