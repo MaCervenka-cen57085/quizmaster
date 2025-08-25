@@ -19,10 +19,10 @@ export class QuestionEditPage {
     setMultipleChoice = () => this.multipleChoiceLocator().check()
     setSingleChoice = () => this.multipleChoiceLocator().uncheck()
 
-    private easyModeChoiceLocator = () => this.page.locator('#is-easy-mode-choice')
-    isEasyModeChoice = () => this.easyModeChoiceLocator().isChecked()
-    setEasyModeChecked = () => this.easyModeChoiceLocator().check()
-    setEasyModeUnchecked = () => this.easyModeChoiceLocator().uncheck()
+    private easyModeLocator = () => this.page.locator('#is-easy-mode-choice')
+    isEasyMode = () => this.easyModeLocator().isChecked()
+    setEasyModeChecked = () => this.easyModeLocator().check()
+    setEasyModeUnchecked = () => this.easyModeLocator().uncheck()
 
     isCorrectCheckboxLocator = (answerText: string) =>
         this.page.locator(`[id^=answer-text-][value="${answerText}"]+[id^=answer-checkbox-]`)

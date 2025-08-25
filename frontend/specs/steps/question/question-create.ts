@@ -156,7 +156,7 @@ Then('Is correct checkboxes look like radio buttons', async function () {
 
 Then(/^Easy mode checkbox is (checked|unchecked)$/, async function (state: string) {
     const expected = state === 'checked'
-    const isChecked = await this.questionEditPage.isEasyModeChoice()
+    const isChecked = await this.questionEditPage.isEasyMode()
     expect(isChecked).toBe(expected)
 })
 

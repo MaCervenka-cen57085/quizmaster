@@ -11,7 +11,7 @@ Then(/I see multiple choice is (unchecked|checked)/, async function (checked: st
 })
 
 Then(/I see easy mode is (unchecked|checked)/, async function (checked: string) {
-    expect(await this.questionEditPage.isEasyModeChoice()).toBe(checked === 'checked')
+    expect(await this.questionEditPage.isEasyMode()).toBe(checked === 'checked')
 })
 
 const expectAnswer = async (
