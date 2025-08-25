@@ -1,4 +1,3 @@
-@only
 Feature: Create question GUI
     - Question text is required
     - Answer text for each answer is required
@@ -15,9 +14,9 @@ Feature: Create question GUI
 
   Scenario: Empty question text
     Given I start creating a question
-    When I enter answer 1 text "4" and mark it as correct
+    * I enter answer 1 text "4" and mark it as correct
     * I enter answer 2 text "5"
-    * I attempt to save the question
+    When I attempt to save the question
     Then I see error messages
       | empty-question |
 
@@ -25,20 +24,20 @@ Feature: Create question GUI
     For single-choice question, exactly one correct answer is required
 
     Given I start creating a question
-    When I enter question "What is 2 + 2?"
+    * I enter question "What is 2 + 2?"
     * I enter answer 1 text "4"
     * I mark answer 1 as correct
-    * I attempt to save the question
+    When I attempt to save the question
     Then I see error messages
       | empty-answer |
 
   Scenario: Add an empty answer
     Given I start creating a question
-    When I enter question "What is 2 + 2?"
+    * I enter question "What is 2 + 2?"
     * I enter answer 1 text "4" and mark it as correct
     * I enter answer 2 text "5"
     * I add an additional answer
-    * I attempt to save the question
+    When I attempt to save the question
     Then I see error messages
       | empty-answer |
 
@@ -46,11 +45,11 @@ Feature: Create question GUI
     Either all or no answer explanations are required
 
     Given I start creating a question
-    When I enter question "What is 2 + 2?"
+    * I enter question "What is 2 + 2?"
     * I enter answer 1 text "4" and mark it as correct
     * I enter answer 1 explanation "4 is the answer"
     * I enter answer 2 text "5"
-    * I attempt to save the question
+    When I attempt to save the question
     Then I see error messages
       | empty-answer-explanation |
 
@@ -58,21 +57,21 @@ Feature: Create question GUI
     Either all or no answer explanations are required
 
     Given I start creating a question
-    When I enter question "What is 2 + 2?"
+    * I enter question "What is 2 + 2?"
     * I enter answer 1 text "4" and mark it as correct
     * I enter answer 1 explanation "4 is the answer"
     * I enter answer 2 text "5"
     * I enter answer 2 explanation "5 is the answer, but in another universe"
-    * I attempt to save the question
+    When I attempt to save the question
     Then I see no error messages
 
   Scenario: Single-choice question: No correct answer
     For single-choice question, exactly one correct answer is required
 
     Given I start creating a question
-    When I enter question "What is 2 + 2?"
+    * I enter question "What is 2 + 2?"
     * I enter answer 1 text "4"
     * I enter answer 2 text "5"
-    * I attempt to save the question
+    When I attempt to save the question
     Then I see error messages
       | no-correct-answer |
