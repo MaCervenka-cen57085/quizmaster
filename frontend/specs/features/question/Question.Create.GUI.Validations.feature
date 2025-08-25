@@ -13,6 +13,14 @@ Feature: Create question GUI
       | empty-answer      |
       | no-correct-answer |
 
+  Scenario: Empty question text
+    Given I start creating a question
+    When I enter answer 1 text "4" and mark it as correct
+    * I enter answer 2 text "5"
+    * I attempt to save the question
+    Then I see error messages
+      | empty-question |
+
   Scenario: All answers must be filled in
     For single-choice question, exactly one correct answer is required
 
