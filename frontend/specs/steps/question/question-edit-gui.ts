@@ -61,6 +61,10 @@ When('I mark answer {int} as correct', async function (index: number) {
     await this.questionEditPage.markButton(index - 1).check()
 })
 
+When('I enter answer {int} explanation {string}', async function (index: number, explanation: string) {
+    await this.questionEditPage.enterAnswerExplanation(index - 1, explanation)
+})
+
 When('I enter answer {int} text {string} and mark it as correct', async function (index: number, answer: string) {
     await this.questionEditPage.enterAnswer(index - 1, answer, true, '')
 })
@@ -73,13 +77,21 @@ When('I attempt to save the question', async function () {
     await this.questionEditPage.submit()
 })
 
+const expectErrorCount = async (world: QuizmasterWorld, n: number) => {
+    const errorCount = await world.questionEditPage.errorMessageCount()
+    expect(errorCount).toBe(n)
+}
+
 Then('I see error messages', async function (table: DataTable) {
     const expectedErrors = table.raw().map(row => row[0])
 
-    const errorCount = await this.questionEditPage.errorMessageCount()
-    expect(errorCount).toBe(expectedErrors.length)
+    await expectErrorCount(this, expectedErrors.length)
 
     for (const error of expectedErrors) {
         await this.questionEditPage.hasError(error)
     }
+})
+
+Then('I see no error messages', async function () {
+    await expectErrorCount(this, 0)
 })

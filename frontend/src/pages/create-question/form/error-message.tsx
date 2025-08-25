@@ -1,4 +1,4 @@
-export type ErrorCode = 'empty-question' | 'empty-answer' | 'no-correct-answer'
+export type ErrorCode = 'empty-question' | 'empty-answer' | 'no-correct-answer' | 'empty-answer-explanation'
 
 export type ErrorCodes = ReadonlySet<ErrorCode>
 
@@ -6,6 +6,7 @@ export const errorMessage: Record<ErrorCode, string> = {
     'empty-question': 'Question must not be empty.',
     'empty-answer': 'Answers must not be empty.',
     'no-correct-answer': 'At least one correct answer must be selected.',
+    'empty-answer-explanation': 'All or none answer explanations must be filled in.',
 }
 
 interface ErrorMessageProps {

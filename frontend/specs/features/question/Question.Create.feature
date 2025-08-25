@@ -12,11 +12,3 @@ Feature: Create question GUI
     Then I see the answers
     | 4     | * |
     | 5     |   |
-
-  Scenario: All or none explanation
-      Given I start creating a question
-      When I enter question "What is XXX?"
-      * I add the answer "5" marked as correct with an explanantion ""
-      * I add the answer "6" marked as incorrect with an explanantion "XXXX"
-      * I try saving the question
-      Then I see an error message

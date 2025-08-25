@@ -42,6 +42,30 @@ Feature: Create question GUI
     Then I see error messages
       | empty-answer |
 
+  Scenario: Answer explanations missing
+    Either all or no answer explanations are required
+
+    Given I start creating a question
+    When I enter question "What is 2 + 2?"
+    * I enter answer 1 text "4" and mark it as correct
+    * I enter answer 1 explanation "4 is the answer"
+    * I enter answer 2 text "5"
+    * I attempt to save the question
+    Then I see error messages
+      | empty-answer-explanation |
+
+  Scenario: All answer explanations
+    Either all or no answer explanations are required
+
+    Given I start creating a question
+    When I enter question "What is 2 + 2?"
+    * I enter answer 1 text "4" and mark it as correct
+    * I enter answer 1 explanation "4 is the answer"
+    * I enter answer 2 text "5"
+    * I enter answer 2 explanation "5 is the answer, but in another universe"
+    * I attempt to save the question
+    Then I see no error messages
+
   Scenario: Single-choice question: No correct answer
     For single-choice question, exactly one correct answer is required
 

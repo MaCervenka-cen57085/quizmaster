@@ -59,7 +59,7 @@ export function CreateQuestionContainer() {
 
         if (explanationNotEmptyCounter !== 0 && explanationNotEmptyCounter !== explanationCount) {
             setErrorMessage('All or none explanation must be filled in.')
-            return
+            addError('empty-answer-explanation')
         }
 
         if (apiData.question === '') {
