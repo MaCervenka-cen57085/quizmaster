@@ -11,12 +11,17 @@ import {
     enterQuestionExplanation,
     markAnswerCorrectness,
     openCreatePage,
+    openEditPage,
     saveQuestion,
     submitQuestion,
 } from './ops.ts'
 
 Given('I start creating a question', async function () {
     await openCreatePage(this)
+})
+
+Given('I start editing question {string}', async function (bookmark: string) {
+    await openEditPage(this, bookmark)
 })
 
 // Field assertions

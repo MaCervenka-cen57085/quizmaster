@@ -7,8 +7,13 @@ export type AnswerRaw = [string, '*' | '', string]
 const NUM_ANSWERS = 2
 
 export const openCreatePage = async (world: QuizmasterWorld) => {
-    world.questionEditPage.gotoNew()
+    await world.questionEditPage.gotoNew()
     world.questionWip = emptyQuestion()
+}
+
+export const openEditPage = async (world: QuizmasterWorld, bookmark: string) => {
+    await world.questionEditPage.gotoEdit(world.questionBookmarks[bookmark].editUrl)
+    world.activeQuestionBookmark = bookmark
 }
 
 export const enterQuestion = async (world: QuizmasterWorld, question: string) => {

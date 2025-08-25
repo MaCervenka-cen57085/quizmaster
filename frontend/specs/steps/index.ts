@@ -3,9 +3,8 @@ import './browser.ts'
 import './home.ts'
 
 import './question/question-create.ts'
-import './question/question-take.ts'
-import './question/question-edit.ts'
 import './question/question-edit-gui.ts'
+import './question/question-take.ts'
 
 import './question-list/question-list.ts'
 import './question-list/question-list-create.ts'
