@@ -15,7 +15,6 @@ export function CreateQuestionContainer() {
     const [questionData, setQuestionData] = useState(emptyQuestionFormData())
     const [linkToQuestion, setLinkToQuestion] = useState<string>('')
     const [linkToEditQuestion, setLinkToEditQuestion] = useState<string>('')
-    const [errorMessage, setErrorMessage] = useState<string>('')
 
     const [errors, setErrors] = useState<ErrorCodes>(new Set())
 
@@ -32,45 +31,22 @@ export function CreateQuestionContainer() {
         const errors: Set<ErrorCode> = new Set()
         const addError = (error: ErrorCode) => errors.add(error)
 
-        setErrorMessage('')
-        const apiData = toQuestionApiData(questionData)
+        const correctAnwerCount = questionData.answers.filter(answer => answer.isCorrect).length
+        const emptyAnswerCount = questionData.answers.filter(answer => answer.answer.trim() === '').length
+        const emptyExplanationCount = questionData.answers.filter(answer => answer.explanation.trim() === '').length
+        const nonEmptyExplanationCount = questionData.answers.filter(answer => answer.explanation.trim() !== '').length
 
-        if (apiData.correctAnswers.length === 0) {
-            setErrorMessage('At least one correct answer must be selected')
-            addError('no-correct-answer')
-        }
-
-        const answersCount = apiData.answers.length
-        for (let i = 0; i < answersCount; i++) {
-            if (apiData.answers[i] === '') {
-                setErrorMessage('All answers must be filled in')
-                addError('empty-answer')
-            }
-        }
-
-        let explanationNotEmptyCounter = 0
-        const explanationCount = apiData.explanations.length
-
-        for (let i = 0; i < explanationCount; i++) {
-            if (apiData.explanations[i] !== '') {
-                explanationNotEmptyCounter++
-            }
-        }
-
-        if (explanationNotEmptyCounter !== 0 && explanationNotEmptyCounter !== explanationCount) {
-            setErrorMessage('All or none explanation must be filled in.')
-            addError('empty-answer-explanation')
-        }
-
-        if (apiData.question === '') {
-            setErrorMessage('Question must not be empty.')
-            addError('empty-question')
-        }
+        if (questionData.question === '') addError('empty-question')
+        if (emptyAnswerCount > 0) addError('empty-answer')
+        if (correctAnwerCount === 0) addError('no-correct-answer')
+        if (emptyExplanationCount > 0 && nonEmptyExplanationCount > 0) addError('empty-answer-explanation')
 
         if (errors.size > 0) {
             setErrors(errors)
             return
         }
+
+        const apiData = toQuestionApiData(questionData)
 
         if (questionListGuid !== '') {
             apiData.questionListGuid = questionListGuid
@@ -83,7 +59,7 @@ export function CreateQuestionContainer() {
 
     return (
         <CreateQuestionForm
-            errorMessage={errorMessage}
+            errorMessage=""
             errors={errors}
             handleSubmit={handleSubmit}
             isLoaded={true}
