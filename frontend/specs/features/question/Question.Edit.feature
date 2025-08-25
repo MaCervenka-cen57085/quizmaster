@@ -28,7 +28,7 @@ Feature: Edit question GUI
     When I start editing question "Czechia"
     When I change the correct answer to 2
     And I save it
-    And I reload the page
+    And I refresh the page
     And I see the correct answer is 2
 
   Scenario: All expolanations and general explanation are empty
@@ -41,21 +41,21 @@ Feature: Edit question GUI
     When I start editing question "Czechia"
     When I change a general explanation to "Abcd"
     And I save it
-    And I reload the page
+    And I refresh the page
     Then I see a general explanation the same as "Abcd"
 
   Scenario: Change of single answer explanation
     When I start editing question "Czechia"
     When I change a single answer explanation 1 to "Abcd"
     And I save it
-    And I reload the page
+    And I refresh the page
     Then I see changed explanation 1 to "Abcd"
 
   Scenario: Change of an answer label
     When I start editing question "Czechia"
     When I change of an answer label 1 to "Abcd"
     And I save it
-    And I reload the page
+    And I refresh the page
     Then I see a changed label 1 to "Abcd"
 
   Scenario: Multiple choice of correct answers
@@ -64,6 +64,6 @@ Feature: Edit question GUI
     Then I see checkboxes for every answer
     When I mark 2 checkbox
     And I save it
-    And I reload the page
+    And I refresh the page
     Then I see answer 1 with marked checkbox
     Then I see answer 2 with marked checkbox

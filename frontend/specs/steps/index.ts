@@ -1,4 +1,5 @@
 import './common.ts'
+import './browser.ts'
 import './home.ts'
 
 import './question/question-create.ts'

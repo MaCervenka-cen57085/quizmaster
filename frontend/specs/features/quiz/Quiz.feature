@@ -41,7 +41,7 @@ Feature: Take a quiz
     When I answer "Green"
     * I check answer "Lyon,Paris"
     * I uncheck answer "Lyon"
-    * I reload the page
+    * I refresh the page
     Then no answer is selected
 
   Scenario: Back button is not visible on the quiz page

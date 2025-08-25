@@ -19,10 +19,6 @@ Then('I see unchanged url', async function () {
     expect(link).toBe(this.activeQuestion.url)
 })
 
-When('I reload the page', async function () {
-    await this.questionEditPage.reloadPage()
-})
-
 When('I change the correct answer to {int}', async function (value: number) {
     this.questionEditPage.markButton(value).check()
 })

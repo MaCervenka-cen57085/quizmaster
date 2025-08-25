@@ -76,8 +76,6 @@ export class QuestionEditPage {
 
     errorMessage = () => this.page.textContent('#error-message')
 
-    reloadPage = () => this.page.reload({ waitUntil: 'networkidle' })
-
     getExplanationLocator = (id: number) => this.page.locator(`#answer-explanation-${id}`)
     answerExplanation = (index: number) => this.getExplanationLocator(index).inputValue()
     enterAnswerExplanation = (index: number, explanation: string) => this.getExplanationLocator(index).fill(explanation)
