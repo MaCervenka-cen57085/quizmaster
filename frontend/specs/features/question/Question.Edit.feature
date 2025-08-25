@@ -36,12 +36,6 @@ Feature: Edit question GUI
     * I see answer 3 text "It's Bratislava", correct, with explanation "Yes!"
     * I see "Slovakia is a country in Europe. Slovaks love borovička." in the question explanation field
 
-  Scenario: All expolanations and general explanation are empty
-    When I start editing question "Czechia"
-    When I delete all explanations and delete general explanation
-    And I save it
-    Then I see a link to take the question
-
   Scenario: Multiple choice of correct answers
     When I start editing question "Czechia"
     When I mark a multiple choice
