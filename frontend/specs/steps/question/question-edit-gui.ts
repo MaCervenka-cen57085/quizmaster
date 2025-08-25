@@ -73,18 +73,6 @@ When('I attempt to save the question', async function () {
     await this.questionEditPage.submit()
 })
 
-const expectError = async (world: QuizmasterWorld, error: string) => {
-    const editPage = world.questionEditPage
-
-    const errors: Record<string, () => Promise<void>> = {
-        'empty-question': editPage.hasErrorEmptyQuestion,
-        'empty-answer': editPage.hasErrorEmptyAnswer,
-        'no-correct-answer': editPage.hasErrorNoCorrectAnswer,
-    }
-
-    await errors[error]()
-}
-
 Then('I see error messages', async function (table: DataTable) {
     const expectedErrors = table.raw().map(row => row[0])
 
@@ -92,6 +80,6 @@ Then('I see error messages', async function (table: DataTable) {
     expect(errorCount).toBe(expectedErrors.length)
 
     for (const error of expectedErrors) {
-        await expectError(this, error)
+        await this.questionEditPage.hasError(error)
     }
 })

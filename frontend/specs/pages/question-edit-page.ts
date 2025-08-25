@@ -82,9 +82,6 @@ export class QuestionEditPage {
     getExplanationLocator = (id: number) => this.page.locator(`#answer-explanation-${id}`)
     answerExplanation = (index: number) => this.getExplanationLocator(index).inputValue()
 
-    private hasError = (error: string) => () => this.page.locator(`.errors .${error}`).waitFor({ state: 'visible' })
+    hasError = (error: string) => this.page.locator(`.errors .${error}`).waitFor({ state: 'visible' })
     errorMessageCount = () => this.page.locator('.errors > li').count()
-    hasErrorEmptyQuestion = this.hasError('empty-question')
-    hasErrorEmptyAnswer = this.hasError('empty-answer')
-    hasErrorNoCorrectAnswer = this.hasError('no-correct-answer')
 }
