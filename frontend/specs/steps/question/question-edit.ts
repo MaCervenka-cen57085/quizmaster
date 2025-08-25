@@ -6,13 +6,6 @@ When('I start editing question {string}', async function (bookmark: string) {
     this.activeQuestionBookmark = bookmark
 })
 
-Then('I see the question, answers and explanations', async function () {
-    await this.questionEditPage.waitForLoaded()
-
-    const question = await this.questionEditPage.questionValue()
-    expect(question).toBe(this.activeQuestion.question)
-})
-
 When('I change question to {string}', async function (newQuestion: string) {
     await this.questionEditPage.enterQuestion(newQuestion)
 })
@@ -76,7 +69,7 @@ Then('I see a changed label {int} to {string}', async function (answerIndex: num
 })
 
 When('I mark a multiple choice', async function () {
-    await this.questionEditPage.multipleChoiceLocator().click()
+    await this.questionEditPage.setMultipleChoice()
 })
 
 Then('I see checkboxes for every answer', async function () {

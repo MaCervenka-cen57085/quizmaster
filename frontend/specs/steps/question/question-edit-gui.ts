@@ -24,6 +24,11 @@ Then('I see empty question field', async function () {
     expect(question).toBe('')
 })
 
+Then('I see {string} in the question field', async function (question: string) {
+    const questionValue = await this.questionEditPage.questionValue()
+    expect(questionValue).toBe(question)
+})
+
 Then(/I see multiple choice is (unchecked|checked)/, async function (value: string) {
     const isMultipleChoice = await this.questionEditPage.isMultipleChoice()
     expect(isMultipleChoice).toBe(value === 'checked')
@@ -58,9 +63,21 @@ Then('I see 2 empty answer fields, incorrect, with empty explanations fields', a
     await expectEmptyAnswers(this, 1)
 })
 
+Then(
+    /I see answer (\d+) text "([^"]*)", (correct|incorrect), with explanation "([^"]*)"/,
+    async function (index: number, answer: string, correctness: string, explanation: string) {
+        await expectAnswer(this, index - 1, answer, correctness === 'correct', explanation)
+    }
+)
+
 Then('I see empty question explanation field', async function () {
     const explanation = await this.questionEditPage.questionExplanation()
     expect(explanation).toBe('')
+})
+
+Then('I see {string} in the question explanation field', async function (explanation: string) {
+    const explanationValue = await this.questionEditPage.questionExplanation()
+    expect(explanationValue).toBe(explanation)
 })
 
 // Field edits
