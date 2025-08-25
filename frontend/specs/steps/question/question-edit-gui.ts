@@ -76,6 +76,9 @@ const expectError = async (world: QuizmasterWorld, error: string) => {
 Then('I see error messages', async function (table: DataTable) {
     const expectedErrors = table.raw().map(row => row[0])
 
+    const errorCount = await this.questionEditPage.errorMessageCount()
+    expect(errorCount).toBe(expectedErrors.length)
+
     for (const error of expectedErrors) {
         await expectError(this, error)
     }
