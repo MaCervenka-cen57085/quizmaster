@@ -18,45 +18,29 @@ Feature: Edit question GUI
     * I see answer 3 text "Berlin", incorrect, with explanation "Germany"
     * I see "Czechia is a country in Europe. Czechs love beer." in the question explanation field
 
-  Scenario: Edit a single-choice question
-    When I start editing question "Czechia"
-    When I change question to "What is capital of Slovakia?"
-    And I save it
-    Then I see unchanged url
+  Scenario: Edit all fields
+    Given I start editing question "Czechia"
+    * I enter question "What is the capital of Slovakia?"
+    * I enter answer 1 text "It's Brno", incorrect, with explanation "No, it's not Brno"
+    * I enter answer 2 text "It's Prague", incorrect, with explanation "No, it's not Prague"
+    * I enter answer 3 text "It's Bratislava", correct, with explanation "Yes!"
+    * I enter question explanation "Slovakia is a country in Europe. Slovaks love borovička."
 
-  Scenario: Change of correct answer
-    When I start editing question "Czechia"
-    When I change the correct answer to 2
-    And I save it
-    And I refresh the page
-    And I see the correct answer is 2
+    When I submit the question
+    * I refresh the page
+
+    Then I see "What is the capital of Slovakia?" in the question field
+    * I see multiple choice is unchecked
+    * I see answer 1 text "It's Brno", incorrect, with explanation "No, it's not Brno"
+    * I see answer 2 text "It's Prague", incorrect, with explanation "No, it's not Prague"
+    * I see answer 3 text "It's Bratislava", correct, with explanation "Yes!"
+    * I see "Slovakia is a country in Europe. Slovaks love borovička." in the question explanation field
 
   Scenario: All expolanations and general explanation are empty
     When I start editing question "Czechia"
     When I delete all explanations and delete general explanation
     And I save it
     Then I see a link to take the question
-
-  Scenario: Change of general explanation
-    When I start editing question "Czechia"
-    When I change a general explanation to "Abcd"
-    And I save it
-    And I refresh the page
-    Then I see a general explanation the same as "Abcd"
-
-  Scenario: Change of single answer explanation
-    When I start editing question "Czechia"
-    When I change a single answer explanation 1 to "Abcd"
-    And I save it
-    And I refresh the page
-    Then I see changed explanation 1 to "Abcd"
-
-  Scenario: Change of an answer label
-    When I start editing question "Czechia"
-    When I change of an answer label 1 to "Abcd"
-    And I save it
-    And I refresh the page
-    Then I see a changed label 1 to "Abcd"
 
   Scenario: Multiple choice of correct answers
     When I start editing question "Czechia"

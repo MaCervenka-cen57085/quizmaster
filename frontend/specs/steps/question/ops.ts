@@ -48,8 +48,17 @@ export const enterAnswer = async (
     world.questionWip.answers[index] = { answer, isCorrect, explanation }
 }
 
+export const enterQuestionExplanation = async (world: QuizmasterWorld, explanation: string) => {
+    await world.questionEditPage.enterQuestionExplanation(explanation)
+    world.questionWip.explanation = explanation
+}
+
+export async function submitQuestion(this: QuizmasterWorld) {
+    await this.questionEditPage.submit()
+}
+
 export const saveQuestion = async (world: QuizmasterWorld, bookmark: string) => {
-    await world.questionEditPage.submit()
+    await submitQuestion.bind(world)()
     world.questionWip.url = (await world.questionEditPage.questionUrl()) || ''
     world.questionWip.editUrl = (await world.questionEditPage.questionEditUrl()) || ''
     world.questionBookmarks[bookmark] = world.questionWip

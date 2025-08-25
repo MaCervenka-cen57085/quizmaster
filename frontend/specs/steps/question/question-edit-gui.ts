@@ -8,9 +8,11 @@ import {
     enterAnswerExplanation,
     enterAnswerText,
     enterQuestion,
+    enterQuestionExplanation,
     markAnswerCorrectness,
     openCreatePage,
     saveQuestion,
+    submitQuestion,
 } from './ops.ts'
 
 Given('I start creating a question', async function () {
@@ -102,15 +104,25 @@ When('I enter answer {int} text {string} and mark it as correct', async function
     await enterAnswer(this, index - 1, answer, true, '')
 })
 
+When(
+    /I enter answer (\d+) text "([^"]*)", (correct|incorrect), with explanation "([^"]*)"/,
+    async function (index: number, answer: string, correctness: string, explanation: string) {
+        await enterAnswer(this, index - 1, answer, correctness === 'correct', explanation)
+    }
+)
+
 When('I add an additional answer', async function () {
     await this.questionEditPage.addAdditionalAnswer()
 })
 
+When('I enter question explanation {string}', async function (explanation: string) {
+    await enterQuestionExplanation(this, explanation)
+})
+
 // Save question
 
-When('I attempt to save the question', async function () {
-    await this.questionEditPage.submit()
-})
+When('I attempt to save the question', submitQuestion)
+When('I submit the question', submitQuestion)
 
 When('I save the question', async function () {
     await saveQuestion(this, 'manual')
