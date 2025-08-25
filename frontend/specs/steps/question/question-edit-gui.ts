@@ -57,6 +57,18 @@ When('I enter answer {int} text {string}', async function (index: number, answer
     await this.questionEditPage.enterAnswerText(index - 1, answer)
 })
 
+When('I mark answer {int} as correct', async function (index: number) {
+    await this.questionEditPage.markButton(index - 1).check()
+})
+
+When('I enter answer {int} text {string} and mark it as correct', async function (index: number, answer: string) {
+    await this.questionEditPage.enterAnswer(index - 1, answer, true, '')
+})
+
+When('I add an additional answer', async function () {
+    await this.questionEditPage.addAdditionalAnswer()
+})
+
 When('I attempt to save the question', async function () {
     await this.questionEditPage.submit()
 })

@@ -36,6 +36,8 @@ export class QuestionEditPage {
     answerText = (index: number) => this.answerTextLocator(index).inputValue()
 
     markButton = (value: number) => this.page.locator(`#answer-checkbox-${value}`)
+    setAnswerCorrect = (index: number) => this.markButton(index).check()
+    setAnswerIncorrect = (index: number) => this.markButton(index).uncheck()
 
     clearExplanation = async () => {
         const getExplanation = await this.page.locator('[id^=answer-explanation-]').all()
@@ -57,6 +59,11 @@ export class QuestionEditPage {
     addAnswer = async (idx: number) => {
         await this.page.locator('button#add-answer').click()
         await this.page.waitForSelector(`#answer-text-${idx}`)
+    }
+
+    addAdditionalAnswer = async () => {
+        const idx = await this.answersLocator().count()
+        await this.addAnswer(idx)
     }
 
     submit = () => this.page.locator('button[type="submit"]').click()
