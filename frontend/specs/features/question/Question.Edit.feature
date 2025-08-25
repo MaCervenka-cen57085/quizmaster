@@ -22,7 +22,8 @@ Feature: Edit question GUI
     Given I start editing question "Czechia"
     * I enter question "What is the capital of Slovakia?"
     * I enter answer 1 text "It's Brno", incorrect, with explanation "No, it's not Brno"
-    * I enter answer 2 text "It's Prague", incorrect, with explanation "No, it's not Prague"
+    * I enter answer 2 text "It's Prague"
+    * I enter answer 2 explanation "No, it's not Prague"
     * I enter answer 3 text "It's Bratislava", correct, with explanation "Yes!"
     * I enter question explanation "Slovakia is a country in Europe. Slovaks love borovička."
 

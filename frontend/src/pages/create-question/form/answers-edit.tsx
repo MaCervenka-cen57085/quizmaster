@@ -8,23 +8,22 @@ interface AnswerRowProps {
 }
 
 export const AnswerRow = ({ answer, index, isMultichoiceQuestion, updateAnswerData }: AnswerRowProps) => (
-    <div key={`answer-${index}`} className="answer-row">
+    <div key={`answer-${index}`} className="answer-row" id={`answer-${index}`}>
         <input
-            id={`answer-text-${index}`}
+            className="text"
             type="text"
             placeholder={`Answer ${index + 1}`}
             value={answer.answer}
             onChange={e => updateAnswerData(index, { answer: e.target.value })}
         />
         <input
-            id={`answer-checkbox-${index}`}
             className={!isMultichoiceQuestion ? 'answer-isCorrect-checkbox' : 'answer-isCorrect-checkbox-multi'}
             type="checkbox"
             checked={answer.isCorrect}
             onChange={e => updateAnswerData(index, { isCorrect: e.target.checked })}
         />
         <input
-            id={`answer-explanation-${index}`}
+            className="explanation"
             type="text"
             placeholder={answer.isCorrect ? '✅ Correct answer explanation' : '❌ Incorrect answer explanation'}
             value={answer.explanation}

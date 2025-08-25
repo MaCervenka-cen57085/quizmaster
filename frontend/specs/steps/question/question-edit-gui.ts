@@ -63,7 +63,7 @@ const expectAnswer = async (
 const expectEmptyAnswers = (world: QuizmasterWorld, index: number) => expectAnswer(world, index, '', false, '')
 
 Then('I see 2 empty answer fields, incorrect, with empty explanations fields', async function () {
-    const answerCount = await this.questionEditPage.answersLocator().count()
+    const answerCount = await this.questionEditPage.answerRowCount()
     expect(answerCount).toBe(2)
 
     await expectEmptyAnswers(this, 0)
