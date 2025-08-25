@@ -34,18 +34,15 @@ export const saveQuestion = async (world: QuizmasterWorld, bookmark: string) => 
     world.questionBookmarks[bookmark] = world.questionWip
 }
 
-export const addAnswer = async (world: QuizmasterWorld, i: number) => {
-    await world.questionEditPage.addAnswer(i)
-}
-
 export const addAnswers = async (world: QuizmasterWorld, answerRawTable: TableOf<AnswerRaw>) => {
+    const editPage = world.questionEditPage
     const raw = answerRawTable.raw()
 
     const isMultipleChoice = raw.filter(([_, correct]) => correct === '*').length > 1
-    if (isMultipleChoice) await world.questionEditPage.setMultipleChoice()
+    if (isMultipleChoice) await editPage.setMultipleChoice()
 
     for (let i = 0; i < raw.length; i++) {
-        if (i >= NUM_ANSWERS) await addAnswer(world, i)
+        if (i >= NUM_ANSWERS) await editPage.addAdditionalAnswer()
         const [answer, correct, explanation] = raw[i]
         const isCorrect = correct === '*'
         await enterAnswer(world, i, answer, isCorrect, explanation || '')
