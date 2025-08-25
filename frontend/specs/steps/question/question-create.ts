@@ -4,7 +4,6 @@ import { expect } from '@playwright/test'
 import type { TableOf } from '../common.ts'
 import { Given, Then, When } from '../fixture.ts'
 import {
-    addAnswer,
     addAnswers,
     createQuestion,
     enterAnswer,
@@ -73,26 +72,13 @@ When(
     },
 )
 
-When('I add an additional answer field', async function () {
-    await addAnswer(this, this.nextAnswerIdx)
-})
-
 When('I save the question', async function () {
     await saveQuestion(this, 'manual')
-})
-
-When('I take the question', async function () {
-    await this.questionEditPage.followQuestionUrl()
-    this.activeQuestionBookmark = 'manual'
 })
 
 When('I edit the question', async function () {
     await this.page.goto(this.questionWip.editUrl)
     // this.activeBookmark = 'manual'
-})
-
-When('I try saving the question', async function () {
-    await this.questionEditPage.submit()
 })
 
 Then('I see a link to take the question', async function () {
