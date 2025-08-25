@@ -1,5 +1,5 @@
 import type { TableOf } from '../common.ts'
-import { emptyQuestion, type QuizmasterWorld } from '../world'
+import { Answer, emptyAnswer, emptyQuestion, type QuizmasterWorld } from '../world'
 
 export type AnswerRaw = [string, '*' | '', string]
 
@@ -14,6 +14,27 @@ export const openCreatePage = async (world: QuizmasterWorld) => {
 export const enterQuestion = async (world: QuizmasterWorld, question: string) => {
     await world.questionEditPage.enterQuestion(question)
     world.questionWip.question = question
+}
+
+const enterPartialAnswer = async (world: QuizmasterWorld, index: number, answer: Partial<Answer>) => {
+    const questionWip = world.questionWip
+    const origAnswer = questionWip.answers[index] || emptyAnswer()
+    questionWip.answers[index] = { ...origAnswer, ...answer }
+}
+
+export const enterAnswerText = async (world: QuizmasterWorld, index: number, answer: string) => {
+    await world.questionEditPage.enterAnswerText(index, answer)
+    enterPartialAnswer(world, index, { answer })
+}
+
+export const markAnswerCorrectness = async (world: QuizmasterWorld, index: number, isCorrect: boolean) => {
+    await world.questionEditPage.setAnswerCorrectness(index, isCorrect)
+    enterPartialAnswer(world, index, { isCorrect })
+}
+
+export const enterAnswerExplanation = async (world: QuizmasterWorld, index: number, explanation: string) => {
+    await world.questionEditPage.enterAnswerExplanation(index, explanation)
+    enterPartialAnswer(world, index, { explanation })
 }
 
 export const enterAnswer = async (

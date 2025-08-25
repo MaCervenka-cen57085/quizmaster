@@ -3,7 +3,7 @@ import { expect } from '@playwright/test'
 
 import { Then, When } from '../fixture.ts'
 import type { QuizmasterWorld } from '../world'
-import { enterQuestion } from './ops.ts'
+import { enterAnswer, enterAnswerExplanation, enterAnswerText, enterQuestion, markAnswerCorrectness, saveQuestion } from './ops.ts'
 
 // Field assertions
 
@@ -58,19 +58,19 @@ When('I enter question {string}', async function (question: string) {
 })
 
 When('I enter answer {int} text {string}', async function (index: number, answer: string) {
-    await this.questionEditPage.enterAnswerText(index - 1, answer)
+    await enterAnswerText(this, index - 1, answer)
 })
 
 When('I mark answer {int} as correct', async function (index: number) {
-    await this.questionEditPage.markButton(index - 1).check()
+    await markAnswerCorrectness(this, index - 1, true)
 })
 
 When('I enter answer {int} explanation {string}', async function (index: number, explanation: string) {
-    await this.questionEditPage.enterAnswerExplanation(index - 1, explanation)
+    await enterAnswerExplanation(this, index - 1, explanation)
 })
 
 When('I enter answer {int} text {string} and mark it as correct', async function (index: number, answer: string) {
-    await this.questionEditPage.enterAnswer(index - 1, answer, true, '')
+    await enterAnswer(this, index - 1, answer, true, '')
 })
 
 When('I add an additional answer', async function () {

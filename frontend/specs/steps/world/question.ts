@@ -4,6 +4,8 @@ export interface Answer {
     explanation: string
 }
 
+export const emptyAnswer = (): Answer => ({ answer: '', isCorrect: false, explanation: '' })
+
 export interface Question {
     url: string
     editUrl: string
