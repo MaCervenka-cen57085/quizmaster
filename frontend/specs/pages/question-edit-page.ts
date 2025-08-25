@@ -19,7 +19,7 @@ export class QuestionEditPage {
     setMultipleChoice = () => this.multipleChoiceLocator().check()
     setSingleChoice = () => this.multipleChoiceLocator().uncheck()
 
-    easyModeChoiceLocator = () => this.page.locator('#is-easy-mode-choice')
+    private easyModeChoiceLocator = () => this.page.locator('#is-easy-mode-choice')
     isEasyModeChoice = () => this.easyModeChoiceLocator().isChecked()
     setEasyModeChecked = () => this.easyModeChoiceLocator().check()
     setEasyModeUnchecked = () => this.easyModeChoiceLocator().uncheck()
@@ -29,7 +29,10 @@ export class QuestionEditPage {
 
     isCorrectCheckboxesLocator = () => this.page.locator('[id^=answer-checkbox-]')
 
+    answersLocator = () => this.page.locator('[id^=answer-text-]')
+
     answerTextLocator = (index: number) => this.page.locator(`#answer-text-${index}`)
+    answerText = (index: number) => this.answerTextLocator(index).inputValue()
 
     markButton = (value: number) => this.page.locator(`#answer-checkbox-${value}`)
 
@@ -68,4 +71,5 @@ export class QuestionEditPage {
     reloadPage = () => this.page.reload({ waitUntil: 'networkidle' })
 
     getExplanationLocator = (id: number) => this.page.locator(`#answer-explanation-${id}`)
+    answerExplanation = (index: number) => this.getExplanationLocator(index).inputValue()
 }
