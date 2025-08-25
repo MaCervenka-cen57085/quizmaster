@@ -1,6 +1,6 @@
 import { type AnswerIdxs, isAnsweredCorrectly, type Quiz } from 'model/quiz-question'
 import { QuestionForm } from './question-take'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { QuizScore } from './quiz-score'
 import { ProgressBar } from './quiz/progress-bar'
 import { EvaluateButton, NextButton, BackButton, SkipButton, BookmarkButton } from './quiz/buttons'
@@ -10,6 +10,7 @@ import { getQuiz } from '../api/quiz.ts'
 import { Countdown } from './quiz/countdown.tsx'
 import { TimeOutReachedModal } from './quiz/timeout-reached-modal.tsx'
 import { BookmarkList } from './components/bookmark-list'
+import { useApi } from 'api/hooks.ts'
 
 interface QuizQuestionProps {
     readonly onEvaluate: () => void
@@ -174,14 +175,7 @@ export const QuizPage = () => {
         }
     }
 
-    useEffect(() => {
-        const fetchQuiz = async () => {
-            if (quizId) {
-                setQuiz(await getQuiz(Number(quizId)))
-            }
-        }
-        fetchQuiz()
-    }, [quizId])
+    useApi(quizId, getQuiz, setQuiz)
 
     if (quiz) {
         return isEvaluated ? (
