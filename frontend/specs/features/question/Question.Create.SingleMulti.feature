@@ -1,9 +1,5 @@
 Feature: Create question GUI - Single/multi choice
 
-  Scenario: By default question is single-choice type
-    Given I start creating a question
-    Then Multiple choice is unchecked
-
   Scenario: Mark correct answer for single choice question
     Given I start creating a question
     * with answers:

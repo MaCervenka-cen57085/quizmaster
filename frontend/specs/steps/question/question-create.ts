@@ -114,21 +114,6 @@ Then('I see an error message', async function () {
     expect(errorMessage).not.toBe('')
 })
 
-Then('I see 2 answers', async function () {
-    await expect(this.questionEditPage.answerTextLocator(0)).toBeVisible()
-    await expect(this.questionEditPage.answerTextLocator(1)).toBeVisible()
-})
-
-Then(/^Multiple choice is (checked|unchecked)$/, async function (state: string) {
-    const expected = state === 'checked'
-    const isChecked = await this.questionEditPage.isMultipleChoice()
-    expect(isChecked).toBe(expected)
-})
-
-Then('I see empty question', async function () {
-    expect(await this.questionEditPage.questionValue()).toBe('')
-})
-
 When('I click is-correct checkbox for {string}', async function (answer: string) {
     await this.questionEditPage.isCorrectCheckboxLocator(answer).click()
 })
@@ -152,12 +137,6 @@ Then('Is correct checkboxes look like radio buttons', async function () {
         const className = await element.getAttribute('class')
         expect(className).toBe('answer-isCorrect-checkbox')
     }
-})
-
-Then(/^Easy mode checkbox is (checked|unchecked)$/, async function (state: string) {
-    const expected = state === 'checked'
-    const isChecked = await this.questionEditPage.isEasyMode()
-    expect(isChecked).toBe(expected)
 })
 
 When(/^I make the question (single|multi)-choice$/, async function (type: string) {

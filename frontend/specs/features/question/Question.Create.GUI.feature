@@ -1,6 +1,5 @@
 Feature: Create question GUI
 
-  @only
   Scenario: Default values
     When I start creating a question
     Then I see empty question field
