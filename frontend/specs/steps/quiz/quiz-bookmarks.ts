@@ -11,13 +11,12 @@ When('I click bookmark {string}', async function (questionTitle: string) {
     await this.quizQuestionPage.clickBookmark(questionTitle)
 })
 
-When('I bookmark question {string}', async function (questionTitle: string) {
-    await this.quizQuestionPage.clickAddQuestionToBookmark(questionTitle)
+When('I bookmark question {string}', async function () {
+    await this.quizQuestionPage.clickAddQuestionToBookmark()
 })
 
-When('I remove bookmark {string}', async function (questionTitle: string) {
-    // Klikne na bookmark toggle pro odebrání záložky
-    await this.quizQuestionPage.clickAddQuestionToBookmark(questionTitle)
+When('I remove bookmark {string}', async function () {
+    await this.quizQuestionPage.clickAddQuestionToBookmark()
 })
 
 When('I delete bookmark {string}', async function (questionTitle: string) {
