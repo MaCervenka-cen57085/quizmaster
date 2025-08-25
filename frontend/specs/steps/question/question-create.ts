@@ -72,10 +72,6 @@ When(
     },
 )
 
-When('I save the question', async function () {
-    await saveQuestion(this, 'manual')
-})
-
 When('I edit the question', async function () {
     await this.page.goto(this.questionWip.editUrl)
     // this.activeBookmark = 'manual'

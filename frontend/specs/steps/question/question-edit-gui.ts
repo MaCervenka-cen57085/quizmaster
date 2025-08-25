@@ -3,7 +3,14 @@ import { expect } from '@playwright/test'
 
 import { Then, When } from '../fixture.ts'
 import type { QuizmasterWorld } from '../world'
-import { enterAnswer, enterAnswerExplanation, enterAnswerText, enterQuestion, markAnswerCorrectness, saveQuestion } from './ops.ts'
+import {
+    enterAnswer,
+    enterAnswerExplanation,
+    enterAnswerText,
+    enterQuestion,
+    markAnswerCorrectness,
+    saveQuestion,
+} from './ops.ts'
 
 // Field assertions
 
@@ -77,8 +84,22 @@ When('I add an additional answer', async function () {
     await this.questionEditPage.addAdditionalAnswer()
 })
 
+// Save question
+
 When('I attempt to save the question', async function () {
     await this.questionEditPage.submit()
+})
+
+When('I save the question', async function () {
+    await saveQuestion(this, 'manual')
+})
+
+Then('I see quiz take URL and quiz edit URL', async function () {
+    const takeUrl = await this.questionEditPage.questionUrl()
+    const editUrl = await this.questionEditPage.questionEditUrl()
+
+    expect(takeUrl).toBeDefined()
+    expect(editUrl).toBeDefined()
 })
 
 // Error messages assertions
