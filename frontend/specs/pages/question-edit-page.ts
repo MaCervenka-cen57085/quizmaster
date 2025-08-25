@@ -51,6 +51,7 @@ export class QuestionEditPage {
 
     questionExplanationLocator = () => this.page.locator('#question-explanation')
     enterQuestionExplanation = (question: string) => this.questionExplanationLocator().fill(question)
+    questionExplanation = () => this.questionExplanationLocator().inputValue()
 
     addAnswer = async (idx: number) => {
         await this.page.locator('button#add-answer').click()

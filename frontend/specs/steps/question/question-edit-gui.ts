@@ -3,15 +3,18 @@ import { Then } from '../fixture.ts'
 import type { QuizmasterWorld } from '../world'
 
 Then('I see empty question field', async function () {
-    expect(await this.questionEditPage.questionValue()).toBe('')
+    const question = await this.questionEditPage.questionValue()
+    expect(question).toBe('')
 })
 
-Then(/I see multiple choice is (unchecked|checked)/, async function (checked: string) {
-    expect(await this.questionEditPage.isMultipleChoice()).toBe(checked === 'checked')
+Then(/I see multiple choice is (unchecked|checked)/, async function (value: string) {
+    const isMultipleChoice = await this.questionEditPage.isMultipleChoice()
+    expect(isMultipleChoice).toBe(value === 'checked')
 })
 
-Then(/I see easy mode is (unchecked|checked)/, async function (checked: string) {
-    expect(await this.questionEditPage.isEasyMode()).toBe(checked === 'checked')
+Then(/I see easy mode is (unchecked|checked)/, async function (value: string) {
+    const isEasyMode = await this.questionEditPage.isEasyMode()
+    expect(isEasyMode).toBe(value === 'checked')
 })
 
 const expectAnswer = async (
@@ -31,12 +34,14 @@ const expectAnswer = async (
 const expectEmptyAnswers = (world: QuizmasterWorld, index: number) => expectAnswer(world, index, '', false, '')
 
 Then('I see 2 empty answer fields, incorrect, with empty explanations fields', async function () {
-    expect(await this.questionEditPage.answersLocator().count()).toBe(2)
+    const answerCount = await this.questionEditPage.answersLocator().count()
+    expect(answerCount).toBe(2)
 
     await expectEmptyAnswers(this, 0)
     await expectEmptyAnswers(this, 1)
 })
 
 Then('I see empty question explanation field', async function () {
-    await expect(this.questionEditPage.questionExplanationLocator().inputValue()).resolves.toBe('')
+    const explanation = await this.questionEditPage.questionExplanation()
+    expect(explanation).toBe('')
 })
