@@ -78,6 +78,7 @@ export function EditQuestionContainer() {
     return (
         <CreateQuestionForm
             errorMessage={errorMessage}
+            errors={new Set()}
             handleSubmit={handleSubmit}
             isLoaded={isLoaded}
             linkToEditQuestion=""

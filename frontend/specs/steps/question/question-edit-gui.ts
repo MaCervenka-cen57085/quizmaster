@@ -1,5 +1,6 @@
+import type { DataTable } from '@cucumber/cucumber'
 import { expect } from '@playwright/test'
-import { Then } from '../fixture.ts'
+import { Then, When } from '../fixture.ts'
 import type { QuizmasterWorld } from '../world'
 
 Then('I see empty question field', async function () {
@@ -44,4 +45,28 @@ Then('I see 2 empty answer fields, incorrect, with empty explanations fields', a
 Then('I see empty question explanation field', async function () {
     const explanation = await this.questionEditPage.questionExplanation()
     expect(explanation).toBe('')
+})
+
+When('I attempt to save the question', async function () {
+    await this.questionEditPage.submit()
+})
+
+const expectError = async (world: QuizmasterWorld, error: string) => {
+    const editPage = world.questionEditPage
+
+    const errors: Record<string, () => Promise<void>> = {
+        'empty-question': editPage.hasErrorEmptyQuestion,
+        'empty-answer': editPage.hasErrorEmptyAnswer,
+        'no-correct-answer': editPage.hasErrorNoCorrectAnswer,
+    }
+
+    await errors[error]()
+}
+
+Then('I see error messages', async function (table: DataTable) {
+    const expectedErrors = table.raw().map(row => row[0])
+
+    for (const error of expectedErrors) {
+        await expectError(this, error)
+    }
 })

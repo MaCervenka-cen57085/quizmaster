@@ -5,6 +5,7 @@ import { type QuestionApiData, saveQuestion } from 'api/quiz-question.ts'
 
 import { emptyQuestionFormData, toQuestionApiData } from './form'
 import { CreateQuestionForm } from './create-question'
+import type { ErrorCode, ErrorCodes } from './form/error-message'
 
 export function CreateQuestionContainer() {
     const [searchParams] = useSearchParams()
@@ -16,6 +17,8 @@ export function CreateQuestionContainer() {
     const [linkToEditQuestion, setLinkToEditQuestion] = useState<string>('')
     const [errorMessage, setErrorMessage] = useState<string>('')
 
+    const [errors, setErrors] = useState<ErrorCodes>(new Set())
+
     const postData = async (formData: QuestionApiData) => {
         await saveQuestion(formData)
             .then(response => {
@@ -26,19 +29,22 @@ export function CreateQuestionContainer() {
     }
 
     const handleSubmit = () => {
+        const errors: Set<ErrorCode> = new Set()
+        const addError = (error: ErrorCode) => errors.add(error)
+
         setErrorMessage('')
         const apiData = toQuestionApiData(questionData)
 
         if (apiData.correctAnswers.length === 0) {
             setErrorMessage('At least one correct answer must be selected')
-            return
+            addError('no-correct-answer')
         }
 
         const answersCount = apiData.answers.length
         for (let i = 0; i < answersCount; i++) {
             if (apiData.answers[i] === '') {
                 setErrorMessage('All answers must be filled in')
-                return
+                addError('empty-answer')
             }
         }
 
@@ -58,6 +64,11 @@ export function CreateQuestionContainer() {
 
         if (apiData.question === '') {
             setErrorMessage('Question must not be empty.')
+            addError('empty-question')
+        }
+
+        if (errors.size > 0) {
+            setErrors(errors)
             return
         }
 
@@ -73,6 +84,7 @@ export function CreateQuestionContainer() {
     return (
         <CreateQuestionForm
             errorMessage={errorMessage}
+            errors={errors}
             handleSubmit={handleSubmit}
             isLoaded={true}
             linkToEditQuestion={linkToEditQuestion}
