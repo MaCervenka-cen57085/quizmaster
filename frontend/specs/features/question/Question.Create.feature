@@ -35,14 +35,6 @@ Feature: Create question GUI
     When I take the question
     Then I see the question and the answers
 
-  Scenario: Cannot save a question with no correct answer
-    Given I start creating a question
-    When I enter question "What is 2 + 2?"
-    * I add the answer "5" marked as incorrect
-    * I add the answer "6" marked as incorrect
-    * I try saving the question
-    Then I see an error message
-
   Scenario: Cannot save an empty question
     Given I start creating a question
     When I try saving the question

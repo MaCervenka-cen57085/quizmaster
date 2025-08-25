@@ -1,7 +1,9 @@
 import type { DataTable } from '@cucumber/cucumber'
 import { expect } from '@playwright/test'
+
 import { Then, When } from '../fixture.ts'
 import type { QuizmasterWorld } from '../world'
+import { enterQuestion } from './ops.ts'
 
 Then('I see empty question field', async function () {
     const question = await this.questionEditPage.questionValue()
@@ -45,6 +47,14 @@ Then('I see 2 empty answer fields, incorrect, with empty explanations fields', a
 Then('I see empty question explanation field', async function () {
     const explanation = await this.questionEditPage.questionExplanation()
     expect(explanation).toBe('')
+})
+
+When('I enter question {string}', async function (question: string) {
+    await enterQuestion(this, question)
+})
+
+When('I enter answer {int} text {string}', async function (index: number, answer: string) {
+    await this.questionEditPage.enterAnswerText(index - 1, answer)
 })
 
 When('I attempt to save the question', async function () {

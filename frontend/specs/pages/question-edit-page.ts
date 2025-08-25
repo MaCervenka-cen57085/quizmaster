@@ -32,6 +32,7 @@ export class QuestionEditPage {
     answersLocator = () => this.page.locator('[id^=answer-text-]')
 
     answerTextLocator = (index: number) => this.page.locator(`#answer-text-${index}`)
+    enterAnswerText = (index: number, value: string) => this.answerTextLocator(index).fill(value)
     answerText = (index: number) => this.answerTextLocator(index).inputValue()
 
     markButton = (value: number) => this.page.locator(`#answer-checkbox-${value}`)
@@ -42,7 +43,7 @@ export class QuestionEditPage {
     }
 
     enterAnswer = async (index: number, value: string, correct: boolean, explanation: string) => {
-        await this.answerTextLocator(index).fill(value)
+        await this.enterAnswerText(index, value)
 
         if (explanation) await this.page.fill(`#answer-explanation-${index}`, explanation)
 
