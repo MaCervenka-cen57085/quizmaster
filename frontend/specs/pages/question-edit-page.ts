@@ -36,6 +36,7 @@ export class QuestionEditPage {
     answerText = (index: number) => this.answerTextLocator(index).inputValue()
 
     markButton = (value: number) => this.page.locator(`#answer-checkbox-${value}`)
+    isAnswerCorrect = (index: number) => this.markButton(index).isChecked()
     setAnswerCorrectness = (index: number, isCorrect: boolean) => this.markButton(index).setChecked(isCorrect)
 
     clearExplanation = async () => {

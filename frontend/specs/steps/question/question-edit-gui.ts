@@ -51,7 +51,7 @@ const expectAnswer = async (
     const editPage = world.questionEditPage
 
     expect(await editPage.answerText(index)).toBe(answer)
-    expect(await editPage.markButton(index).isChecked()).toBe(isCorrect)
+    expect(await editPage.isAnswerCorrect(index)).toBe(isCorrect)
     expect(await editPage.answerExplanation(index)).toBe(explanation)
 }
 
@@ -65,11 +65,16 @@ Then('I see 2 empty answer fields, incorrect, with empty explanations fields', a
     await expectEmptyAnswers(this, 1)
 })
 
+Then(/I see answer (\d+) as (correct|incorrect)/, async function (index: number, correctness: string) {
+    const isCorrect = correctness === 'correct'
+    expect(await this.questionEditPage.isAnswerCorrect(index - 1)).toBe(isCorrect)
+})
+
 Then(
     /I see answer (\d+) text "([^"]*)", (correct|incorrect), with explanation "([^"]*)"/,
     async function (index: number, answer: string, correctness: string, explanation: string) {
         await expectAnswer(this, index - 1, answer, correctness === 'correct', explanation)
-    }
+    },
 )
 
 Then('I see empty question explanation field', async function () {
@@ -86,6 +91,14 @@ Then('I see {string} in the question explanation field', async function (explana
 
 When('I enter question {string}', async function (question: string) {
     await enterQuestion(this, question)
+})
+
+When(/I mark the question as (single|multiple) choice/, async function (choice: string) {
+    if (choice === 'single') {
+        await this.questionEditPage.setSingleChoice()
+    } else {
+        await this.questionEditPage.setMultipleChoice()
+    }
 })
 
 When('I enter answer {int} text {string}', async function (index: number, answer: string) {
@@ -108,7 +121,7 @@ When(
     /I enter answer (\d+) text "([^"]*)", (correct|incorrect), with explanation "([^"]*)"/,
     async function (index: number, answer: string, correctness: string, explanation: string) {
         await enterAnswer(this, index - 1, answer, correctness === 'correct', explanation)
-    }
+    },
 )
 
 When('I add an additional answer', async function () {

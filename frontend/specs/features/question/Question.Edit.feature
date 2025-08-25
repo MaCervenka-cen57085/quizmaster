@@ -36,12 +36,12 @@ Feature: Edit question GUI
     * I see answer 3 text "It's Bratislava", correct, with explanation "Yes!"
     * I see "Slovakia is a country in Europe. Slovaks love borovička." in the question explanation field
 
-  Scenario: Multiple choice of correct answers
-    When I start editing question "Czechia"
-    When I mark a multiple choice
-    Then I see checkboxes for every answer
-    When I mark 2 checkbox
-    And I save it
-    And I refresh the page
-    Then I see answer 1 with marked checkbox
-    Then I see answer 2 with marked checkbox
+  Scenario: Change single choice to multiple choice
+    Given I start editing question "Czechia"
+    * I mark the question as multiple choice
+    * I mark answer 1 as correct
+    When I submit the question
+    * I refresh the page
+    Then I see answer 1 as correct
+    * I see answer 2 as correct
+    * I see answer 3 as incorrect
