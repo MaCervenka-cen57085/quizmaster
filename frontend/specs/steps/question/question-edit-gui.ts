@@ -1,7 +1,7 @@
 import type { DataTable } from '@cucumber/cucumber'
 import { expect } from '@playwright/test'
 
-import { Then, When } from '../fixture.ts'
+import { Given, Then, When } from '../fixture.ts'
 import type { QuizmasterWorld } from '../world'
 import {
     enterAnswer,
@@ -9,8 +9,13 @@ import {
     enterAnswerText,
     enterQuestion,
     markAnswerCorrectness,
+    openCreatePage,
     saveQuestion,
 } from './ops.ts'
+
+Given('I start creating a question', async function () {
+    await openCreatePage(this)
+})
 
 // Field assertions
 

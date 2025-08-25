@@ -3,15 +3,7 @@ import { expect } from '@playwright/test'
 
 import type { TableOf } from '../common.ts'
 import { Given, Then, When } from '../fixture.ts'
-import {
-    addAnswers,
-    createQuestion,
-    enterAnswer,
-    enterQuestion,
-    openCreatePage,
-    saveQuestion,
-    type AnswerRaw,
-} from './ops.ts'
+import { addAnswers, createQuestion, enterQuestion, openCreatePage, saveQuestion, type AnswerRaw } from './ops.ts'
 
 Given('a question {string}', async function (question: string) {
     await openCreatePage(this)
@@ -57,33 +49,8 @@ Given('saved and bookmarked as {string}', async function (bookmark) {
     await saveQuestion(this, bookmark)
 })
 
-Given('I start creating a question', async function () {
-    await openCreatePage(this)
-})
-
-When(/^I add the answer "(.*)" marked as (correct|incorrect)$/, async function (answer: string, correct: string) {
-    await enterAnswer(this, this.nextAnswerIdx++, answer, correct === 'correct', '')
-})
-
-When(
-    /^I add the answer "(.*)" marked as (correct|incorrect) with an explanantion "(.*)"$/,
-    async function (answer: string, correct: string, explanation: string) {
-        await enterAnswer(this, this.nextAnswerIdx++, answer, correct === 'correct', explanation)
-    },
-)
-
-When('I edit the question', async function () {
-    await this.page.goto(this.questionWip.editUrl)
-    // this.activeBookmark = 'manual'
-})
-
 Then('I see a link to take the question', async function () {
     const url = await this.questionEditPage.questionUrl()
-    expect(url).not.toBe('')
-})
-
-Then('I see a link to edit the question', async function () {
-    const url = await this.questionEditPage.questionEditUrl()
     expect(url).not.toBe('')
 })
 
