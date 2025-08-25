@@ -42,7 +42,7 @@ Given('questions', async function (data: DataTable) {
 })
 
 Given('with multi-choice selected', async function () {
-    await this.createQuestionPage.setMultipleChoice()
+    await this.questionEditPage.setMultipleChoice()
 })
 
 Given('with answers:', async function (answerRawTable: TableOf<AnswerRaw>) {
@@ -50,7 +50,7 @@ Given('with answers:', async function (answerRawTable: TableOf<AnswerRaw>) {
 })
 
 Given('with explanation {string}', async function (explanation: string) {
-    await this.createQuestionPage.enterQuestionExplanation(explanation)
+    await this.questionEditPage.enterQuestionExplanation(explanation)
     this.questionWip.explanation = explanation
 })
 
@@ -86,7 +86,7 @@ When('I save the question', async function () {
 })
 
 When('I take the question', async function () {
-    await this.createQuestionPage.followQuestionUrl()
+    await this.questionEditPage.followQuestionUrl()
     this.activeQuestionBookmark = 'manual'
 })
 
@@ -96,41 +96,41 @@ When('I edit the question', async function () {
 })
 
 When('I try saving the question', async function () {
-    await this.createQuestionPage.submit()
+    await this.questionEditPage.submit()
 })
 
 Then('I see a link to take the question', async function () {
-    const url = await this.createQuestionPage.questionUrl()
+    const url = await this.questionEditPage.questionUrl()
     expect(url).not.toBe('')
 })
 
 Then('I see a link to edit the question', async function () {
-    const url = await this.createQuestionPage.questionEditUrl()
+    const url = await this.questionEditPage.questionEditUrl()
     expect(url).not.toBe('')
 })
 
 Then('I see an error message', async function () {
-    const errorMessage = await this.createQuestionPage.errorMessage()
+    const errorMessage = await this.questionEditPage.errorMessage()
     expect(errorMessage).not.toBe('')
 })
 
 Then('I see 2 answers', async function () {
-    await expect(this.createQuestionPage.answerTextLocator(0)).toBeVisible()
-    await expect(this.createQuestionPage.answerTextLocator(1)).toBeVisible()
+    await expect(this.questionEditPage.answerTextLocator(0)).toBeVisible()
+    await expect(this.questionEditPage.answerTextLocator(1)).toBeVisible()
 })
 
 Then(/^Multiple choice is (checked|unchecked)$/, async function (state: string) {
     const expected = state === 'checked'
-    const isChecked = await this.createQuestionPage.isMultipleChoice()
+    const isChecked = await this.questionEditPage.isMultipleChoice()
     expect(isChecked).toBe(expected)
 })
 
 Then('I see empty question', async function () {
-    expect(await this.createQuestionPage.questionValue()).toBe('')
+    expect(await this.questionEditPage.questionValue()).toBe('')
 })
 
 When('I click is-correct checkbox for {string}', async function (answer: string) {
-    await this.createQuestionPage.isCorrectCheckboxLocator(answer).click()
+    await this.questionEditPage.isCorrectCheckboxLocator(answer).click()
 })
 
 Then(/^I see the answers$/, async function (data: DataTable) {
@@ -138,7 +138,7 @@ Then(/^I see the answers$/, async function (data: DataTable) {
         const answer = row[0]
         const shouldBeChecked = row[1] === '*'
 
-        const checkbox = this.createQuestionPage.isCorrectCheckboxLocator(answer)
+        const checkbox = this.questionEditPage.isCorrectCheckboxLocator(answer)
         const isChecked = await checkbox.isChecked()
 
         expect(isChecked, `Answer: ${answer} should be ${shouldBeChecked}`).toBe(shouldBeChecked)
@@ -146,7 +146,7 @@ Then(/^I see the answers$/, async function (data: DataTable) {
 })
 
 Then('Is correct checkboxes look like radio buttons', async function () {
-    const checkboxes = this.createQuestionPage.isCorrectCheckboxesLocator()
+    const checkboxes = this.questionEditPage.isCorrectCheckboxesLocator()
     const elements = await checkboxes.all()
     for (const element of elements) {
         const className = await element.getAttribute('class')
@@ -156,14 +156,14 @@ Then('Is correct checkboxes look like radio buttons', async function () {
 
 Then(/^Easy mode checkbox is (checked|unchecked)$/, async function (state: string) {
     const expected = state === 'checked'
-    const isChecked = await this.createQuestionPage.isEasyModeChoice()
+    const isChecked = await this.questionEditPage.isEasyModeChoice()
     expect(isChecked).toBe(expected)
 })
 
 When(/^I make the question (single|multi)-choice$/, async function (type: string) {
     if (type === 'single') {
-        await this.createQuestionPage.setSingleChoice()
+        await this.questionEditPage.setSingleChoice()
     } else {
-        await this.createQuestionPage.setMultipleChoice()
+        await this.questionEditPage.setMultipleChoice()
     }
 })

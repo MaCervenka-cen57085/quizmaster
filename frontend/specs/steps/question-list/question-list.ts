@@ -9,13 +9,13 @@ const openQuestionList = async (world: QuizmasterWorld, guid: string) => {
 
 const createQuestionToList = async (world: QuizmasterWorld, question: string) => {
     await world.questionListPage.createNewQuestion()
-    await world.createQuestionPage.enterQuestion(question)
+    await world.questionEditPage.enterQuestion(question)
     world.questionWip.question = question
-    await world.createQuestionPage.enterAnswer(0, 'Ne', true, '')
+    await world.questionEditPage.enterAnswer(0, 'Ne', true, '')
     world.questionWip.answers[0] = { answer: 'Ne', isCorrect: true, explanation: 'ne' }
-    await world.createQuestionPage.enterAnswer(1, 'Ano', false, '')
+    await world.questionEditPage.enterAnswer(1, 'Ano', false, '')
     world.questionWip.answers[1] = { answer: 'Ano', isCorrect: false, explanation: 'jo' }
-    await world.createQuestionPage.submit()
+    await world.questionEditPage.submit()
 }
 
 const createQuestionList = async (world: QuizmasterWorld, title: string) => {
@@ -64,7 +64,7 @@ Then('I see {string} form', async function (title: string) {
 When('I click Edit button for question {string}', async function (question: string) {
     const editButton = this.page.locator('.question-item', { hasText: question }).locator('.edit-button button')
     await editButton.click()
-    await this.createQuestionPage.waitForLoaded()
+    await this.questionEditPage.waitForLoaded()
 })
 
 Then('I see {string} editable form', async function (title: string) {
