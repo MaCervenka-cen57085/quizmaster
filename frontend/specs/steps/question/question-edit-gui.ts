@@ -5,6 +5,8 @@ import { Then, When } from '../fixture.ts'
 import type { QuizmasterWorld } from '../world'
 import { enterQuestion } from './ops.ts'
 
+// Field assertions
+
 Then('I see empty question field', async function () {
     const question = await this.questionEditPage.questionValue()
     expect(question).toBe('')
@@ -49,6 +51,8 @@ Then('I see empty question explanation field', async function () {
     expect(explanation).toBe('')
 })
 
+// Field edits
+
 When('I enter question {string}', async function (question: string) {
     await enterQuestion(this, question)
 })
@@ -76,6 +80,8 @@ When('I add an additional answer', async function () {
 When('I attempt to save the question', async function () {
     await this.questionEditPage.submit()
 })
+
+// Error messages assertions
 
 const expectErrorCount = async (world: QuizmasterWorld, n: number) => {
     const errorCount = await world.questionEditPage.errorMessageCount()
