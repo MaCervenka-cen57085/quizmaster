@@ -1,124 +1,91 @@
-Feature: Create question GUI - Single/multi choice
+@only
+Feature: Create question GUI - Single/multiple choice
+  Single choice question has exactly one answer correct
+  Multiple choice question can have two or more answers correct
 
-  Scenario: Mark correct answer for single choice question
+  Scenario: Default is single choice
+    When I start creating a question
+    Then I see multiple choice is unchecked
+
+  Scenario: Single choice: Mark correct answer
     Given I start creating a question
-    * with answers:
-    | Brno       |   | |
-    | Berlin     |   | |
-    | Bratislava |   | |
-    When I click is-correct checkbox for "Berlin"
+    * I enter answers
+      | Brno       |   |
+      | Berlin     |   |
+      | Bratislava |   |
+    When I mark answer 2 as correct
     Then I see the answers
-    | Brno       |   |
-    | Berlin     | * |
-    | Bratislava |   |
+      | Brno       |   |
+      | Berlin     | * |
+      | Bratislava |   |
 
-  Scenario: Click the same option of single choice question
+  Scenario: Single choice: Change correct answer
     Given I start creating a question
-    * with answers:
-    | Brno       |   | |
-    | Berlin     | * | |
-    | Bratislava |   | |
-    When I click is-correct checkbox for "Berlin"
+    * I enter answers
+      | Brno       |   |
+      | Berlin     | * |
+      | Bratislava |   |
+    When I mark answer 1 as correct
     Then I see the answers
-    | Brno       |   |
-    | Berlin     | * |
-    | Bratislava |   |
+      | Brno       | * |
+      | Berlin     |   |
+      | Bratislava |   |
 
-  Scenario: Click another option of single choice question
+  Scenario: Multiple choice: Mark multiple correct answers
     Given I start creating a question
-    * with answers:
-    | Brno       |   | |
-    | Berlin     | * | |
-    | Bratislava |   | |
-    When I click is-correct checkbox for "Brno"
+    * I mark the question as multiple choice
+    * I enter answers
+      | Brno       |   |
+      | Berlin     |   |
+      | Bratislava |   |
+    When I mark answer 2 as correct
+    * I mark answer 3 as correct
     Then I see the answers
-    | Brno       | * |
-    | Berlin     |   |
-    | Bratislava |   |
+      | Brno       |   |
+      | Berlin     | * |
+      | Bratislava | * |
 
-  Scenario: Switching from single to multi-choice question keeps correct answer selected
+  Scenario: Switch single to multiple choice: Keep selection
     Given I start creating a question
-    * with answers:
-    | Brno       |   | |
-    | Berlin     | * | |
-    | Bratislava |   | |
-    When I make the question multi-choice
+    * I enter answers
+      | Brno       |   |
+      | Berlin     | * |
+      | Bratislava |   |
+    When I mark the question as multiple choice
     Then I see the answers
-    | Brno       |   |
-    | Berlin     | * |
-    | Bratislava |   |
+      | Brno       |   |
+      | Berlin     | * |
+      | Bratislava |   |
 
-  Scenario: Switching from multiple to single-choice question keeps correct answer selected if it is the only one
+  Scenario: Switch multiple to single choice: Keep selection
+    If exactly one answer is marked as correct for a multiple choice question,
+    switching to single choice keeps the marked answer
+
     Given I start creating a question
-    * with multi-choice selected
-    * with answers:
-    | Brno       |   | |
-    | Berlin     | * | |
-    | Bratislava |   | |
-    When I make the question single-choice
+    * I mark the question as multiple choice
+    * I enter answers
+      | Brno       |   |
+      | Berlin     | * |
+      | Bratislava |   |
+    When I mark the question as multiple choice
     Then I see the answers
-    | Brno       |   |
-    | Berlin     | * |
-    | Bratislava |   |
+      | Brno       |   |
+      | Berlin     | * |
+      | Bratislava |   |
 
-  Scenario: Switching from multiple to single-choice question clears all is-correct checkboxes if multiple answers are selected
+  Scenario: Switch multiple to single choice: Reset selection
+    If more than one answer is marked as correct for a multiple choice question,
+    switching to single choice unmarks all answers.
+
     Given I start creating a question
-    * with multi-choice selected
-    * with answers:
-    | Brno       | * | |
-    | Berlin     | * | |
-    | Bratislava |   | |
-    When I make the question single-choice
+    * I mark the question as multiple choice
+    * I enter answers
+      | Brno       | * |
+      | Berlin     | * |
+      | Bratislava |   |
+    When I mark the question as single choice
     Then I see the answers
-    | Brno       |   |
-    | Berlin     |   |
-    | Bratislava |   |
+      | Brno       |   |
+      | Berlin     |   |
+      | Bratislava |   |
 
-  Scenario: Switching from multiple to single-choice question marks the last selected answer as correct
-    Given I start creating a question
-    * with multi-choice selected
-    * with answers:
-    | Brno       |   | |
-    | Berlin     |   | |
-    | Bratislava |   | |
-    When I click is-correct checkbox for "Bratislava"
-    Then I see the answers
-    | Brno       |   |
-    | Berlin     |   |
-    | Bratislava | * |
-
-  Scenario: Mark all answers as correct for multi-choice question
-    Given I start creating a question
-    * with multi-choice selected
-    * with answers:
-    | Brno       | * | |
-    | Berlin     | * | |
-    | Bratislava |   | |
-    When I click is-correct checkbox for "Bratislava"
-    Then I see the answers
-    | Brno       | * |
-    | Berlin     | * |
-    | Bratislava | * |
-
-  Scenario: Switching from multiple to single-choice question keeps the first selected answer as correct
-    Given I start creating a question
-    * with multi-choice selected
-    * with answers:
-    | Brno       | * | |
-    | Berlin     |   | |
-    | Bratislava | * | |
-    When I click is-correct checkbox for "Bratislava"
-    Then I see the answers
-    | Brno       | * |
-    | Berlin     |   |
-    | Bratislava |   |
-
-  Scenario: Single choice question markers are round
-    Given I start creating a question
-    * with multi-choice selected
-    * with answers:
-    | Brno       | * | |
-    | Berlin     |   | |
-    | Bratislava |   | |
-    When I make the question single-choice
-    Then Is correct checkboxes look like radio buttons

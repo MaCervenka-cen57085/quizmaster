@@ -4,6 +4,8 @@ import { expect } from '@playwright/test'
 import { Given, Then, When } from '../fixture.ts'
 import type { QuizmasterWorld } from '../world'
 import {
+    addAnswers,
+    type AnswerRaw,
     enterAnswer,
     enterAnswerExplanation,
     enterAnswerText,
@@ -15,6 +17,7 @@ import {
     saveQuestion,
     submitQuestion,
 } from './ops.ts'
+import type { TableOf } from '../common.ts'
 
 Given('I start creating a question', async function () {
     await openCreatePage(this)
@@ -128,6 +131,10 @@ When(
         await enterAnswer(this, index - 1, answer, correctness === 'correct', explanation)
     },
 )
+
+Given('I enter answers', async function (answerRawTable: TableOf<AnswerRaw>) {
+    await addAnswers(this, answerRawTable)
+})
 
 When('I add an additional answer', async function () {
     await this.questionEditPage.addAdditionalAnswer()
