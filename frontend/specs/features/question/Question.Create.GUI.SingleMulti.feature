@@ -1,4 +1,3 @@
-@only
 Feature: Create question GUI - Single/multiple choice
   Single choice question has exactly one answer correct
   Multiple choice question can have two or more answers correct
@@ -88,4 +87,3 @@ Feature: Create question GUI - Single/multiple choice
       | Brno       |   |
       | Berlin     |   |
       | Bratislava |   |
-
