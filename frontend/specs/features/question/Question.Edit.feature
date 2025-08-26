@@ -3,9 +3,9 @@ Feature: Edit question GUI
   Background:
     Given a question "What is the capital of Czech Republic?"
     * with answers:
-      | Brno       |   | No Brno  |
-      | Prague     | * | Yes      |
-      | Berlin     |   | Germany  |
+      | Brno   |   | No Brno |
+      | Prague | * | Yes     |
+      | Berlin |   | Germany |
     * with explanation "Czechia is a country in Europe. Czechs love beer."
     * saved and bookmarked as "Czechia"
 
@@ -13,9 +13,10 @@ Feature: Edit question GUI
     When I start editing question "Czechia"
     Then I see "What is the capital of Czech Republic?" in the question field
     * I see multiple choice is unchecked
-    * I see answer 1 text "Brno", incorrect, with explanation "No Brno"
-    * I see answer 2 text "Prague", correct, with explanation "Yes"
-    * I see answer 3 text "Berlin", incorrect, with explanation "Germany"
+    * I see the answers fields
+      | Brno   |   | No Brno |
+      | Prague | * | Yes     |
+      | Berlin |   | Germany |
     * I see "Czechia is a country in Europe. Czechs love beer." in the question explanation field
 
   Scenario: Edit all fields
@@ -32,9 +33,10 @@ Feature: Edit question GUI
 
     Then I see "What is the capital of Slovakia?" in the question field
     * I see multiple choice is unchecked
-    * I see answer 1 text "It's Brno", incorrect, with explanation "No, it's not Brno"
-    * I see answer 2 text "It's Prague", incorrect, with explanation "No, it's not Prague"
-    * I see answer 3 text "It's Bratislava", correct, with explanation "Yes!"
+    * I see the answers fields
+      | It's Brno       |   | No, it's not Brno   |
+      | It's Prague     |   | No, it's not Prague |
+      | It's Bratislava | * | Yes!                |
     * I see "Slovakia is a country in Europe. Slovaks love borovička." in the question explanation field
 
   Scenario: Change single choice to multiple choice

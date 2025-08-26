@@ -15,8 +15,9 @@ Feature: Create question GUI
 
     Given I start creating a question
     * I enter question "2 + 2 = ?"
-    * I enter answer 1 text "4" and mark it as correct
-    * I enter answer 2 text "5"
+    * I enter answers
+      | 4 | * |
+      | 5 |   |
 
     When I attempt to save the question
     Then I see quiz take URL and quiz edit URL
