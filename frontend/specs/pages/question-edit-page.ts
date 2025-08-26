@@ -40,11 +40,13 @@ export class QuestionEditPage {
     private answerIsCorrectLocator = (index: number) =>
         this.answerRowLocator(index).locator('input[type="checkbox"], input[type="radio"]')
     isAnswerCorrect = (index: number) => this.answerIsCorrectLocator(index).isChecked()
-    setAnswerCorrectness = (index: number, isCorrect: boolean) => this.answerIsCorrectLocator(index).setChecked(isCorrect)
+    setAnswerCorrectness = (index: number, isCorrect: boolean) =>
+        this.answerIsCorrectLocator(index).setChecked(isCorrect)
 
     private answerExplanationLocator = (index: number) => this.answerRowLocator(index).locator('input.explanation')
     answerExplanation = (index: number) => this.answerExplanationLocator(index).inputValue()
-    enterAnswerExplanation = (index: number, explanation: string) => this.answerExplanationLocator(index).fill(explanation)
+    enterAnswerExplanation = (index: number, explanation: string) =>
+        this.answerExplanationLocator(index).fill(explanation)
 
     enterAnswer = async (index: number, value: string, correct: boolean, explanation: string) => {
         await this.enterAnswerText(index, value)
