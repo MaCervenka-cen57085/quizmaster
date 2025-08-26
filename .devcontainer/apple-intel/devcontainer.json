@@ -1,13 +1,16 @@
 {
   // QuizMaster (Apple Intel / x86_64) single-container development environment
   // Uses the prebuilt multi-arch image that bundles: Java 21, Node 22 + pnpm, PostgreSQL 16, Playwright
-  // This runs everything in ONE container and avoids prompts/passwords.
+  // This sets up Java 21, Node 22 + pnpm, PostgreSQL 16, and Playwright automatically in a single container.
   "name": "QuizMaster (Apple Intel / x86_64 Container)",
   // Use a local image tag (same pattern as Apple Silicon) and build it if missing
   "image": "quizmaster-dev-apple-intel:latest",
   "initializeCommand": "bash -lc 'docker image inspect quizmaster-dev-apple-intel:latest >/dev/null 2>&1 || docker build -t quizmaster-dev-apple-intel:latest -f .devcontainer/apple-intel/Dockerfile .devcontainer/apple-intel'",
   "remoteUser": "vscode",
-  "runArgs": ["--name", "QuizMaster-Dev"],
+  "runArgs": [
+    "--name", "QuizMaster-Dev",
+    "-v", "quizmaster-postgres-data:/var/lib/postgresql/data"
+  ],
   "overrideCommand": true,
   "forwardPorts": [2222, 3333, 5173, 5432, 8080],
   // Start bundled services (PostgreSQL, etc.) when the container starts
