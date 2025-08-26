@@ -6,7 +6,6 @@ import {
     QuizQuestionPage,
     TakeQuestionPage,
     QuizScorePage,
-    CreateQuizPage,
     QuizWelcomePage,
     QuestionListPage,
     HomePage,
@@ -25,12 +24,10 @@ export class QuizmasterWorld {
         this.quizQuestionPage = new QuizQuestionPage(this.page)
         this.quizWelcomePage = new QuizWelcomePage(this.page)
         this.quizScorePage = new QuizScorePage(this.page)
-        this.createQuizPage = new CreateQuizPage(this.page)
         this.questionListPage = new QuestionListPage(this.page)
         this.homePage = new HomePage(this.page)
     }
 
-    readonly createQuizPage: CreateQuizPage
     readonly questionEditPage: QuestionEditPage
     readonly createQuestionListPage: CreateQuestionListPage
     readonly takeQuestionPage: TakeQuestionPage
