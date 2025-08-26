@@ -162,7 +162,7 @@ When('I save the question', async function () {
     await saveQuestion(this, 'manual')
 })
 
-Then('I see quiz take URL and quiz edit URL', async function () {
+Then('I see question-take URL and question-edit URL', async function () {
     const takeUrl = await this.questionEditPage.questionUrl()
     const editUrl = await this.questionEditPage.questionEditUrl()
 

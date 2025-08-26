@@ -20,4 +20,4 @@ Feature: Create question GUI
       | 5 |   |
 
     When I attempt to save the question
-    Then I see quiz take URL and quiz edit URL
+    Then I see question-take URL and question-edit URL
