@@ -85,6 +85,15 @@ Then(
     },
 )
 
+Then(/^I see the answers fields$/, async function (data: TableOf<AnswerRaw>) {
+    const answers = data.raw()
+    let i = 0
+
+    for (const [answer, star, explanation] of answers) {
+        await expectAnswer(this, i++, answer, star === '*', explanation || '')
+    }
+})
+
 Then('I see empty question explanation field', async function () {
     const explanation = await this.questionEditPage.questionExplanation()
     expect(explanation).toBe('')

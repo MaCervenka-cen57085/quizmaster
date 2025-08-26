@@ -13,7 +13,7 @@ Feature: Create question GUI - Single/multiple choice
       | Berlin     |   |
       | Bratislava |   |
     When I mark answer 2 as correct
-    Then I see the answers
+    Then I see the answers fields
       | Brno       |   |
       | Berlin     | * |
       | Bratislava |   |
@@ -25,7 +25,7 @@ Feature: Create question GUI - Single/multiple choice
       | Berlin     | * |
       | Bratislava |   |
     When I mark answer 1 as correct
-    Then I see the answers
+    Then I see the answers fields
       | Brno       | * |
       | Berlin     |   |
       | Bratislava |   |
@@ -39,7 +39,7 @@ Feature: Create question GUI - Single/multiple choice
       | Bratislava |   |
     When I mark answer 2 as correct
     * I mark answer 3 as correct
-    Then I see the answers
+    Then I see the answers fields
       | Brno       |   |
       | Berlin     | * |
       | Bratislava | * |
@@ -51,7 +51,7 @@ Feature: Create question GUI - Single/multiple choice
       | Berlin     | * |
       | Bratislava |   |
     When I mark the question as multiple choice
-    Then I see the answers
+    Then I see the answers fields
       | Brno       |   |
       | Berlin     | * |
       | Bratislava |   |
@@ -67,7 +67,7 @@ Feature: Create question GUI - Single/multiple choice
       | Berlin     | * |
       | Bratislava |   |
     When I mark the question as multiple choice
-    Then I see the answers
+    Then I see the answers fields
       | Brno       |   |
       | Berlin     | * |
       | Bratislava |   |
@@ -83,7 +83,7 @@ Feature: Create question GUI - Single/multiple choice
       | Berlin     | * |
       | Bratislava |   |
     When I mark the question as single choice
-    Then I see the answers
+    Then I see the answers fields
       | Brno       |   |
       | Berlin     |   |
       | Bratislava |   |

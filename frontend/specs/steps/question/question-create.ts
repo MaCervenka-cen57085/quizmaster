@@ -49,15 +49,3 @@ Then('I see an error message', async function () {
     const errorMessage = await this.questionEditPage.errorMessage()
     expect(errorMessage).not.toBe('')
 })
-
-Then(/^I see the answers$/, async function (data: DataTable) {
-    for (const row of data.rows()) {
-        const answer = row[0]
-        const shouldBeChecked = row[1] === '*'
-
-        const checkbox = this.questionEditPage.isCorrectCheckboxLocator(answer)
-        const isChecked = await checkbox.isChecked()
-
-        expect(isChecked, `Answer: ${answer} should be ${shouldBeChecked}`).toBe(shouldBeChecked)
-    }
-})
