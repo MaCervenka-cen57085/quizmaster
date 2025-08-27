@@ -29,7 +29,7 @@ Content-Type: application/json
 
 {
     "id": 2,
-    "question": "Which of the following is a key practice of Specification by Example?",
+    "question": "Which of the following are key practices of Specification by Example?",
     "answers": [
         "Defining acceptance criteria using examples.",
         "Creating detailed technical specifications upfront.",
@@ -53,7 +53,7 @@ Content-Type: application/json
 
 {
     "id": 3,
-    "question": "What is an advantage of using examples in Specification by Example?",
+    "question": "What are the advantages of using examples in Specification by Example?",
     "answers": [
         "It eliminates the need for communication between stakeholders.",
         "It reduces misunderstandings about requirements.",
