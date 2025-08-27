@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Optional;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -89,23 +88,6 @@ public class QuizControllerTest {
     }
 
     @Test
-    public void getQuizList() {
-        int quizId = createQuiz(createQuizInput());
-
-        ResponseEntity<QuizListResponse> response = quizController.getQuizList();
-        assertNotNull(response);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-
-        QuizListResponse body = response.getBody();
-        assertNotNull(body);
-
-        List<Quiz> quizzes = body.getQuizzes();
-        assertNotNull(quizzes);
-        assertTrue(quizzes.size() > 0);
-        assertTrue(quizzes.stream().anyMatch(q -> quizId == q.getId()));
-    }
-
-    @Test
     public void deleteQuiz_Success() {
         // Create a quiz first
         int quizId = createQuiz(createQuizInput());
@@ -133,7 +115,7 @@ public class QuizControllerTest {
     @Test
     public void deleteQuiz_InvalidId() {
         // Try to delete with invalid ID
-        ResponseEntity<Void> response = quizController.deleteQuiz(-1);
+        ResponseEntity<Void> response = quizController.deleteQuiz(-100000);
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 }

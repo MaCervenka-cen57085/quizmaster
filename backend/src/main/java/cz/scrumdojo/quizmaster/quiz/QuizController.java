@@ -174,17 +174,6 @@ public class QuizController {
     }
 
     @Transactional
-    @GetMapping("/quiz/list")
-    public ResponseEntity<QuizListResponse> getQuizList() {
-        var quizList = this.quizRepository.findAll();
-
-        QuizListResponse response = QuizListResponse.builder()
-            .quizzes(quizList)
-            .build();
-        return ResponseEntity.ok(response);
-    }
-
-    @Transactional
     @DeleteMapping("/quiz/{id}")
     public ResponseEntity<Void> deleteQuiz(@PathVariable Integer id) {
         try {

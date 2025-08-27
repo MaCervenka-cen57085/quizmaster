@@ -8,9 +8,6 @@ import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.beans.Transient;
-import java.util.Base64;
-import java.util.logging.Logger;
 import java.util.UUID;
 
 @SpringBootTest
@@ -145,7 +142,4 @@ public class QuizQuestionControllerTest {
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
-
-
-
 }

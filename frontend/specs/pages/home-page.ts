@@ -37,5 +37,4 @@ export class HomePage {
 
         return questionHref === '/question/new' && questionListHref === '/q-list/new'
     }
-
 }
