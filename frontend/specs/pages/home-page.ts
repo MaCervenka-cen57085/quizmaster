@@ -38,38 +38,4 @@ export class HomePage {
         return questionHref === '/question/new' && questionListHref === '/q-list/new'
     }
 
-    hasQuizGrid = async () => {
-        const quizGrid = this.page.locator('.quiz-grid')
-        await quizGrid.waitFor({ state: 'visible' })
-
-        // Check for multiple quiz cards
-        const quizCards = quizGrid.locator('.quiz-card')
-        const cardCount = await quizCards.count()
-
-        // Return true if there are multiple quiz cards
-        return cardCount > 0
-    }
-
-    getQuizCardCount = async () => {
-        const quizGrid = this.page.locator('.quiz-grid')
-        const quizCards = quizGrid.locator('.quiz-card')
-        return await quizCards.count()
-    }
-
-    // Add specific methods for each element type
-    getFirstQuizCardTitle = () => {
-        return this.page.locator('.quiz-grid .quiz-card').first().locator('h4')
-    }
-
-    getFirstQuizCardDescription = () => {
-        return this.page.locator('.quiz-grid .quiz-card').first().locator('p').first()
-    }
-
-    getFirstQuizCardPassScore = () => {
-        return this.page.locator('.quiz-grid .quiz-card').first().locator('p').nth(1)
-    }
-
-    getFirstQuizCardButton = () => {
-        return this.page.locator('.quiz-grid .quiz-card').first().locator('button')
-    }
 }
