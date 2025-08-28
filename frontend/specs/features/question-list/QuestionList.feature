@@ -26,3 +26,9 @@ Feature: Question list
     When I create new question to list "Xquestion"
     And I click Edit button for question "Xquestion"
     Then I see "Xquestion" editable form
+
+  @skip
+  Scenario: Add existing question to question list
+    Given I saved the question list "X"
+    When I add an existing question "Xquestion" to the list "X"
+    Then I see "Xquestion" in list "X"
