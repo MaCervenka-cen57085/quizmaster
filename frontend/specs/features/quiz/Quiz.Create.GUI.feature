@@ -8,3 +8,8 @@ Feature: Create quiz GUI
     * I see empty question list field
     * I see empty pass score field
     * I see empty time limit field
+
+  @only
+  Scenario: Super draft values (only submit button)
+    When I start creating a quiz
+    Then I see the quiz submit button as active

@@ -10,6 +10,8 @@ import { CreateQuestionListContainer } from 'pages/create-question-list/create-q
 import { EditQuestionContainer } from 'pages/create-question/edit-question-container'
 import { QuestionListContainer } from 'pages/question-list/question-list-container'
 
+import { CreateQuizContainer } from 'pages/create-quiz/create-quiz-container'
+
 export const App = () => (
     <BrowserRouter>
         <Routes>
@@ -17,6 +19,7 @@ export const App = () => (
             <Route path="/q-list/new" element={<CreateQuestionListContainer />} />
             <Route path="/q-list/:id" element={<QuestionListContainer />} />
             <Route path="/quiz/:id" element={<QuizWelcomePage />} />
+            <Route path="/quiz/new/" element={<CreateQuizContainer/>} />
             <Route path="/quiz/:id/questions" element={<QuizPage />} />
             <Route path="/question/:id/edit" element={<EditQuestionContainer />} />
             <Route path="/question/:id" element={<QuestionTakePage />} />

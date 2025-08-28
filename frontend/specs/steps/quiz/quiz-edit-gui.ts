@@ -51,6 +51,11 @@ Then('I see empty time limit field', async function () {
     expect(timeLimit).toBe('')
 })
 
+Then('I see the quiz submit button as active', async function () {
+    const isSubmitButtonActive = await this.quizEditPage.isSubmitButtonActive()
+    expect(isSubmitButtonActive).toBe(true)
+})
+
 //  Then('I see {string} in the quiz field', async function (quiz: string) {
 //      const quizValue = await this.quizEditPage.quizValue()
 //      expect(quizValue).toBe(quiz)
