@@ -25,6 +25,12 @@ To build the front end, run the following command in the `frontend` directory:
 pnpm run build
 ```
 
+To lint the frontend before committing, set the "lnt" alias with the following line:
+```sh
+alias lnt='npx @biomejs/biome lint --fix && npx @biomejs/biome format --write'
+```
+Now, you'll be able to use the "lnt" command to fix any remaining linting/formatting errors.
+
 The front end is built to the `backend/src/main/resources/static` directory
 and becomes part of the JAR assembly.
 
