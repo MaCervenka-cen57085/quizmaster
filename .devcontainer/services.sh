@@ -22,14 +22,34 @@ debug_postgres_state() {
   echo "[debug] Checking PostgreSQL state..."
   echo "[debug] PGDATA: $PGDATA"
   echo "[debug] PGBIN: $PGBIN"
+  echo "[debug] Current user: $(whoami)"
+  echo "[debug] Current working directory: $(pwd)"
+  echo "[debug] Volume mount check:"
+  mount | grep postgresql || echo "[debug] No postgresql mounts found"
+  echo "[debug] Docker volume inspection:"
+  docker volume ls | grep postgres || echo "[debug] No postgres volumes found"
 
   if [[ -d "$PGDATA" ]]; then
     echo "[debug] PGDATA directory exists"
+    echo "[debug] Directory permissions: $(ls -ld "$PGDATA")"
+    echo "[debug] Directory owner: $(stat -c '%U:%G' "$PGDATA" 2>/dev/null || echo 'stat failed')"
+
     if [[ -s "$PGDATA/PG_VERSION" ]]; then
       echo "[debug] PG_VERSION exists: $(cat "$PGDATA/PG_VERSION")"
     else
       echo "[debug] PG_VERSION missing or empty"
     fi
+
+    # Check for other important files
+    echo "[debug] Checking for essential PostgreSQL files:"
+    for file in base global pg_hba.conf postgresql.conf; do
+      if [[ -e "$PGDATA/$file" ]]; then
+        echo "[debug] ✓ $file exists"
+      else
+        echo "[debug] ✗ $file missing"
+      fi
+    done
+
     echo "[debug] Directory contents:"
     sudo ls -la "$PGDATA" | head -10
   else
@@ -37,24 +57,65 @@ debug_postgres_state() {
   fi
 }
 
+# More robust check for valid PostgreSQL data directory
+is_valid_postgres_data() {
+  local pgdata="$1"
+
+  # Check if PG_VERSION exists and contains expected version
+  if [[ ! -s "$pgdata/PG_VERSION" ]]; then
+    echo "[DEBUG] PG_VERSION file missing or empty"
+    return 1
+  fi
+
+  local version=$(cat "$pgdata/PG_VERSION")
+  if [[ "$version" != "$POSTGRES_VERSION" ]]; then
+    echo "[DEBUG] PG_VERSION mismatch: expected $POSTGRES_VERSION, found $version"
+    return 1
+  fi
+
+  # Check for other essential PostgreSQL files
+  if [[ ! -d "$pgdata/base" ]] || [[ ! -d "$pgdata/global" ]]; then
+    echo "[DEBUG] Essential PostgreSQL directories missing (base or global)"
+    return 1
+  fi
+
+  # Check if postmaster.pid exists (indicates running instance)
+  if [[ -f "$pgdata/postmaster.pid" ]]; then
+    echo "[DEBUG] postmaster.pid exists - PostgreSQL is running, data directory is valid"
+    return 0
+  fi
+
+  echo "[DEBUG] PostgreSQL data directory appears valid"
+  return 0
+}
+
 ensure_postgres_initialized() {
   echo "[DEBUG] Entering ensure_postgres_initialized function"
-
+  echo "[DEBUG] Returning from ensure_postgres_initialized function without doing anything"
+  return 0
   # If PostgreSQL data directory already exists and contains valid data, skip initialization
-  if [[ -s "$PGDATA/PG_VERSION" ]]; then
-    echo "[DEBUG] PG_VERSION exists and is not empty, skipping initialization"
+  if is_valid_postgres_data "$PGDATA"; then
+    echo "[DEBUG] PostgreSQL data directory is valid, skipping initialization"
     echo "[services] PostgreSQL data directory already exists with version $(cat "$PGDATA/PG_VERSION"), skipping initialization"
     return 0
   fi
 
-  echo "[DEBUG] PG_VERSION check failed, checking directory existence"
+  echo "[DEBUG] PostgreSQL data validation failed, checking directory existence"
 
   # If directory exists but doesn't contain valid PostgreSQL data, clean up contents
   if [[ -d "$PGDATA" ]]; then
-    echo "[DEBUG] Directory exists but PG_VERSION check failed, cleaning up contents..."
+    echo "[DEBUG] Directory exists but PostgreSQL data validation failed, cleaning up contents..."
     echo "[services] PostgreSQL data directory exists but is invalid, cleaning up contents..."
-    # Can't remove the directory itself (it's a volume mount), but can clean contents
-    sudo find "$PGDATA" -mindepth 1 -delete 2>/dev/null || true
+
+    # More careful cleanup - only remove if we're absolutely sure it's not valid
+    # Check if this might be a fresh volume mount
+    if [[ -z "$(sudo find "$PGDATA" -mindepth 1 -maxdepth 1 2>/dev/null | head -1)" ]]; then
+      echo "[DEBUG] Directory appears to be empty, no cleanup needed"
+    else
+      echo "[DEBUG] Directory has contents, performing cleanup..."
+      # Can't remove the directory itself (it's a volume mount), but can clean contents
+      sudo find "$PGDATA" -mindepth 1 -delete 2>/dev/null || true
+    fi
   fi
 
   echo "[DEBUG] About to initialize PostgreSQL"

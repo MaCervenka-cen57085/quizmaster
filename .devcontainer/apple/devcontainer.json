@@ -1,7 +1,7 @@
 {
   "name": "QuizMaster (Apple Silicon / arm64 Dev Container)",
   "image": "quizmaster-dev-apple:latest",
-  "initializeCommand": "bash -lc 'docker image inspect quizmaster-dev-apple:latest >/dev/null 2>&1 || docker build -t quizmaster-dev-apple:latest -f .devcontainer/apple/Dockerfile .devcontainer/apple'",
+  "initializeCommand": "bash -lc 'docker image inspect quizmaster-dev-apple:latest >/dev/null 2>&1 || docker build -t quizmaster-dev-apple:latest -f .devcontainer/apple/Dockerfile .'",
   "remoteUser": "vscode",
   "runArgs": [
     "--name", "QuizMaster-Dev",

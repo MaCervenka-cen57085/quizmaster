@@ -5,7 +5,7 @@
   "name": "QuizMaster (Apple Intel / x86_64 Container)",
   // Use a local image tag (same pattern as Apple Silicon) and build it if missing
   "image": "quizmaster-dev-apple-intel:latest",
-  "initializeCommand": "bash -lc 'docker image inspect quizmaster-dev-apple-intel:latest >/dev/null 2>&1 || docker build -t quizmaster-dev-apple-intel:latest -f .devcontainer/apple-intel/Dockerfile .devcontainer/apple-intel'",
+  "initializeCommand": "bash -lc 'docker image inspect quizmaster-dev-apple-intel:latest >/dev/null 2>&1 || docker build -t quizmaster-dev-apple-intel:latest -f .devcontainer/apple-intel/Dockerfile .'",
   "remoteUser": "vscode",
   "runArgs": [
     "--name", "QuizMaster-Dev",
