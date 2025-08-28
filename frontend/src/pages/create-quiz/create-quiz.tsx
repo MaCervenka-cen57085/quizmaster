@@ -14,7 +14,7 @@ export function CreateQuizForm({ handleSubmit, quizData, setQuizData }: Props) {
         <div className="quiz-page">
             <QuizEditForm quizData={quizData} setQuizData={setQuizData} onSubmit={handleSubmit} />
             <br />
-            <p style={{ textAlign: 'right', fontSize: '11px' }}>Powered by MFČR</p>
+            <p style={{ textAlign: 'right', fontSize: '11px' }}>Powered by Kiwi</p>
         </div>
     )
 }

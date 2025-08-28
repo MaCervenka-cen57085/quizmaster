@@ -28,9 +28,6 @@ export class QuizEditPage {
     enterTimeLimit = (timeLimit: string) => this.timeLimitLocator().fill(timeLimit)
     timeLimitValue = () => this.timeLimitLocator().inputValue()
 
-    isSubmitButtonActive = () =>
-        this.page
-            .locator('button[type="submit"]:not([disabled])')
-            .count()
-            .then(count => count > 0)
+    private submitButtonLocator = () => this.page.locator('button[type="submit"]')
+    isSubmitButtonActive = () => this.submitButtonLocator().isEnabled()
 }
