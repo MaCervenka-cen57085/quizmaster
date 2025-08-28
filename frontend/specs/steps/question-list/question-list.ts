@@ -77,6 +77,6 @@ Then('I can take the quiz for question {string}', async function name(question: 
 })
 
 When('I add an existing question {string} to the list', async function (question: string) {
-    this.questionListPage.fillInQuestion(question);
-    this.questionListPage.addExistingQuestion();
+    this.questionListPage.fillInQuestion(question)
+    this.questionListPage.addExistingQuestion()
 })
