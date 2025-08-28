@@ -10,4 +10,6 @@ export class CreateQuestionListPage {
     questionListTitleValue = () => this.questionListTitleLocator().inputValue()
 
     submit = () => this.page.locator('button[type="submit"]').click()
+
+    errorMessage = () => this.page.textContent('#error-message')
 }

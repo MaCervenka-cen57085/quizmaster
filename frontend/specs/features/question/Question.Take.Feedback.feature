@@ -2,6 +2,8 @@ Feature: Take a single question
 
   Background:
     Given questions
+
+
       | bookmark  | question                              | answers                           |
       | Australia | What's the capital city of Australia? | Sydney, Canberra (*), Melbourne   |
       | Planets   | Which of the following are planets?   | Mars (*), Pluto, Venus (*), Titan |

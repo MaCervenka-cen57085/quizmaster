@@ -1,5 +1,6 @@
-import { Given, When } from '../fixture.ts'
+import { Given, When, Then } from '../fixture.ts'
 import type { QuizmasterWorld } from '../world'
+import { expect } from '@playwright/test'
 
 const openCreateQuestionListPage = async (world: QuizmasterWorld) => {
     world.createQuestionListPage.gotoNew()
@@ -16,4 +17,9 @@ Given('I start creating question list', async function () {
 
 When('I save the question list {string}', async function (questionListTitle: string) {
     await createQuestionList(this, questionListTitle)
+})
+
+Then('I see an error message on question list page stating title must be mandatory', async function () {
+    const errorMessage = await this.createQuestionListPage.errorMessage()
+    expect(errorMessage).not.toBe('')
 })
