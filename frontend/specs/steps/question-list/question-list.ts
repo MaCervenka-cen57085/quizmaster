@@ -75,3 +75,8 @@ Then('I can take the quiz for question {string}', async function name(question: 
     const takeButton = this.page.locator('.question-item', { hasText: question }).locator('.take-button button')
     await takeButton.click()
 })
+
+When('I add an existing question {string} to the list', async function (question: string) {
+    this.questionListPage.fillInQuestion(question);
+    this.questionListPage.addExistingQuestion();
+})

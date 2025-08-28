@@ -10,4 +10,6 @@ export class QuestionListPage {
     questionListTitleValue = () => this.questionListTitleLocator().inputValue()
 
     createNewQuestion = async () => this.page.locator('#create-question').click()
+    addExistingQuestion = async () => this.page.locator('#add-existing-question').click()
+    fillInQuestion = async (question: string) => this.page.locator('#question-input-field').fill(question)
 }

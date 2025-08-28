@@ -1,5 +1,13 @@
 Feature: Question list
 
+  Background:
+    Given I created a question "What is the capital of Czech Republic?"
+    * with answers:
+      | Brno   |   | No Brno |
+      | Prague | * | Yes     |
+      | Berlin |   | Germany |
+    * with explanation "Czechia is a country in Europe. Czechs love beer."
+    * saved and bookmarked as "Czechia"
   Scenario: Show blank page nonexisting guid
     Given I open question list "X"
     Then I see a blank page
@@ -36,5 +44,5 @@ Feature: Question list
   @skip
   Scenario: Add existing question to question list
     Given I saved the question list "X"
-    When I add an existing question "Xquestion" to the list "X"
-    Then I see "Xquestion" in list "X"
+    When I add an existing question "Czechia" to the list
+    Then I see "Czechia" in list "X"
