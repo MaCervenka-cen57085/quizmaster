@@ -6,6 +6,8 @@ import { type QuestionApiData, getQuestionByHash, updateQuestion } from 'api/qui
 
 import { emptyQuestionFormData, toQuestionApiData, toQuestionFormData } from './form'
 import { CreateQuestionForm } from './create-question'
+import { validateQuestionFormData } from './validators'
+import { ErrorCodes } from './form/error-message'
 
 export function EditQuestionContainer() {
     const params = useParams()
@@ -15,7 +17,7 @@ export function EditQuestionContainer() {
 
     const [isLoaded, setIsLoaded] = useState<boolean>(false)
     const [linkToQuestion, setLinkToQuestion] = useState<string>('')
-    const [errorMessage, setErrorMessage] = useState<string>('')
+    const [errors, setErrors] = useState<ErrorCodes>(new Set())
 
     useApi(questionHash, getQuestionByHash, quizQuestion => {
         setQuestionData(toQuestionFormData(quizQuestion))
@@ -35,51 +37,22 @@ export function EditQuestionContainer() {
     }
 
     const handleSubmit = () => {
-        setErrorMessage('')
+        let errors = validateQuestionFormData(questionData);
 
-        const apiData = toQuestionApiData(questionData)
-
-        if (apiData.correctAnswers.length === 0) {
-            setErrorMessage('At least one correct answer must be selected')
+        if (errors.size > 0) {
+            setErrors(errors)
             return
+        } else {
+            const apiData = toQuestionApiData(questionData)
+            patchData(apiData)
         }
 
-        const answersCount = apiData.answers.length
-
-        for (let i = 0; i < answersCount; i++) {
-            if (apiData.answers[i] === '') {
-                setErrorMessage('All answers must be filled in')
-                return
-            }
-        }
-
-        let explanationNotEmptyCounter = 0
-
-        const explanationCount = apiData.explanations.length
-
-        for (let i = 0; i < explanationCount; i++) {
-            if (apiData.explanations[i] !== '') {
-                explanationNotEmptyCounter++
-            }
-        }
-        if (explanationNotEmptyCounter !== 0 && explanationNotEmptyCounter !== explanationCount) {
-            setErrorMessage('All or none explanation must be filled in.')
-            return
-        }
-
-        if (apiData.question === '') {
-            setErrorMessage('Question must not be empty.')
-            return
-        }
-
-        patchData(apiData)
     }
 
     return (
         <CreateQuestionForm
             title="Quiz Question Edit Page"
-            errorMessage={errorMessage}
-            errors={new Set()}
+            errors={errors}
             handleSubmit={handleSubmit}
             isLoaded={isLoaded}
             linkToEditQuestion=""

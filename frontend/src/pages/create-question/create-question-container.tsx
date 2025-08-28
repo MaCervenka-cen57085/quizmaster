@@ -6,6 +6,7 @@ import { type QuestionApiData, saveQuestion } from 'api/quiz-question.ts'
 import { emptyQuestionFormData, toQuestionApiData } from './form'
 import { CreateQuestionForm } from './create-question'
 import type { ErrorCode, ErrorCodes } from './form/error-message'
+import { validateQuestionFormData } from './validators'
 
 export function CreateQuestionContainer() {
     const [searchParams] = useSearchParams()
@@ -28,18 +29,19 @@ export function CreateQuestionContainer() {
     }
 
     const handleSubmit = () => {
-        const errors: Set<ErrorCode> = new Set()
-        const addError = (error: ErrorCode) => errors.add(error)
+        let errors = validateQuestionFormData(questionData);
+        // const errors: Set<ErrorCode> = new Set()
+        // const addError = (error: ErrorCode) => errors.add(error)
 
-        const correctAnwerCount = questionData.answers.filter(answer => answer.isCorrect).length
-        const emptyAnswerCount = questionData.answers.filter(answer => answer.answer.trim() === '').length
-        const emptyExplanationCount = questionData.answers.filter(answer => answer.explanation.trim() === '').length
-        const nonEmptyExplanationCount = questionData.answers.filter(answer => answer.explanation.trim() !== '').length
+        // const correctAnwerCount = questionData.answers.filter(answer => answer.isCorrect).length
+        // const emptyAnswerCount = questionData.answers.filter(answer => answer.answer.trim() === '').length
+        // const emptyExplanationCount = questionData.answers.filter(answer => answer.explanation.trim() === '').length
+        // const nonEmptyExplanationCount = questionData.answers.filter(answer => answer.explanation.trim() !== '').length
 
-        if (questionData.question === '') addError('empty-question')
-        if (emptyAnswerCount > 0) addError('empty-answer')
-        if (correctAnwerCount === 0) addError('no-correct-answer')
-        if (emptyExplanationCount > 0 && nonEmptyExplanationCount > 0) addError('empty-answer-explanation')
+        // if (questionData.question === '') addError('empty-question')
+        // if (emptyAnswerCount > 0) addError('empty-answer')
+        // if (correctAnwerCount === 0) addError('no-correct-answer')
+        // if (emptyExplanationCount > 0 && nonEmptyExplanationCount > 0) addError('empty-answer-explanation')
 
         setErrors(errors)
         if (errors.size > 0) {
@@ -59,7 +61,6 @@ export function CreateQuestionContainer() {
     return (
         <CreateQuestionForm
             title="Quiz Question Creation Page"
-            errorMessage=""
             errors={errors}
             handleSubmit={handleSubmit}
             isLoaded={true}

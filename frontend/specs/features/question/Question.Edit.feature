@@ -1,7 +1,7 @@
 Feature: Edit question GUI
 
   Background:
-    Given a question "What is the capital of Czech Republic?"
+    Given I created a question "What is the capital of Czech Republic?"
     * with answers:
       | Brno   |   | No Brno |
       | Prague | * | Yes     |
