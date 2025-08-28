@@ -19,7 +19,7 @@ Different trainings. Different formats. Same lesson: code is the best teacher.
 
 ## Tech Stack
 
-Prior to the class ge yourself familiar with the tech stack:
+Prior to the class get yourself familiar with the tech stack:
 
 - [Spring Boot](https://spring.io/projects/spring-boot)
 - [Gradle](https://gradle.org/)
