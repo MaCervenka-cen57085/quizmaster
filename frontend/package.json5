@@ -7,11 +7,10 @@
     "scripts": {
         "dev": "vite --host",
         "build": "vite build",
-
         "code:tsc": "tsc --noEmit",
-        "code:lint": "biome lint --fix",
-        "code:format": "biome format --write",
-        "code": "pnpm code:tsc && pnpm code:lint && pnpm code:format",
+        "code:lint": "@biomejs/biome lint --fix",
+        "code:format": "@biomejs/biome format --write",
+        "code": "pnpm code:tsc && npx code:lint && npx code:format",
 
         "test:playwright": "bddgen && cross-var wait-on tcp:$FE_PORT && playwright test",
         "test:e2e": "cross-env FE_PORT=8080 pnpm test:playwright",
