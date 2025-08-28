@@ -70,3 +70,7 @@ When('I click Edit button for question {string}', async function (question: stri
 Then('I see {string} editable form', async function (title: string) {
     await expectTextToBe(this.page.locator('#question-text'), title)
 })
+
+Then('I can take the quiz for question {string}', async function name(question: string) {
+
+})

@@ -27,6 +27,11 @@ Feature: Question list
     And I click Edit button for question "Xquestion"
     Then I see "Xquestion" editable form
 
+  Scenario: Show the hyperlink to take the quiz
+    Given I saved the question list "X"
+    When I create new question to list "Xquestion"
+    Then I can take the quiz for question "Xquestion"
+
   @skip
   Scenario: Add existing question to question list
     Given I saved the question list "X"
