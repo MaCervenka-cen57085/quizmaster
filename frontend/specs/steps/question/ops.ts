@@ -89,7 +89,7 @@ export const createQuestion = async (
     bookmark: string,
     question: string,
     answerRawTable: TableOf<AnswerRaw>,
-    explanation: string,
+    explanation?: string,
 ) => {
     await openCreatePage(world)
     await enterQuestion(world, question)
