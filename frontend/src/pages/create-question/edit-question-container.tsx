@@ -77,6 +77,7 @@ export function EditQuestionContainer() {
 
     return (
         <CreateQuestionForm
+            title="Quiz Question Edit Page"
             errorMessage={errorMessage}
             errors={new Set()}
             handleSubmit={handleSubmit}

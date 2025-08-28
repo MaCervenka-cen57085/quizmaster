@@ -190,3 +190,8 @@ Then('I see error messages', async function (table: DataTable) {
 Then('I see no error messages', async function () {
     await expectErrorCount(this, 0)
 })
+
+Then('I see {string} in the title', async function (expectedTitle: string) {
+    const title = await this.questionEditPage.titleContent()
+    expect(title).toBe(expectedTitle)
+})

@@ -48,3 +48,7 @@ Feature: Edit question GUI
     Then I see answer 1 as correct
     * I see answer 2 as correct
     * I see answer 3 as incorrect
+
+  Scenario: The title of the edit screen mentions "edit"
+    Given I start editing question "Czechia"
+    Then I see "Quiz Question Edit Page" in the title
