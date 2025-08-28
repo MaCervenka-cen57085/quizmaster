@@ -72,5 +72,6 @@ Then('I see {string} editable form', async function (title: string) {
 })
 
 Then('I can take the quiz for question {string}', async function name(question: string) {
-
+    const takeButton = this.page.locator('.question-item', { hasText: question }).locator('.take-button button')
+    await takeButton.click()
 })
