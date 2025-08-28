@@ -1,5 +1,5 @@
 import type { Quiz } from 'model/quiz-question.ts'
-import { StartButton } from 'pages/quiz/buttons.tsx'
+import { StartButton } from 'pages/quiz-take/buttons'
 
 export interface QuizDetailsProps {
     readonly quiz: Quiz

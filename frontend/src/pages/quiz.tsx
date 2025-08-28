@@ -2,13 +2,13 @@ import { type AnswerIdxs, isAnsweredCorrectly, type Quiz } from 'model/quiz-ques
 import { QuestionForm } from './question-take'
 import { useState } from 'react'
 import { QuizScore } from './quiz-score'
-import { ProgressBar } from './quiz/progress-bar'
-import { EvaluateButton, NextButton, BackButton, SkipButton, BookmarkButton } from './quiz/buttons'
+import { ProgressBar } from './quiz-take/progress-bar.tsx'
+import { EvaluateButton, NextButton, BackButton, SkipButton, BookmarkButton } from './quiz-take/buttons.tsx'
 import { useParams } from 'react-router-dom'
 import { getQuiz } from '../api/quiz.ts'
 
-import { Countdown } from './quiz/countdown.tsx'
-import { TimeOutReachedModal } from './quiz/timeout-reached-modal.tsx'
+import { Countdown } from './quiz-take/countdown.tsx'
+import { TimeOutReachedModal } from './quiz-take/timeout-reached-modal.tsx'
 import { BookmarkList } from './components/bookmark-list'
 import { useApi } from 'api/hooks.ts'
 
