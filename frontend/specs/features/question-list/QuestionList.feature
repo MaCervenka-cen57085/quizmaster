@@ -37,7 +37,7 @@ Feature: Question list
     Then I see "Xquestion" editable form
 
   @skip
-  Scenario: Show the hyperlink to take the quiz
+  Scenario: I can take the question
     Given I saved the question list "X"
     When I create new question to list "Xquestion"
     Then I can take the quiz for question "Xquestion"
