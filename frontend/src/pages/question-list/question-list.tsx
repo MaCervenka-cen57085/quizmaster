@@ -47,9 +47,10 @@ export function QuestionList({ questionListData }: Props) {
             </h1>
             <div className="create-button">
                 <CreateQuestionButton onClick={onCreateNewQuestion} />
-            </div>
-            <div>
-                <AddExistingQuestion onClick={() => console.log('Button clicked')} />
+                <div style={{ marginLeft: '20px' }}>
+                    <input placeholder='Enter question id' />
+                    <AddExistingQuestion onClick={() => console.log('Button clicked')} />
+                </div>
             </div>
             <div className="question-holder">
                 {questionListData.questions.map((q, index) => (
