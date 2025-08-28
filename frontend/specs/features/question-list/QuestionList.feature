@@ -45,4 +45,4 @@ Feature: Question list
   Scenario: Add existing question to question list
     Given I saved the question list "X"
     When I add an existing question "Czechia" to the list
-    Then I see "Czechia" in list "X"
+    Then I see question in list "Czechia"
