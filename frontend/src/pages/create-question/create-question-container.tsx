@@ -28,7 +28,6 @@ export function CreateQuestionContainer() {
     }
 
     const handleSubmit = () => {
-
         const errors: Set<ErrorCode> = new Set()
         const addError = (error: ErrorCode) => errors.add(error)
 
