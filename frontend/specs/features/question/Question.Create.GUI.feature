@@ -21,3 +21,8 @@ Feature: Create question GUI
 
     When I attempt to save the question
     Then I see question-take URL and question-edit URL
+
+  Scenario: Powered by label is correctly displayed
+
+    Given I start creating a question
+    Then I see that the label powered by is set to "Powered by Charles"
