@@ -59,6 +59,7 @@ export function CreateQuestionContainer() {
 
     return (
         <CreateQuestionForm
+            title="Quiz Question Creation Page"
             errorMessage=""
             errors={errors}
             handleSubmit={handleSubmit}
