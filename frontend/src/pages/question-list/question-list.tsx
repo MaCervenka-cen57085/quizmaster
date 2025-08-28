@@ -48,7 +48,7 @@ export function QuestionList({ questionListData }: Props) {
             <div className="create-button">
                 <CreateQuestionButton onClick={onCreateNewQuestion} />
                 <div style={{ marginLeft: '20px' }}>
-                    <input placeholder='Enter question id' />
+                    <input placeholder="Enter question id" />
                     <AddExistingQuestion onClick={() => console.log('Button clicked')} />
                 </div>
             </div>
