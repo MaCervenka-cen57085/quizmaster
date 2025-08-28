@@ -17,6 +17,7 @@ Given('I start creating question list', async function () {
 
 When('I save the question list {string}', async function (questionListTitle: string) {
     await createQuestionList(this, questionListTitle)
+    await this.questionListPage.waitForLoadedTitle()
 })
 
 Then('I see an error message on question list page stating title must be mandatory', async function () {
