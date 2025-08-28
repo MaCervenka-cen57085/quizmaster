@@ -1,6 +1,4 @@
 import './create-quiz.scss'
-
-//import { description, pass-score, question-list, time-limit, title} from './components'
 import { type QuizFormData, QuizEditForm } from './form'
 
 type Props = {
