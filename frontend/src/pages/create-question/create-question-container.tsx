@@ -5,7 +5,7 @@ import { type QuestionApiData, saveQuestion } from 'api/quiz-question.ts'
 
 import { emptyQuestionFormData, toQuestionApiData } from './form'
 import { CreateQuestionForm } from './create-question'
-import type { ErrorCode, ErrorCodes } from './form/error-message'
+import type { ErrorCodes } from './form/error-message'
 import { validateQuestionFormData } from './validators'
 
 export function CreateQuestionContainer() {

@@ -1,6 +1,6 @@
 import './create-question.scss'
 
-import { ErrorMessage, LoadedIndicator, QuestionEditLink, QuestionLink } from './components'
+import { LoadedIndicator, QuestionEditLink, QuestionLink } from './components'
 import { type QuestionFormData, QuestionEditForm } from './form'
 import { type ErrorCodes, ErrorMessages } from './form/error-message'
 
