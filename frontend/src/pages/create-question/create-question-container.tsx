@@ -29,7 +29,7 @@ export function CreateQuestionContainer() {
     }
 
     const handleSubmit = () => {
-        let errors = validateQuestionFormData(questionData);
+        const errors = validateQuestionFormData(questionData)
         // const errors: Set<ErrorCode> = new Set()
         // const addError = (error: ErrorCode) => errors.add(error)
 

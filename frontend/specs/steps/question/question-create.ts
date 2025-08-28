@@ -3,7 +3,15 @@ import { expect } from '@playwright/test'
 
 import type { TableOf } from '../common.ts'
 import { Given, Then } from '../fixture.ts'
-import { addAnswers, createQuestion, enterQuestion, openCreatePage, saveQuestion, submitQuestion, type AnswerRaw } from './ops.ts'
+import {
+    addAnswers,
+    createQuestion,
+    enterQuestion,
+    openCreatePage,
+    saveQuestion,
+    submitQuestion,
+    type AnswerRaw,
+} from './ops.ts'
 
 Given('I created a question {string}', async function (question: string) {
     await openCreatePage(this)

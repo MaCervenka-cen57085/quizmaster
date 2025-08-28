@@ -7,7 +7,7 @@ import { type QuestionApiData, getQuestionByHash, updateQuestion } from 'api/qui
 import { emptyQuestionFormData, toQuestionApiData, toQuestionFormData } from './form'
 import { CreateQuestionForm } from './create-question'
 import { validateQuestionFormData } from './validators'
-import { ErrorCodes } from './form/error-message'
+import type { ErrorCodes } from './form/error-message'
 
 export function EditQuestionContainer() {
     const params = useParams()
@@ -37,16 +37,14 @@ export function EditQuestionContainer() {
     }
 
     const handleSubmit = () => {
-        let errors = validateQuestionFormData(questionData);
+        const errors = validateQuestionFormData(questionData)
 
         if (errors.size > 0) {
             setErrors(errors)
-            return
         } else {
             const apiData = toQuestionApiData(questionData)
             patchData(apiData)
         }
-
     }
 
     return (

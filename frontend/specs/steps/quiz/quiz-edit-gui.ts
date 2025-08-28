@@ -26,15 +26,15 @@ When('I start creating a quiz', async function () {
 
 // // Field assertions
 
- Then('I see empty title field', async function () {
-     const title = await this.quizEditPage.titleValue()
-     expect(title).toBe('')
- })
+Then('I see empty title field', async function () {
+    const title = await this.quizEditPage.titleValue()
+    expect(title).toBe('')
+})
 
- Then('I see empty description field', async function () {
-     const description = await this.quizEditPage.descriptionValue()
-     expect(description).toBe('')
- })
+Then('I see empty description field', async function () {
+    const description = await this.quizEditPage.descriptionValue()
+    expect(description).toBe('')
+})
 
 Then('I see empty question list field', async function () {
     const questionList = await this.quizEditPage.questionListValue()
