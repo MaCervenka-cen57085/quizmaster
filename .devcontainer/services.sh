@@ -89,48 +89,6 @@ is_valid_postgres_data() {
   return 0
 }
 
-ensure_postgres_initialized() {
-  echo "[DEBUG] Entering ensure_postgres_initialized function"
-  echo "[DEBUG] Returning from ensure_postgres_initialized function without doing anything"
-  return 0
-  # If PostgreSQL data directory already exists and contains valid data, skip initialization
-  if is_valid_postgres_data "$PGDATA"; then
-    echo "[DEBUG] PostgreSQL data directory is valid, skipping initialization"
-    echo "[services] PostgreSQL data directory already exists with version $(cat "$PGDATA/PG_VERSION"), skipping initialization"
-    return 0
-  fi
-
-  echo "[DEBUG] PostgreSQL data validation failed, checking directory existence"
-
-  # If directory exists but doesn't contain valid PostgreSQL data, clean up contents
-  if [[ -d "$PGDATA" ]]; then
-    echo "[DEBUG] Directory exists but PostgreSQL data validation failed, cleaning up contents..."
-    echo "[services] PostgreSQL data directory exists but is invalid, cleaning up contents..."
-
-    # More careful cleanup - only remove if we're absolutely sure it's not valid
-    # Check if this might be a fresh volume mount
-    if [[ -z "$(sudo find "$PGDATA" -mindepth 1 -maxdepth 1 2>/dev/null | head -1)" ]]; then
-      echo "[DEBUG] Directory appears to be empty, no cleanup needed"
-    else
-      echo "[DEBUG] Directory has contents, performing cleanup..."
-      # Can't remove the directory itself (it's a volume mount), but can clean contents
-      sudo find "$PGDATA" -mindepth 1 -delete 2>/dev/null || true
-    fi
-  fi
-
-  echo "[DEBUG] About to initialize PostgreSQL"
-  echo "[services] Initializing PostgreSQL data directory in $PGDATA"
-
-  # Ensure proper ownership and permissions
-  sudo chown postgres:postgres "$PGDATA"
-  sudo chmod 0700 "$PGDATA"
-
-  # Initialize PostgreSQL
-  sudo -u postgres -H \
-    "$PGBIN/initdb" -D "$PGDATA" >/dev/null
-  echo "[services] PostgreSQL initialization completed"
-}
-
 start_postgres() {
   # Check if already running using full path
   if sudo -u postgres -H "$PGBIN/pg_ctl" -D "$PGDATA" status >/dev/null 2>&1; then
@@ -161,8 +119,6 @@ create_db_and_user() {
 
 main() {
   debug_postgres_state
-  echo "[DEBUG] About to call ensure_postgres_initialized"
-  ensure_postgres_initialized
   echo "[DEBUG] Finished ensure_postgres_initialized"
   start_postgres
   create_db_and_user
