@@ -75,3 +75,24 @@ Feature: Create question GUI
     When I attempt to save the question
     Then I see error messages
       | no-correct-answer |
+
+  Scenario: Single-choice question: No correct answer message disappears after selecting a correct answer
+    For single-choice question, exactly one correct answer is required
+
+    Given I start creating a question
+    * I enter question "What is 2 + 2?"
+    * I enter answer 1 text "4"
+    * I enter answer 2 text "5"
+    * I attempt to save the question
+    * I mark answer 1 as correct
+    When I attempt to save the question
+    Then I see no error messages
+
+  Scenario: Empty question text error message disappears after adding question text
+    Given I start creating a question
+    * I enter answer 1 text "4" and mark it as correct
+    * I enter answer 2 text "5"
+    * I attempt to save the question
+    * I enter question "What is 2 + 2?"
+    When I attempt to save the question
+    Then I see no error messages

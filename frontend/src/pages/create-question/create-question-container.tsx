@@ -28,6 +28,7 @@ export function CreateQuestionContainer() {
     }
 
     const handleSubmit = () => {
+
         const errors: Set<ErrorCode> = new Set()
         const addError = (error: ErrorCode) => errors.add(error)
 
@@ -41,11 +42,10 @@ export function CreateQuestionContainer() {
         if (correctAnwerCount === 0) addError('no-correct-answer')
         if (emptyExplanationCount > 0 && nonEmptyExplanationCount > 0) addError('empty-answer-explanation')
 
+        setErrors(errors)
         if (errors.size > 0) {
-            setErrors(errors)
             return
         }
-
         const apiData = toQuestionApiData(questionData)
 
         if (questionListGuid !== '') {
