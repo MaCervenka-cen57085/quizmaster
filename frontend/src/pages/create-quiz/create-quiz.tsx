@@ -1,7 +1,7 @@
 import './create-quiz.scss'
 
 //import { description, pass-score, question-list, time-limit, title} from './components'
-import { QuizFormData, QuizEditForm } from './form'
+import { type QuizFormData, QuizEditForm } from './form'
 
 type Props = {
     quizData: QuizFormData
@@ -9,11 +9,7 @@ type Props = {
     handleSubmit: () => void
 }
 
-export function CreateQuizForm({
-    handleSubmit,
-    quizData,
-    setQuizData,
-}: Props) {
+export function CreateQuizForm({ handleSubmit, quizData, setQuizData }: Props) {
     return (
         <div className="quiz-page">
             <QuizEditForm quizData={quizData} setQuizData={setQuizData} onSubmit={handleSubmit} />
