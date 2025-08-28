@@ -8,10 +8,11 @@ import {
     QuizScorePage,
     QuizWelcomePage,
     QuestionListPage,
+    QuizEditPage,
     HomePage,
 } from '../../pages'
 import { emptyQuestion, type Question } from './question.ts'
-import type { QuizBookmark } from './quiz.ts'
+import { emptyQuiz, QuizBookmark, type Quiz } from './quiz.ts'
 
 export class QuizmasterWorld {
     constructor(
@@ -25,6 +26,7 @@ export class QuizmasterWorld {
         this.quizWelcomePage = new QuizWelcomePage(this.page)
         this.quizScorePage = new QuizScorePage(this.page)
         this.questionListPage = new QuestionListPage(this.page)
+        this.quizEditPage = new QuizEditPage(this.page)
         this.homePage = new HomePage(this.page)
     }
 
@@ -35,10 +37,12 @@ export class QuizmasterWorld {
     readonly quizWelcomePage: QuizWelcomePage
     readonly quizScorePage: QuizScorePage
     readonly questionListPage: QuestionListPage
+    readonly quizEditPage: QuizEditPage
     readonly homePage: HomePage
     quizId = ''
 
     questionWip: Question = emptyQuestion()
+    quizWip: Quiz = emptyQuiz()
     questionListWipGuid = ''
     nextAnswerIdx = 0
     questionBookmarks: Record<string, Question> = {}
