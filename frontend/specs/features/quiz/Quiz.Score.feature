@@ -2,9 +2,13 @@ Feature: Evaluate quiz score
 
   Background:
     Given questions
-      | bookmark | question                            | answers                              |
-      | Sky      | What is the standard colour of sky? | Red, Blue (*), Green, Black          |
-      | France   | What is capital of France?          | Marseille, Lyon, Paris (*), Toulouse |
+      | bookmark | question                            | answers                                   | explanation |
+      | Sky      | What is the standard colour of sky? | Red, Blue (*), Green, Black               | Rayleigh    |
+      | France   | What is capital of France?          | Marseille, Lyon, Paris (*), Toulouse      |             |
+
+    Given quizes
+      | bookmark | title  | description   | questions     | mode  | pass score |
+      | -1       | Quiz A | Description A | Sky,France    | exam  | 85         |
 
   Scenario Outline: Quiz score
     Given a quiz "A" with 4 questions, exam mode and 75% pass score
@@ -60,7 +64,7 @@ Feature: Evaluate quiz score
     When I answer "Blue"
     * I answer "Marseille"
     * I click the evaluate button
-    Then I see question explanation "Sky is blue because of Rayleigh scattering" for question "Sky"
+    Then I see question explanation "Rayleigh" for question "Sky"
 
   Scenario: Show user select
     Given I start quiz "-1"

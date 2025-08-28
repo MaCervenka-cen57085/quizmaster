@@ -2,13 +2,19 @@ Feature: Take a quiz
 
   Background:
     Given questions
-      | bookmark | question                            | answers                              |
-      | Sky      | What is the standard colour of sky? | Red, Blue (*), Green, Black          |
-      | France   | What is capital of France?          | Marseille, Lyon, Paris (*), Toulouse |
+      | bookmark | question                            | answers                                            |
+      | Sky      | What is the standard colour of sky? | Red, Blue (*), Green, Black                        |
+      | France   | What is capital of France?          | Marseille, Lyon, Paris (*), Toulouse               |
+      | Nose     | Which animal has long nose?         | Elephant (*), Anteater (*), Swordfish (*), Bulldog |
 
-  # Given a quiz containing questions "Sky" and "France"
+    Given quizes
+      | bookmark | title  | description   | questions     | mode  | pass score |
+      | -1       | Quiz A | Description A | Sky,France    | exam  | 85         |
+      | -3       | Quiz B | Description B | Nose,France   | exam  | 40         |
 
-  Scenario: Quiz question A is skipable
+    # Given a quiz containing questions "Sky" and "France"
+
+  Scenario: Quiz question Sky is skipable
     Given I start quiz "-1"
     Then I should see the skip button
 

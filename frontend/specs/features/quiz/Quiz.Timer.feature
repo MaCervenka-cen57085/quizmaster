@@ -1,4 +1,15 @@
 Feature: Run timer
+
+  Background:
+    Given questions
+      | bookmark  | question                                              | answers                   |
+      | Planet    | Which planet is known as the Red Planet?              | Mars (*), Venus           |
+      | Australia | What's the capital city of Australia?                 | Sydney, Canberra (*)      |
+
+    Given quizes
+      | bookmark | title  | description   | questions        | mode  | pass score |
+      | -1       | Quiz A | Description A | Planet,Australia | exam  | 85         |
+
   Scenario: Display countdown timer
     Given I start quiz "-1"
     Then I should see the countdown timer "2:00"
@@ -22,7 +33,7 @@ Feature: Run timer
 
   Scenario: Display score 1/2 when answered one correctly and timed out
     Given I start quiz "-1"
-    When I answer "Blue"
+    When I answer "Mars"
     Then I will wait for "2:00"
     And I should see the text "Game over time"
     Then I should see the dialog evaluate button

@@ -33,7 +33,7 @@ Given(
 
 Given('questions', async function (data: DataTable) {
     for (const row of data.rows()) {
-        const [bookmark, question, answers] = row
+        const [bookmark, question, answers, questionExplanation] = row
         const answerRawTable = {
             raw: () =>
                 answers.split(',').map(a => {
@@ -42,7 +42,7 @@ Given('questions', async function (data: DataTable) {
                 }),
         } as TableOf<AnswerRaw>
 
-        await createQuestion(this, bookmark, question, answerRawTable)
+        await createQuestion(this, bookmark, question, answerRawTable, questionExplanation)
     }
 })
 

@@ -89,9 +89,13 @@ export const createQuestion = async (
     bookmark: string,
     question: string,
     answerRawTable: TableOf<AnswerRaw>,
+    explanation: string,
 ) => {
     await openCreatePage(world)
     await enterQuestion(world, question)
     await addAnswers(world, answerRawTable)
+    if (explanation) {
+        await enterQuestionExplanation(world, explanation)
+    }
     await saveQuestion(world, bookmark)
 }

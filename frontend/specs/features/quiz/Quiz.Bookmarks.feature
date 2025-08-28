@@ -6,6 +6,10 @@ Feature: Bookmark questions during a quiz
       | Planet    | Which planet is known as the Red Planet?              | Mars (*), Venus           |
       | Australia | What's the capital city of Australia?                 | Sydney, Canberra (*)      |
 
+    Given quizes
+      | bookmark | title  | description   | questions        | mode  | pass score |
+      | -4       | Quiz 4 | Description A | Planet,Australia | exam  | 85         |
+
   Scenario: Mark bookmark and return to bookmark
     - Testuju bookmarky v rámci jednoho kvízu, po zabookmarkovani otayky se vratim klikem na bookmark na otazku, kterou jsem si bookmarokoval
 

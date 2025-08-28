@@ -6,7 +6,9 @@ Feature: Take a quiz
       | Sky       | What is the standard colour of sky? | Red, Blue (*), Green, Black          |
       | France    | What is capital of France?          | Marseille, Lyon, Paris (*), Toulouse |
 
-    # Given a quiz containing questions "Sky" and "France"
+    Given quizes
+      | bookmark | title  | description   | questions     | mode  | pass score |
+      | -1       | Quiz A | Description A | Sky,France    | exam  | 85         |
 
   Scenario: Quiz question is displayed and not answered
     Given I start quiz "-1"
