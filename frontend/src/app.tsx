@@ -1,9 +1,9 @@
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import { QuestionTakePage } from 'pages/question-take'
 import { HomePage } from 'pages/home'
-import { QuizPage } from 'pages/quiz'
+import { QuizPage } from 'pages/quiz-take/quiz'
 
-import { QuizWelcomePage } from 'pages/quiz-welcome/quiz-welcome-page.tsx'
+import { QuizWelcomePage } from 'pages/quiz-take/quiz-welcome/quiz-welcome-page'
 
 import { CreateQuestionContainer } from 'pages/create-question/create-question-container'
 import { CreateQuestionListContainer } from 'pages/create-question-list/create-question-list-container'
