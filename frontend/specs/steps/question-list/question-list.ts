@@ -75,6 +75,9 @@ Then('I see {string} editable form', async function (title: string) {
 Then('I can take the quiz for question {string}', async function name(question: string) {
     const takeButton = this.page.locator('.question-item', { hasText: question }).locator('.take-button button')
     await takeButton.click()
+    await this.takeQuestionPage.waitForLoaded()
+
+    await expectTextToBe(this.page.locator('#question'), question)
 })
 
 When('I add an existing question {string} to the list', async function (question: string) {

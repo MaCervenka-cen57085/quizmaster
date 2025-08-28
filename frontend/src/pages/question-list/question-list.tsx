@@ -9,6 +9,7 @@ type Props = {
 }
 
 type EditQuestionButtonProps = { id: string; hash: string; onClick: () => void }
+type TakeQuestionButtonProps = { id: string; hash: string; onClick: () => void }
 
 export const CreateQuestionButton = ({ onClick }: WithOnClick) => (
     <Button id="create-question" onClick={onClick}>
@@ -19,6 +20,12 @@ export const CreateQuestionButton = ({ onClick }: WithOnClick) => (
 export const EditQuestionButton = ({ id, onClick }: EditQuestionButtonProps) => (
     <Button id={id} className="edit-question" onClick={onClick}>
         Edit
+    </Button>
+)
+
+export const TakeQuestionButton = ({ id, onClick }: TakeQuestionButtonProps) => (
+    <Button id={id} className="take-question" onClick={onClick}>
+        Take
     </Button>
 )
 
@@ -40,6 +47,10 @@ export function QuestionList({ questionListData }: Props) {
         navigate(`/question/${hash}/edit`)
     }
 
+    const onTakeQuestion = (id: number) => {
+        navigate(`/question/${id}`)
+    }
+
     return questionListData ? (
         <div className="question-list-page">
             <h1 id="question-title-header" data-testid="question-list-title">
@@ -59,6 +70,7 @@ export function QuestionList({ questionListData }: Props) {
                         question={q}
                         index={index}
                         onEditQuestion={() => onEditQuestion(q.hash)}
+                        onTakeQuestion={() => onTakeQuestion(q.id)}
                     />
                 ))}
             </div>

@@ -6,6 +6,8 @@ export class TakeQuestionPage {
     private questionLocator = () => this.page.locator('h1')
     questionText = () => this.questionLocator().textContent()
 
+    waitForLoaded = () => this.page.waitForSelector('h1')
+
     answersLocator = () => this.page.locator('li')
     answerLocator = (answer: string) => this.page.locator(`li:has(input[value="${answer}"])`)
 

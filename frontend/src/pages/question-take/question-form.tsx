@@ -30,7 +30,7 @@ export const QuestionForm = (props: QuestionFormProps) => {
 
     return (
         <form onSubmit={handleSubmit} id="question-form">
-            <h1>{props.question.question}</h1>
+            <h1 id="question">{props.question.question}</h1>
 
             <ul className="answers">
                 {props.question.answers.map((answer, idx) => (
