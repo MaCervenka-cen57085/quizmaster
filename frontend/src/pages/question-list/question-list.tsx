@@ -22,6 +22,12 @@ export const EditQuestionButton = ({ id, onClick }: EditQuestionButtonProps) => 
     </Button>
 )
 
+export const AddExistingQuestion = ({ onClick }: WithOnClick) => (
+    <Button onClick={onClick}>
+        Add Existing Question
+    </Button>
+)
+
 export function QuestionList({ questionListData }: Props) {
     const params = useParams()
     const navigate = useNavigate()
@@ -43,6 +49,9 @@ export function QuestionList({ questionListData }: Props) {
             </h1>
             <div className="create-button">
                 <CreateQuestionButton onClick={onCreateNewQuestion} />
+            </div>
+            <div>
+                <AddExistingQuestion onClick={() => console.log("Button clicked")} />
             </div>
             <div className="question-holder">
                 {questionListData.questions.map((q, index) => (
