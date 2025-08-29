@@ -127,17 +127,19 @@ export function QuestionList({ questionListData, onRefresh }: Props) {
             </h1>
             <div className="create-button">
                 <CreateQuestionButton onClick={onCreateNewQuestion} />
-                <div style={{ marginLeft: '20px' }}>
-                    <input
-                        value={questionId}
-                        onChange={e => setQuestionId(e.target.value)}
-                        id="question-input-field"
-                        placeholder="Enter question id"
-                    />
+            </div>
+            <div className="add-existing-section">
+                <input
+                    value={questionId}
+                    onChange={e => setQuestionId(e.target.value)}
+                    id="question-input-field"
+                    placeholder="Enter question id"
+                />
+                <div className="add-button-container">
                     <AddExistingQuestion onClick={onAddExistingQuestion} />
-                    <div id="error-message-label" className="error-message">
-                        {errorMessage}
-                    </div>
+                </div>
+                <div id="error-message-label" className="error-message">
+                    {errorMessage}
                 </div>
             </div>
             <div className="question-holder">
