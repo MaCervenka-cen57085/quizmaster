@@ -11,6 +11,9 @@ public class ResourceResolver extends PathResourceResolver {
 
     @Override
     protected Resource getResource(@NonNull String resourcePath, @NonNull Resource location) throws IOException {
+        // Let DispatcherServlet handle API endpoints
+        if (resourcePath.startsWith("api/")) {return null;}
+
         Resource requestedResource = location.createRelative(resourcePath);
 
         if (isStatic(requestedResource))
