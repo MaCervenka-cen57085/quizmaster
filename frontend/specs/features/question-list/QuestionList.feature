@@ -53,7 +53,6 @@ Feature: Question list
     Then I can copy the link to question "Xquestion"
     And I am notified about the copied link
 
-  @only
   Scenario: I remove the question from the question list
     Given I saved the question list "X"
     When I create new question to list "Xquestion"
