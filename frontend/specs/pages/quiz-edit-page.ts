@@ -21,7 +21,7 @@ export class QuizEditPage {
     questionListValue = () => this.questionListLocator().inputValue()
 
     private passScoreLocator = () => this.page.locator('#pass-score-text')
-    enterPassScore = (passScore: string) => this.passScoreLocator().fill(passScore)
+    enterPassScore = (passScore: number) => this.passScoreLocator().fill(passScore.toString())
     passScoreValue = () => this.passScoreLocator().inputValue()
 
     private timeLimitLocator = () => this.page.locator('#time-limit-text')

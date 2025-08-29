@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test'
 import { Then, When } from '../fixture.ts'
-import { openCreatePage } from './ops.ts'
+import { enterPassScore, openCreatePage } from './ops.ts'
 
 When('I start creating a quiz', async function () {
     await openCreatePage(this)
@@ -8,6 +8,10 @@ When('I start creating a quiz', async function () {
 
 When('I attempt to save the quiz', async function () {
     await this.quizEditPage.clickSubmitButton()
+})
+
+When('I enter a pass score {int}', async function (passScore: number) {
+    await enterPassScore(this, passScore)
 })
 
 // Field assertions
