@@ -2,7 +2,7 @@ import type { DataTable } from '@cucumber/cucumber'
 import { expect } from '@playwright/test'
 
 import type { TableOf } from '../common.ts'
-import { Given, Then } from '../fixture.ts'
+import { Given, When, Then } from '../fixture.ts'
 import {
     addAnswers,
     createQuestion,
@@ -62,4 +62,8 @@ Given('saved and bookmarked as {string}', async function (bookmark) {
 Then('I see an error message', async function () {
     const errorMessage = await this.questionEditPage.errorMessage()
     expect(errorMessage).not.toBe('')
+})
+
+When('I wait for {int} ms', async function (milliseconds: number) {
+    await new Promise(resolve => setTimeout(resolve, milliseconds))
 })

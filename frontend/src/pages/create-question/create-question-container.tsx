@@ -18,12 +18,14 @@ export function CreateQuestionContainer() {
     const [linkToEditQuestion, setLinkToEditQuestion] = useState<string>('')
 
     const [errors, setErrors] = useState<ErrorCodes>(new Set())
+    var editUrl = ''
 
     const postData = async (formData: QuestionApiData) => {
         await saveQuestion(formData)
             .then(response => {
                 setLinkToQuestion(`${location.origin}/question/${response.id}`)
                 setLinkToEditQuestion(`${location.origin}/question/${response.hash}/edit`)
+                editUrl = `/question/${response.hash}/edit`
             })
             .catch(error => setLinkToQuestion(error.message))
     }
@@ -53,10 +55,15 @@ export function CreateQuestionContainer() {
             apiData.questionListGuid = questionListGuid
         }
 
-        postData(apiData)
-
-        if (questionListGuid !== '') navigate(`/q-list/${questionListGuid}`)
-    }
+        postData(apiData).then(() => {
+           if (questionListGuid !== '') {
+               //to be refactored we should not wait post data to finish
+               navigate(`/q-list/${questionListGuid}`)
+           } else {
+               navigate(editUrl)
+           }
+       })
+   }
 
     return (
         <CreateQuestionForm

@@ -8,6 +8,7 @@ Feature: Question list
       | Berlin |   | Germany |
     * with explanation "Czechia is a country in Europe. Czechs love beer."
     * saved and bookmarked as "Czechia"
+    * I wait for 1000 ms
 
   Scenario: Show blank page nonexisting guid
     Given I open question list "X"

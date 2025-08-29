@@ -20,7 +20,8 @@ Feature: Create question GUI
       | 5 |   |
 
     When I attempt to save the question
-    Then I see question-take URL and question-edit URL
+    *  I wait for 1000 ms
+    Then I see 'Quiz Question Edit Page' in the title
 
   Scenario: Powered by label is correctly displayed
 

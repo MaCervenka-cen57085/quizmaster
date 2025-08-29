@@ -8,9 +8,9 @@ Feature: Edit question GUI
       | Berlin |   | Germany |
     * with explanation "Czechia is a country in Europe. Czechs love beer."
     * saved and bookmarked as "Czechia"
+    * I wait for 1000 ms
 
   Scenario: Prepopulated form fields
-    When I start editing question "Czechia"
     Then I see "What is the capital of Czech Republic?" in the question field
     * I see multiple choice is unchecked
     * I see the answers fields
@@ -20,8 +20,7 @@ Feature: Edit question GUI
     * I see "Czechia is a country in Europe. Czechs love beer." in the question explanation field
 
   Scenario: Edit all fields
-    Given I start editing question "Czechia"
-    * I enter question "What is the capital of Slovakia?"
+    Given I enter question "What is the capital of Slovakia?"
     * I enter answer 1 text "It's Brno", incorrect, with explanation "No, it's not Brno"
     * I enter answer 2 text "It's Prague"
     * I enter answer 2 explanation "No, it's not Prague"
@@ -40,8 +39,7 @@ Feature: Edit question GUI
     * I see "Slovakia is a country in Europe. Slovaks love borovička." in the question explanation field
 
   Scenario: Change single choice to multiple choice
-    Given I start editing question "Czechia"
-    * I mark the question as multiple choice
+    Given I mark the question as multiple choice
     * I mark answer 1 as correct
     When I submit the question
     * I refresh the page
@@ -49,6 +47,4 @@ Feature: Edit question GUI
     * I see answer 2 as correct
     * I see answer 3 as incorrect
 
-  Scenario: The title of the edit screen mentions "edit"
-    Given I start editing question "Czechia"
-    Then I see "Quiz Question Edit Page" in the title
+

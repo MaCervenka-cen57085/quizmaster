@@ -14,8 +14,7 @@ Feature: Edit question GUI
     * saved and bookmarked as "Czechia"
 
   Scenario: Empty question form
-    Given I start editing question "Czechia"
-    * I enter question ""
+    Given I enter question ""
     * I enter answer 1 text "", incorrect, with explanation ""
     * I enter answer 3 text "", incorrect, with explanation ""
     * I enter question explanation ""

@@ -17,12 +17,16 @@ export function EditQuestionContainer() {
 
     const [isLoaded, setIsLoaded] = useState<boolean>(false)
     const [linkToQuestion, setLinkToQuestion] = useState<string>('')
+    const [linkToEditQuestion, setLinkToEditQuestion] = useState<string>('')
     const [errors, setErrors] = useState<ErrorCodes>(new Set())
 
     useApi(questionHash, getQuestionByHash, quizQuestion => {
         setQuestionData(toQuestionFormData(quizQuestion))
+        setLinkToQuestion(`${location.origin}/question/${quizQuestion.id}`)
+        setLinkToEditQuestion(`${location.origin}/question/${quizQuestion.hash}/edit`)
         setIsLoaded(true)
     })
+
 
     const patchData = async (formData: QuestionApiData) => {
         if (!questionHash) {
@@ -31,7 +35,8 @@ export function EditQuestionContainer() {
 
         updateQuestion(formData, questionHash)
             .then(response => {
-                setLinkToQuestion(`${location.origin}/question/${response}`)
+                //setLinkToQuestion(`${location.origin}/question/${response}`)
+                //setLinkToEditQuestion(`${location.origin}/question/${response}/edit`)
             })
             .catch(error => setLinkToQuestion(error.message))
     }
@@ -53,7 +58,7 @@ export function EditQuestionContainer() {
             errors={errors}
             handleSubmit={handleSubmit}
             isLoaded={isLoaded}
-            linkToEditQuestion=""
+            linkToEditQuestion={linkToEditQuestion}
             linkToQuestion={linkToQuestion}
             questionData={questionData}
             setQuestionData={setQuestionData}
