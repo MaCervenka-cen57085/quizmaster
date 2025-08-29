@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "[DEBUG] Script started - checking version and logic"
-echo "[DEBUG] Current script location: $0"
-echo "[DEBUG] Script contents check:"
-
 # ------------------------------------------------------------
 # Start local services required by the workspace
 # - PostgreSQL 16
@@ -17,45 +13,6 @@ export DB_NAME=${DB_NAME:-quizmaster}
 export DB_USER=${DB_USER:-quizmaster}
 export DB_PASS=${DB_PASS:-quizmaster}
 export PGBIN="/usr/lib/postgresql/$POSTGRES_VERSION/bin"
-
-debug_postgres_state() {
-  echo "[debug] Checking PostgreSQL state..."
-  echo "[debug] PGDATA: $PGDATA"
-  echo "[debug] PGBIN: $PGBIN"
-  echo "[debug] Current user: $(whoami)"
-  echo "[debug] Current working directory: $(pwd)"
-  echo "[debug] Volume mount check:"
-  mount | grep postgresql || echo "[debug] No postgresql mounts found"
-  echo "[debug] Docker volume inspection:"
-  docker volume ls | grep postgres || echo "[debug] No postgres volumes found"
-
-  if [[ -d "$PGDATA" ]]; then
-    echo "[debug] PGDATA directory exists"
-    echo "[debug] Directory permissions: $(ls -ld "$PGDATA")"
-    echo "[debug] Directory owner: $(stat -c '%U:%G' "$PGDATA" 2>/dev/null || echo 'stat failed')"
-
-    if [[ -s "$PGDATA/PG_VERSION" ]]; then
-      echo "[debug] PG_VERSION exists: $(cat "$PGDATA/PG_VERSION")"
-    else
-      echo "[debug] PG_VERSION missing or empty"
-    fi
-
-    # Check for other important files
-    echo "[debug] Checking for essential PostgreSQL files:"
-    for file in base global pg_hba.conf postgresql.conf; do
-      if [[ -e "$PGDATA/$file" ]]; then
-        echo "[debug] ✓ $file exists"
-      else
-        echo "[debug] ✗ $file missing"
-      fi
-    done
-
-    echo "[debug] Directory contents:"
-    sudo ls -la "$PGDATA" | head -10
-  else
-    echo "[debug] PGDATA directory does not exist"
-  fi
-}
 
 # More robust check for valid PostgreSQL data directory
 is_valid_postgres_data() {
@@ -117,9 +74,7 @@ create_db_and_user() {
   sudo -u postgres -H psql -h localhost -p 5432 -U postgres -d "$DB_NAME" -c "GRANT ALL PRIVILEGES ON SCHEMA public TO $DB_USER"
 }
 
-main() {
-  debug_postgres_state
-  echo "[DEBUG] Finished ensure_postgres_initialized"
+main() {  echo "[DEBUG] Finished ensure_postgres_initialized"
   start_postgres
   create_db_and_user
   echo "[services] All services started"
