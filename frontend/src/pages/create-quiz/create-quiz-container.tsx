@@ -27,7 +27,7 @@ export function CreateQuizContainer() {
             questionListIds: quizData.questionList?.split(',').map(id => id.trim()) || [],
             afterEach: false,
             passScore: quizData.passScore || 0,
-            timeLimit: quizData.timeLimit || 120
+            timeLimit: quizData.timeLimit || 120,
         }
         postData(apiData)
     }
