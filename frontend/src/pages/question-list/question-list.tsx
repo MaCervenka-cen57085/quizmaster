@@ -59,6 +59,7 @@ export function QuestionList({ questionListData, onRefresh }: Props) {
     const params = useParams()
     const navigate = useNavigate()
     const [questionId, setQuestionId] = useState<string | undefined>()
+    const [errorMessage, setErrorMessage] = useState<string | undefined>()
 
     const questionListId = `${params.id}`
 
@@ -101,6 +102,10 @@ export function QuestionList({ questionListData, onRefresh }: Props) {
                 alert('Question list id is missing')
                 return
             }
+            if (isNaN(Number.parseInt(questionId))) {
+                setErrorMessage('Invalid question format')
+                return
+            }
             const result = await linkQuestionToList(Number.parseInt(questionId), questionListId)
             if (result) {
                 // Refresh the question list to show the newly added question
@@ -110,7 +115,7 @@ export function QuestionList({ questionListData, onRefresh }: Props) {
                 // Clear the input field
                 setQuestionId('')
             } else {
-                alert(`Failed to add question with id: ${questionId} to list: ${questionListId}`)
+                setErrorMessage('Question not found')
             }
         }
     }
@@ -130,6 +135,9 @@ export function QuestionList({ questionListData, onRefresh }: Props) {
                         placeholder="Enter question id"
                     />
                     <AddExistingQuestion onClick={onAddExistingQuestion} />
+                    <div id="error-message-label" className="error-message">
+                        {errorMessage}
+                    </div>
                 </div>
             </div>
             <div className="question-holder">

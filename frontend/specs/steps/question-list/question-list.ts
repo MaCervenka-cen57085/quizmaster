@@ -124,3 +124,12 @@ When('I add an existing question {string} to the list', async function (question
     this.questionListPage.fillInQuestion(`${questionId}`)
     this.questionListPage.addExistingQuestion()
 })
+
+When('I add an invalid question to the list', async function () {
+    await this.questionListPage.fillInQuestion('qsdhsqfhdshfdsq')
+    await this.questionListPage.addExistingQuestion()
+})
+
+Then('I see an error message invalid question format', async function () {
+    await expectTextToContain(this.questionListPage.errorMessageLabel(), 'Invalid question format')
+})
