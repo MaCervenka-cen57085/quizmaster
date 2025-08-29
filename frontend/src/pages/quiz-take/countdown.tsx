@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react'
 
-export const Countdown = ({ setTimeoutReached }: { setTimeoutReached: (value: boolean) => void }) => {
-    const durationMs = 2 * 60 * 1000 // 2 minuty
+export const Countdown = ({
+    setTimeoutReached,
+    timeLimit,
+}: { setTimeoutReached: (value: boolean) => void; timeLimit: number }) => {
+    const durationMs = (timeLimit ?? 120) * 1000 // convert from secs to ms
 
     const [timeLeft, setTimeLeft] = useState(durationMs)
 
@@ -18,7 +21,7 @@ export const Countdown = ({ setTimeoutReached }: { setTimeoutReached: (value: bo
             }
         }, 1000)
         return () => clearInterval(interval)
-    }, [])
+    }, [durationMs])
 
     useEffect(() => {
         if (timeLeft <= 0) {

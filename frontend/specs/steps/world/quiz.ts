@@ -6,13 +6,21 @@ export interface Quiz {
     questionIds: number[]
     mode: QuizMode
     passScore: number
+    timeLimit: number
 }
 
 export interface QuizBookmark extends Quiz {
     url: string
 }
 
-export const emptyQuiz = (): Quiz => ({ title: '', description: '', questionIds: [], mode: '', passScore: 0 })
+export const emptyQuiz = (): Quiz => ({
+    title: '',
+    description: '',
+    questionIds: [],
+    mode: '',
+    passScore: 0,
+    timeLimit: 120,
+})
 export const emptyQuizBookmark = (): QuizBookmark => ({
     url: '',
     title: '',
@@ -20,4 +28,5 @@ export const emptyQuizBookmark = (): QuizBookmark => ({
     questionIds: [],
     mode: '',
     passScore: 0,
+    timeLimit: 120,
 })

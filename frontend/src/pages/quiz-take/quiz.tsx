@@ -187,7 +187,7 @@ export const QuizPage = () => {
             />
         ) : (
             <>
-                <Countdown setTimeoutReached={setTimeoutReached} />
+                <Countdown setTimeoutReached={setTimeoutReached} timeLimit={quiz.timeLimit} />
                 {timeoutReached && <TimeOutReachedModal onEvaluate={onEvaluate} timeoutReached={timeoutReached} />}
                 <QuizQuestionForm
                     setFirstQuizState={setFirstQuizState}

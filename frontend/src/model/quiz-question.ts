@@ -26,6 +26,7 @@ export interface Quiz {
     readonly questions: QuizQuestion[]
     readonly afterEach: boolean
     readonly passScore: number
+    readonly timeLimit: number
 }
 
 export interface QuizCreateRequest {
