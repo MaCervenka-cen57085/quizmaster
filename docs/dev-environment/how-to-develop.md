@@ -67,6 +67,9 @@ You can run the end-to-end [Cucumber](https://cucumber.io/docs/guides/) + [Playw
 - `pnpm run test:e2e:vite` against the running app on `http://localhost:5173`
 - `pnpm run test:e2e:ui` with Playwright UI (at `http://localhost:3333`) against the Vite development server on `http://localhost:5173`
 
+## Swagger UI ###
+For easier testing, Swagger UI is available at http://localhost:8080/swagger-ui/index.html
+
 ## 🚩 Feature Flag
 
 You can hide an unfinished feature behind a feature flag.
