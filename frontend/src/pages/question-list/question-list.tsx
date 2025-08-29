@@ -102,7 +102,7 @@ export function QuestionList({ questionListData, onRefresh }: Props) {
                 alert('Question list id is missing')
                 return
             }
-            if (isNaN(Number.parseInt(questionId))) {
+            if (Number.isNaN(Number.parseInt(questionId))) {
                 setErrorMessage('Invalid question format')
                 return
             }
