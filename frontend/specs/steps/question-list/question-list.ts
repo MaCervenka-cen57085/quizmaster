@@ -110,6 +110,12 @@ Then('I am notified about the copied link', async function () {
     })
 })
 
+Then('I can remove the question {string}', async function () {
+})
+
+Then('I can remove the question {string}', async function () {
+})
+
 When('I add an existing question {string} to the list', async function (questionBookmark: string) {
     const question = this.questionBookmarks[questionBookmark]
     const questionId = question.url.split('/').at(-1)
