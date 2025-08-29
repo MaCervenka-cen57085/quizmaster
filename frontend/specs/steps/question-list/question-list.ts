@@ -61,6 +61,11 @@ Then('I see {string} form', async function (title: string) {
     await expectTextToContain(this.page.getByText(title), title)
 })
 
+Then('I can copy the link to question {string}', async function (question: string) {
+    await expectTextToContain(this.page.getByText(question), question)
+    await expectedNumberOfChildrenToBe(this.page.locator('.edit-button'), 1)
+})
+
 When('I click Edit button for question {string}', async function (question: string) {
     await this.questionEditPage.waitForEditButton()
     const editButton = this.page.locator('.question-item', { hasText: question }).locator('.edit-button button')

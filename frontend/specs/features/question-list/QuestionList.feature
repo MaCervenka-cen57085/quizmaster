@@ -46,3 +46,10 @@ Feature: Question list
     Given I saved the question list "X"
     When I add an existing question "Czechia" to the list
     Then I see question in list "Czechia"
+
+  @skip
+  Scenario: I copy the take question url
+    Given I saved the question list "X"
+    When I create new question to list "Xquestion"
+    Then I can copy the link to question "Xquestion"
+
