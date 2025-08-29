@@ -51,4 +51,5 @@ Feature: Question list
     Given I saved the question list "X"
     When I create new question to list "Xquestion"
     Then I can copy the link to question "Xquestion"
+    And I am notified about the copied link
 
