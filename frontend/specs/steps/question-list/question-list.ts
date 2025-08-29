@@ -82,7 +82,7 @@ Then('I can take the quiz for question {string}', async function name(question: 
 })
 
 Then('I can copy the link to question {string}', async function (question: string) {
-    const copyButton = this.page.locator('.question-item', { hasText: question }).locator('.copy-button button')
+    const copyButton = this.page.locator('.question-item', { hasText: question }).locator('.copy-take-button button')
     await copyButton.click()
 
     /*

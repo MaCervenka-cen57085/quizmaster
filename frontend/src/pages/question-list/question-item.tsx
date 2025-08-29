@@ -26,7 +26,7 @@ export const QuestionItem: React.FC<Props> = ({
             <div className="take-button">
                 <TakeQuestionButton id={question.hash} hash={question.hash} onClick={onTakeQuestion} />
             </div>
-            <div className="copy-button">
+            <div className="copy-take-button">
                 <CopyQuestionButton id={question.hash} hash={question.hash} onClick={onCopyTakeQuestion} />
             </div>
         </div>
