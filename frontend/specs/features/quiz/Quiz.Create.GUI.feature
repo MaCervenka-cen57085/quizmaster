@@ -12,6 +12,6 @@ Feature: Create quiz GUI
   @skip
   Scenario: Empty quiz submit should show the link to take the quiz
     Given I start creating a quiz
-    When I click the create quiz submit button
+    When I attempt to save the quiz
     Then I see a link to the take quiz page
 

@@ -6,7 +6,7 @@ When('I start creating a quiz', async function () {
     await openCreatePage(this)
 })
 
-When('I click the create quiz submit button', async function () {
+When('I attempt to save the quiz', async function () {
     await this.quizEditPage.clickSubmitButton()
 })
 
