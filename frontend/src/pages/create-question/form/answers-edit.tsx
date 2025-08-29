@@ -38,7 +38,7 @@ interface AddAnswerProps {
 
 export const AddAnswerButton = ({ addAnswer }: AddAnswerProps) => (
     <div>
-        <button type="button" onClick={addAnswer} id="add-answer">
+        <button type="button" onClick={addAnswer} className="answer-button" id="add-answer">
             Add Answer
         </button>
     </div>

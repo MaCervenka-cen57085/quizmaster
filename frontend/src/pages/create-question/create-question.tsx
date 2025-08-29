@@ -28,7 +28,6 @@ export function CreateQuestionForm({
     return (
         <div className="question-page">
             <h1 id="question-page-title">{title}</h1>
-            <h2>If you're happy and you know it create the question</h2>
             <QuestionEditForm questionData={questionData} setQuestionData={setQuestionData} onSubmit={handleSubmit} />
             <ErrorMessages errorCodes={errors} />
             <QuestionLink url={linkToQuestion} />
