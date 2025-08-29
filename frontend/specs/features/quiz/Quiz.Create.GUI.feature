@@ -9,3 +9,9 @@ Feature: Create quiz GUI
     * I see empty pass score field
     * I see empty time limit field
 
+  @skip
+  Scenario: Empty quiz submit
+    Given I start creating a quiz
+    When I click the submit button
+    Then I see a link to the quiz edit page
+
