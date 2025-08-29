@@ -87,7 +87,7 @@ public class QuizQuestionController {
             quizQuestionRepository.save(question.get());
             return ResponseEntity.ok(true);
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(false);
     }
 
     private Optional<QuizQuestion> findQuestion(Integer id) {
