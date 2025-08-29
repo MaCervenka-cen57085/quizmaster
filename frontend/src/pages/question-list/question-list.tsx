@@ -8,6 +8,7 @@ import { linkQuestionToList } from 'api/quiz-question'
 
 type Props = {
     questionListData?: QuestionListData
+    onRefresh?: () => Promise<void>
 }
 
 type EditQuestionButtonProps = { id: string; hash: string; onClick: () => void }
@@ -44,7 +45,7 @@ export const AddExistingQuestion = ({ onClick }: WithOnClick) => (
     </Button>
 )
 
-export function QuestionList({ questionListData }: Props) {
+export function QuestionList({ questionListData, onRefresh }: Props) {
     const params = useParams()
     const navigate = useNavigate()
     const [questionId, setQuestionId] = useState<string | undefined>()
@@ -75,10 +76,18 @@ export function QuestionList({ questionListData }: Props) {
     const onAddExistingQuestion = async () => {
         if (questionId) {
             console.log(`Adding existing question with id: ${questionId}, question list id: ${questionListId}`)
-            if (!questionListId) return alert('Question list id is missing')
+            if (!questionListId) {
+                alert('Question list id is missing')
+                return
+            }
             const result = await linkQuestionToList(Number.parseInt(questionId), questionListId)
             if (result) {
-                alert(`Successfully added question with id: ${questionId} to list: ${questionListId}`)
+                // Refresh the question list to show the newly added question
+                if (onRefresh) {
+                    await onRefresh()
+                }
+                // Clear the input field
+                setQuestionId('')
             } else {
                 alert(`Failed to add question with id: ${questionId} to list: ${questionListId}`)
             }
