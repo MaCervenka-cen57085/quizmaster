@@ -78,6 +78,18 @@ public class QuizQuestionController {
         return response(findQuestion(id).map(Answers::from));
     }
 
+    @Transactional
+    @PatchMapping("/quiz-question/link-to-list/{id}")
+    public Integer linkQuestionToList(@PathVariable Integer id, @RequestBody String listGuid) {
+        var question = findQuestion(id);
+        if (question.isPresent()) {
+            question.get().setQuestionListGuid(listGuid);
+            quizQuestionRepository.save(question.get());
+            return id;
+        }
+        throw new RuntimeException("Question not found");
+    }
+
     private Optional<QuizQuestion> findQuestion(Integer id) {
         return quizQuestionRepository.findById(id);
     }
