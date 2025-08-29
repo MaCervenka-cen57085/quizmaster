@@ -9,7 +9,7 @@ interface Props {
     onCopyTakeQuestion: () => void
 }
 
-export const QuestionItem: React.FC<Props> = ({ question, index, onEditQuestion, onTakeQuestion, onCopyTakeQuestion: onCopyTakeQuestion }) => {
+export const QuestionItem: React.FC<Props> = ({ question, index, onEditQuestion, onTakeQuestion, onCopyTakeQuestion }) => {
     return (
         <div className="question-item">
             {index !== undefined && <span className="question-index">Q{index + 1}. </span>}

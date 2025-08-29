@@ -110,8 +110,7 @@ Then('I am notified about the copied link', async function () {
     })
 })
 
-Then('I can remove the question {string}', async function () {
-})
+Then('I can remove the question ', async () => {})
 
 Then('I can remove the question {string}', async function () {
 })

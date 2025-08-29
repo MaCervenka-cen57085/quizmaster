@@ -35,7 +35,11 @@ export const TakeQuestionButton = ({ id, onClick }: TakeQuestionButtonProps) => 
 
 export const CopyQuestionButton = ({ id, onClick }: CopyQuestionButtonProps) => (
     <Button id={id} className="copy-question" onClick={onClick}>
-        <img src={require('../../assets/icons/copy-clipboard.svg')} alt="Copy take url to clipboard" style={{ width: '1em', height: '1em', marginRight: '0.5em', verticalAlign: 'middle' }} />
+        <img
+            src={require('../../assets/icons/copy-clipboard.svg')}
+            alt="Copy take url to clipboard"
+            style={{ width: '1em', height: '1em', marginRight: '0.5em', verticalAlign: 'middle' }}
+        />
     </Button>
 )
 
