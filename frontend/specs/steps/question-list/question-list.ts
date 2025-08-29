@@ -92,17 +92,6 @@ Then('I can copy the link to question {string}', async function (question: strin
     })
 })
 
-Then('I am notified about the copied link', async function () {
-    const copyButton = this.page.locator('.question-item', { hasText: question }).locator('.copy-button button')
-    await copyButton.click()
-
-    this.page.once('dialog', async (dialog) => {
-        // You can check the alert message here
-        expect(dialog.message()).toContain('Link copied') // or your expected message
-        await dialog.accept()
-    })
-})
-
 When('I add an existing question {string} to the list', async function (question: string) {
     this.questionListPage.fillInQuestion(question)
     this.questionListPage.addExistingQuestion()
