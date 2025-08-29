@@ -42,7 +42,9 @@ export const CopyQuestionButton = ({ id, onClick }: CopyQuestionButtonProps) => 
             alt="Copy the take url to clipboard"
             title="Copy the take url to clipboard"
             style={{ width: '1em', height: '1em', verticalAlign: 'middle' }}
-            onError={e => { e.currentTarget.style.display = 'none'; }}
+            onError={e => {
+                e.currentTarget.style.display = 'none'
+            }}
         />
     </Button>
 )
