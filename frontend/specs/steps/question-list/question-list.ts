@@ -1,3 +1,4 @@
+import { expect } from '@playwright/test'
 import { expectedNumberOfChildrenToBe, expectTextToBe, expectTextToContain } from '../common.ts'
 import { Given, When, Then } from '../fixture.ts'
 import type { QuizmasterWorld } from '../world'
@@ -61,11 +62,6 @@ Then('I see {string} form', async function (title: string) {
     await expectTextToContain(this.page.getByText(title), title)
 })
 
-Then('I can copy the link to question {string}', async function (question: string) {
-    await expectTextToContain(this.page.getByText(question), question)
-    await expectedNumberOfChildrenToBe(this.page.locator('.edit-button'), 1)
-})
-
 When('I click Edit button for question {string}', async function (question: string) {
     await this.questionEditPage.waitForEditButton()
     const editButton = this.page.locator('.question-item', { hasText: question }).locator('.edit-button button')
@@ -83,6 +79,17 @@ Then('I can take the quiz for question {string}', async function name(question: 
     await this.takeQuestionPage.waitForLoaded()
 
     await expectTextToBe(this.page.locator('#question'), question)
+})
+
+Then('I can copy the link to question {string}', async function (question: string) {
+    const copyButton = this.page.locator('.question-item', { hasText: question }).locator('.copy-button button')
+    await copyButton.click()
+
+    this.page.once('dialog', async (dialog) => {
+        // You can check the alert message here
+        expect(dialog.message()).toContain('Link copied') // or your expected message
+        await dialog.accept()
+    })
 })
 
 When('I add an existing question {string} to the list', async function (question: string) {

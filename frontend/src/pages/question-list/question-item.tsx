@@ -1,14 +1,15 @@
 import type { QuizQuestion } from 'model/quiz-question'
-import { EditQuestionButton, TakeQuestionButton } from './question-list.tsx'
+import { EditQuestionButton, TakeQuestionButton, CopyQuestionButton } from './question-list.tsx'
 
 interface Props {
     question: QuizQuestion
     index?: number
     onEditQuestion: () => void
     onTakeQuestion: () => void
+    onCopyQuestion: () => void
 }
 
-export const QuestionItem: React.FC<Props> = ({ question, index, onEditQuestion, onTakeQuestion }) => {
+export const QuestionItem: React.FC<Props> = ({ question, index, onEditQuestion, onTakeQuestion, onCopyQuestion }) => {
     return (
         <div className="question-item">
             {index !== undefined && <span className="question-index">Q{index + 1}. </span>}
@@ -18,6 +19,9 @@ export const QuestionItem: React.FC<Props> = ({ question, index, onEditQuestion,
             </div>
             <div className="take-button">
                 <TakeQuestionButton id={question.hash} hash={question.hash} onClick={onTakeQuestion} />
+            </div>
+            <div className="copy-button">
+                <CopyQuestionButton id={question.hash} hash={question.hash} onClick={onCopyQuestion} />
             </div>
         </div>
     )

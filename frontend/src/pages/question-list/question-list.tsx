@@ -10,6 +10,7 @@ type Props = {
 
 type EditQuestionButtonProps = { id: string; hash: string; onClick: () => void }
 type TakeQuestionButtonProps = { id: string; hash: string; onClick: () => void }
+type CopyQuestionButtonProps = { id: string; hash: string; onClick: () => void }
 
 export const CreateQuestionButton = ({ onClick }: WithOnClick) => (
     <Button id="create-question" onClick={onClick}>
@@ -26,6 +27,12 @@ export const EditQuestionButton = ({ id, onClick }: EditQuestionButtonProps) => 
 export const TakeQuestionButton = ({ id, onClick }: TakeQuestionButtonProps) => (
     <Button id={id} className="take-question" onClick={onClick}>
         Take
+    </Button>
+)
+
+export const CopyQuestionButton = ({ id, onClick }: CopyQuestionButtonProps) => (
+    <Button id={id} className="copy-question" onClick={onClick}>
+        Copy to clipboard
     </Button>
 )
 
@@ -53,6 +60,16 @@ export function QuestionList({ questionListData }: Props) {
         navigate(`/question/${id}`)
     }
 
+    const onCopyQuestion = async (id: number) => {
+        const link = `${window.location.origin}/question/${id}`;
+        try {
+            await navigator.clipboard.writeText(link);
+            window.alert('link copied');
+        } catch (err) {
+            window.alert('Failed to copy link');
+        }
+    }
+
     return questionListData ? (
         <div className="question-list-page">
             <h1 id="question-title-header" data-testid="question-list-title">
@@ -73,6 +90,7 @@ export function QuestionList({ questionListData }: Props) {
                         index={index}
                         onEditQuestion={() => onEditQuestion(q.hash)}
                         onTakeQuestion={() => onTakeQuestion(q.id)}
+                        onCopyQuestion={() => onCopyQuestion(q.id)}
                     />
                 ))}
             </div>
