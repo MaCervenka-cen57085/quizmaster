@@ -6,10 +6,10 @@ interface Props {
     index?: number
     onEditQuestion: () => void
     onTakeQuestion: () => void
-    onCopyQuestion: () => void
+    onCopyTakeQuestion: () => void
 }
 
-export const QuestionItem: React.FC<Props> = ({ question, index, onEditQuestion, onTakeQuestion, onCopyQuestion }) => {
+export const QuestionItem: React.FC<Props> = ({ question, index, onEditQuestion, onTakeQuestion, onCopyTakeQuestion: onCopyTakeQuestion }) => {
     return (
         <div className="question-item">
             {index !== undefined && <span className="question-index">Q{index + 1}. </span>}
@@ -21,7 +21,7 @@ export const QuestionItem: React.FC<Props> = ({ question, index, onEditQuestion,
                 <TakeQuestionButton id={question.hash} hash={question.hash} onClick={onTakeQuestion} />
             </div>
             <div className="copy-button">
-                <CopyQuestionButton id={question.hash} hash={question.hash} onClick={onCopyQuestion} />
+                <CopyQuestionButton id={question.hash} hash={question.hash} onClick={onCopyTakeQuestion} />
             </div>
         </div>
     )

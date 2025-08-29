@@ -35,7 +35,7 @@ export const TakeQuestionButton = ({ id, onClick }: TakeQuestionButtonProps) => 
 
 export const CopyQuestionButton = ({ id, onClick }: CopyQuestionButtonProps) => (
     <Button id={id} className="copy-question" onClick={onClick}>
-        Copy to clipboard
+        <img src={require('../../assets/icons/copy-clipboard.svg')} alt="Copy take url to clipboard" style={{ width: '1em', height: '1em', marginRight: '0.5em', verticalAlign: 'middle' }} />
     </Button>
 )
 
@@ -64,7 +64,7 @@ export function QuestionList({ questionListData, onRefresh }: Props) {
         navigate(`/question/${id}`)
     }
 
-    const onCopyQuestion = async (id: number) => {
+    const onCopyTakeQuestion = async (id: number) => {
         const link = `${window.location.origin}/question/${id}`
         try {
             await navigator.clipboard.writeText(link)
@@ -119,7 +119,7 @@ export function QuestionList({ questionListData, onRefresh }: Props) {
                         index={index}
                         onEditQuestion={() => onEditQuestion(q.hash)}
                         onTakeQuestion={() => onTakeQuestion(q.id)}
-                        onCopyQuestion={() => onCopyQuestion(q.id)}
+                        onCopyTakeQuestion={() => onCopyTakeQuestion(q.id)}
                     />
                 ))}
             </div>
