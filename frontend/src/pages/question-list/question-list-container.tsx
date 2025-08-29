@@ -1,5 +1,5 @@
 import './question-list.scss'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { QuestionList } from './question-list'
@@ -11,7 +11,7 @@ export function QuestionListContainer() {
 
     const [questionListData, setQuestionListData] = useState<QuestionListData>()
 
-    const getQList = async () => {
+    const getQList = useCallback(async () => {
         if (params.id) {
             const listInfo = await getQuestionList(params.id)
             const listQuestion = await getListQuestions(params.id)
@@ -20,11 +20,11 @@ export function QuestionListContainer() {
                 questions: Array.isArray(listQuestion) ? listQuestion : [listQuestion],
             })
         }
-    }
+    }, [params.id])
 
     useEffect(() => {
         getQList()
-    }, [params.id])
+    }, [getQList])
 
     return <QuestionList questionListData={questionListData} onRefresh={getQList} />
 }
