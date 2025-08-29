@@ -5,6 +5,7 @@ interface Props {
     question: QuizQuestion
     index?: number
     onEditQuestion: () => void
+    onCopyEditQuestion: () => void
     onTakeQuestion: () => void
     onCopyTakeQuestion: () => void
 }
@@ -13,6 +14,7 @@ export const QuestionItem: React.FC<Props> = ({
     question,
     index,
     onEditQuestion,
+    onCopyEditQuestion,
     onTakeQuestion,
     onCopyTakeQuestion,
 }) => {
@@ -23,11 +25,14 @@ export const QuestionItem: React.FC<Props> = ({
             <div className="edit-button">
                 <EditQuestionButton id={question.hash} hash={question.hash} onClick={onEditQuestion} />
             </div>
+            <div className="copy-edit-button">
+                <CopyQuestionButton id={question.hash} hash={question.hash} kind="edit" onClick={onCopyEditQuestion} />
+            </div>
             <div className="take-button">
                 <TakeQuestionButton id={question.hash} hash={question.hash} onClick={onTakeQuestion} />
             </div>
             <div className="copy-take-button">
-                <CopyQuestionButton id={question.hash} hash={question.hash} onClick={onCopyTakeQuestion} />
+                <CopyQuestionButton id={question.hash} hash={question.hash} kind="take" onClick={onCopyTakeQuestion} />
             </div>
         </div>
     )

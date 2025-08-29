@@ -14,7 +14,7 @@ type Props = {
 
 type EditQuestionButtonProps = { id: string; hash: string; onClick: () => void }
 type TakeQuestionButtonProps = { id: string; hash: string; onClick: () => void }
-type CopyQuestionButtonProps = { id: string; hash: string; onClick: () => void }
+type CopyQuestionButtonProps = { id: string; kind: string; hash: string; onClick: () => void }
 
 export const CreateQuestionButton = ({ onClick }: WithOnClick) => (
     <Button id="create-question" onClick={onClick}>
@@ -34,13 +34,13 @@ export const TakeQuestionButton = ({ id, onClick }: TakeQuestionButtonProps) => 
     </Button>
 )
 
-export const CopyQuestionButton = ({ id, onClick }: CopyQuestionButtonProps) => (
+export const CopyQuestionButton = ({ id, kind, onClick }: CopyQuestionButtonProps) => (
     <Button id={id} className="copy-question" onClick={onClick}>
         <img
-            id={`image${id}`}
+            id={`image${kind}${id}`}
             src={copyClipboardIcon}
-            alt="Copy the take url to clipboard"
-            title="Copy the take url to clipboard"
+            alt={`Copy the ${kind} url to clipboard`}
+            title={`Copy the ${kind} url to clipboard`}
             style={{ width: '1em', height: '1em', verticalAlign: 'middle' }}
             onError={e => {
                 e.currentTarget.style.display = 'none'
@@ -83,6 +83,17 @@ export function QuestionList({ questionListData, onRefresh }: Props) {
             window.alert('Failed to copy link')
         }
     }
+
+    const onCopyEditQuestion = async (hash: string) => {
+        const link = `${window.location.origin}/question/${hash}/edit`
+        try {
+            await navigator.clipboard.writeText(link)
+            window.alert('link copied')
+        } catch (err) {
+            window.alert('Failed to copy link')
+        }
+    }
+
     const onAddExistingQuestion = async () => {
         if (questionId) {
             console.log(`Adding existing question with id: ${questionId}, question list id: ${questionListId}`)
@@ -128,6 +139,7 @@ export function QuestionList({ questionListData, onRefresh }: Props) {
                         question={q}
                         index={index}
                         onEditQuestion={() => onEditQuestion(q.hash)}
+                        onCopyEditQuestion={() => onCopyEditQuestion(q.hash)}
                         onTakeQuestion={() => onTakeQuestion(q.id)}
                         onCopyTakeQuestion={() => onCopyTakeQuestion(q.id)}
                     />

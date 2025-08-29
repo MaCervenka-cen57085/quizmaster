@@ -50,14 +50,13 @@ Feature: Question list
   Scenario: I copy the take question url
     Given I saved the question list "X"
     When I create new question to list "Xquestion"
-    Then I can copy the link to question "Xquestion"
+    Then I can copy the link to the take question "Xquestion"
     And I am notified about the copied link
 
-  @skip
   Scenario: I copy the edit question url
     Given I saved the question list "X"
     When I create new question to list "Xquestion"
-    Then I can copy the link to question "Xquestion"
+    Then I can copy the link to the edit question "Xquestion"
     And I am notified about the copied link
 
   @skip

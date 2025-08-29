@@ -81,7 +81,7 @@ Then('I can take the quiz for question {string}', async function name(question: 
     await expectTextToBe(this.page.locator('#question'), question)
 })
 
-Then('I can copy the link to question {string}', async function (question: string) {
+Then('I can copy the link to the take question {string}', async function (question: string) {
     const copyButton = this.page.locator('.question-item', { hasText: question }).locator('.copy-take-button button')
     await copyButton.click()
 
@@ -100,6 +100,11 @@ Then('I can copy the link to question {string}', async function (question: strin
 
     expect(clipboardText).toBe(expectedLink)
     */
+})
+
+Then('I can copy the link to the edit question {string}', async function (question: string) {
+    const copyButton = this.page.locator('.question-item', { hasText: question }).locator('.copy-edit-button button')
+    await copyButton.click()
 })
 
 Then('I am notified about the copied link', async function () {
