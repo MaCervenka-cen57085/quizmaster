@@ -14,3 +14,8 @@ Feature: Create quiz GUI
     When I attempt to save the quiz
     Then I see a link to the take quiz page
 
+  @skip
+  Scenario: Empty quiz creation with failing backend call
+    Given I start creating a quiz
+    When I attempt to save the quiz but the backend fails
+    Then I see the error message
