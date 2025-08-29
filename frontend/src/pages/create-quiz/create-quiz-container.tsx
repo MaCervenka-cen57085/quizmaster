@@ -33,12 +33,14 @@ export function CreateQuizContainer() {
     }
 
     return (
-        <CreateQuizForm
-            handleSubmit={handleSubmit}
-            quizData={quizData}
-            setQuizData={setQuizData}
-            linkToTakeQuiz={linkToTakeQuiz}
-            quizCreateError={quizCreateError}
-        />
+        <div className="create-quiz-modern-container">
+            <CreateQuizForm
+                handleSubmit={handleSubmit}
+                quizData={quizData}
+                setQuizData={setQuizData}
+                linkToTakeQuiz={linkToTakeQuiz}
+                quizCreateError={quizCreateError}
+            />
+        </div>
     )
 }
