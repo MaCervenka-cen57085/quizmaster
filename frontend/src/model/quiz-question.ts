@@ -37,6 +37,10 @@ export interface QuizCreateRequest {
     passScore: number
 }
 
+export interface QuizLinkRequest {
+    listGuid: string
+}
+
 export const isAnsweredCorrectly = (selectedAnswerIdxs: AnswerIdxs, correctAnswers: AnswerIdxs): boolean => {
     if (selectedAnswerIdxs) {
         return (

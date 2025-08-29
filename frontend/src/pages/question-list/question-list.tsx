@@ -3,6 +3,8 @@ import { Button, type WithOnClick } from 'pages/components/button'
 import { useParams, useNavigate } from 'react-router-dom'
 import type { QuestionListData } from '.'
 import { QuestionItem } from './question-item'
+import { useState } from 'react'
+import { linkQuestionToList } from 'api/quiz-question'
 
 type Props = {
     questionListData?: QuestionListData
@@ -45,8 +47,9 @@ export const AddExistingQuestion = ({ onClick }: WithOnClick) => (
 export function QuestionList({ questionListData }: Props) {
     const params = useParams()
     const navigate = useNavigate()
+    const [questionId, setQuestionId] = useState<string | undefined>()
 
-    const questionListId = params.id
+    const questionListId = `${params.id}`
 
     const onCreateNewQuestion = () => {
         navigate(`/question/new?listguid=${questionListId}`)
@@ -69,6 +72,18 @@ export function QuestionList({ questionListData }: Props) {
             window.alert('Failed to copy link')
         }
     }
+    const onAddExistingQuestion = async () => {
+        if (questionId) {
+            console.log(`Adding existing question with id: ${questionId}, question list id: ${questionListId}`)
+            if (!questionListId) return alert('Question list id is missing')
+            const result = await linkQuestionToList(Number.parseInt(questionId), questionListId)
+            if (result) {
+                alert(`Successfully added question with id: ${questionId} to list: ${questionListId}`)
+            } else {
+                alert(`Failed to add question with id: ${questionId} to list: ${questionListId}`)
+            }
+        }
+    }
 
     return questionListData ? (
         <div className="question-list-page">
@@ -78,8 +93,13 @@ export function QuestionList({ questionListData }: Props) {
             <div className="create-button">
                 <CreateQuestionButton onClick={onCreateNewQuestion} />
                 <div style={{ marginLeft: '20px' }}>
-                    <input id="question-input-field" placeholder="Enter question id" />
-                    <AddExistingQuestion onClick={() => console.log('Button clicked')} />
+                    <input
+                        value={questionId}
+                        onChange={e => setQuestionId(e.target.value)}
+                        id="question-input-field"
+                        placeholder="Enter question id"
+                    />
+                    <AddExistingQuestion onClick={onAddExistingQuestion} />
                 </div>
             </div>
             <div className="question-holder">

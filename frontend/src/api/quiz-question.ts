@@ -1,4 +1,4 @@
-import type { QuizQuestion } from 'model/quiz-question.ts'
+import type { QuizLinkRequest, QuizQuestion } from 'model/quiz-question.ts'
 import type { QuestionCreateResponse } from 'model/question-create-response.ts'
 import { fetchJson, postJson, patchJson } from './helpers.ts'
 
@@ -15,3 +15,6 @@ export const saveQuestion = async (question: QuestionApiData) =>
 
 export const updateQuestion = async (question: QuestionApiData, hash: string) =>
     await patchJson<QuestionApiData, number>(`/api/quiz-question/${hash}`, question)
+
+export const linkQuestionToList = async (questionId: number, listGuid: string) =>
+    await patchJson<QuizLinkRequest, boolean>(`/api/quiz-question/link-to-list/${questionId}`, { listGuid: listGuid })

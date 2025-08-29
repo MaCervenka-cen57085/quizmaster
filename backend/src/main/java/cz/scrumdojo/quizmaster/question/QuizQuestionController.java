@@ -80,14 +80,14 @@ public class QuizQuestionController {
 
     @Transactional
     @PatchMapping("/quiz-question/link-to-list/{id}")
-    public Integer linkQuestionToList(@PathVariable Integer id, @RequestBody String listGuid) {
+    public ResponseEntity<Boolean> linkQuestionToList(@PathVariable Integer id, @RequestBody QuestionLinkRequest listGuidRequest) {
         var question = findQuestion(id);
         if (question.isPresent()) {
-            question.get().setQuestionListGuid(listGuid);
+            question.get().setQuestionListGuid(listGuidRequest.getListGuid());
             quizQuestionRepository.save(question.get());
-            return id;
+            return ResponseEntity.ok(true);
         }
-        throw new RuntimeException("Question not found");
+        return ResponseEntity.notFound().build();
     }
 
     private Optional<QuizQuestion> findQuestion(Integer id) {
