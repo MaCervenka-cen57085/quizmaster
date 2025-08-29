@@ -42,11 +42,10 @@ Feature: Question list
     When I create new question to list "Xquestion"
     Then I can take the quiz for question "Xquestion"
 
-  @skip
   Scenario: Add existing question to question list
     Given I saved the question list "X"
     When I add an existing question "Czechia" to the list
-    Then I see question in list "Czechia"
+    Then I see question in list "What is the capital of Czech Republic?"
 
   Scenario: I copy the take question url
     Given I saved the question list "X"
