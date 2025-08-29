@@ -192,6 +192,7 @@ public class QuizController {
             .questionIds(questions.stream().mapToInt(q -> q.getId()).toArray())
             .afterEach(true)
             .passScore(quizInput.getPassScore())
+            .timeLimit(quizInput.getTimeLimit())
             .build();
 
         Quiz output = quizRepository.save(quiz);

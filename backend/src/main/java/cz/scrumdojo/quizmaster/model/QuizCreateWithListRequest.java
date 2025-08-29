@@ -15,4 +15,5 @@ public class QuizCreateWithListRequest {
     private String[] questionListIds;
     private boolean afterEach;
     private int passScore;
+    private Integer timeLimit;
 }

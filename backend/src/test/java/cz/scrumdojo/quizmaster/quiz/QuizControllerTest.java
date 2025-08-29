@@ -73,6 +73,8 @@ public class QuizControllerTest {
         quizInput.setQuestionListIds(listGuids);
         quizInput.setAfterEach(true);
         quizInput.setPassScore(85);
+        quizInput.setDescription("Description");
+        quizInput.setTimeLimit(60);
 
         return quizInput;
     }
