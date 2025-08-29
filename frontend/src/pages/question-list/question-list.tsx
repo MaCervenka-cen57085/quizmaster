@@ -3,6 +3,7 @@ import { Button, type WithOnClick } from 'pages/components/button'
 import { useParams, useNavigate } from 'react-router-dom'
 import type { QuestionListData } from '.'
 import { QuestionItem } from './question-item'
+import copyClipboardIcon from '../../assets/icons/copy-clipboard.svg'
 import { useState } from 'react'
 import { linkQuestionToList } from 'api/quiz-question'
 
@@ -36,9 +37,12 @@ export const TakeQuestionButton = ({ id, onClick }: TakeQuestionButtonProps) => 
 export const CopyQuestionButton = ({ id, onClick }: CopyQuestionButtonProps) => (
     <Button id={id} className="copy-question" onClick={onClick}>
         <img
-            src={require('../../assets/icons/copy-clipboard.svg')}
-            alt="Copy take url to clipboard"
-            style={{ width: '1em', height: '1em', marginRight: '0.5em', verticalAlign: 'middle' }}
+            id={`image${id}`}
+            src={copyClipboardIcon}
+            alt="Copy the take url to clipboard"
+            title="Copy the take url to clipboard"
+            style={{ width: '1em', height: '1em', verticalAlign: 'middle' }}
+            onError={e => { e.currentTarget.style.display = 'none'; }}
         />
     </Button>
 )
