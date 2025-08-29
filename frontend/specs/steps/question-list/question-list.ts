@@ -1,4 +1,4 @@
-import { expect } from '@playwright/test'
+import { expect, type Dialog } from '@playwright/test'
 import { expectedNumberOfChildrenToBe, expectTextToBe, expectTextToContain } from '../common.ts'
 import { Given, When, Then } from '../fixture.ts'
 import type { QuizmasterWorld } from '../world'
@@ -85,7 +85,7 @@ Then('I can copy the link to question {string}', async function (question: strin
     const copyButton = this.page.locator('.question-item', { hasText: question }).locator('.copy-button button')
     await copyButton.click()
 
-    this.page.once('dialog', async (dialog) => {
+    this.page.once('dialog', async (dialog: Dialog) => {
         // You can check the alert message here
         expect(dialog.message()).toContain('Link copied') // or your expected message
         await dialog.accept()
