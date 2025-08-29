@@ -36,6 +36,7 @@ export interface QuizCreateRequest {
     questionIds: number[]
     afterEach: boolean
     passScore: number
+    timeLimit: number
 }
 
 export type QuizCreateFromQuestionListRequest = Omit<Omit<QuizCreateRequest, 'questionIds'>, 'id'> & {
