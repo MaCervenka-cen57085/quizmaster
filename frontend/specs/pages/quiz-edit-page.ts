@@ -33,4 +33,5 @@ export class QuizEditPage {
     clickSubmitButton = () => this.submitButtonLocator().click()
 
     quizTakeLink = () => this.page.locator('#take-quiz-link')
+    createQuizErrorMessage = () => this.page.locator('#take-quiz-error')
 }

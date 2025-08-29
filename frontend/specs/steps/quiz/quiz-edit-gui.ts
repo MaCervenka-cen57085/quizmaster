@@ -14,6 +14,16 @@ When('I enter a pass score {int}', async function (passScore: number) {
     await enterPassScore(this, passScore)
 })
 
+When('the backend fails with error message {string}', async function (message: string) {
+    await this.page.route('**/api/quiz-with-list', route => {
+        route.fulfill({
+            status: 500,
+            contentType: 'application/json',
+            body: JSON.stringify({ message }),
+        })
+    })
+})
+
 // Field assertions
 
 Then('I see empty title field', async function () {
@@ -50,4 +60,9 @@ Then('I see a link to the take quiz page', async function () {
     const takeQuizPageLink = this.quizEditPage.quizTakeLink()
     await expect(takeQuizPageLink).toContainText(/\/quiz\/\d+/)
     await expect(takeQuizPageLink).toBeVisible()
+})
+
+Then('I see the error message {string}', async function (message: string) {
+    const errorMessage = this.quizEditPage.createQuizErrorMessage()
+    await expect(errorMessage).toHaveText(message)
 })

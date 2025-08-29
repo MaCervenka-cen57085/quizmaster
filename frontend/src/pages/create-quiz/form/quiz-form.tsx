@@ -11,7 +11,13 @@ interface QuizEditProps {
     readonly quizCreateError: string
 }
 
-export const QuizEditForm = ({ handleSubmit, quizData, setQuizData, linkToTakeQuiz }: QuizEditProps) => {
+export const QuizEditForm = ({
+    handleSubmit,
+    quizData,
+    setQuizData,
+    linkToTakeQuiz,
+    quizCreateError,
+}: QuizEditProps) => {
     return (
         <form id="quiz-create-form" onSubmit={preventDefault(handleSubmit)}>
             <div>
@@ -64,6 +70,8 @@ export const QuizEditForm = ({ handleSubmit, quizData, setQuizData, linkToTakeQu
                 />
                 <br />
                 <SubmitButton />
+
+                {quizCreateError && <div id="take-quiz-error">{quizCreateError}</div>}
 
                 {linkToTakeQuiz && (
                     <>
