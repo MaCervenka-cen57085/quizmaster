@@ -13,16 +13,20 @@ Background:
       | Prague   |  | Yes     |
       | Berlin   |   | Germany |
 
-  @skip
   Scenario: Create multiple choice question without correct answer
-    Given I start creating a question
-    * I enter question "What are cities of Czech Republic?"
-    * I enter answer 1 text "", incorrect, with explanation ""
-    * I enter answer 3 text "", incorrect, with explanation ""
-    * I enter question explanation ""
     When I attempt to save the question
     Then I see error messages
-      | empty-question    |
-      | empty-answer |
       | no-correct-answer |
-      | empty-answer-explanation |
+
+  Scenario: Create multiple choice question with one correct answer
+    Given I mark answer 2 as correct
+    When I attempt to save the question
+    Then I see no error messages
+
+  Scenario: Create multiple choice question with all correct answers
+    Given I mark answer 2 as correct
+    * I mark answer 3 as correct
+    * I mark answer 4 as correct
+    * I mark answer 1 as correct
+    When I attempt to save the question
+    Then I see no error messages
