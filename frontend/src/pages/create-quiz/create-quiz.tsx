@@ -5,12 +5,14 @@ type Props = {
     quizData: QuizFormData
     setQuizData: (data: QuizFormData) => void
     handleSubmit: () => void
+    linkToTakeQuiz: string
+    quizCreateError: string
 }
 
-export function CreateQuizForm({ handleSubmit, quizData, setQuizData }: Props) {
+export function CreateQuizForm(props: Props) {
     return (
         <div className="quiz-page">
-            <QuizEditForm quizData={quizData} setQuizData={setQuizData} onSubmit={handleSubmit} />
+            <QuizEditForm {...props} />
             <br />
             <p style={{ textAlign: 'right', fontSize: '11px' }}>Powered by Kiwi</p>
         </div>

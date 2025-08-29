@@ -1,16 +1,19 @@
 import { SubmitButton } from 'pages/components/submit-button.tsx'
 import { preventDefault } from 'helpers.ts'
 import type { QuizFormData } from 'pages/create-quiz/form/quiz-form-data.ts'
+import { CreatedQuizLink } from '../components'
 
 interface QuizEditProps {
-    readonly onSubmit: () => void
+    readonly handleSubmit: () => void
     readonly quizData: QuizFormData
     readonly setQuizData: (data: QuizFormData) => void
+    readonly linkToTakeQuiz: string
+    readonly quizCreateError: string
 }
 
-export const QuizEditForm = ({ onSubmit, quizData, setQuizData }: QuizEditProps) => {
+export const QuizEditForm = ({ handleSubmit, quizData, setQuizData, linkToTakeQuiz }: QuizEditProps) => {
     return (
-        <form id="quiz-create-form" onSubmit={preventDefault(onSubmit)}>
+        <form id="quiz-create-form" onSubmit={preventDefault(handleSubmit)}>
             <div>
                 <h1 id="quiz-page-title">Quiz</h1>
                 <input
@@ -61,6 +64,13 @@ export const QuizEditForm = ({ onSubmit, quizData, setQuizData }: QuizEditProps)
                 />
                 <br />
                 <SubmitButton />
+
+                {linkToTakeQuiz && (
+                    <>
+                        <p>Your quiz has been created successfully!</p>
+                        <CreatedQuizLink url={linkToTakeQuiz} />
+                    </>
+                )}
             </div>
         </form>
     )

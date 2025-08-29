@@ -9,8 +9,7 @@ Feature: Create quiz GUI
     * I see empty pass score field
     * I see empty time limit field
 
-  @skip
-  Scenario: Empty quiz submit should show the link to take the quiz
+  Scenario: Empty quiz creation should show the link to take the quiz
     Given I start creating a quiz
     When I attempt to save the quiz
     Then I see a link to the take quiz page
