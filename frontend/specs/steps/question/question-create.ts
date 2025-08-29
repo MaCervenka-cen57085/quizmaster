@@ -64,6 +64,6 @@ Then('I see an error message', async function () {
     expect(errorMessage).not.toBe('')
 })
 
-When('I wait for {int} ms', async function (milliseconds: number) {
+When('I wait for {int} ms', async (milliseconds: number) => {
     await new Promise(resolve => setTimeout(resolve, milliseconds))
 })

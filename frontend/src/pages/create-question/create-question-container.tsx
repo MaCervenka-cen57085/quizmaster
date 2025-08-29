@@ -18,7 +18,7 @@ export function CreateQuestionContainer() {
     const [linkToEditQuestion, setLinkToEditQuestion] = useState<string>('')
 
     const [errors, setErrors] = useState<ErrorCodes>(new Set())
-    var editUrl = ''
+    let editUrl = ''
 
     const postData = async (formData: QuestionApiData) => {
         await saveQuestion(formData)
@@ -56,14 +56,14 @@ export function CreateQuestionContainer() {
         }
 
         postData(apiData).then(() => {
-           if (questionListGuid !== '') {
-               //to be refactored we should not wait post data to finish
-               navigate(`/q-list/${questionListGuid}`)
-           } else {
-               navigate(editUrl)
-           }
-       })
-   }
+            if (questionListGuid !== '') {
+                //to be refactored we should not wait post data to finish
+                navigate(`/q-list/${questionListGuid}`)
+            } else {
+                navigate(editUrl)
+            }
+        })
+    }
 
     return (
         <CreateQuestionForm

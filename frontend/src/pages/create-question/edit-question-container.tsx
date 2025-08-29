@@ -27,18 +27,12 @@ export function EditQuestionContainer() {
         setIsLoaded(true)
     })
 
-
     const patchData = async (formData: QuestionApiData) => {
         if (!questionHash) {
             throw new Error('Question hash is not defined')
         }
 
-        updateQuestion(formData, questionHash)
-            .then(response => {
-                //setLinkToQuestion(`${location.origin}/question/${response}`)
-                //setLinkToEditQuestion(`${location.origin}/question/${response}/edit`)
-            })
-            .catch(error => setLinkToQuestion(error.message))
+        updateQuestion(formData, questionHash).catch(error => setLinkToQuestion(error.message))
     }
 
     const handleSubmit = () => {
