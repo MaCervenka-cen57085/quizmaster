@@ -10,8 +10,8 @@ Feature: Create quiz GUI
     * I see empty time limit field
 
   @skip
-  Scenario: Empty quiz submit
+  Scenario: Empty quiz submit should show the link to take the quiz
     Given I start creating a quiz
-    When I click the submit button
-    Then I see a link to the quiz edit page
+    When I click the create quiz submit button
+    Then I see a link to the take quiz page
 

@@ -6,6 +6,10 @@ When('I start creating a quiz', async function () {
     await openCreatePage(this)
 })
 
+When('I click the create quiz submit button', async function () {
+    await this.quizEditPage.clickSubmitButton()
+})
+
 // Field assertions
 
 Then('I see empty title field', async function () {
@@ -36,4 +40,9 @@ Then('I see empty time limit field', async function () {
 Then('I see the quiz submit button as active', async function () {
     const isSubmitButtonActive = await this.quizEditPage.isSubmitButtonActive()
     expect(isSubmitButtonActive).toBe(true)
+})
+
+Then('I see a link to the take quiz page', async function () {
+    const isTakeQuizPageLinkVisible = await this.quizEditPage.isTakeQuizPageLinkVisible()
+    expect(isTakeQuizPageLinkVisible).toBe(true)
 })

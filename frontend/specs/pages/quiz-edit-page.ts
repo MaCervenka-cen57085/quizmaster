@@ -30,4 +30,8 @@ export class QuizEditPage {
 
     private submitButtonLocator = () => this.page.locator('button[type="submit"]')
     isSubmitButtonActive = () => this.submitButtonLocator().isEnabled()
+    clickSubmitButton = () => this.submitButtonLocator().click()
+
+    private quizTakeUrlLocator = () => this.page.locator('#take-quiz-link')
+    isTakeQuizPageLinkVisible = () => this.quizTakeUrlLocator().textContent()
 }
