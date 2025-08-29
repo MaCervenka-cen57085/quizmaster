@@ -84,7 +84,7 @@ Given(
             questions: questions.toString(),
             mode,
             'pass score': passScore.toString(),
-            'timeLimit': "120"
+            timeLimit: '120',
         })
 
         await postQuiz(this, bookmark, quiz)
