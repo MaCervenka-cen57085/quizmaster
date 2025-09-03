@@ -1,13 +1,11 @@
 package cz.scrumdojo.quizmaster.question;
 
+import cz.scrumdojo.quizmaster.service.EncryptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
-import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,15 +14,15 @@ import java.util.Optional;
 public class QuizQuestionController {
 
     private final QuizQuestionRepository quizQuestionRepository;
-    public static final String KEY = "UMNBKJHUMNASDGIUASDKJHVIYWKJASGS";
-    private static final String ALGORITHM = "AES";
-    private static final String TRANSFORM = "AES/ECB/PKCS5Padding";
+    private final EncryptionService encryptionService;
 
     @Autowired
     public QuizQuestionController(
-        QuizQuestionRepository quizQuestionRepository) {
+        QuizQuestionRepository quizQuestionRepository,
+        EncryptionService encryptionService) {
 
         this.quizQuestionRepository = quizQuestionRepository;
+        this.encryptionService = encryptionService;
     }
 
     @Transactional
@@ -38,14 +36,14 @@ public class QuizQuestionController {
     public List<QuestionListItem> getQuestionsByQuestionList(@PathVariable String guid) {
         List<QuizQuestion> questions = quizQuestionRepository.findByQuestionListGuid(guid);
         return questions.stream()
-            .map(q -> new QuestionListItem( q.getId(),q.getQuestion(), getHashFromQuestionId(q.getId())))
+            .map(q -> new QuestionListItem( q.getId(),q.getQuestion(), encryptionService.encryptQuestionId(q.getId())))
             .toList();
     }
 
     @Transactional
     @GetMapping("/quiz-question/{hash}/edit")
     public ResponseEntity<QuizQuestion> getQuestionByHash(@PathVariable String hash) {
-        var id = getQuestionIdFromHash(hash);
+        var id = encryptionService.decryptQuestionId(hash);
         return response(findQuestion(id));
     }
 
@@ -59,14 +57,14 @@ public class QuizQuestionController {
     @PostMapping("/quiz-question")
     public QuestionCreateResponse saveQuestion(@RequestBody QuizQuestion question) {
         var createdQuestion = quizQuestionRepository.save(question);
-        var hash = getHashFromQuestionId(question.getId());
+        var hash = encryptionService.encryptQuestionId(createdQuestion.getId());
         return new QuestionCreateResponse(createdQuestion.getId(), hash);
     }
 
     @Transactional
     @PatchMapping("/quiz-question/{hash}")
     public Integer updateQuestion(@RequestBody QuizQuestion question, @PathVariable String hash) {
-        var id = getQuestionIdFromHash(hash);
+        var id = encryptionService.decryptQuestionId(hash);
         question.setId(id);
         quizQuestionRepository.save(question);
         return id;
@@ -108,28 +106,5 @@ public class QuizQuestionController {
             .orElse(ResponseEntity.notFound().build());
     }
 
-    private String getHashFromQuestionId(Integer questionId) {
-        try {
-            SecretKeySpec keySpec = new SecretKeySpec(KEY.getBytes(), ALGORITHM);
-            Cipher cipher = Cipher.getInstance(TRANSFORM);
-            cipher.init(Cipher.ENCRYPT_MODE, keySpec);
-            byte[] encrypted = cipher.doFinal(questionId.toString().getBytes());
-            return Base64.getUrlEncoder().encodeToString(encrypted);
-        } catch (Exception e) {
-            throw new RuntimeException("Error while encrypting", e);
-        }
-    }
 
-    private Integer getQuestionIdFromHash(String hash) {
-        try {
-            SecretKeySpec keySpec = new SecretKeySpec(KEY.getBytes(), ALGORITHM);
-            Cipher cipher = Cipher.getInstance(TRANSFORM);
-            cipher.init(Cipher.DECRYPT_MODE, keySpec);
-            byte[] decodedBytes = Base64.getUrlDecoder().decode(hash);
-            byte[] decrypted = cipher.doFinal(decodedBytes);
-            return Integer.parseInt(new String(decrypted));
-        } catch (Exception e) {
-            throw new RuntimeException("Error while decrypting", e);
-        }
-    }
 }
