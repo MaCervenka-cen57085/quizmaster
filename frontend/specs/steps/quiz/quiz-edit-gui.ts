@@ -58,7 +58,7 @@ Then('I see the quiz submit button as active', async function () {
 
 Then('I see a link to the take quiz page', async function () {
     const takeQuizPageLink = this.quizEditPage.quizTakeLink()
-    await expect(takeQuizPageLink).toContainText(/\/quiz\/\d+/)
+    await expect(takeQuizPageLink).toContainText(/\/quiz\/-?\d+/)
     await expect(takeQuizPageLink).toBeVisible()
 })
 
