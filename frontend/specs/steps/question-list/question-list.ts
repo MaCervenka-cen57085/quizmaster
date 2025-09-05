@@ -120,7 +120,6 @@ Then('I can remove the question ', async () => {})
 When('I add an existing question {string} to the list', async function (questionBookmark: string) {
     const question = this.questionBookmarks[questionBookmark]
     const questionId = question.url.split('/').at(-1)
-    console.log('Question ID:', questionId)
     this.questionListPage.fillInQuestion(`${questionId}`)
     this.questionListPage.addExistingQuestion()
 })

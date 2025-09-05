@@ -30,11 +30,3 @@ Feature: Create quiz GUI
     Given the backend fails with error message "Failed to create quiz"
     When I attempt to save the quiz
     Then I see the error message "Failed to create quiz"
-
-  @skip
-  Scenario: Quiz creation with an existing question list
-    Given I start creating a quiz
-    When I enter an existing question list <id>
-    When I attempt to save the quiz
-    When I click the take quiz link
-    Then I see the amount of questions in the quiz
