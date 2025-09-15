@@ -7,8 +7,6 @@ export const HomePage = () => {
             <Link to="/question/new">Create new question</Link>
             <br />
             <Link to="/q-list/new">Create new question list</Link>
-            <br />
-            <Link to="/quiz/new">Create new quiz</Link>
         </>
     )
 }

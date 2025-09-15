@@ -39,10 +39,6 @@ export interface QuizCreateRequest {
     timeLimit: number
 }
 
-export type QuizCreateFromQuestionListRequest = Omit<Omit<QuizCreateRequest, 'questionIds'>, 'id'> & {
-    questionListIds: string[]
-}
-
 export interface QuizLinkRequest {
     listGuid: string
 }
