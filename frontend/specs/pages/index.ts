@@ -7,4 +7,3 @@ export * from './quiz-question-page.ts'
 export * from './quiz-score-page.ts'
 export * from './quiz-welcome-page.ts'
 export * from './take-question-page.ts'
-
