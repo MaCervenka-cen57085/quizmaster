@@ -53,10 +53,12 @@ export const QuestionEditForm = ({ questionData, setQuestionData, onSubmit }: Qu
                 isMultipleChoice={questionData.isMultipleChoice}
                 setIsMultipleChoice={setIsMultipleChoice}
             />
-            {questionData.isMultipleChoice && <EasyModeChoiceEdit
-                isEasyModeChoice={questionData.isEasyModeChoice}
-                setIsEasyModeChoice={setIsEasyModeChoice}
-            />}
+            {questionData.isMultipleChoice && (
+                <EasyModeChoiceEdit
+                    isEasyModeChoice={questionData.isEasyModeChoice}
+                    setIsEasyModeChoice={setIsEasyModeChoice}
+                />
+            )}
             <AnswersEdit
                 answers={questionData.answers}
                 setAnswers={setAnswers}

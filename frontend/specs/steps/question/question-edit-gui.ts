@@ -54,7 +54,6 @@ Then(/I see easy mode is (visible|not visible)/, async function (value: string) 
     expect(isEasyModeVisible).toBe(value === 'visible')
 })
 
-
 const expectAnswer = async (
     world: QuizmasterWorld,
     index: number,
