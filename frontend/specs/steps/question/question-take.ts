@@ -57,6 +57,10 @@ Then('I see feedback {string}', async function (feedback: string) {
     await expectTextToBe(this.takeQuestionPage.questionFeedbackLocator(), feedback)
 })
 
+Then('I see score {string}', async function (score: string) {
+    await expectTextToBe(this.takeQuestionPage.questionScoreLocator(), score)
+})
+
 Then('no answer is selected', async function () {
     expect(await this.takeQuestionPage.selectedAnswersLocator().count()).toBe(0)
 })

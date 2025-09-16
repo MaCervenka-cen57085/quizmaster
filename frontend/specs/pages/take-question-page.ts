@@ -30,5 +30,6 @@ export class TakeQuestionPage {
     submitButtonIsDisabled = () => this.submitButtonLocator().isDisabled()
 
     questionFeedbackLocator = () => this.page.locator('p.question-feedback')
+    questionScoreLocator = () => this.page.locator('p.question-score')
     questionExplanationLocator = () => this.page.locator('p.question-explanation')
 }

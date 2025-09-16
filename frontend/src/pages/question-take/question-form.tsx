@@ -7,6 +7,7 @@ import {
     QuestionCorrectness,
     QuestionExplanation,
 } from 'pages/question-take'
+import { QuestionScore } from './components/question-score'
 
 export interface QuestionFormProps {
     readonly question: QuizQuestion
@@ -63,6 +64,7 @@ export const QuestionForm = (props: QuestionFormProps) => {
             {state.submitted && props.afterEach && (
                 <>
                     <QuestionCorrectness isCorrect={feedback.isQuestionCorrect} />
+                    <QuestionScore score={feedback.score} />
                     <QuestionExplanation text={props.question.questionExplanation} />
                 </>
             )}
