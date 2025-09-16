@@ -69,10 +69,11 @@ For easier testing, Swagger UI is available at http://localhost:8080/swagger-ui/
 You can hide an unfinished feature behind a feature flag.
 
 - on the frontend, the feature flag is a constant `FEATURE_FLAG_ENABLED`
+- in specifications, mark scenario that pass only with feature flag with @feature-flag
 - on the backend, the feature flag is a static method `FeatureFlag.isEnabled()`
 
 To enable the feature flag, set the `FEATURE_FLAG` environment variable to `true` and rebuild both the frontend and
-the backend:
+the backend. Do not forget to set the environment variable also before running end-to-end tests:
 
 | OS      | Command                    |
 |---------|----------------------------|
