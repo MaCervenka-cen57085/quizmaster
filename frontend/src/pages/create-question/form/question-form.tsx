@@ -80,6 +80,7 @@ export const QuestionEditForm = ({ questionData, setQuestionData, onSubmit }: Qu
                     onClick={handleOnClick}
                     disabled={!questionData.isDeletable}
                     title={!questionData.isDeletable ? 'Otázku nelze smazat je obsažena v kvízu!' : ''}
+                    dataTestId="delete-button"
                     className='submit-button'>Smazat</Button>
             </div>
         </form>

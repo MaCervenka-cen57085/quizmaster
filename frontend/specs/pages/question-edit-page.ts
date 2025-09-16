@@ -7,7 +7,7 @@ export class QuestionEditPage {
     gotoEdit = (url: string) => this.page.goto(url, { waitUntil: 'networkidle' })
 
     waitForLoaded = () => this.page.isHidden('#is-loaded[value="loaded"]')
-    waitForEditButton = () => this.page.waitForSelector('.submit-btn.edit-question')
+    waitForEditButton = () => this.page.waitForSelector('.edit-question')
     waitForLoadedTitle = () => this.page.waitForSelector('#question-page-title')
 
     private questionLocator = () => this.page.locator('#question-text')
@@ -58,6 +58,8 @@ export class QuestionEditPage {
     }
 
     private addAnswerButtonLocator = () => this.page.locator('button#add-answer')
+    private addDeleteQuestionButtonLocator = () => this.page.locator('[data-testid="delete-button"]')
+    isDeleteQuestionButtonEnabled = () => this.addDeleteQuestionButtonLocator().isEnabled();
     addAdditionalAnswer = async () => {
         const idx = await this.answerRowCount()
         await this.addAnswerButtonLocator().click()

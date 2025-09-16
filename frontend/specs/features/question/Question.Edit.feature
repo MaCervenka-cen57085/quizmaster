@@ -18,6 +18,7 @@ Feature: Edit question GUI
       | Prague | * | Yes     |
       | Berlin |   | Germany |
     * I see "Czechia is a country in Europe. Czechs love beer." in the question explanation field
+    * I see delete button is enable
 
   Scenario: Edit all fields
     Given I enter question "What is the capital of Slovakia?"
