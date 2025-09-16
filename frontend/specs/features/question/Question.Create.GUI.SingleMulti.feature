@@ -2,16 +2,17 @@ Feature: Create question GUI - Single/multiple choice
   Single choice question has exactly one answer correct
   Multiple choice question can have two or more answers correct
 
+  Background:
+    Given I start creating a question
+
   Scenario: Default is single choice
-    When I start creating a question
     Then I see multiple choice is unchecked
 
   Scenario: Single choice: Mark correct answer
-    Given I start creating a question
     * I enter answers
-      | Brno       |   |
-      | Berlin     |   |
-      | Bratislava |   |
+      | Brno       |  |
+      | Berlin     |  |
+      | Bratislava |  |
     When I mark answer 2 as correct
     Then I see the answers fields
       | Brno       |   |
@@ -19,7 +20,6 @@ Feature: Create question GUI - Single/multiple choice
       | Bratislava |   |
 
   Scenario: Single choice: Change correct answer
-    Given I start creating a question
     * I enter answers
       | Brno       |   |
       | Berlin     | * |
@@ -31,12 +31,11 @@ Feature: Create question GUI - Single/multiple choice
       | Bratislava |   |
 
   Scenario: Multiple choice: Mark multiple correct answers
-    Given I start creating a question
     * I mark the question as multiple choice
     * I enter answers
-      | Brno       |   |
-      | Berlin     |   |
-      | Bratislava |   |
+      | Brno       |  |
+      | Berlin     |  |
+      | Bratislava |  |
     When I mark answer 2 as correct
     * I mark answer 3 as correct
     Then I see the answers fields
@@ -45,7 +44,6 @@ Feature: Create question GUI - Single/multiple choice
       | Bratislava | * |
 
   Scenario: Switch single to multiple choice: Keep selection
-    Given I start creating a question
     * I enter answers
       | Brno       |   |
       | Berlin     | * |
@@ -60,7 +58,6 @@ Feature: Create question GUI - Single/multiple choice
     If exactly one answer is marked as correct for a multiple choice question,
     switching to single choice keeps the marked answer
 
-    Given I start creating a question
     * I mark the question as multiple choice
     * I enter answers
       | Brno       |   |
@@ -76,7 +73,6 @@ Feature: Create question GUI - Single/multiple choice
     If more than one answer is marked as correct for a multiple choice question,
     switching to single choice unmarks all answers.
 
-    Given I start creating a question
     * I mark the question as multiple choice
     * I enter answers
       | Brno       | * |
@@ -84,6 +80,15 @@ Feature: Create question GUI - Single/multiple choice
       | Bratislava |   |
     When I mark the question as single choice
     Then I see the answers fields
-      | Brno       |   |
-      | Berlin     |   |
-      | Bratislava |   |
+      | Brno       |  |
+      | Berlin     |  |
+      | Bratislava |  |
+
+
+  Scenario: Easy Mode: Verify that Easy mode is visible only for Multiple Choice
+    # default case (Single choice)
+    Then I see multiple choice is unchecked
+    And I see easy mode is not visible
+
+    When I mark the question as multiple choice
+    Then I see easy mode is visible

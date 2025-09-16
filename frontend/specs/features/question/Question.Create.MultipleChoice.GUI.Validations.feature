@@ -1,17 +1,17 @@
 Feature: Create question GUI
-    - Question text is required
-    - Answer text for each answer is required
-    - At least one correct answer is required
-    - Question explanation is optional
+  - Question text is required
+  - Answer text for each answer is required
+  - At least one correct answer is required
+  - Question explanation is optional
 
-Background:
+  Background:
     Given I start creating a question
     * I enter question "What are cities of Czech Republic?"
     * with answers:
       | Brno     |  | No Brno |
       | Brussels |  | Yes     |
       | Prague   |  | Yes     |
-      | Berlin   |   | Germany |
+      | Berlin   |  | Germany |
 
   Scenario: Create multiple choice question without correct answer
     When I attempt to save the question

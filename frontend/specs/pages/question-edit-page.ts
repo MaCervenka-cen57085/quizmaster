@@ -23,6 +23,7 @@ export class QuestionEditPage {
     isEasyMode = () => this.easyModeLocator().isChecked()
     setEasyModeChecked = () => this.easyModeLocator().check()
     setEasyModeUnchecked = () => this.easyModeLocator().uncheck()
+    isEasyModeVisible = () => this.easyModeLocator().isVisible()
 
     // deprecated
     isCorrectCheckboxLocator = (answerText: string) =>

@@ -49,6 +49,12 @@ Then(/I see easy mode is (unchecked|checked)/, async function (value: string) {
     expect(isEasyMode).toBe(value === 'checked')
 })
 
+Then(/I see easy mode is (visible|not visible)/, async function (value: string) {
+    const isEasyModeVisible = await this.questionEditPage.isEasyModeVisible()
+    expect(isEasyModeVisible).toBe(value === 'visible')
+})
+
+
 const expectAnswer = async (
     world: QuizmasterWorld,
     index: number,
