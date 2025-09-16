@@ -67,3 +67,8 @@ body {
       cursor: not-allowed;
     }
 }
+
+.flex-container {
+  display: flex;
+  gap: 10px;
+}

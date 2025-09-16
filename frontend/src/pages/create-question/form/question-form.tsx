@@ -1,4 +1,5 @@
 import { SubmitButton } from 'pages/components/submit-button.tsx'
+import { Button } from 'pages/components/button.tsx'
 import { preventDefault } from 'helpers.ts'
 import {
     type AnswerData,
@@ -45,6 +46,11 @@ export const QuestionEditForm = ({ questionData, setQuestionData, onSubmit }: Qu
     const setAnswers = (answers: readonly AnswerData[]) => setQuestionData({ ...questionData, answers })
     const setQuestionExplanation = (questionExplanation: string) =>
         setQuestionData({ ...questionData, questionExplanation })
+    const handleOnClick = () => {
+        if(confirm('Opravdu chcete smazat otázku? Tuto akci nelze vrátit zpět.')) {
+            console.log('Question deleted')
+        }
+    }
 
     return (
         <form id="question-create-form" onSubmit={preventDefault(onSubmit)}>
@@ -68,8 +74,13 @@ export const QuestionEditForm = ({ questionData, setQuestionData, onSubmit }: Qu
                 questionExplanation={questionData.questionExplanation}
                 setQuestionExplanation={setQuestionExplanation}
             />
-            <div>
+            <div className="flex-container">
                 <SubmitButton />
+                <Button
+                    onClick={handleOnClick}
+                    disabled={!questionData.isDeletable}
+                    title={!questionData.isDeletable ? 'Otázku nelze smazat je obsažena v kvízu!' : ''}
+                    className='submit-button'>Smazat</Button>
             </div>
         </form>
     )

@@ -7,10 +7,12 @@ interface ButtonProps extends WithOnClick {
     readonly className?: string
     readonly type?: 'button' | 'submit'
     readonly children: React.ReactNode
+    readonly disabled?: boolean
+    readonly title?: string
 }
 
-export const Button = ({ id, className, type = 'button', onClick, children }: ButtonProps) => (
-    <button id={id} type={type} className={`submit-btn ${className}`} onClick={onClick}>
+export const Button = ({ id, className, type = 'button', onClick, children, disabled, title }: ButtonProps) => (
+    <button id={id} type={type} className={`${className}`} onClick={onClick} disabled={disabled} title={title}>
         {children}
     </button>
 )
