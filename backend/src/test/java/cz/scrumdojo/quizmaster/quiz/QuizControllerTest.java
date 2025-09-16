@@ -47,6 +47,7 @@ public class QuizControllerTest {
         quizInput.setAfterEach(true);
         quizInput.setPassScore(85);
         quizInput.setQuestionIds(questions);
+        quizInput.setTimeLimit(10);
 
         return quizInput;
     }
@@ -150,6 +151,7 @@ public class QuizControllerTest {
         assertEquals(quizInput.getPassScore(), quiz.getPassScore());
         assertArrayEquals(quizInput.getQuestionIds(), quiz.getQuestionIds());
         assertEquals(quizInput.isAfterEach(), quiz.isAfterEach());
+        assertEquals(quizInput.getTimeLimit(), quiz.getTimeLimit());
 
         ResponseEntity<QuizResponse> quizGet = quizController.getQuiz(quizId);
         assertNotNull(quizGet);
