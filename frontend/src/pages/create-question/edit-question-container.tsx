@@ -23,7 +23,7 @@ export function EditQuestionContainer() {
     useApi(questionHash, getQuestionByHash, quizQuestion => {
         setQuestionData(toQuestionFormData(quizQuestion))
         setLinkToQuestion(`${location.origin}/question/${quizQuestion.id}`)
-        setLinkToEditQuestion(`${location.origin}/question/${quizQuestion.hash}/edit`)
+        setLinkToEditQuestion(`${location.origin}/question/${questionHash}/edit`)
         setIsLoaded(true)
     })
 

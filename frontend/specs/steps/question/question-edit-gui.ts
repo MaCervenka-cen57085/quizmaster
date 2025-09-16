@@ -168,6 +168,9 @@ Then('I see question-take URL and question-edit URL', async function () {
 
     expect(takeUrl).toBeDefined()
     expect(editUrl).toBeDefined()
+
+    expect(editUrl).toContain('/edit')
+    expect(editUrl).not.toContain('/undefined')
 })
 
 // Error messages assertions
