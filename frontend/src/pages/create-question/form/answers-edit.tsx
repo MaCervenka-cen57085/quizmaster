@@ -9,26 +9,34 @@ interface AnswerRowProps {
 
 export const AnswerRow = ({ answer, index, isMultichoiceQuestion, updateAnswerData }: AnswerRowProps) => (
     <div key={`answer-${index}`} className="answer-row" id={`answer-${index}`}>
-        <input
-            className="text"
-            type="text"
-            placeholder={`Answer ${index + 1}`}
-            value={answer.answer}
-            onChange={e => updateAnswerData(index, { answer: e.target.value })}
-        />
-        <input
-            className={!isMultichoiceQuestion ? 'answer-isCorrect-checkbox' : 'answer-isCorrect-checkbox-multi'}
-            type="checkbox"
-            checked={answer.isCorrect}
-            onChange={e => updateAnswerData(index, { isCorrect: e.target.checked })}
-        />
-        <input
-            className="explanation"
-            type="text"
-            placeholder={answer.isCorrect ? '✅ Correct answer explanation' : '❌ Incorrect answer explanation'}
-            value={answer.explanation}
-            onChange={e => updateAnswerData(index, { explanation: e.target.value })}
-        />
+        <div className="answer-row-section">
+            <input
+                className={!isMultichoiceQuestion ? 'answer-isCorrect-checkbox' : 'answer-isCorrect-checkbox-multi'}
+                type="checkbox"
+                checked={answer.isCorrect}
+                onChange={e => updateAnswerData(index, { isCorrect: e.target.checked })}
+            />
+            <span className="answer-row-correct-icon">{answer.isCorrect ? '✅' : '❌'}</span>
+            <span className="answer-row-correct-text">{answer.isCorrect ? 'Correct answer' : 'Incorrect answer'}</span>
+        </div>
+        <div className="answer-row-section">
+            <input
+                className="text"
+                type="text"
+                placeholder={`Input answer ${index + 1} here...`}
+                value={answer.answer}
+                onChange={e => updateAnswerData(index, { answer: e.target.value })}
+            />
+        </div>
+        <div className="answer-row-section">
+            <input
+                className="explanation"
+                type="text"
+                placeholder="You add explanation of the anwser here..."
+                value={answer.explanation}
+                onChange={e => updateAnswerData(index, { explanation: e.target.value })}
+            />
+        </div>
     </div>
 )
 
@@ -83,6 +91,7 @@ export const AnswersEdit = ({ answers, isMultichoiceQuestion, setAnswers }: Answ
 
     return (
         <>
+            <h3 className="answers-header">Enter your answers</h3>
             {answers.map((answer, index) => (
                 <AnswerRow
                     answer={answer}
