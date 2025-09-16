@@ -25,19 +25,23 @@ export const useQuestionFeedbackState = (state: QuestionTakeState, answers: Answ
     return { isQuestionCorrect, isAnswerCorrect, showFeedback, isUserSelected, score }
 }
 
-const calculateScore = (selectedAnswerIdxs: AnswerIdxs, correctAnswers: AnswerIdxs, isAnsweredCorrectly: boolean): number => {
-    var correctSelectedAnswers = selectedAnswerIdxs.filter(item => correctAnswers.includes(item));
-    var wrongSelectedAnswers = selectedAnswerIdxs.filter(item => !correctAnswers.includes(item));
-    var missingCorrectAnswers = correctAnswers.length - correctSelectedAnswers.length;
-    var totalErrorCount = wrongSelectedAnswers.length + missingCorrectAnswers;
+const calculateScore = (
+    selectedAnswerIdxs: AnswerIdxs,
+    correctAnswers: AnswerIdxs,
+    isAnsweredCorrectly: boolean,
+): number => {
+    const correctSelectedAnswers = selectedAnswerIdxs.filter(item => correctAnswers.includes(item))
+    const wrongSelectedAnswers = selectedAnswerIdxs.filter(item => !correctAnswers.includes(item))
+    const missingCorrectAnswers = correctAnswers.length - correctSelectedAnswers.length
+    const totalErrorCount = wrongSelectedAnswers.length + missingCorrectAnswers
 
-    if(isAnsweredCorrectly) {
-        return 1;
+    if (isAnsweredCorrectly) {
+        return 1
     }
 
-    if(totalErrorCount <= 1) {
-        return 0.5;
+    if (totalErrorCount <= 1) {
+        return 0.5
     }
 
-    return 0;
+    return 0
 }
