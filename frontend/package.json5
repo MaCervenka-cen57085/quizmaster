@@ -27,8 +27,8 @@
 
         "ci:install": "pnpm install && playwright install --with-deps",
         "ci:code": "tsc -b && biome ci",
-        "ci:build": "pnpm vite build --sourcemap && cd ../backend && ./gradlew build",
-        "ci:bootrun": "cd ../backend && ./gradlew bootRun",
+        "ci:build": "cross-env FEATURE_FLAG=true pnpm vite build --sourcemap && cd ../backend && ./gradlew build",
+        "ci:bootrun": "cd ../backend && cross-env FEATURE_FLAG=true ./gradlew bootRun",
         "ci:test:e2e": "start-server-and-test 'pnpm ci:bootrun' 8080 'pnpm test:e2e'",
         "ci:coverage": "start-server-and-test 'pnpm ci:bootrun' 8080 'pnpm coverage:test:e2e'"
     },
