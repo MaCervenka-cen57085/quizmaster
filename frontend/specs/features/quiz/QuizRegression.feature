@@ -7,8 +7,8 @@ Feature: Take a quiz
       | France    | What is capital of France?          | Marseille, Lyon, Paris (*), Toulouse |
 
     Given quizes
-      | bookmark | title  | description   | questions     | mode  | pass score |
-      | -1       | Quiz A | Description A | Sky,France    | exam  | 85         |
+      | bookmark | title  | description   | questions     | mode  | pass score | time limit |
+      | -1       | Quiz A | Description A | Sky,France    | exam  | 85         | 120        |
 
   Scenario: Quiz question is displayed and not answered
     Given I start quiz "-1"

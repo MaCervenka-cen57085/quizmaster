@@ -72,7 +72,7 @@ const toQuiz = async (world: QuizmasterWorld, row: Record<string, string>): Prom
             .map(question => Number.parseInt(question.url.split('/').pop() || '0')),
         mode: row.mode as QuizMode,
         passScore: Number.parseInt(row['pass score']),
-        timeLimit: 120,
+        timeLimit: Number.parseInt(row['time limit']),
     }
 }
 

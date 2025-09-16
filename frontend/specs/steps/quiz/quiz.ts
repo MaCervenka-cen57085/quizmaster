@@ -142,14 +142,14 @@ Then('I should see the countdown timer {string}', async function (timer: string)
 Then('I should see the countdown timer after delay is less then {string}', async function (timer: string) {
     await this.page.clock.install({ time: new Date() })
     await expectTextToBe(this.page.getByTestId('timerID'), timer)
-    await this.page.clock.fastForward('02:00')
+    await this.page.clock.fastForward(timer)
     await expectTextToBe(this.page.getByTestId('timerID'), timer)
 })
 
 Then('I will wait for {string}', async function (timer: string) {
     await this.page.clock.install({ time: new Date() })
     await expectTextToBe(this.page.getByTestId('timerID'), timer)
-    await this.page.clock.fastForward('02:00')
+    await this.page.clock.fastForward(timer)
 })
 
 Then('I should see the results table', async function () {

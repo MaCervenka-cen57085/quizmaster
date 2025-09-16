@@ -17,4 +17,5 @@ public class QuizResponse {
     private boolean afterEach;
     private int passScore;
     private String description;
+    private Integer timeLimit;
 }

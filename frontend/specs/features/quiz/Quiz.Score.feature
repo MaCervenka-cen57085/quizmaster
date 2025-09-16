@@ -7,8 +7,8 @@ Feature: Evaluate quiz score
       | France   | What is capital of France?          | Marseille, Lyon, Paris (*), Toulouse      |             |
 
     Given quizes
-      | bookmark | title  | description   | questions     | mode  | pass score |
-      | -1       | Quiz A | Description A | Sky,France    | exam  | 85         |
+      | bookmark | title  | description   | questions     | mode  | pass score | time limit |
+      | -1       | Quiz A | Description A | Sky,France    | exam  | 85         | 120        |
 
   Scenario Outline: Quiz score
     Given a quiz "A" with 4 questions, exam mode and 75% pass score

@@ -2,9 +2,9 @@ Feature: Quiz Welcome page
 
   Scenario Outline: Quiz welcome page
     Given quizes
-      | bookmark | title  | description   | questions | mode  | pass score |
-      | A        | Quiz A | Description A | 3         | exam  | 66         |
-      | B        | Quiz B | Description B | 4         | learn | 75         |
+      | bookmark | title  | description   | questions | mode  | pass score | time limit |
+      | A        | Quiz A | Description A | 3         | exam  | 66         | 120        |
+      | B        | Quiz B | Description B | 4         | learn | 75         | 120        |
     When I open quiz "<quiz>"
     Then I see the welcome page
     * I see quiz name "<name>"

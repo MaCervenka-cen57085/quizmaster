@@ -163,6 +163,7 @@ public class QuizController {
             .questions(questions)
             .afterEach(quiz.isAfterEach())
             .passScore(quiz.getPassScore())
+            .timeLimit(quiz.getTimeLimit())
             .build();
 
         return ResponseEntity.ok(build);

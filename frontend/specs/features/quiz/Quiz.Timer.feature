@@ -7,16 +7,22 @@ Feature: Run timer
       | Australia | What's the capital city of Australia?                 | Sydney, Canberra (*)      |
 
     Given quizes
-      | bookmark | title  | description   | questions        | mode  | pass score |
-      | -1       | Quiz A | Description A | Planet,Australia | exam  | 85         |
+      | bookmark | title  | description   | questions        | mode  | pass score | time limit  |
+      | -1       | Quiz A | Description A | Planet,Australia | exam  | 85         | 120         |
+      | -2       | Quiz B | Description B | Planet,Australia | exam  | 85         | 60          |
 
-  Scenario: Display countdown timer
-    Given I start quiz "-1"
-    Then I should see the countdown timer "2:00"
+  Scenario Outline: Display countdown timer
+    Given I start quiz "<bookmark>"
+    Then I should see the countdown timer "<time>"
 
-  Scenario: Display result table after 2 minutes
-    Given I start quiz "-1"
-    When I will wait for "2:00"
+    Examples:
+      | bookmark  | time  |
+      | -1        | 02:00  |
+      | -2        | 01:00  |
+
+  Scenario: Display result table after 1 minutes
+    Given I start quiz "-2"
+    When I will wait for "01:00"
     And I should see the text "Game over time"
     Then I should see the dialog evaluate button
     And I click on the dialog evaluate button
@@ -24,7 +30,7 @@ Feature: Run timer
 
   Scenario: Display score 0 when no answers were given
     Given I start quiz "-1"
-    When I will wait for "2:00"
+    When I will wait for "02:00"
     And I should see the text "Game over time"
     Then I should see the dialog evaluate button
     And I click on the dialog evaluate button
@@ -34,7 +40,7 @@ Feature: Run timer
   Scenario: Display score 1/2 when answered one correctly and timed out
     Given I start quiz "-1"
     When I answer "Mars"
-    Then I will wait for "2:00"
+    Then I will wait for "02:00"
     And I should see the text "Game over time"
     Then I should see the dialog evaluate button
     And I click on the dialog evaluate button

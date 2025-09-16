@@ -8,9 +8,9 @@ Feature: Take a quiz
       | Nose     | Which animal has long nose?         | Elephant (*), Anteater (*), Swordfish (*), Bulldog |
 
     Given quizes
-      | bookmark | title  | description   | questions     | mode  | pass score |
-      | -1       | Quiz A | Description A | Sky,France    | exam  | 85         |
-      | -3       | Quiz B | Description B | Nose,France   | exam  | 40         |
+      | bookmark | title  | description   | questions     | mode  | pass score | time limit |
+      | -1       | Quiz A | Description A | Sky,France    | exam  | 85         | 120        |
+      | -3       | Quiz B | Description B | Nose,France   | exam  | 40         | 120        |
 
     # Given a quiz containing questions "Sky" and "France"
 

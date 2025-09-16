@@ -7,9 +7,9 @@ Feature: Take a quiz
       | Australia | What's the capital city of Australia?                 | Sydney, Canberra (*)      |
       | Fruit     | Which fruit is known for having seeds on the outside? | Strawberry (*), Blueberry |
     And quizes
-      | bookmark | questions                | mode  | pass score |
-      | Exam     | Planet, Australia, Fruit | exam  | 100        |
-      | Learn    | Planet, Australia, Fruit | learn | 100        |
+      | bookmark | questions                | mode  | pass score | time limit |
+      | Exam     | Planet, Australia, Fruit | exam  | 100        | 120        |
+      | Learn    | Planet, Australia, Fruit | learn | 100        | 120        |
 
   Scenario: Exam mode
     - Quiz in exam mode does not show feedback until the quiz is finished
