@@ -98,3 +98,5 @@ Then('I see individual color feedback per answer:', async function (dataTable: D
         await expect(feedbackLocator).toHaveText(checkMark)
     }
 })
+
+Then('I see that the question has {int} correct answers', async () => {})
