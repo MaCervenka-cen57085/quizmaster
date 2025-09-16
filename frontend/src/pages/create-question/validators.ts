@@ -11,7 +11,8 @@ export function validateQuestionFormData(questionForm: QuestionFormData): Set<Er
     if (questionForm.question === '') errors.add('empty-question')
     if (emptyAnswerCount > 0) errors.add('empty-answer')
     if (correctAnwerCount === 0) errors.add('no-correct-answer')
-    if (questionForm.isMultipleChoice && correctAnwerCount < 2) errors.add('multiple-choice-must-have-more-correct-answers')
+    if (questionForm.isMultipleChoice && correctAnwerCount < 2)
+        errors.add('multiple-choice-must-have-more-correct-answers')
     if (emptyExplanationCount > 0 && nonEmptyExplanationCount > 0) errors.add('empty-answer-explanation')
 
     return errors
