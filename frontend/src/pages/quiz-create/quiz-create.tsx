@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom'
 
 export const QuizCreatePage = () => {
     const params = useParams()
@@ -14,5 +14,5 @@ export const QuizCreatePage = () => {
                 <div className="question">Q2</div>
             </div>
         </div>
-    );
+    )
 }
