@@ -17,6 +17,8 @@ export class TakeQuestionPage {
     answerCheckNthLocator = (number: number) => this.answersLocator().nth(number).locator('input')
     answerExplanationLocator = (answer: string) => this.answerLocator(answer).locator('.explanation')
 
+    correctAnswersCount = () => this.page.locator('.correct-answers-count').textContent()
+
     selectAnswer = (answer: string) => this.answerCheckLocator(answer).check()
     selectAnswerNth = (number: number) => this.answerCheckNthLocator(number).check()
     unselectAnswer = (answer: string) => this.answerCheckLocator(answer).uncheck()
