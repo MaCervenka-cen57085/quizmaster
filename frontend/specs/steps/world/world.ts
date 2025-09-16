@@ -2,10 +2,10 @@ import type { Page, TestInfo } from '@playwright/test'
 
 import {
     CreateQuestionListPage,
-    CreateQuizPage,
     HomePage,
     QuestionEditPage,
     QuestionListPage,
+    QuizCreatePage,
     QuizQuestionPage,
     QuizScorePage,
     QuizWelcomePage,
@@ -26,7 +26,7 @@ export class QuizmasterWorld {
         this.quizWelcomePage = new QuizWelcomePage(this.page)
         this.quizScorePage = new QuizScorePage(this.page)
         this.questionListPage = new QuestionListPage(this.page)
-        this.quizCreatePage = new CreateQuizPage(this.page)
+        this.quizCreatePage = new QuizCreatePage(this.page)
         this.homePage = new HomePage(this.page)
     }
 
@@ -37,7 +37,7 @@ export class QuizmasterWorld {
     readonly quizWelcomePage: QuizWelcomePage
     readonly quizScorePage: QuizScorePage
     readonly questionListPage: QuestionListPage
-    readonly quizCreatePage: CreateQuizPage
+    readonly quizCreatePage: QuizCreatePage
     readonly homePage: HomePage
     quizId = ''
 
