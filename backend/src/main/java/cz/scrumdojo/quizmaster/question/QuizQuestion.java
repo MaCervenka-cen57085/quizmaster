@@ -34,9 +34,11 @@ public class QuizQuestion {
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private String questionListGuid;
 
-    @Transient
-    private boolean isDeletable;
+
+    @Column(name = "easy_mode", columnDefinition = "boolean")
+    @JdbcTypeCode(SqlTypes.BOOLEAN)
+    private boolean isEasyMode;
 
     @Transient
-    private boolean isEasyMode = false;
+    private boolean isDeletable;
 }
