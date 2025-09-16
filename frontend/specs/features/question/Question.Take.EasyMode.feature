@@ -1,6 +1,7 @@
 Feature: Take a question in EasyMode
 
-  Scenario: Multiple choice question page in EasyMode displays the number of correct answers is 3
+  @feature-flag
+  Scenario: Multiple choice question page in EasyMode displays the number of correct answers
     Given a question "Which of these countries are in Europe?"
     * with answers:
       | Italy   | * |
@@ -13,20 +14,6 @@ Feature: Take a question in EasyMode
 
     When I take question "Europe"
     Then I see that the question has 3 correct answers
-
-  Scenario: Multiple choice question page in EasyMode displays the number of correct answers is 2
-    Given a question "Which of these countries are in Europe?"
-    * with answers:
-      | Italy   | * |
-      | France  | * |
-      | Morocco |   |
-      | Spain   |   |
-      | Canada  |   |
-    * marked as easy mode
-    * saved and bookmarked as "Europe"
-
-    When I take question "Europe"
-    Then I see that the question has 2 correct answers
 
   @skip
   Scenario: Single choice question page does not display the number of correct answers

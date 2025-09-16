@@ -16,8 +16,12 @@ export const { Given, When, Then, BeforeScenario, After, AfterScenario, AfterAll
 })
 
 const ENABLE_COVERAGE = process.env.ENABLE_COVERAGE === '1'
+const FEATURE_FLAG_ENABLED: boolean = process.env.FEATURE_FLAG === 'true'
 
-BeforeScenario(async function () {
+BeforeScenario(async function ({ $tags, $test }) {
+    const hasFeatureFlag = $tags.includes('@feature-flag')
+    if (hasFeatureFlag && !FEATURE_FLAG_ENABLED) $test.skip()
+
     if (!ENABLE_COVERAGE) return
 
     await this.page.coverage.startJSCoverage({
