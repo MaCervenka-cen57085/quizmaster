@@ -59,7 +59,7 @@ export class QuestionEditPage {
 
     private addAnswerButtonLocator = () => this.page.locator('button#add-answer')
     private addDeleteQuestionButtonLocator = () => this.page.locator('[data-testid="delete-button"]')
-    isDeleteQuestionButtonEnabled = () => this.addDeleteQuestionButtonLocator().isEnabled();
+    isDeleteQuestionButtonEnabled = () => this.addDeleteQuestionButtonLocator().isEnabled()
     addAdditionalAnswer = async () => {
         const idx = await this.answerRowCount()
         await this.addAnswerButtonLocator().click()

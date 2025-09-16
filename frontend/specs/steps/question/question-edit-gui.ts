@@ -55,8 +55,8 @@ Then(/I see easy mode is (visible|not visible)/, async function (value: string) 
 })
 
 Then(/I see delete button is (enable|disable)/, async function (value: string) {
-    const isDeleteButtonEnabled = await this.questionEditPage.isDeleteQuestionButtonEnabled();
-    expect(isDeleteButtonEnabled).toBe(value === 'enable');
+    const isDeleteButtonEnabled = await this.questionEditPage.isDeleteQuestionButtonEnabled()
+    expect(isDeleteButtonEnabled).toBe(value === 'enable')
 })
 
 const expectAnswer = async (

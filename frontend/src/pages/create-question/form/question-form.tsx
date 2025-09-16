@@ -47,7 +47,7 @@ export const QuestionEditForm = ({ questionData, setQuestionData, onSubmit }: Qu
     const setQuestionExplanation = (questionExplanation: string) =>
         setQuestionData({ ...questionData, questionExplanation })
     const handleOnClick = () => {
-        if(confirm('Opravdu chcete smazat otázku? Tuto akci nelze vrátit zpět.')) {
+        if (confirm('Opravdu chcete smazat otázku? Tuto akci nelze vrátit zpět.')) {
             console.log('Question deleted')
         }
     }
@@ -81,7 +81,10 @@ export const QuestionEditForm = ({ questionData, setQuestionData, onSubmit }: Qu
                     disabled={!questionData.isDeletable}
                     title={!questionData.isDeletable ? 'Otázku nelze smazat je obsažena v kvízu!' : ''}
                     dataTestId="delete-button"
-                    className='submit-button'>Smazat</Button>
+                    className="submit-button"
+                >
+                    Smazat
+                </Button>
             </div>
         </form>
     )

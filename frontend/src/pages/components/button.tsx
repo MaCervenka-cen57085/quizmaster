@@ -12,8 +12,25 @@ interface ButtonProps extends WithOnClick {
     readonly dataTestId?: string
 }
 
-export const Button = ({ id, className, type = 'button', onClick, children, disabled, title, dataTestId }: ButtonProps) => (
-    <button id={id} type={type} className={`${className}`} onClick={onClick} disabled={disabled} title={title} data-testid={dataTestId}>
+export const Button = ({
+    id,
+    className,
+    type = 'button',
+    onClick,
+    children,
+    disabled,
+    title,
+    dataTestId,
+}: ButtonProps) => (
+    <button
+        id={id}
+        type={type}
+        className={`${className}`}
+        onClick={onClick}
+        disabled={disabled}
+        title={title}
+        data-testid={dataTestId}
+    >
         {children}
     </button>
 )
