@@ -3,7 +3,7 @@ import type { Page } from '@playwright/test'
 export class QuestionEditPage {
     constructor(private page: Page) {}
 
-    gotoNew = () => this.page.goto('/question/new')
+    gotoNew = () => this.page.goto('/question/new', { waitUntil: 'networkidle' })
     gotoEdit = (url: string) => this.page.goto(url, { waitUntil: 'networkidle' })
 
     waitForLoaded = () => this.page.isHidden('#is-loaded[value="loaded"]')
