@@ -17,7 +17,8 @@ export class TakeQuestionPage {
     answerCheckNthLocator = (number: number) => this.answersLocator().nth(number).locator('input')
     answerExplanationLocator = (answer: string) => this.answerLocator(answer).locator('.explanation')
 
-    correctAnswersCount = () => this.page.locator('.correct-answers-count').textContent()
+    correctAnswersCountLocator = () => this.page.locator('.correct-answers-count')
+    correctAnswersCountNumber = async () => Number(await this.correctAnswersCountLocator().textContent())
 
     selectAnswer = (answer: string) => this.answerCheckLocator(answer).check()
     selectAnswerNth = (number: number) => this.answerCheckNthLocator(number).check()
@@ -25,7 +26,7 @@ export class TakeQuestionPage {
     isAnswerSelected = (answer: string) => this.answerCheckLocator(answer).isChecked()
     selectedAnswersLocator = () => this.answersLocator().locator('input:checked')
 
-    private submitButtonLocator = () => this.page.locator('input[type="submit"]')
+    submitButtonLocator = () => this.page.locator('input[type="submit"]')
     submit = () => this.submitButtonLocator().click()
     submitButtonIsDisabled = () => this.submitButtonLocator().isDisabled()
 

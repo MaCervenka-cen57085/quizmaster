@@ -104,12 +104,12 @@ Then('I see individual color feedback per answer:', async function (dataTable: D
 })
 
 Then('I see that the question has {int} correct answers', async function (count: number) {
-    const correctAnswersNumberText = await this.takeQuestionPage.correctAnswersCount()
-
-    expect(Number(correctAnswersNumberText)).toBe(count)
+    const correctAnswersNumberText = await this.takeQuestionPage.correctAnswersCountNumber()
+    expect(correctAnswersNumberText).toBe(count)
 })
 
 Then('I do not see correct answers count', async function () {
-    const correctAnswersNumberText = await this.takeQuestionPage.correctAnswersCount()
-    expect(correctAnswersNumberText).toBe('')
+    const correctAnswersNumberElement = this.takeQuestionPage.correctAnswersCountLocator()
+    await expect(this.takeQuestionPage.submitButtonLocator()).toBeVisible()
+    await expect(correctAnswersNumberElement).not.toBeAttached()
 })
