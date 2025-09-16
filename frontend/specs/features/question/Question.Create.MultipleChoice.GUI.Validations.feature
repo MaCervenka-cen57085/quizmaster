@@ -20,7 +20,8 @@ Feature: Create question GUI
 
   Scenario: Create multiple choice question with one correct answer
     Given I mark answer 2 as correct
-    When I attempt to save the question
+    When I mark the question as multiple choice
+    And I attempt to save the question
     Then I see error messages
       | multiple-choice-must-have-more-correct-answers |
 
