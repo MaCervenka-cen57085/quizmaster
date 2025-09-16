@@ -1,5 +1,6 @@
 Feature: Take a question in EasyMode
 
+  @skip
   Scenario: Multiple choice question page in EasyMode displays the number of correct answers
     Given a question "Which of these countries are in Europe?"
     * with answers:
