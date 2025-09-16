@@ -5,5 +5,5 @@ When('I start creating a quiz', async function () {
 })
 
 Then('I see question list', async () => {
-    // todo
+    // TODO
 })
