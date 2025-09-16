@@ -30,9 +30,10 @@ public class QuizQuestionControllerTest {
             .question("What is the capital of Italy?")
             .answers(new String[] { "Naples", "Rome", "Florence", "Palermo" })
             .explanations(new String[] { "Nope", "Of course!", "You wish", "Sicilia!" })
-            .correctAnswers(new int[] { 1 })
+            .correctAnswers(new int[] { 2 })
             .questionListGuid(UUID.randomUUID().toString())
             .isDeletable(true)
+            .isEasyMode(false)
             .build();
     }
 
@@ -59,6 +60,7 @@ public class QuizQuestionControllerTest {
         assertArrayEquals(question.getExplanations(), result.getExplanations());
         assertArrayEquals(question.getCorrectAnswers(), result.getCorrectAnswers());
         assertEquals(question.getQuestionListGuid(), result.getQuestionListGuid());
+        assertEquals(question.isEasyMode(), result.isEasyMode());
     }
 
     @Test

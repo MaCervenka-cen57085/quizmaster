@@ -36,4 +36,7 @@ public class QuizQuestion {
 
     @Transient
     private boolean isDeletable;
+
+    @Transient
+    private boolean isEasyMode = false;
 }
