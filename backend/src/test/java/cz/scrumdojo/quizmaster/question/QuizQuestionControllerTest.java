@@ -6,6 +6,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import cz.scrumdojo.quizmaster.quiz.Quiz;
+import cz.scrumdojo.quizmaster.quiz.QuizController;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.UUID;
@@ -19,6 +22,9 @@ public class QuizQuestionControllerTest {
     @Autowired
     private QuizQuestionRepository quizQuestionRepository;
 
+    @Autowired
+    private QuizController quizController;
+
     private static QuizQuestion createSingleChoiceQuestion() {
         return QuizQuestion.builder()
             .question("What is the capital of Italy?")
@@ -26,6 +32,7 @@ public class QuizQuestionControllerTest {
             .explanations(new String[] { "Nope", "Of course!", "You wish", "Sicilia!" })
             .correctAnswers(new int[] { 1 })
             .questionListGuid(UUID.randomUUID().toString())
+            .isDeletable(true)
             .build();
     }
 
@@ -141,5 +148,34 @@ public class QuizQuestionControllerTest {
         ResponseEntity<?> response = quizQuestionController.getAnswers(-1);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    @Test
+    public void isQuestionDefaultDeletable() {
+        var question = createSingleChoiceQuestion();
+        var questionCreateResponse = quizQuestionController.saveQuestion(question);
+
+        var result = quizQuestionController.getQuestion(questionCreateResponse.getId()).getBody();
+
+        assertNotNull(result);
+        assertTrue(result.isDeletable());
+    }
+
+    @Test
+    public void questionInQuizIsNotDeletable() {
+        var question = createSingleChoiceQuestion();
+        quizQuestionController.saveQuestion(question);
+
+        Quiz quizInput = new Quiz();
+        quizInput.setTitle("Title");
+        quizInput.setDescription("Description");
+        quizInput.setAfterEach(true);
+        quizInput.setPassScore(85);
+        quizInput.setQuestionIds(new int[]{question.getId()});
+        quizController.createQuiz(quizInput);
+        var result = quizQuestionController.getQuestion(question.getId()).getBody();
+
+        assertNotNull(result);
+        assertFalse(result.isDeletable());
     }
 }

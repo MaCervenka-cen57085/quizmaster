@@ -33,4 +33,7 @@ public class QuizQuestion {
     @Column(name = "question_list_guid", columnDefinition = "varchar(36)")
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private String questionListGuid;
+
+    @Transient
+    private boolean isDeletable;
 }

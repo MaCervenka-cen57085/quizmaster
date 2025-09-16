@@ -14,4 +14,7 @@ public interface QuizQuestionRepository extends JpaRepository<QuizQuestion, Inte
     Long getQuestionIndex(@Param("id") Integer id);
 
     List<QuizQuestion> findByQuestionListGuid(String guid);
+
+    @Query(value = "SELECT questions FROM quiz WHERE questions && ARRAY[:ids]", nativeQuery = true)
+    List<Integer> findQuestionsInQuizs(@Param("ids") List<Integer> ids);
 }

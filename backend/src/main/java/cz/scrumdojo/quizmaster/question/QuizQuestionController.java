@@ -89,7 +89,22 @@ public class QuizQuestionController {
     }
 
     private Optional<QuizQuestion> findQuestion(Integer id) {
-        return quizQuestionRepository.findById(id);
+        var question = quizQuestionRepository.findById(id);
+        if( question.isEmpty()) {
+            return question;
+        }
+        return Optional.of(isQuestionsInQuiz(question.stream().toList()).stream().findFirst().orElse(null));
+    }
+
+    private List<QuizQuestion> isQuestionsInQuiz(List<QuizQuestion> questions) {
+        var idsInQuiz = quizQuestionRepository.findQuestionsInQuizs(questions.stream().map(QuizQuestion::getId).toList());
+        return questions.stream().map(question -> {
+            if (idsInQuiz.contains(question.getId())) {
+                question.setDeletable(false);
+            } else {
+                question.setDeletable(true);
+            }
+            return question;}).toList();
     }
 
     private Long findAllQuestionsCount() {
