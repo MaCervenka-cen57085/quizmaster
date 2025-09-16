@@ -1,16 +1,20 @@
-@skip
 Feature: Create Quiz from Question list
 
   Background:
-    Given I saved the question list "Y"
+   Given questions
+      | bookmark  | question                                              | answers                   |
+      | Planet    | Which planet is known as the Red Planet?              | Mars (*), Venus           |
+      | Australia | What's the capital city of Australia?                 | Sydney, Canberra (*)      |
+
+    Given I saved the question list "YC"
     Then I wait for 1000 ms
+
     * I add an existing question "Planet" to the list
     Then I wait for 1000 ms
     * I add an existing question "Australia" to the list
     Then I wait for 2000 ms
 
-  @skip
   Scenario: Empty quiz creation
     When I start creating a quiz
-    #Then I see question list
-
+    Then I wait for 1000 ms
+    Then I see question list with 2 available questions

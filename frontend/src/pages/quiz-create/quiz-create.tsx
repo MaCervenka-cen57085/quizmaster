@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
 
 export const QuizCreatePage = () => {
     const params = useParams()
@@ -8,6 +8,11 @@ export const QuizCreatePage = () => {
         <div>
             <h2>Create Quiz</h2>
             <div>List UUID: {listId}</div>
+
+            <div id="question-list">
+                <div className="question">Q1</div>
+                <div className="question">Q2</div>
+            </div>
         </div>
-    )
+    );
 }
