@@ -1,9 +1,10 @@
 export * from './create-question-list-page.ts'
-export * from './create-quiz-page.ts'
 export * from './home-page.ts'
 export * from './question-edit-page.ts'
 export * from './question-list-page.ts'
+export * from './quiz-create-page.ts'
 export * from './quiz-question-page.ts'
 export * from './quiz-score-page.ts'
 export * from './quiz-welcome-page.ts'
 export * from './take-question-page.ts'
+
