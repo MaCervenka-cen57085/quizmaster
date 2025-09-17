@@ -173,6 +173,19 @@ public class QuizQuestionControllerTest {
     }
 
     @Test
+    public void saveQuestionWithEasyMode() {
+        var question = createMultipleChoiceQuestionWithEasyMode(true);
+        var questionCreateResponse = quizQuestionController.saveQuestion(question);
+
+        var result = quizQuestionController.getQuestion(questionCreateResponse.getId()).getBody();
+
+        assertNotNull(questionCreateResponse);
+        assertNotNull(questionCreateResponse.getId());
+        assertNotNull(questionCreateResponse.getHash());
+        assertEquals(question.isEasyMode(), result.isEasyMode());
+    }
+
+    @Test
     public void nonExistingQuestion() {
         ResponseEntity<?> response = quizQuestionController.getQuestion(-1);
 
