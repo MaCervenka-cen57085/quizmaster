@@ -1,6 +1,5 @@
 import { SubmitButton } from 'pages/components/submit-button.tsx'
 import { Button } from 'pages/components/button.tsx'
-import { useNavigate } from 'react-router-dom'
 import { preventDefault } from 'helpers.ts'
 import {
     type AnswerData,
@@ -16,6 +15,7 @@ interface QuestionEditProps {
     readonly questionData: QuestionFormData
     readonly setQuestionData: (questionData: QuestionFormData) => void
     readonly onSubmit: () => void
+    readonly handleQuestionDelete: () => void
     readonly isEdit: boolean
 }
 
@@ -39,7 +39,13 @@ function setEasyModeChoiceInQuestionData(isEasyModeChoice: boolean, questionData
     }
 }
 
-export const QuestionEditForm = ({ questionData, setQuestionData, onSubmit, isEdit }: QuestionEditProps) => {
+export const QuestionEditForm = ({
+    questionData,
+    setQuestionData,
+    onSubmit,
+    handleQuestionDelete,
+    isEdit,
+}: QuestionEditProps) => {
     const setQuestion = (question: string) => setQuestionData({ ...questionData, question })
     const setIsMultipleChoice = (isMultipleChoice: boolean) =>
         setQuestionData(setMultipleChoiceInQuestionData(isMultipleChoice, questionData))
@@ -48,10 +54,6 @@ export const QuestionEditForm = ({ questionData, setQuestionData, onSubmit, isEd
     const setAnswers = (answers: readonly AnswerData[]) => setQuestionData({ ...questionData, answers })
     const setQuestionExplanation = (questionExplanation: string) =>
         setQuestionData({ ...questionData, questionExplanation })
-    const navigate = useNavigate()
-    const handleOnClick = () => {
-        navigate('/')
-    }
 
     return (
         <form id="question-create-form" onSubmit={preventDefault(onSubmit)}>
@@ -81,7 +83,7 @@ export const QuestionEditForm = ({ questionData, setQuestionData, onSubmit, isEd
                 <SubmitButton />
                 {isEdit && (
                     <Button
-                        onClick={handleOnClick}
+                        onClick={handleQuestionDelete}
                         disabled={!questionData.isDeletable}
                         title={!questionData.isDeletable ? 'Otázku nelze smazat je obsažena v kvízu!' : ''}
                         dataTestId="delete-button"

@@ -65,6 +65,8 @@ export function CreateQuestionContainer() {
         })
     }
 
+    const handleQuestionDelete = () => ({})
+
     return (
         <CreateQuestionForm
             title="Quiz Question Creation Page"
@@ -76,6 +78,7 @@ export function CreateQuestionContainer() {
             questionData={questionData}
             setQuestionData={setQuestionData}
             isEdit={false}
+            handleQuestionDelete={handleQuestionDelete}
         />
     )
 }
