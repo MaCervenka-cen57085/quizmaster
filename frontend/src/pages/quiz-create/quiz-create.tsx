@@ -1,4 +1,4 @@
-import { useParams, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { useApi } from 'api/hooks'
 import { useState } from 'react'
 import type { QuizQuestion } from 'model/quiz-question'
@@ -6,13 +6,13 @@ import { getListQuestions } from 'api/question-list'
 import { postQuiz } from 'api/quiz'
 
 export const QuizCreatePage = () => {
-    const [searchParams] = useSearchParams();
-    const listGuid = searchParams.get('listguid');
+    const [searchParams] = useSearchParams()
+    const listGuid = searchParams.get('listguid')
     const [questionList, setQuestionList] = useState<QuizQuestion[]>([])
     const [selectedIds, setSelectedIds] = useState<number[]>([])
     const [quizId, setQuizId] = useState<string | undefined>(undefined)
 
-    useApi(listGuid || "", getListQuestions, setQuestionList)
+    useApi(listGuid || '', getListQuestions, setQuestionList)
 
     const handleSelect = (id: number) => {
         setSelectedIds(prev => (prev.includes(id) ? prev.filter(prevId => prevId !== id) : [...prev, id]))
