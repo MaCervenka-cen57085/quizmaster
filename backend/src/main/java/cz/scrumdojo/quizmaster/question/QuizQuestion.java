@@ -34,7 +34,6 @@ public class QuizQuestion {
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private String questionListGuid;
 
-
     @Column(name = "easy_mode", columnDefinition = "boolean")
     @JdbcTypeCode(SqlTypes.BOOLEAN)
     private boolean isEasyMode;

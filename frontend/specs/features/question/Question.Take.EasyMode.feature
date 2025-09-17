@@ -29,7 +29,6 @@ Feature: Take a question in EasyMode
     When I take question "Europe"
     Then I see that the question has 2 correct answers
 
-  @skip
   Scenario: Multiple choice question - Easy Mode OFF - no correct ansers
     Given a question "Which of these countries are in Europe?"
     * with answers:
@@ -43,7 +42,6 @@ Feature: Take a question in EasyMode
     When I take question "Europe"
     Then I do not see correct answers count
 
-  @skip
   Scenario: Single choice question - Easy Mode N/A - no correct ansers
     Given a question "Which of these countries is not in Europe?"
     * with answers:

@@ -16,6 +16,8 @@ export interface QuestionFormProps {
 }
 
 export const QuestionForm = (props: QuestionFormProps) => {
+    const { correctAnswers, easyMode, answers, questionExplanation } = props.question
+
     const state = useQuestionTakeState(props)
     const feedback = useQuestionFeedbackState(state, props.question)
 
@@ -29,20 +31,20 @@ export const QuestionForm = (props: QuestionFormProps) => {
 
     const isAnswerChecked = state.selectedAnswerIdxs.length > 0
 
-    const correctAnswersCount = props.question.correctAnswers.length
+    const correctAnswersCount = correctAnswers.length
 
     return (
         <form onSubmit={handleSubmit} id="question-form">
             <h1 id="question">{props.question.question}</h1>
 
-            {FEATURE_FLAG_ENABLED && (
+            {FEATURE_FLAG_ENABLED && easyMode && (
                 <div>
                     Correct answers count is <span className="correct-answers-count">{correctAnswersCount}</span>
                 </div>
             )}
 
             <ul className="answers">
-                {props.question.answers.map((answer, idx) => (
+                {answers.map((answer, idx) => (
                     <Answer
                         key={answer}
                         isMultipleChoice={state.isMultipleChoice}
@@ -65,7 +67,7 @@ export const QuestionForm = (props: QuestionFormProps) => {
                 <>
                     <QuestionCorrectness isCorrect={feedback.isQuestionCorrect} />
                     <QuestionScore score={feedback.score} />
-                    <QuestionExplanation text={props.question.questionExplanation} />
+                    <QuestionExplanation text={questionExplanation} />
                 </>
             )}
         </form>
