@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useApi } from 'api/hooks'
 import { useState } from 'react'
-import { QuestionListGetResponse } from 'model/question-list-get-response'
 import { QuizQuestion } from 'model/quiz-question'
 import { getListQuestions } from 'api/question-list'
 import { postQuiz } from 'api/quiz'
