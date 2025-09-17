@@ -14,62 +14,62 @@ Feature: Question list
     Given I open question list "X"
     Then I see a blank page
 
+  Scenario: Show empty question list existing guid
+    Given I saved the question list "X"
+    Then I see question list title "X"
+    And I see an empty question list
+
+  Scenario: Click create new question open question form
+    Given I saved the question list "X"
+    Then I see question list title "X"
+    When I click "Create New Question" button
+    Then I see "Quiz Question Creation Page" form
+
+  Scenario: Show non empty question
+    Given I saved the question list "X"
+    When I create new question to list "Xquestion"
+    Then I see question list title "X"
+    And I see question in list "Xquestion"
+
+  Scenario: Open edit question form
+    Given I saved the question list "X"
+    When I create new question to list "Xquestion"
+    And I click Edit button for question "Xquestion"
+    Then I see "Xquestion" editable form
+
+  Scenario: I can take the question
+    Given I saved the question list "X"
+    When I create new question to list "Xquestion"
+    Then I can take the quiz for question "Xquestion"
+
+  Scenario: Add existing question to question list
+    Given I saved the question list "X"
+    When I add an existing question "Czechia" to the list
+    Then I see question in list "What is the capital of Czech Republic?"
+
+  Scenario: I copy the take question url
+    Given I saved the question list "X"
+    When I create new question to list "Xquestion"
+    Then I can copy the link to the take question "Xquestion"
+    And I am notified about the copied link
+
+  Scenario: I copy the edit question url
+    Given I saved the question list "X"
+    When I create new question to list "Xquestion"
+    Then I can copy the link to the edit question "Xquestion"
+    And I am notified about the copied link
+
+  @skip
+  Scenario: I remove the question from the question list
+    Given I saved the question list "X"
+    When I create new question to list "Xquestion"
+    Then I can remove the question "Xquestion"
+
+  Scenario: I see an error message if format of existing question field is invalid
+    Given I saved the question list "X"
+    When I add an invalid question to the list
+    Then I see an error message invalid question format
+
+  @skip
   Scenario: Create new quiz
     Given I click on button Create Quiz Button
-
-  # Scenario: Show empty question list existing guid
-  #   Given I saved the question list "X"
-  #   Then I see question list title "X"
-  #   And I see an empty question list
-
-  # Scenario: Click create new question open question form
-  #   Given I saved the question list "X"
-  #   Then I see question list title "X"
-  #   When I click "Create New Question" button
-  #   Then I see "Quiz Question Creation Page" form
-
-  # Scenario: Show non empty question
-  #   Given I saved the question list "X"
-  #   When I create new question to list "Xquestion"
-  #   Then I see question list title "X"
-  #   And I see question in list "Xquestion"
-
-  # Scenario: Open edit question form
-  #   Given I saved the question list "X"
-  #   When I create new question to list "Xquestion"
-  #   And I click Edit button for question "Xquestion"
-  #   Then I see "Xquestion" editable form
-
-  # Scenario: I can take the question
-  #   Given I saved the question list "X"
-  #   When I create new question to list "Xquestion"
-  #   Then I can take the quiz for question "Xquestion"
-
-  # Scenario: Add existing question to question list
-  #   Given I saved the question list "X"
-  #   When I add an existing question "Czechia" to the list
-  #   Then I see question in list "What is the capital of Czech Republic?"
-
-  # Scenario: I copy the take question url
-  #   Given I saved the question list "X"
-  #   When I create new question to list "Xquestion"
-  #   Then I can copy the link to the take question "Xquestion"
-  #   And I am notified about the copied link
-
-  # Scenario: I copy the edit question url
-  #   Given I saved the question list "X"
-  #   When I create new question to list "Xquestion"
-  #   Then I can copy the link to the edit question "Xquestion"
-  #   And I am notified about the copied link
-
-  # @skip
-  # Scenario: I remove the question from the question list
-  #   Given I saved the question list "X"
-  #   When I create new question to list "Xquestion"
-  #   Then I can remove the question "Xquestion"
-
-  # Scenario: I see an error message if format of existing question field is invalid
-  #   Given I saved the question list "X"
-  #   When I add an invalid question to the list
-  #   Then I see an error message invalid question format
-

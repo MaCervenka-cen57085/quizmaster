@@ -1,6 +1,6 @@
 import { expect, type Dialog } from '@playwright/test'
 import { expectedNumberOfChildrenToBe, expectTextToBe, expectTextToContain } from '../common.ts'
-import { Given, When, Then } from '../fixture.ts'
+import { Given, Then, When } from '../fixture.ts'
 import type { QuizmasterWorld } from '../world'
 
 const openQuestionList = async (world: QuizmasterWorld, guid: string) => {
@@ -131,4 +131,9 @@ When('I add an invalid question to the list', async function () {
 
 Then('I see an error message invalid question format', async function () {
     await expectTextToContain(this.questionListPage.errorMessageLabel(), 'Invalid question format')
+})
+
+Given('I click on button Create Quiz Button', async function () {
+    const copyButton = this.page.locator('.question-item', { hasText: '' }).locator('.copy-edit-button button')
+    await copyButton.click()
 })

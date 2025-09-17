@@ -15,4 +15,6 @@ export class QuestionListPage {
     addExistingQuestion = async () => this.page.locator('#add-existing-question').click()
     fillInQuestion = async (question: string) => this.page.locator('#question-input-field').fill(question)
     errorMessageLabel = () => this.page.locator('#error-message-label')
+
+    createNewQuiz = () => this.page.locator('#create-quiz').click()
 }
