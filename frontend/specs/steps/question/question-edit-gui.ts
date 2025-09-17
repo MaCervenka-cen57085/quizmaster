@@ -11,6 +11,7 @@ import {
     enterAnswerText,
     enterQuestion,
     enterQuestionExplanation,
+    markQuestionAsPartiallyScored,
     markAnswerCorrectness,
     openCreatePage,
     openEditPage,
@@ -165,6 +166,10 @@ When('I add an additional answer', async function () {
 
 When('I enter question explanation {string}', async function (explanation: string) {
     await enterQuestionExplanation(this, explanation)
+})
+
+When('mark question as partially scored', async function () {
+    await markQuestionAsPartiallyScored(this)
 })
 
 // Save question

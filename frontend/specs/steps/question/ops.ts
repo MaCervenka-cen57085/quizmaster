@@ -58,6 +58,12 @@ export const enterQuestionExplanation = async (world: QuizmasterWorld, explanati
     world.questionWip.explanation = explanation
 }
 
+export const markQuestionAsPartiallyScored = async (world: QuizmasterWorld) => {
+    const newQuestion = `${world.questionWip.question} (Partial Score)`
+    await world.questionEditPage.enterQuestion(newQuestion)
+    world.questionWip.question = newQuestion
+}
+
 export async function submitQuestion(this: QuizmasterWorld) {
     await this.questionEditPage.submit()
 }
