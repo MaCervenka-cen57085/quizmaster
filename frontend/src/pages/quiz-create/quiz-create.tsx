@@ -92,7 +92,6 @@ export const QuizCreatePage = () => {
                     className="form-element"
                 />
             </label>
-
             <div className="form-label__item">Select quiz questions</div>
             {questionList.map(item => (
                 <div key={item.id} className="question-item">
