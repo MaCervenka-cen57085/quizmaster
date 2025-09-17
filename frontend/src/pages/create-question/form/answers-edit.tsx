@@ -32,7 +32,7 @@ export const AnswerRow = ({ answer, index, isMultichoiceQuestion, updateAnswerDa
             <input
                 className="explanation"
                 type="text"
-                placeholder="You add explanation of the anwser here..."
+                placeholder="You can add explanation of the anwser here..."
                 value={answer.explanation}
                 onChange={e => updateAnswerData(index, { explanation: e.target.value })}
             />

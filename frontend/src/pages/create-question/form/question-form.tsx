@@ -87,7 +87,7 @@ export const QuestionEditForm = ({ questionData, setQuestionData, onSubmit, isEd
                         dataTestId="delete-button"
                         className="secondary button"
                     >
-                        Smazat
+                        Delete question
                     </Button>
                 )}
             </div>
