@@ -10,12 +10,9 @@ Then('I see question list with {int} available questions', async function (count
     await expectedNumberOfChildrenToBe(this.quizCreatePage.questionsInList(), count)
 })
 
-When('I select questions {string}', async function (ids: string) {
-    const idsList = ids?.trim().split(',')
-    expect(idsList).toBeTruthy
-    for (const id of idsList) {
-        this.quizCreatePage.selectQuestion(id)
-    }
+When('I select question {string}', async function (questionBookmark: string) {
+    const questionText = this.questionBookmarks[questionBookmark].question
+    await this.quizCreatePage.selectQuestion(questionText)
 })
 
 Then('I submit new quiz', async () => {

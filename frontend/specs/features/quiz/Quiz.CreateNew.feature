@@ -19,7 +19,8 @@ Feature: Create Quiz from Question list
     When I click on Create New Quiz
     And I wait for 1000 ms
     Then I see question list with 3 available questions
-    When I select questions "1,2,3"
+    When I select question "Planet"
+    When I select question "Australia"
     Then I submit new quiz
 
   Scenario: Create quiz with time limit
