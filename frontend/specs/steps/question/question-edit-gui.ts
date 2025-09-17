@@ -59,6 +59,10 @@ Then(/I see delete button is (enable|disable)/, async function (value: string) {
     expect(isDeleteButtonEnabled).toBe(value === 'enable')
 })
 
+Then(/I click delete button/, async function () {
+    await this.questionEditPage.clickDeleteButton()
+})
+
 const expectAnswer = async (
     world: QuizmasterWorld,
     index: number,

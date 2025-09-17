@@ -48,4 +48,11 @@ Feature: Edit question GUI
     * I see answer 2 as correct
     * I see answer 3 as incorrect
 
+  Scenario: Delete the question
+    When I click delete button
+    Then I am on the home page
+    And I should see a link to create a new question
+    And I should see a link to create a new question list
+
+
 

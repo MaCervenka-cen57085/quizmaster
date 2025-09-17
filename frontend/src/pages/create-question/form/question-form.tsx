@@ -1,5 +1,6 @@
 import { SubmitButton } from 'pages/components/submit-button.tsx'
 import { Button } from 'pages/components/button.tsx'
+import { useNavigate } from 'react-router-dom'
 import { preventDefault } from 'helpers.ts'
 import {
     type AnswerData,
@@ -47,10 +48,9 @@ export const QuestionEditForm = ({ questionData, setQuestionData, onSubmit, isEd
     const setAnswers = (answers: readonly AnswerData[]) => setQuestionData({ ...questionData, answers })
     const setQuestionExplanation = (questionExplanation: string) =>
         setQuestionData({ ...questionData, questionExplanation })
+    const navigate = useNavigate()
     const handleOnClick = () => {
-        if (confirm('Opravdu chcete smazat otázku? Tuto akci nelze vrátit zpět.')) {
-            console.log('Question deleted')
-        }
+        navigate('/')
     }
 
     return (
