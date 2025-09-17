@@ -84,7 +84,6 @@ Feature: Create question GUI - Single/multiple choice
       | Berlin     |  |
       | Bratislava |  |
 
-
   Scenario: Easy Mode: Verify that Easy mode is visible only for Multiple Choice
     # default case (Single choice)
     Then I see multiple choice is unchecked
@@ -92,3 +91,4 @@ Feature: Create question GUI - Single/multiple choice
 
     When I mark the question as multiple choice
     Then I see easy mode is visible
+    And I see easy mode is unchecked

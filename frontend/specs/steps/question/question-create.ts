@@ -55,7 +55,9 @@ Given('with explanation {string}', async function (explanation: string) {
     this.questionWip.explanation = explanation
 })
 
-Given('marked as easy mode', async () => {})
+Given('marked as easy mode', async function () {
+    await this.questionEditPage.setEasyModeChecked()
+})
 
 Given('saved and bookmarked as {string}', async function (bookmark) {
     await saveQuestion(this, bookmark)
