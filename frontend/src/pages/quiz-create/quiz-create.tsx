@@ -12,6 +12,7 @@ export const QuizCreatePage = () => {
     const [questionList, setQuestionList] = useState<QuizQuestion[]>([])
     const [selectedIds, setSelectedIds] = useState<number[]>([])
     const [timeLimit, setTimeLimit] = useState<number>(600)
+    const [passScore, setPassScore] = useState<number>(80)
     const [quizId, setQuizId] = useState<string | undefined>(undefined)
     const [formError, setFormError] = useState<string | undefined>(undefined)
 
@@ -57,7 +58,7 @@ export const QuizCreatePage = () => {
             timeLimit,
             questionIds: selectedIds,
             afterEach: false,
-            passScore: 0,
+            passScore,
         })
 
         setQuizId(quizId)
@@ -68,6 +69,15 @@ export const QuizCreatePage = () => {
             setTimeLimit(newValue as unknown as number)
         } else {
             setFormError('Time limit must be a number')
+        }
+    }
+
+    const handleChangePassScore = (newValue: string) => {
+        // Only allow positive integers or empty string
+        if (/^(100|[1-9]?\d)$/.test(newValue) || newValue === '') {
+            setPassScore(newValue as unknown as number)
+        } else {
+            setFormError('Pass score must be a number between 0 and 100')
         }
     }
 
@@ -89,6 +99,16 @@ export const QuizCreatePage = () => {
                     id="time-limit"
                     value={timeLimit}
                     onChange={ev => handleChangeTimeLimit(ev.target.value)}
+                    className="form-element"
+                />
+            </label>
+            <label className="form-label">
+                <div className="form-label__item">Required score to pass the quiz (in %)</div>
+                <input
+                    type="text"
+                    id="pass-score"
+                    value={passScore}
+                    onChange={ev => handleChangePassScore(ev.target.value)}
                     className="form-element"
                 />
             </label>

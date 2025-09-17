@@ -4,6 +4,7 @@ export class QuizCreatePage {
     constructor(private page: Page) {}
     createNewQuiz = () => this.page.locator('#create-quiz').click()
     timeLimitInput = () => this.page.locator('#time-limit')
+    passScoreInput = () => this.page.locator('#pass-score')
     questionsInList = () => this.page.locator('.create-quiz > .question-item')
     selectQuestion = (question: string) => this.page.locator('label', { hasText: question }).click()
 

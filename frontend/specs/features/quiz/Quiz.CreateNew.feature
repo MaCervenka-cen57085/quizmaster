@@ -2,9 +2,9 @@ Feature: Create Quiz from Question list
 
   Background:
     Given questions
-      | bookmark  | question                                 | answers              |
-      | Planet    | Which planet is known as the Red Planet? | Mars (*), Venus      |
-      | Australia | What's the capital city of Australia?    | Sydney, Canberra (*) |
+      | bookmark  | question                                 | answers                     |
+      | Planet    | Which planet is known as the Red Planet? | Mars (*), Venus             |
+      | Australia | What's the capital city of Australia?    | Sydney, Canberra (*)        |
       | Cars      | Who build first car in Czechia?          | Adolf (*), Laurin a Klement |
     Given I saved the question list "YC"
     Then I wait for 1000 ms
@@ -29,7 +29,8 @@ Feature: Create Quiz from Question list
     * I see quiz description "Bomba quiz"
     * I see question count 2
 
-  Scenario: Create quiz with time limit
+  Scenario: Create quiz with time limit and pass score
     When I click on Create New Quiz
     And I wait for 1000 ms
     Then I see time limit set to 600 seconds
+    Then I see pass score set to 80 %
