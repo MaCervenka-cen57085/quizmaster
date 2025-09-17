@@ -42,8 +42,7 @@ export class QuizScorePage {
     private answerAndExplanationLocator = (question: string) =>
         this.questionLocator(question).locator('li[id^=answer-row-]')
 
-    answerListLocator = (question: string) =>
-        this.questionLocator(question).locator('[id^=question-answers-]')
+    answerListLocator = (question: string) => this.questionLocator(question).locator('[id^=question-answers-]')
 
     answers = (question: string) => this.answerListLocator(question).locator('[id^=answer-label-]').allTextContents()
 
