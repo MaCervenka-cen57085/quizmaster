@@ -1,10 +1,10 @@
-import './quiz-create.scss'
 import { useSearchParams } from 'react-router-dom'
 import { useApi } from 'api/hooks'
 import { useState } from 'react'
 import type { QuizQuestion } from 'model/quiz-question'
 import { getListQuestions } from 'api/question-list'
 import { postQuiz } from 'api/quiz'
+import './createQiuz.scss'
 
 export const QuizCreatePage = () => {
     const [searchParams] = useSearchParams()
@@ -13,18 +13,48 @@ export const QuizCreatePage = () => {
     const [selectedIds, setSelectedIds] = useState<number[]>([])
     const [timeLimit, setTimeLimit] = useState<number>(600)
     const [quizId, setQuizId] = useState<string | undefined>(undefined)
+    const [formError, setFormError] = useState<string | undefined>(undefined)
 
     useApi(listGuid || '', getListQuestions, setQuestionList)
 
     const handleSelect = (id: number) => {
+        setFormError(undefined)
         setSelectedIds(prev => (prev.includes(id) ? prev.filter(prevId => prevId !== id) : [...prev, id]))
     }
 
-    const handleCreateQuiz = async () => {
+    const handleCreateQuiz = async (e: React.FormEvent<HTMLFormElement>) => {
+        setFormError(undefined)
+        e.preventDefault()
+
+        const form = e.currentTarget
+        const title = (form.querySelector<HTMLInputElement>('#quiz-title')?.value ?? '').trim()
+        if (!title.length) {
+            setFormError('Title is required')
+            return
+        }
+        const description = (form.querySelector<HTMLTextAreaElement>('#quiz-description')?.value ?? '').trim()
+
+        if (!description.length) {
+            setFormError('Description is required')
+            return
+        }
+
+        console.log(timeLimit, !timeLimit)
+
+        if (!timeLimit) {
+            setFormError('Time limit is required')
+            return
+        }
+
+        if (selectedIds.length < 2) {
+            setFormError('Select at least 2 questions')
+            return
+        }
+
         const quizId = await postQuiz({
-            title: 'TOOD',
-            description: 'TODO',
-            timeLimit: timeLimit,
+            title,
+            description,
+            timeLimit,
             questionIds: selectedIds,
             afterEach: false,
             passScore: 0,
@@ -36,39 +66,49 @@ export const QuizCreatePage = () => {
         // Only allow positive integers or empty string
         if (/^[1-9]\d*$/.test(newValue) || newValue === '') {
             setTimeLimit(newValue as unknown as number)
+        } else {
+            setFormError('Time limit must be a number')
         }
     }
 
     return (
-        <div>
+        <form className="create-quiz" onSubmit={handleCreateQuiz}>
             <h2>Create Quiz</h2>
-            <div>
-                <label htmlFor="time-limit">Time limit (seconds): </label>
+            <label className="form-label">
+                <div className="form-label__item">Quiz title</div>
+                <input type="text" id="quiz-title" className="form-element" />
+            </label>
+            <label className="form-label">
+                <div className="form-label__item">Quiz description</div>
+                <textarea id="quiz-description" className="form-element" />
+            </label>
+            <label className="form-label">
+                <div className="form-label__item">Time limit (in seconds)</div>
                 <input
+                    type="text"
                     id="time-limit"
-                    type="string"
-                    min="1"
-                    step="0"
                     value={timeLimit}
-                    placeholder="Time limit in seconds"
-                    onChange={e => handleChangeTimeLimit(e.target.value)}
+                    onChange={ev => handleChangeTimeLimit(ev.target.value)}
+                    className="form-element"
                 />
-            </div>
+            </label>
+
+            <div className="form-label__item">Select quiz questions</div>
             {questionList.map(item => (
-                <div key={String(item.id)}>
+                <div key={item.id} className="question-item">
                     <input id={String(item.id)} type="checkbox" onChange={() => handleSelect(item.id)} />
-                    <label htmlFor={item.hash}>{item.question}</label>
+                    <label htmlFor={String(item.id)}>{item.question}</label>
                 </div>
             ))}
+            {formError && <div className="alert error">{formError}</div>}
 
-            <button onClick={handleCreateQuiz} type="button">
-                Create quiz
-            </button>
+            {!quizId && <button type="submit">Create quiz</button>}
+
             {quizId && (
-                <>
+                <div className="alert success">
                     Quiz url: <a href={`${location.origin}/quiz/${quizId}`}>{`${location.origin}/quiz/${quizId}`}</a>
-                </>
+                </div>
             )}
-        </div>
+        </form>
     )
 }
