@@ -21,6 +21,8 @@ Feature: Create Quiz from Question list
     Then I see question list with 3 available questions
     When I select question "Planet"
     When I select question "Australia"
+    And I fill title "My New Quiz"
+    And I fill description "Bomba quiz"
     Then I submit new quiz
 
   Scenario: Create quiz with time limit

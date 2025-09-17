@@ -15,11 +15,23 @@ When('I select question {string}', async function (questionBookmark: string) {
     await this.quizCreatePage.selectQuestion(questionText)
 })
 
-Then('I submit new quiz', async () => {
-    // TODO click on button submit
+Then('I submit new quiz', async function () {
+    await this.quizCreatePage.submitNewQuiz()
+    await expect(this.quizCreatePage.submitNewQuizLocator()).toHaveCount(0)
+    await expect(this.quizCreatePage.alertLocator()).toBeVisible
 })
 
 Then('I see time limit set to {int} seconds', async function (timeLimit: number) {
     const value = await this.quizCreatePage.timeLimitInput().inputValue()
     expect(Number.parseInt(value)).toBe(timeLimit)
 })
+
+Then('I fill title {string}', async function (title: string) {
+    await this.quizCreatePage.fillTitle(title)
+})
+
+Then('I fill description {string}', async function (title: string) {
+    await this.quizCreatePage.fillDescription(title)
+})
+
+
