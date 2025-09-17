@@ -43,12 +43,7 @@ export class QuizScorePage {
         this.questionLocator(question).locator('li[id^=answer-row-]')
 
     answerListLocator = (question: string) =>
-        this.page
-            .locator('[id^=question-name-]')
-            .filter({ hasText: question })
-            .locator('..')
-            .locator('..')
-            .locator('[id^=question-answers-]')
+        this.questionLocator(question).locator('[id^=question-answers-]')
 
     answers = (question: string) => this.answerListLocator(question).locator('[id^=answer-label-]').allTextContents()
 
