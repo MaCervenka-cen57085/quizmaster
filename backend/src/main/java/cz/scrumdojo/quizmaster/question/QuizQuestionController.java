@@ -5,10 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @RestController
 @RequestMapping("/api")
 public class QuizQuestionController {
@@ -29,6 +31,22 @@ public class QuizQuestionController {
     @GetMapping("/quiz-question/{id}")
     public ResponseEntity<QuizQuestion> getQuestion(@PathVariable Integer id) {
         return response(findQuestion(id));
+    }
+
+    @Transactional
+    @DeleteMapping("/quiz-question/{id}")
+    public ResponseEntity<Void> deleteQuestion(@PathVariable Integer id) {
+        try {
+            QuizQuestion question = quizQuestionRepository.findById(id).orElse(null);
+            if (question != null) {
+                quizQuestionRepository.delete(question);
+                return ResponseEntity.ok().build();
+            }
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            log.error("Error deleting question with ID: {}", id, e);
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @Transactional

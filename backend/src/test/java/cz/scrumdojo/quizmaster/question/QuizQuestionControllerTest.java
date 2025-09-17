@@ -164,6 +164,15 @@ public class QuizQuestionControllerTest {
     }
 
     @Test
+    public void deleteQuestion() {
+        var question = createSingleChoiceQuestion();
+        var questionCreateResponse = quizQuestionController.saveQuestion(question);
+        quizQuestionController.deleteQuestion(questionCreateResponse.getId());
+        var result = quizQuestionController.getQuestion(questionCreateResponse.getId()).getBody();
+        assertEquals(null, result);
+    }
+
+    @Test
     public void nonExistingQuestion() {
         ResponseEntity<?> response = quizQuestionController.getQuestion(-1);
 
