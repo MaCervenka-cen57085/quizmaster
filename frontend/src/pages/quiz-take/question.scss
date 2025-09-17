@@ -31,3 +31,12 @@
     justify-content: center;
     height: 100%;
 }
+
+.question-fieldset {
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    width: 100%;
+    max-width: 1000px;
+}

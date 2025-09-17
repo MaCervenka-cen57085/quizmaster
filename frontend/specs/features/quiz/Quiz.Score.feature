@@ -47,6 +47,7 @@ Feature: Evaluate quiz score
     * I answer "Marseille"
     * I click the evaluate button
     Then I see the question "<question>"
+
     Examples:
       | question                            |
       | What is the standard colour of sky? |

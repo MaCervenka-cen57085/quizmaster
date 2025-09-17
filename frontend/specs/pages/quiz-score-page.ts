@@ -34,25 +34,36 @@ export class QuizScorePage {
     firstTextResultPresent = () => this.firstCorrectAnswerLocator().isVisible()
 
     private questionsLocator = () => this.page.locator('[id^=question-]')
-    questions = () => this.questionsLocator().locator('strong[id^=question-]').allTextContents()
+    questions = () => this.questionsLocator().locator('[id^=question-name-]').allTextContents()
 
     private questionLocator = (question: string) =>
-        this.questionsLocator().locator('strong[id^=question-]').filter({ hasText: question }).locator('..')
-    private answertAndExplanationLocator = (question: string) =>
-        this.questionLocator(question).locator('li[id^=answers-]')
-    answers = (question: string) =>
-        this.answertAndExplanationLocator(question).locator('span[id$="-label"]').allTextContents()
+        this.page.locator('[id^=question-name-]').filter({ hasText: question }).locator('..').locator('..')
+
+    private answerAndExplanationLocator = (question: string) =>
+        this.questionLocator(question).locator('li[id^=answer-row-]')
+
+    answerListLocator = (question: string) =>
+        this.page
+            .locator('[id^=question-name-]')
+            .filter({ hasText: question })
+            .locator('..')
+            .locator('..')
+            .locator('[id^=question-answers-]')
+
+    answers = (question: string) => this.answerListLocator(question).locator('[id^=answer-label-]').allTextContents()
+
     explanations = (question: string) =>
-        this.answertAndExplanationLocator(question).locator('.explanationText').allTextContents()
+        this.answerAndExplanationLocator(question).locator('.explanationText').allTextContents()
+
     questionExplanation = (question: string) =>
         this.questionLocator(question).locator('.question-explanation').textContent()
 
     private checkedUserSelectLocator = (question: string) => this.questionLocator(question).locator('input:checked')
     checkedAnswerLabel = (question: string) =>
-        this.checkedUserSelectLocator(question).locator('..').locator('span[id$="-label"]').textContent()
+        this.checkedUserSelectLocator(question).locator('..').locator('[id^=answer-label-]').textContent()
 
     private questionAnswerLocator = (question: string, answer: string) =>
-        this.answertAndExplanationLocator(question).getByText(answer)
+        this.answerAndExplanationLocator(question).getByText(answer)
     private answerCorrespondingResponseLocator = (question: string, answer: string) =>
         this.questionAnswerLocator(question, answer).locator('..').locator('..').locator('.feedback')
     answerCorrespondingResponse = (question: string, answer: string) =>

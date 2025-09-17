@@ -71,6 +71,7 @@ Then('I see all options for question {string}', async function (question: string
     const answers: string[] = await this.quizScorePage.answers(question)
 
     expect(answers.length).toBe(answersOrig.length)
+
     for (const answer of answersOrig) {
         expect(answers).toContain(answer.answer)
     }
