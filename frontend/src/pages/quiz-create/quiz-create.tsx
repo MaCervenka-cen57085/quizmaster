@@ -1,3 +1,4 @@
+import './quiz-create.scss'
 import { useSearchParams } from 'react-router-dom'
 import { useApi } from 'api/hooks'
 import { useState } from 'react'
@@ -10,6 +11,7 @@ export const QuizCreatePage = () => {
     const listGuid = searchParams.get('listguid')
     const [questionList, setQuestionList] = useState<QuizQuestion[]>([])
     const [selectedIds, setSelectedIds] = useState<number[]>([])
+    const [timeLimit, setTimeLimit] = useState<number>(600)
     const [quizId, setQuizId] = useState<string | undefined>(undefined)
 
     useApi(listGuid || '', getListQuestions, setQuestionList)
@@ -22,7 +24,7 @@ export const QuizCreatePage = () => {
         const quizId = await postQuiz({
             title: 'TOOD',
             description: 'TODO',
-            timeLimit: 0,
+            timeLimit: timeLimit,
             questionIds: selectedIds,
             afterEach: false,
             passScore: 0,
@@ -30,10 +32,28 @@ export const QuizCreatePage = () => {
 
         setQuizId(quizId)
     }
+    const handleChangeTimeLimit = (newValue: string) => {
+        // Only allow positive integers or empty string
+        if (/^[1-9]\d*$/.test(newValue) || newValue === '') {
+            setTimeLimit(newValue as unknown as number)
+        }
+    }
 
     return (
         <div>
             <h2>Create Quiz</h2>
+            <div>
+                <label htmlFor="time-limit">Time limit (seconds): </label>
+                <input
+                    id="time-limit"
+                    type="string"
+                    min="1"
+                    step="0"
+                    value={timeLimit}
+                    placeholder="Time limit in seconds"
+                    onChange={e => handleChangeTimeLimit(e.target.value)}
+                />
+            </div>
             {questionList.map(item => (
                 <div key={String(item.id)}>
                     <input id={String(item.id)} type="checkbox" onChange={() => handleSelect(item.id)} />

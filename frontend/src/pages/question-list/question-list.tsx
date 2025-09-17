@@ -71,7 +71,7 @@ export function QuestionList({ questionListData, onRefresh }: Props) {
 
     const onCreateNewQuestion = () => {
         navigate(`/question/new?listguid=${questionListId}`)
-    }
+     }
 
     const onEditQuestion = (hash: string) => {
         navigate(`/question/${hash}/edit`)

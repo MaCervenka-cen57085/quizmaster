@@ -20,3 +20,8 @@ When('I select questions {string}', async (ids: string) => {
 Then('I submit new quiz', async () => {
     // TODO click on button submit
 })
+
+Then('I see time limit set to {int} seconds', async function (timeLimit: number) {
+    const value = await this.quizCreatePage.timeLimitInput().inputValue()
+    expect(Number.parseInt(value)).toBe(timeLimit)
+})
