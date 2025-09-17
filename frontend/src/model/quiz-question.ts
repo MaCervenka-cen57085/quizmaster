@@ -31,7 +31,6 @@ export interface Quiz {
 }
 
 export interface QuizCreateRequest {
-    id: number
     title: string
     description: string
     questionIds: number[]
