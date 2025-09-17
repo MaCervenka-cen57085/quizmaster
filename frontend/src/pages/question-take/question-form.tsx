@@ -37,9 +37,9 @@ export const QuestionForm = (props: QuestionFormProps) => {
         <form onSubmit={handleSubmit} id="question-form">
             <h1 id="question">{props.question.question}</h1>
 
-            {FEATURE_FLAG_ENABLED && easyMode && (
+            {easyMode && (
                 <div>
-                    Correct answers count is <span className="correct-answers-count">{correctAnswersCount}</span>
+                    Correct answers count is <strong className="correct-answers-count">{correctAnswersCount}</strong>
                 </div>
             )}
 

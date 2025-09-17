@@ -44,6 +44,19 @@ public class QuizQuestionControllerTest {
             .explanations(new String[] { "Si!", "Of course!", "Salem, but no.", "Bonjour! But no." })
             .correctAnswers(new int[] { 1, 2 })
             .questionListGuid(UUID.randomUUID().toString())
+            .isEasyMode(false)
+            .build();
+    }
+
+
+    private static QuizQuestion createMultipleChoiceQuestionWithEasyMode(boolean easyMode) {
+        return QuizQuestion.builder()
+            .question("What is the cities of Italy?")
+            .answers(new String[] { "Naples", "Rome", "Astana", "Paris" })
+            .explanations(new String[] { "Si!", "Of course!", "Salem, but no.", "Bonjour! But no." })
+            .correctAnswers(new int[] { 1, 2 })
+            .questionListGuid(UUID.randomUUID().toString())
+            .isEasyMode(easyMode)
             .build();
     }
 
@@ -93,6 +106,30 @@ public class QuizQuestionControllerTest {
         assertArrayEquals(updatedQuestion.getExplanations(), result.getExplanations());
         assertArrayEquals(updatedQuestion.getCorrectAnswers(), result.getCorrectAnswers());
         assertEquals(updatedQuestion.getQuestionListGuid(), result.getQuestionListGuid());
+        assertEquals(updatedQuestion.isEasyMode(), result.isEasyMode());
+    }
+
+    @Test
+    public void updateEasyModeQuestion() {
+        var question = createSingleChoiceQuestion();
+        var questionCreateResponse = quizQuestionController.saveQuestion(question);
+        // update to TRUE
+        var updatedQuestionTrue = createMultipleChoiceQuestionWithEasyMode(true);
+        quizQuestionController.updateQuestion(updatedQuestionTrue, questionCreateResponse.getHash());
+
+        var result = quizQuestionController.getQuestion(questionCreateResponse.getId()).getBody();
+
+        assertNotNull(result);
+        assertEquals(updatedQuestionTrue.isEasyMode(), result.isEasyMode());
+
+        // update back to FALSE
+        var updatedQuestionWithFalse = createMultipleChoiceQuestionWithEasyMode(false);
+        quizQuestionController.updateQuestion(updatedQuestionWithFalse, questionCreateResponse.getHash());
+
+        result = quizQuestionController.getQuestion(questionCreateResponse.getId()).getBody();
+
+        assertNotNull(result);
+        assertEquals(updatedQuestionWithFalse.isEasyMode(), result.isEasyMode());
     }
 
     @Test

@@ -1,4 +1,3 @@
-@feature-flag
 Feature: Take a question in EasyMode
 
   Scenario: Multiple choice question - Easy Mode ON - correct ansers is 3
