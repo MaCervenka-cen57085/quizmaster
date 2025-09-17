@@ -40,8 +40,6 @@ export const QuizCreatePage = () => {
             return
         }
 
-        console.log(timeLimit, !timeLimit)
-
         if (!timeLimit) {
             setFormError('Time limit is required')
             return

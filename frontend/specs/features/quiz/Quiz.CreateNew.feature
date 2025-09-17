@@ -24,10 +24,30 @@ Feature: Create Quiz from Question list
     And I fill title "My New Quiz"
     And I fill description "Bomba quiz"
     Then I submit new quiz
+    And I verify quiz URL
     * I see the welcome page
     * I see quiz name "My New Quiz"
     * I see quiz description "Bomba quiz"
     * I see question count 2
+
+  Scenario: Verify validation messages
+    When I click on Create New Quiz
+    And I wait for 1000 ms
+    Then I see question list with 3 available questions
+    When I submit new quiz
+    Then I see error message "Title is required"
+    When I fill title "My New Quiz"
+    When I submit new quiz
+    Then I see error message "Description is required"
+    When I fill description "Bomba quiz"
+    Then I submit new quiz
+    Then I see error message "Select at least 2 questions"
+    When I select question "Planet"
+    Then I submit new quiz
+    Then I see error message "Select at least 2 questions"
+    * I select question "Australia"
+    Then I submit new quiz
+    And I verify quiz URL
 
   Scenario: Create quiz with time limit and pass score
     When I click on Create New Quiz

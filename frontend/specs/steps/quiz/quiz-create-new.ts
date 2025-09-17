@@ -17,6 +17,9 @@ When('I select question {string}', async function (questionBookmark: string) {
 
 Then('I submit new quiz', async function () {
     await this.quizCreatePage.submitNewQuiz()
+})
+
+Then('I verify quiz URL', async function () {
     await expect(this.quizCreatePage.submitNewQuizLocator()).toHaveCount(0)
     await expect(this.quizCreatePage.quizUrlLocator()).toBeVisible
     await this.quizCreatePage.quizUrlLocator().click()
@@ -38,4 +41,8 @@ Then('I fill title {string}', async function (title: string) {
 
 Then('I fill description {string}', async function (title: string) {
     await this.quizCreatePage.fillDescription(title)
+})
+
+Then('I see error message {string}', async function (message: string) {
+    await expect(this.quizCreatePage.errorMessageLocator()).toContainText(message)
 })

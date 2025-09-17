@@ -7,12 +7,10 @@ export class QuizCreatePage {
     passScoreInput = () => this.page.locator('#pass-score')
     questionsInList = () => this.page.locator('.create-quiz > .question-item')
     selectQuestion = (question: string) => this.page.locator('label', { hasText: question }).click()
-
     submitNewQuizLocator = () => this.page.locator('button[type="submit"]')
     submitNewQuiz = () => this.submitNewQuizLocator().click()
-
     fillTitle = (title: string) => this.page.locator('#quiz-title').fill(title)
     fillDescription = (description: string) => this.page.locator('#quiz-description').fill(description)
-
     quizUrlLocator = () => this.page.locator('.alert.success a')
+    errorMessageLocator = () => this.page.locator('.alert.error')
 }
