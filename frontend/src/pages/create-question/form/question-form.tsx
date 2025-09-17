@@ -15,6 +15,7 @@ interface QuestionEditProps {
     readonly questionData: QuestionFormData
     readonly setQuestionData: (questionData: QuestionFormData) => void
     readonly onSubmit: () => void
+    readonly isEdit: boolean
 }
 
 function setMultipleChoiceInQuestionData(isMultipleChoice: boolean, questionData: QuestionFormData): QuestionFormData {
@@ -37,7 +38,7 @@ function setEasyModeChoiceInQuestionData(isEasyModeChoice: boolean, questionData
     }
 }
 
-export const QuestionEditForm = ({ questionData, setQuestionData, onSubmit }: QuestionEditProps) => {
+export const QuestionEditForm = ({ questionData, setQuestionData, onSubmit, isEdit }: QuestionEditProps) => {
     const setQuestion = (question: string) => setQuestionData({ ...questionData, question })
     const setIsMultipleChoice = (isMultipleChoice: boolean) =>
         setQuestionData(setMultipleChoiceInQuestionData(isMultipleChoice, questionData))
@@ -76,15 +77,17 @@ export const QuestionEditForm = ({ questionData, setQuestionData, onSubmit }: Qu
             />
             <div className="flex-container">
                 <SubmitButton />
-                <Button
-                    onClick={handleOnClick}
-                    disabled={!questionData.isDeletable}
-                    title={!questionData.isDeletable ? 'Otázku nelze smazat je obsažena v kvízu!' : ''}
-                    dataTestId="delete-button"
-                    className="submit-button"
-                >
-                    Smazat
-                </Button>
+                {isEdit && (
+                    <Button
+                        onClick={handleOnClick}
+                        disabled={!questionData.isDeletable}
+                        title={!questionData.isDeletable ? 'Otázku nelze smazat je obsažena v kvízu!' : ''}
+                        dataTestId="delete-button"
+                        className="submit-button"
+                    >
+                        Smazat
+                    </Button>
+                )}
             </div>
         </form>
     )

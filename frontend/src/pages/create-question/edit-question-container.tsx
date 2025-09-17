@@ -56,6 +56,7 @@ export function EditQuestionContainer() {
             linkToQuestion={linkToQuestion}
             questionData={questionData}
             setQuestionData={setQuestionData}
+            isEdit={true}
         />
     )
 }

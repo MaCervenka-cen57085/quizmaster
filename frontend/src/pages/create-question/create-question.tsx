@@ -13,6 +13,7 @@ type Props = {
     linkToEditQuestion: string
     isLoaded: boolean
     title: string
+    isEdit: boolean
 }
 
 export function CreateQuestionForm({
@@ -24,11 +25,17 @@ export function CreateQuestionForm({
     linkToQuestion,
     questionData,
     setQuestionData,
+    isEdit,
 }: Props) {
     return (
         <div className="question-page">
             <h1 id="question-page-title">{title}</h1>
-            <QuestionEditForm questionData={questionData} setQuestionData={setQuestionData} onSubmit={handleSubmit} />
+            <QuestionEditForm
+                questionData={questionData}
+                setQuestionData={setQuestionData}
+                onSubmit={handleSubmit}
+                isEdit={isEdit}
+            />
             <ErrorMessages errorCodes={errors} />
             <QuestionLink url={linkToQuestion} />
             <QuestionEditLink editUrl={linkToEditQuestion} />

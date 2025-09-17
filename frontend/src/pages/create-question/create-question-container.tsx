@@ -75,6 +75,7 @@ export function CreateQuestionContainer() {
             linkToQuestion={linkToQuestion}
             questionData={questionData}
             setQuestionData={setQuestionData}
+            isEdit={false}
         />
     )
 }
