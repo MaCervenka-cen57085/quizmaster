@@ -56,16 +56,18 @@ export const QuestionEditForm = ({ questionData, setQuestionData, onSubmit, isEd
     return (
         <form id="question-create-form" onSubmit={preventDefault(onSubmit)}>
             <QuestionEdit question={questionData.question} setQuestion={setQuestion} />
-            <MultipleChoiceEdit
-                isMultipleChoice={questionData.isMultipleChoice}
-                setIsMultipleChoice={setIsMultipleChoice}
-            />
-            {questionData.isMultipleChoice && (
-                <EasyModeChoiceEdit
-                    isEasyModeChoice={questionData.isEasyModeChoice}
-                    setIsEasyModeChoice={setIsEasyModeChoice}
+            <div className="questiion-options">
+                <MultipleChoiceEdit
+                    isMultipleChoice={questionData.isMultipleChoice}
+                    setIsMultipleChoice={setIsMultipleChoice}
                 />
-            )}
+                {questionData.isMultipleChoice && (
+                    <EasyModeChoiceEdit
+                        isEasyModeChoice={questionData.isEasyModeChoice}
+                        setIsEasyModeChoice={setIsEasyModeChoice}
+                    />
+                )}
+            </div>
             <AnswersEdit
                 answers={questionData.answers}
                 setAnswers={setAnswers}
@@ -83,7 +85,7 @@ export const QuestionEditForm = ({ questionData, setQuestionData, onSubmit, isEd
                         disabled={!questionData.isDeletable}
                         title={!questionData.isDeletable ? 'Otázku nelze smazat je obsažena v kvízu!' : ''}
                         dataTestId="delete-button"
-                        className="submit-button"
+                        className="secondary button"
                     >
                         Smazat
                     </Button>

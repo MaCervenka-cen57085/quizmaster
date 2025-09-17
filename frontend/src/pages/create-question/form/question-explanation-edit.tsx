@@ -9,11 +9,13 @@ export const QuestionExplanationEdit = ({
 }: QuestionExplanationEditProps) => (
     <>
         <label htmlFor="general-explanation">General explanation for the entire question:</label>
-        <textarea
-            id="question-explanation"
-            value={questionExplanation}
-            onChange={e => setQuestionExplanation(e.target.value)}
-            rows={2}
-        />
+        <div className="row">
+            <textarea
+                id="question-explanation"
+                value={questionExplanation}
+                onChange={e => setQuestionExplanation(e.target.value)}
+                rows={2}
+            />
+        </div>
     </>
 )
