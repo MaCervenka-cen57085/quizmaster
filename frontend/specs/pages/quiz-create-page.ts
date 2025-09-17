@@ -13,5 +13,5 @@ export class QuizCreatePage {
     fillTitle = (title: string) => this.page.locator('#quiz-title').fill(title)
     fillDescription = (description: string) => this.page.locator('#quiz-description').fill(description)
 
-    alertLocator = () => this.page.locator('.alert.success')
+    quizUrlLocator = () => this.page.locator('.alert.success a')
 }

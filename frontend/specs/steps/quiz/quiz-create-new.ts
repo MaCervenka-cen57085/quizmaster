@@ -18,7 +18,8 @@ When('I select question {string}', async function (questionBookmark: string) {
 Then('I submit new quiz', async function () {
     await this.quizCreatePage.submitNewQuiz()
     await expect(this.quizCreatePage.submitNewQuizLocator()).toHaveCount(0)
-    await expect(this.quizCreatePage.alertLocator()).toBeVisible
+    await expect(this.quizCreatePage.quizUrlLocator()).toBeVisible
+    await this.quizCreatePage.quizUrlLocator().click()
 })
 
 Then('I see time limit set to {int} seconds', async function (timeLimit: number) {

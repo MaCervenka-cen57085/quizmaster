@@ -24,6 +24,10 @@ Feature: Create Quiz from Question list
     And I fill title "My New Quiz"
     And I fill description "Bomba quiz"
     Then I submit new quiz
+    * I see the welcome page
+    * I see quiz name "My New Quiz"
+    * I see quiz description "Bomba quiz"
+    * I see question count 2
 
   Scenario: Create quiz with time limit
     When I click on Create New Quiz
