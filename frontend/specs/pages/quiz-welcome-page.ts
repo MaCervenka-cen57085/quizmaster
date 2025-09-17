@@ -9,6 +9,7 @@ export class QuizWelcomePage {
     questionCount = async () => Number.parseInt((await this.page.locator('span#question-count').textContent()) ?? '')
     feedback = () => this.page.locator('p#question-feedback').textContent()
     passScore = async () => Number.parseInt((await this.page.locator('span#pass-score').textContent()) ?? '')
+    timeLimit = async () => Number.parseInt((await this.page.locator('span#time-limit').textContent()) ?? '')
 
     startButton = () => this.page.locator('button#start')
     start = () => this.startButton().click()

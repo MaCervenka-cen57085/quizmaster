@@ -11,6 +11,9 @@ export const QuizDetails = ({ quiz, onStart }: QuizDetailsProps) => (
         <h2>Welcome to the quiz</h2>
         <h3 id="quiz-name">{quiz.title}</h3>
         <p id="quiz-description">{quiz.description}</p>
+        <p id="time-limit">
+            Time limit: <span id="time-limit">{quiz.timeLimit}</span> seconds
+        </p>
         <p>
             Question count: <span id="question-count">{quiz.questions.length}</span>
         </p>
