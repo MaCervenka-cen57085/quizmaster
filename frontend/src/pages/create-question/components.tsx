@@ -15,7 +15,7 @@ export const QuestionLink = ({ url }: { url: string }) =>
 export const QuestionEditLink = ({ editUrl }: { editUrl: string }) =>
     editUrl && (
         <>
-            <h3>Link to edit the question:</h3>            
+            <h3>Link to edit the question:</h3>
             <a id="question-edit-link" href={editUrl}>
                 {editUrl}
             </a>

@@ -11,6 +11,8 @@ export const EasyModeChoiceEdit = ({ isEasyModeChoice, setIsEasyModeChoice }: Ea
             checked={isEasyModeChoice}
             onChange={e => setIsEasyModeChoice(e.target.checked)}
         />
-        <label htmlFor="is-easy-mode-choice">Easy mode (quiz taker will see the amount of correct answers for this question)</label>
+        <label htmlFor="is-easy-mode-choice">
+            Easy mode (quiz taker will see the amount of correct answers for this question)
+        </label>
     </div>
 )
