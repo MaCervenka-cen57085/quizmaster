@@ -1,9 +1,9 @@
-import { useSearchParams } from 'react-router-dom'
 import { useApi } from 'api/hooks'
-import { useState } from 'react'
-import type { QuizQuestion } from 'model/quiz-question'
 import { getListQuestions } from 'api/question-list'
 import { postQuiz } from 'api/quiz'
+import type { QuizQuestion } from 'model/quiz-question'
+import { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import './createQiuz.scss'
 
 export const QuizCreatePage = () => {

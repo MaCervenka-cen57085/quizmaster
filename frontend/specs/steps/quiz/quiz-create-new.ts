@@ -2,19 +2,20 @@ import { expect } from '@playwright/test'
 import { expectedNumberOfChildrenToBe } from '../common.ts'
 import { Then, When } from '../fixture.ts'
 
-When('I start creating a quiz', async function () {
-    await this.quizCreatePage.gotoNew()
-    // TODO await expect(page).toHaveURL('/quiz-create/new')
+When('I click on Create New Quiz', async function () {
+    await this.quizCreatePage.createNewQuiz()
 })
 
 Then('I see question list with {int} available questions', async function (count: number) {
     await expectedNumberOfChildrenToBe(this.quizCreatePage.questionsInList(), count)
 })
 
-When('I select questions {string}', async (ids: string) => {
+When('I select questions {string}', async function (ids: string) {
     const idsList = ids?.trim().split(',')
     expect(idsList).toBeTruthy
-    // assert elements with id
+    for (const id of idsList) {
+        this.quizCreatePage.selectQuestion(id)
+    }
 })
 
 Then('I submit new quiz', async () => {

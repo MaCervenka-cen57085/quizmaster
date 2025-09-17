@@ -5,19 +5,21 @@ Feature: Create Quiz from Question list
       | bookmark  | question                                 | answers              |
       | Planet    | Which planet is known as the Red Planet? | Mars (*), Venus      |
       | Australia | What's the capital city of Australia?    | Sydney, Canberra (*) |
+      | Cars      | Who build first car in Czechia?          | Adolf (*), Laurin a Klement |
     Given I saved the question list "YC"
     Then I wait for 1000 ms
     * I add an existing question "Planet" to the list
     Then I wait for 1000 ms
     * I add an existing question "Australia" to the list
+    Then I wait for 1000 ms
+    * I add an existing question "Cars" to the list
     Then I wait for 2000 ms
 
-  @skip
-  Scenario: Create quiz with 2 questions
-    When I start creating a quiz
+  Scenario: Create quiz with 3 questions
+    When I click on Create New Quiz
     And I wait for 1000 ms
-    Then I see question list with 2 available questions
-    When I select questions "1,2"
+    Then I see question list with 3 available questions
+    When I select questions "1,2,3"
     Then I submit new quiz
 
   Scenario: Create quiz with time limit

@@ -56,7 +56,7 @@ export const AddExistingQuestion = ({ onClick }: WithOnClick) => (
 )
 
 export const CreateQuizButton = ({ onClick }: WithOnClick) => (
-    <Button id="create-quiz" onClick={onClick}>
+    <Button id="create-quiz" onClick={onClick} className="primary button">
         Create Quiz
     </Button>
 )
