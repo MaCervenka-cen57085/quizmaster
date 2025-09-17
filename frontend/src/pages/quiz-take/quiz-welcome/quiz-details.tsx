@@ -11,13 +11,13 @@ export const QuizDetails = ({ quiz, onStart }: QuizDetailsProps) => (
         <h2>Welcome to the quiz</h2>
         <h3 id="quiz-name">{quiz.title}</h3>
         <p id="quiz-description">{quiz.description}</p>
-        <p id="time-limit">
+        <p>
             Time limit: <span id="time-limit">{quiz.timeLimit}</span> seconds
         </p>
         <p>
             Question count: <span id="question-count">{quiz.questions.length}</span>
         </p>
-        <p id="pass-score">
+        <p>
             Pass score: <span id="pass-score">{quiz.passScore}</span>%
         </p>
         <p id="question-feedback">{quiz.afterEach ? 'Continuous feedback' : 'Feedback at the end'}</p>

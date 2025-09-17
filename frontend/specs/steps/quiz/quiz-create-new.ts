@@ -25,16 +25,6 @@ Then('I verify quiz URL', async function () {
     await this.quizCreatePage.quizUrlLocator().click()
 })
 
-Then('I see time limit set to {int} seconds', async function (timeLimit: number) {
-    const value = await this.quizCreatePage.timeLimitInput().inputValue()
-    expect(Number.parseInt(value)).toBe(timeLimit)
-})
-
-Then('I see pass score set to {int} %', async function (passScore: number) {
-    const value = await this.quizCreatePage.passScoreInput().inputValue()
-    expect(Number.parseInt(value)).toBe(passScore)
-})
-
 Then('I fill title {string}', async function (title: string) {
     await this.quizCreatePage.fillTitle(title)
 })

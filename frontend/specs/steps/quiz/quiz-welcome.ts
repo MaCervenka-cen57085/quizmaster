@@ -21,10 +21,10 @@ Then('I see feedback type {string}', async function (feedbackType: string) {
     expect(await this.quizWelcomePage.feedback()).toBe(feedbackType)
 })
 
-Then('I see pass score {int}%', async function (passScore: number) {
+Then('I see pass score {int} %', async function (passScore: number) {
     expect(await this.quizWelcomePage.passScore()).toBe(passScore)
 })
 
-Then('I see time limit set to {int} seconds on welcome page', async function (timeLimit: number) {
+Then('I see time limit set to {int} seconds', async function (timeLimit: number) {
     expect(await this.quizWelcomePage.timeLimit()).toBe(timeLimit)
 })

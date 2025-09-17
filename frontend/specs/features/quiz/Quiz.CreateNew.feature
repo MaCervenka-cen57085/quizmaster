@@ -29,6 +29,8 @@ Feature: Create Quiz from Question list
     * I see quiz name "My New Quiz"
     * I see quiz description "Bomba quiz"
     * I see question count 2
+    * I see pass score 80 %
+    * I see time limit set to 600 seconds
 
   Scenario: Verify validation messages
     When I click on Create New Quiz
@@ -48,9 +50,3 @@ Feature: Create Quiz from Question list
     * I select question "Australia"
     Then I submit new quiz
     And I verify quiz URL
-
-  Scenario: Create quiz with time limit and pass score
-    When I click on Create New Quiz
-    And I wait for 1000 ms
-    Then I see time limit set to 600 seconds
-    Then I see pass score set to 80 %
