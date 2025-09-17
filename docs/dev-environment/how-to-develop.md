@@ -66,16 +66,62 @@ For easier testing, Swagger UI is available at http://localhost:8080/swagger-ui/
 
 ## 🚩 Feature Flag
 
-You can hide an unfinished feature behind a feature flag.
+Hide an unfinished feature behind a feature flag. It will be hidden in production builds,
+but runs in end-to-end tests in GitHub Actions CI/CD build.
 
-- on the frontend, the feature flag is a constant `FEATURE_FLAG_ENABLED`
-- in specifications, mark scenario that pass only with feature flag with @feature-flag
+- on the frontend, the feature flag is a global constant `FEATURE_FLAG_ENABLED`
+
+    ```typescript
+    if (FEATURE_FLAG_ENABLED) {
+        // Unfinished feature
+    }
+    ```
+
 - on the backend, the feature flag is a static method `FeatureFlag.isEnabled()`
 
-To enable the feature flag, set the `FEATURE_FLAG` environment variable to `true` and rebuild both the frontend and
-the backend. Do not forget to set the environment variable also before running end-to-end tests:
+    ```java
+    import cz.scrumdojo.quizmaster.FeatureFlag;
 
-| OS      | Command                    |
-|---------|----------------------------|
-| Windows | `$env:FEATURE_FLAG="true"` |
-| Linux   | `export FEATURE_FLAG=true` |
+    if (FeatureFlag.isEnabled()) {
+        // Unfinished feature
+    }
+    ```
+
+- in specifications, mark scenario that pass only with feature flag with @feature-flag
+
+    ```gherkin
+    @feature-flag
+    Scenario: Unfinished scenario
+        # Passes only when feature flag is set
+    ```
+
+### Enable Feature Flag
+
+To enable the feature flag, set the `FEATURE_FLAG` environment variable to `true`.
+
+- Enable feature flag on the backend:
+
+    ```bash
+    cd backend
+    export FEATURE_FLAG=true
+    ./gradlew build
+    ./gradlew bootrun
+    ```
+
+- Enable feature flag on the frontend:
+
+    ```bash
+    cd frontend
+    export FEATURE_FLAG=true
+    pnpm dev
+    ```
+
+- Run end-to-end tests with feature flag enabled
+
+    ```bash
+    cd frontend
+    export FEATURE_FLAG=true
+    pnpm test:e2e:vite
+    ```
+
+Note: on Windows set the feature flag with `$env:FEATURE_FLAG="true"` command.
