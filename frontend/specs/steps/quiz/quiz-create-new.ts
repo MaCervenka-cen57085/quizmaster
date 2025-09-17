@@ -33,5 +33,3 @@ Then('I fill title {string}', async function (title: string) {
 Then('I fill description {string}', async function (title: string) {
     await this.quizCreatePage.fillDescription(title)
 })
-
-
