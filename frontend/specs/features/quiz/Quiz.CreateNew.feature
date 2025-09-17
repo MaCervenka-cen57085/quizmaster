@@ -23,6 +23,6 @@ Feature: Create Quiz from Question list
     Then I submit new quiz
 
   Scenario: Create quiz with time limit
-    When I start creating a quiz
+    When I click on Create New Quiz
     And I wait for 1000 ms
     Then I see time limit set to 600 seconds
