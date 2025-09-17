@@ -5,7 +5,7 @@ export const LoadedIndicator = ({ isLoaded }: { isLoaded: boolean }) => (
 export const QuestionLink = ({ url }: { url: string }) =>
     url && (
         <>
-            <h3>Link to see the question:</h3>
+            <h3>Link to take the question:</h3>
             <a id="question-link" href={url}>
                 {url}
             </a>
@@ -15,10 +15,11 @@ export const QuestionLink = ({ url }: { url: string }) =>
 export const QuestionEditLink = ({ editUrl }: { editUrl: string }) =>
     editUrl && (
         <>
-            <h3>Link to edit the question:</h3>
+            <h3>Link to edit the question:</h3>            
             <a id="question-edit-link" href={editUrl}>
                 {editUrl}
             </a>
+            <p>*You wont be able to get this link once you close this page</p>
         </>
     )
 
