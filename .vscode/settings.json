@@ -2,9 +2,9 @@
     "cucumberautocomplete.steps": ["frontend/specs/steps/**/*.ts"],
     "editor.codeActionsOnSave": {
         "source.fixAll": "explicit"
-      },
-      "java.compile.nullAnalysis.mode": "automatic",
-      "cSpell.words": [
+    },
+    "java.compile.nullAnalysis.mode": "automatic",
+    "cSpell.words": [
         "alexkrechik",
         "cucumberautocomplete",
         "dababase",
@@ -13,5 +13,5 @@
         "gradlew",
         "Playwrigt",
         "scrumdojo"
-      ]
+    ],
 }
