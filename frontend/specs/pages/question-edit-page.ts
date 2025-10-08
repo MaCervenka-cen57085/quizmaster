@@ -10,6 +10,9 @@ export class QuestionEditPage {
     waitForEditButton = () => this.page.waitForSelector('.edit-question')
     waitForLoadedTitle = () => this.page.waitForSelector('#question-page-title')
 
+    private editQuestionTitleLocator = () => this.page.locator('[data-testid="edit-question-title"]')
+    editQuestionTitle = () => this.editQuestionTitleLocator().textContent()
+
     private questionLocator = () => this.page.locator('#question-text')
     enterQuestion = (question: string) => this.questionLocator().fill(question)
     questionValue = () => this.questionLocator().inputValue()
@@ -81,6 +84,4 @@ export class QuestionEditPage {
 
     hasError = (error: string) => this.page.locator(`.errors .${error}`).waitFor({ state: 'visible' })
     errorMessageCount = () => this.page.locator('.errors > li').count()
-
-    titleContent = () => this.page.locator('#question-page-title').textContent()
 }

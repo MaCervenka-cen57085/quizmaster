@@ -68,17 +68,19 @@ export function CreateQuestionContainer() {
     const handleQuestionDelete = () => ({})
 
     return (
-        <CreateQuestionForm
-            title="Quiz Question Creation Page"
-            errors={errors}
-            handleSubmit={handleSubmit}
-            isLoaded={true}
-            linkToEditQuestion={linkToEditQuestion}
-            linkToQuestion={linkToQuestion}
-            questionData={questionData}
-            setQuestionData={setQuestionData}
-            isEdit={false}
-            handleQuestionDelete={handleQuestionDelete}
-        />
+        <>
+            <h1>Create Question</h1>
+            <CreateQuestionForm
+                errors={errors}
+                handleSubmit={handleSubmit}
+                isLoaded={true}
+                linkToEditQuestion={linkToEditQuestion}
+                linkToQuestion={linkToQuestion}
+                questionData={questionData}
+                setQuestionData={setQuestionData}
+                isEdit={false}
+                handleQuestionDelete={handleQuestionDelete}
+            />
+        </>
     )
 }

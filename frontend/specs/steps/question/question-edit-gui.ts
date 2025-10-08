@@ -28,6 +28,13 @@ Given('I start editing question {string}', async function (bookmark: string) {
     await openEditPage(this, bookmark)
 })
 
+// Title assertions
+
+Then('I see question edit page', async function () {
+    const title = await this.questionEditPage.editQuestionTitle()
+    expect(title).toContain('Edit')
+})
+
 // Field assertions
 
 Then('I see empty question field', async function () {
@@ -211,9 +218,4 @@ Then('I see error messages', async function (table: DataTable) {
 
 Then('I see no error messages', async function () {
     await expectErrorCount(this, 0)
-})
-
-Then('I see {string} in the title', async function (expectedTitle: string) {
-    const title = await this.questionEditPage.titleContent()
-    expect(title).toBe(expectedTitle)
 })

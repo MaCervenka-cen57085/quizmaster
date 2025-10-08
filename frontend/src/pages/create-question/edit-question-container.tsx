@@ -56,17 +56,19 @@ export function EditQuestionContainer() {
     }
 
     return (
-        <CreateQuestionForm
-            title="Quiz Question Edit Page"
-            errors={errors}
-            handleSubmit={handleSubmit}
-            isLoaded={isLoaded}
-            linkToEditQuestion={linkToEditQuestion}
-            linkToQuestion={linkToQuestion}
-            questionData={questionData}
-            setQuestionData={setQuestionData}
-            isEdit={true}
-            handleQuestionDelete={handleQuestionDelete}
-        />
+        <>
+            <h1 data-testid="edit-question-title">Edit Question</h1>
+            <CreateQuestionForm
+                errors={errors}
+                handleSubmit={handleSubmit}
+                isLoaded={isLoaded}
+                linkToEditQuestion={linkToEditQuestion}
+                linkToQuestion={linkToQuestion}
+                questionData={questionData}
+                setQuestionData={setQuestionData}
+                isEdit={true}
+                handleQuestionDelete={handleQuestionDelete}
+            />
+        </>
     )
 }

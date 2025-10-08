@@ -19,6 +19,5 @@ Feature: Create question GUI
       | 5 |   |
 
     When I attempt to save the question
-    *  I wait for 1000 ms
-    Then I see 'Quiz Question Edit Page' in the title
+    Then I see question edit page
     And I see question-take URL and question-edit URL
