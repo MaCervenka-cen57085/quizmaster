@@ -4,13 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import cz.scrumdojo.quizmaster.questionList.QuestionListController;
-import cz.scrumdojo.quizmaster.questionList.QuestionListRepository;
-import cz.scrumdojo.quizmaster.questionList.QuestionListCreateResponse;
-
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.UUID;
 
 @SpringBootTest
 public class QuestionListControllerTest {
