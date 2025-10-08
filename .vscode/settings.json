@@ -1,15 +1,13 @@
 {
-    "cucumberautocomplete.steps": ["frontend/specs/steps/**/*.ts"],
+    "cucumber.features": ["frontend/specs/features/**/*.feature"],
+    "cucumber.glue": ["frontend/specs/steps/**/*.ts"],
     "editor.codeActionsOnSave": {
         "source.fixAll": "explicit"
     },
     "java.compile.nullAnalysis.mode": "automatic",
     "cSpell.words": [
-        "alexkrechik",
-        "cucumberautocomplete",
         "dababase",
         "devenv",
-        "Gherking",
         "gradlew",
         "Playwrigt",
         "scrumdojo"

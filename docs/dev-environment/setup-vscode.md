@@ -8,7 +8,7 @@ Otherwise, install recommended extensions:
 
 - [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
 - [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack)
-- [Cucumber (Gherking) Full Support](https://marketplace.visualstudio.com/items?itemName=alexkrechik.cucumberautocomplete)
+- [Cucumber](https://marketplace.visualstudio.com/items?itemName=cucumberopen.cucumber-official)
 - [Playwright Test for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright)
 
 ## Limitations

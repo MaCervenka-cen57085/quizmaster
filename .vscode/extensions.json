@@ -9,6 +9,6 @@
 
         "vscode.vscode-java-pack",
         "ms-playwright.playwright",
-        "alexkrechik.cucumberautocomplete"
+        "cucumberopen.cucumber-official"
     ]
 }
