@@ -9,8 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import cz.scrumdojo.quizmaster.model.QuizCreateWithListRequest;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ArrayList;
 
 @Slf4j
@@ -21,8 +19,6 @@ public class QuizController {
     private final QuizQuestionRepository quizQuestionRepository;
     private final QuizRepository quizRepository;
 
-    private static final Map<Integer, Quiz> quizzes = new HashMap<>();
-
     @Autowired
     public QuizController(QuizQuestionRepository quizQuestionRepository, QuizRepository quizRepository) {
         this.quizQuestionRepository = quizQuestionRepository;
@@ -32,13 +28,7 @@ public class QuizController {
     @Transactional
     @GetMapping("/quiz/{id}")
     public ResponseEntity<QuizResponse> getQuiz(@PathVariable Integer id) {
-        Quiz quiz;
-        if (id < 0) {
-            quiz = quizzes.get(id);
-        } else {
-            // Change from getReferenceById to findById to handle missing entities
-            quiz = this.quizRepository.findById(id).orElse(null);
-        }
+        Quiz quiz = this.quizRepository.findById(id).orElse(null);
 
         if (quiz == null) {
             return ResponseEntity.notFound().build();
