@@ -18,6 +18,6 @@ Feature: Create question GUI
       | 4 | * |
       | 5 |   |
 
-    When I attempt to save the question
+    When I submit the question
     Then I see question edit page
     And I see question-take URL and question-edit URL
