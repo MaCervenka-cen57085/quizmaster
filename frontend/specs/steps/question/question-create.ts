@@ -1,23 +1,8 @@
 import type { DataTable } from '@cucumber/cucumber'
-import { expect } from '@playwright/test'
 
 import type { TableOf } from '../common.ts'
-import { Given, When, Then } from '../fixture.ts'
-import {
-    addAnswers,
-    createQuestion,
-    enterQuestion,
-    openCreatePage,
-    saveQuestion,
-    submitQuestion,
-    type AnswerRaw,
-} from './ops.ts'
-
-Given('I created a question {string}', async function (question: string) {
-    await openCreatePage(this)
-    await enterQuestion(this, question)
-    await submitQuestion.bind(this)()
-})
+import { Given, When } from '../fixture.ts'
+import { addAnswers, createQuestion, enterQuestion, openCreatePage, saveQuestion, type AnswerRaw } from './ops.ts'
 
 Given('a question {string}', async function (question: string) {
     await openCreatePage(this)
@@ -61,11 +46,6 @@ Given('marked as easy mode', async function () {
 
 Given('saved and bookmarked as {string}', async function (bookmark) {
     await saveQuestion(this, bookmark)
-})
-
-Then('I see an error message', async function () {
-    const errorMessage = await this.questionEditPage.errorMessage()
-    expect(errorMessage).not.toBe('')
 })
 
 When('I wait for {int} ms', async (milliseconds: number) => {

@@ -5,7 +5,7 @@ Feature: Edit question GUI
     - Question explanation is optional
 
   Background:
-    Given I created a question "What are cities of Czech Republic?"
+    Given a question "What are cities of Czech Republic?"
     * with answers:
       | Brno     | * | No Brno |
       | Brussels |  | Yes     |

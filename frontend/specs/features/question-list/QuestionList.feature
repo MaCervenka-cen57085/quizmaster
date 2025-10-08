@@ -1,7 +1,7 @@
 Feature: Question list
 
   Background:
-    Given I created a question "What is the capital of Czech Republic?"
+    Given a question "What is the capital of Czech Republic?"
     * with answers:
       | Brno   |   | No Brno |
       | Prague | * | Yes     |

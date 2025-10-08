@@ -79,9 +79,6 @@ export class QuestionEditPage {
     private questionEditUrlLocator = () => this.page.locator('#question-edit-link')
     questionEditUrl = () => this.questionEditUrlLocator().textContent()
 
-    // deprecated
-    errorMessage = () => this.page.textContent('#error-message')
-
     hasError = (error: string) => this.page.locator(`.errors .${error}`).waitFor({ state: 'visible' })
     errorMessageCount = () => this.page.locator('.errors > li').count()
 
