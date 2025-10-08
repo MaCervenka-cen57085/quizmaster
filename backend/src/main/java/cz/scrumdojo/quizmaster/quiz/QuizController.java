@@ -82,20 +82,4 @@ public class QuizController {
         Quiz output = quizRepository.save(quiz);
         return ResponseEntity.ok(output.getId());
     }
-
-    @Transactional
-    @DeleteMapping("/quiz/{id}")
-    public ResponseEntity<Void> deleteQuiz(@PathVariable Integer id) {
-        try {
-            Quiz quiz = quizRepository.findById(id).orElse(null);
-            if (quiz != null) {
-                quizRepository.delete(quiz);
-                return ResponseEntity.ok().build();
-            }
-            return ResponseEntity.notFound().build();
-        } catch (Exception e) {
-            log.error("Error deleting quiz with ID: {}", id, e);
-            return ResponseEntity.internalServerError().build();
-        }
-    }
 }

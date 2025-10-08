@@ -166,36 +166,4 @@ public class QuizControllerTest {
         assertEquals(quizInput.getQuestionIds().length, quizGetBodyQuestions.length);
         assertEquals(quizInput.getQuestionIds()[0], quizGetBodyQuestions[0].getId());
     }
-
-    @Test
-    public void deleteQuiz_Success() {
-        // Create a quiz first
-        int quizId = createQuiz(createQuizInput());
-
-        // Verify it exists
-        ResponseEntity<QuizResponse> getResponse = quizController.getQuiz(quizId);
-        assertEquals(HttpStatus.OK, getResponse.getStatusCode());
-
-        // Delete the quiz
-        ResponseEntity<Void> deleteResponse = quizController.deleteQuiz(quizId);
-        assertEquals(HttpStatus.OK, deleteResponse.getStatusCode());
-
-        // Verify it's deleted
-        ResponseEntity<QuizResponse> getAfterDeleteResponse = quizController.getQuiz(quizId);
-        assertEquals(HttpStatus.NOT_FOUND, getAfterDeleteResponse.getStatusCode());
-    }
-
-    @Test
-    public void deleteQuiz_NotFound() {
-        // Try to delete non-existent quiz
-        ResponseEntity<Void> response = quizController.deleteQuiz(999);
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-    }
-
-    @Test
-    public void deleteQuiz_InvalidId() {
-        // Try to delete with invalid ID
-        ResponseEntity<Void> response = quizController.deleteQuiz(-100000);
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-    }
 }
