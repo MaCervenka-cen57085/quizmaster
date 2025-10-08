@@ -43,10 +43,6 @@ export function CreateQuestionForm({
             <QuestionLink url={linkToQuestion} />
             <QuestionEditLink editUrl={linkToEditQuestion} />
             <LoadedIndicator isLoaded={isLoaded} />
-            <br />
-            <p style={{ textAlign: 'right', fontSize: '11px' }} id="powered-by-label">
-                Powered by Charles
-            </p>
         </div>
     )
 }

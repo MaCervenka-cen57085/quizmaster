@@ -217,8 +217,3 @@ Then('I see {string} in the title', async function (expectedTitle: string) {
     const title = await this.questionEditPage.titleContent()
     expect(title).toBe(expectedTitle)
 })
-
-Then('I see that the label powered by is set to {string}', async function (expectedLabel: string) {
-    const label = await this.questionEditPage.poweredByLabel()
-    expect(label).toBe(expectedLabel)
-})

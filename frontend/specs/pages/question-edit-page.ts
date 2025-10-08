@@ -82,6 +82,5 @@ export class QuestionEditPage {
     hasError = (error: string) => this.page.locator(`.errors .${error}`).waitFor({ state: 'visible' })
     errorMessageCount = () => this.page.locator('.errors > li').count()
 
-    poweredByLabel = () => this.page.locator('#powered-by-label').textContent()
     titleContent = () => this.page.locator('#question-page-title').textContent()
 }
