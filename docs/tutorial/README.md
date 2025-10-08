@@ -48,6 +48,18 @@ This tutorial is designed for developers who:
    - Reusable utilities
    - TypeScript integration
 
+7. [AI Guardrails](07-AI-guardrails.md)
+   - Directing AI agents to project instructions
+   - Using standardized commands
+   - Managing AI-specific documentation
+   - Consolidating AI instructions
+
+8. [Project Overview](08-project-overview.md)
+   - Architecture and system design
+   - Security configuration
+   - Development process guidelines
+   - Quality standards
+
 ## Getting Started
 
 1. Read the chapters in order - they build upon each other
