@@ -41,7 +41,6 @@ Feature: Question list
       | Berlin |   | Germany |
     * with explanation "Czechia is a country in Europe. Czechs love beer."
     * saved and bookmarked as "Czechia"
-    * I wait for 1000 ms
     Given I saved the question list "X"
     When I add an existing question "Czechia" to the list
     Then I see question in list "What is the capital of Czech Republic?"

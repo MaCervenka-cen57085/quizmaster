@@ -12,7 +12,6 @@ Feature: Edit question GUI
       | Berlin |   | Germany |
     * with explanation "Czechia is a country in Europe. Czechs love beer."
     * saved and bookmarked as "Czechia"
-    * I wait for 1000 ms
 
   Scenario: Empty question form
     Given I enter question ""

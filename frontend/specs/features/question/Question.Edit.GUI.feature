@@ -8,7 +8,6 @@ Feature: Edit question GUI
       | Berlin |   | Germany |
     * with explanation "Czechia is a country in Europe. Czechs love beer."
     * saved and bookmarked as "Czechia"
-    * I wait for 1000 ms
 
   Scenario: Prepopulated form fields
     Then I see "What is the capital of Czech Republic?" in the question field
@@ -53,6 +52,3 @@ Feature: Edit question GUI
     Then I am on the home page
     And I should see a link to create a new question
     And I should see a link to create a new question list
-
-
-
