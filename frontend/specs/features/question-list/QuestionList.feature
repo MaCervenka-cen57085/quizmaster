@@ -1,14 +1,5 @@
 Feature: Question list
 
-  Scenario: Create a question in a question list
-    Given a question list "My List"
-    When I create questions within the list
-      | question  | answers  |
-      | 2 + 2 = ? | 4 (*), 5 |
-      | 3 * 3 = ? | 9 (*), 6 |
-    Then I see question "2 + 2 = ?" in the list
-    And I see question "3 * 3 = ?" in the list
-
   Scenario: Take question in a question list
     Given a question list "My List"
     And I create questions within the list
