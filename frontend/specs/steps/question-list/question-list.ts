@@ -90,12 +90,10 @@ Then('I see {string} editable form', async function (title: string) {
     await expectTextToBe(this.page.locator('#question-text'), title)
 })
 
-Then('I can take the quiz for question {string}', async function name(question: string) {
+When('I take question {string} from the list', async function (question: string) {
     const takeButton = this.page.locator('.question-item', { hasText: question }).locator('.take-button button')
+    this.activeQuestionBookmark = question
     await takeButton.click()
-    await this.takeQuestionPage.waitForLoaded()
-
-    await expectTextToBe(this.page.locator('#question'), question)
 })
 
 Then('I can copy the link to the take question {string}', async function (question: string) {

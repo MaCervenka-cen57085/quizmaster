@@ -15,10 +15,14 @@ Feature: Question list
     And I click Edit button for question "Xquestion"
     Then I see "Xquestion" editable form
 
-  Scenario: I can take the question
-    Given I saved the question list "X"
-    When I create new question to list "Xquestion"
-    Then I can take the quiz for question "Xquestion"
+  Scenario: Take question in a question list
+    Given a question list "My List"
+    And I create questions within the list
+      | question  | answers  |
+      | 2 + 2 = ? | 4 (*), 5 |
+      | 3 * 3 = ? | 9 (*), 6 |
+    When I take question "2 + 2 = ?" from the list
+    Then I see the question and the answers
 
   Scenario: Add existing question to question list
     Given a question "What is the capital of Czech Republic?"

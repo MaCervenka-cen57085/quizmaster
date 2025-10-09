@@ -1,6 +1,6 @@
 import type { TableOf } from '../common'
 import { addAnswers, type AnswerRaw, enterQuestion } from '../question/ops'
-import type { QuizmasterWorld } from '../world'
+import { emptyQuestion, type QuizmasterWorld } from '../world'
 
 export const openCreateQuestionListPage = async (world: QuizmasterWorld) => {
     world.questionListCreatePage.gotoNew()
@@ -18,7 +18,9 @@ export const createQuestionInList = async (
     answerRawTable: TableOf<AnswerRaw>,
 ) => {
     await world.questionListPage.createNewQuestion()
+    world.questionWip = emptyQuestion()
     await enterQuestion(world, question)
     await addAnswers(world, answerRawTable)
+    world.questionBookmarks[question] = world.questionWip
     await world.questionEditPage.submit()
 }
