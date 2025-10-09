@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import './createQiuz.scss'
 import { Field, NumberInput, Page, TextInput } from 'pages/components'
+import { preventDefault } from 'helpers'
 
 export const QuizCreatePage = () => {
     const [searchParams] = useSearchParams()
@@ -17,38 +18,14 @@ export const QuizCreatePage = () => {
     const [timeLimit, setTimeLimit] = useState<number>(600)
     const [passScore, setPassScore] = useState<number>(80)
     const [quizId, setQuizId] = useState<string | undefined>(undefined)
-    const [formError, setFormError] = useState<string | undefined>(undefined)
 
     useApi(listGuid || '', getListQuestions, setQuestionList)
 
     const handleSelect = (id: number) => {
-        setFormError(undefined)
         setSelectedIds(prev => (prev.includes(id) ? prev.filter(prevId => prevId !== id) : [...prev, id]))
     }
 
-    const handleCreateQuiz = async (e: React.FormEvent<HTMLFormElement>) => {
-        setFormError(undefined)
-        e.preventDefault()
-
-        if (!title.length) {
-            setFormError('Title is required')
-            return
-        }
-        if (!description.length) {
-            setFormError('Description is required')
-            return
-        }
-
-        if (!timeLimit) {
-            setFormError('Time limit is required')
-            return
-        }
-
-        if (selectedIds.length < 2) {
-            setFormError('Select at least 2 questions')
-            return
-        }
-
+    const handleCreateQuiz = preventDefault(async () => {
         const quizId = await postQuiz({
             title,
             description,
@@ -59,7 +36,7 @@ export const QuizCreatePage = () => {
         })
 
         setQuizId(quizId)
-    }
+    })
 
     return (
         <Page>
@@ -84,8 +61,6 @@ export const QuizCreatePage = () => {
                         <label htmlFor={String(item.id)}>{item.question}</label>
                     </div>
                 ))}
-                {formError && <div className="alert error">{formError}</div>}
-
                 {!quizId && <button type="submit">Create quiz</button>}
 
                 {quizId && (
