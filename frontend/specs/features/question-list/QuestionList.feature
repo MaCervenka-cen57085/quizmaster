@@ -19,6 +19,18 @@ Feature: Question list
     Then I see question edit page
     And I see "2 + 2 = ?" in the question field
 
+  Scenario: I copy the take question url
+    Given I saved the question list "X"
+    When I create new question to list "Xquestion"
+    Then I can copy the link to the take question "Xquestion"
+    And I am notified about the copied link
+
+  Scenario: I copy the edit question url
+    Given I saved the question list "X"
+    When I create new question to list "Xquestion"
+    Then I can copy the link to the edit question "Xquestion"
+    And I am notified about the copied link
+
   Scenario: Add existing question to question list
     Given a question "What is the capital of Czech Republic?"
     * with answers:
@@ -31,18 +43,6 @@ Feature: Question list
     Given I saved the question list "X"
     When I add an existing question "Czechia" to the list
     Then I see question in list "What is the capital of Czech Republic?"
-
-  Scenario: I copy the take question url
-    Given I saved the question list "X"
-    When I create new question to list "Xquestion"
-    Then I can copy the link to the take question "Xquestion"
-    And I am notified about the copied link
-
-  Scenario: I copy the edit question url
-    Given I saved the question list "X"
-    When I create new question to list "Xquestion"
-    Then I can copy the link to the edit question "Xquestion"
-    And I am notified about the copied link
 
   Scenario: I see an error message if format of existing question field is invalid
     Given I saved the question list "X"
