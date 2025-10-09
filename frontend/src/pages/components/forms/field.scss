@@ -2,11 +2,6 @@
     display: block;
     margin-bottom: 1rem;
 
-    .label {
-        font-weight: bold;
-        margin-bottom: .5rem;
-    }
-
     input[type="text"],
     input[type="number"],
     textarea {
@@ -15,4 +10,9 @@
         border-radius: .25rem;
         border: 1px solid #eee;
     }
+}
+
+.label {
+    font-weight: bold;
+    margin-bottom: .5rem;
 }

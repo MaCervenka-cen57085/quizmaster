@@ -5,11 +5,13 @@ import type { QuizQuestion } from 'model/quiz-question'
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import './createQiuz.scss'
-import { Field, Page } from 'pages/components'
+import { Field, NumberInput, Page, TextInput } from 'pages/components'
 
 export const QuizCreatePage = () => {
     const [searchParams] = useSearchParams()
     const listGuid = searchParams.get('listguid')
+    const [title, setTitle] = useState<string>('')
+    const [description, setDescription] = useState<string>('')
     const [questionList, setQuestionList] = useState<readonly QuizQuestion[]>([])
     const [selectedIds, setSelectedIds] = useState<number[]>([])
     const [timeLimit, setTimeLimit] = useState<number>(600)
@@ -28,14 +30,10 @@ export const QuizCreatePage = () => {
         setFormError(undefined)
         e.preventDefault()
 
-        const form = e.currentTarget
-        const title = (form.querySelector<HTMLInputElement>('#quiz-title')?.value ?? '').trim()
         if (!title.length) {
             setFormError('Title is required')
             return
         }
-        const description = (form.querySelector<HTMLTextAreaElement>('#quiz-description')?.value ?? '').trim()
-
         if (!description.length) {
             setFormError('Description is required')
             return
@@ -62,59 +60,30 @@ export const QuizCreatePage = () => {
 
         setQuizId(quizId)
     }
-    const handleChangeTimeLimit = (newValue: string) => {
-        // Only allow positive integers or empty string
-        if (/^[1-9]\d*$/.test(newValue) || newValue === '') {
-            setTimeLimit(newValue as unknown as number)
-        } else {
-            setFormError('Time limit must be a number')
-        }
-    }
-
-    const handleChangePassScore = (newValue: string) => {
-        // Only allow positive integers or empty string
-        if (/^(100|[1-9]?\d)$/.test(newValue) || newValue === '') {
-            setPassScore(newValue as unknown as number)
-        } else {
-            setFormError('Pass score must be a number between 0 and 100')
-        }
-    }
 
     return (
         <Page>
             <form className="create-quiz" onSubmit={handleCreateQuiz}>
                 <h2>Create Quiz</h2>
                 <Field label="Quiz title">
-                    <input type="text" id="quiz-title" />
+                    <TextInput id="quiz-title" value={title} onChange={setTitle} />
                 </Field>
                 <Field label="Quiz description">
-                    <textarea id="quiz-description" />
+                    <TextInput id="quiz-description" value={description} onChange={setDescription} />
                 </Field>
                 <Field label="Time limit (in seconds)">
-                    <input
-                        type="text"
-                        id="time-limit"
-                        value={timeLimit}
-                        onChange={ev => handleChangeTimeLimit(ev.target.value)}
-                    />
+                    <NumberInput id="time-limit" value={timeLimit} onChange={setTimeLimit} />
                 </Field>
                 <Field label="Required score to pass the quiz (in %)">
-                    <input
-                        type="text"
-                        id="pass-score"
-                        value={passScore}
-                        onChange={ev => handleChangePassScore(ev.target.value)}
-                        className="form-element"
-                    />
+                    <NumberInput id="pass-score" value={passScore} onChange={setPassScore} />
                 </Field>
-                <Field label="Select quiz questions">
-                    {questionList.map(item => (
-                        <div key={item.id} className="question-item">
-                            <input id={String(item.id)} type="checkbox" onChange={() => handleSelect(item.id)} />
-                            <label htmlFor={String(item.id)}>{item.question}</label>
-                        </div>
-                    ))}
-                </Field>
+                <div className="label">Select quiz questions</div>
+                {questionList.map(item => (
+                    <div key={item.id} className="question-item">
+                        <input id={String(item.id)} type="checkbox" onChange={() => handleSelect(item.id)} />
+                        <label htmlFor={String(item.id)}>{item.question}</label>
+                    </div>
+                ))}
                 {formError && <div className="alert error">{formError}</div>}
 
                 {!quizId && <button type="submit">Create quiz</button>}
