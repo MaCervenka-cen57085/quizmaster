@@ -1,8 +1,7 @@
 Feature: Question list
 
   Scenario: Take question in a question list
-    Given a question list "My List"
-    And I create questions within the list
+    Given a question list with questions and answers
       | question  | answers  |
       | 2 + 2 = ? | 4 (*), 5 |
       | 3 * 3 = ? | 9 (*), 6 |
@@ -10,8 +9,7 @@ Feature: Question list
     Then I see the question and the answers
 
   Scenario: Edit question in a question list
-    Given a question list "My List"
-    And I create questions within the list
+    Given a question list with questions and answers
       | question  | answers  |
       | 2 + 2 = ? | 4 (*), 5 |
       | 3 * 3 = ? | 9 (*), 6 |
