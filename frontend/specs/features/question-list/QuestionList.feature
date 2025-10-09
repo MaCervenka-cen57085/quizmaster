@@ -1,15 +1,5 @@
 Feature: Question list
 
-  Background:
-    Given a question "What is the capital of Czech Republic?"
-    * with answers:
-      | Brno   |   | No Brno |
-      | Prague | * | Yes     |
-      | Berlin |   | Germany |
-    * with explanation "Czechia is a country in Europe. Czechs love beer."
-    * saved and bookmarked as "Czechia"
-    * I wait for 1000 ms
-
   Scenario: Show empty question list existing guid
     Given I saved the question list "X"
     Then I see question list title "X"
@@ -33,6 +23,14 @@ Feature: Question list
     Then I can take the quiz for question "Xquestion"
 
   Scenario: Add existing question to question list
+    Given a question "What is the capital of Czech Republic?"
+    * with answers:
+      | Brno   |   | No Brno |
+      | Prague | * | Yes     |
+      | Berlin |   | Germany |
+    * with explanation "Czechia is a country in Europe. Czechs love beer."
+    * saved and bookmarked as "Czechia"
+    * I wait for 1000 ms
     Given I saved the question list "X"
     When I add an existing question "Czechia" to the list
     Then I see question in list "What is the capital of Czech Republic?"
