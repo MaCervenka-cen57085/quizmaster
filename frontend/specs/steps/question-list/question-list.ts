@@ -79,21 +79,16 @@ Then('I see {string} form', async function (title: string) {
     await expectTextToContain(this.page.getByText(title), title)
 })
 
-When('I click Edit button for question {string}', async function (question: string) {
-    await this.questionEditPage.waitForEditButton()
-    const editButton = this.page.locator('.question-item', { hasText: question }).locator('.edit-button button')
-    await editButton.click()
-    await this.questionEditPage.isEditPage()
-})
-
-Then('I see {string} editable form', async function (title: string) {
-    await expectTextToBe(this.page.locator('#question-text'), title)
-})
-
 When('I take question {string} from the list', async function (question: string) {
     const takeButton = this.page.locator('.question-item', { hasText: question }).locator('.take-button button')
     this.activeQuestionBookmark = question
     await takeButton.click()
+})
+
+When('I edit question {string} from the list', async function (question: string) {
+    const editButton = this.page.locator('.question-item', { hasText: question }).locator('.edit-button button')
+    this.activeQuestionBookmark = question
+    await editButton.click()
 })
 
 Then('I can copy the link to the take question {string}', async function (question: string) {

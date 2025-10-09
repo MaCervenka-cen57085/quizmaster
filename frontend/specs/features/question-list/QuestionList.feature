@@ -9,12 +9,6 @@ Feature: Question list
     Then I see question "2 + 2 = ?" in the list
     And I see question "3 * 3 = ?" in the list
 
-  Scenario: Open edit question form
-    Given I saved the question list "X"
-    When I create new question to list "Xquestion"
-    And I click Edit button for question "Xquestion"
-    Then I see "Xquestion" editable form
-
   Scenario: Take question in a question list
     Given a question list "My List"
     And I create questions within the list
@@ -23,6 +17,16 @@ Feature: Question list
       | 3 * 3 = ? | 9 (*), 6 |
     When I take question "2 + 2 = ?" from the list
     Then I see the question and the answers
+
+  Scenario: Edit question in a question list
+    Given a question list "My List"
+    And I create questions within the list
+      | question  | answers  |
+      | 2 + 2 = ? | 4 (*), 5 |
+      | 3 * 3 = ? | 9 (*), 6 |
+    When I edit question "2 + 2 = ?" from the list
+    Then I see question edit page
+    And I see "2 + 2 = ?" in the question field
 
   Scenario: Add existing question to question list
     Given a question "What is the capital of Czech Republic?"
