@@ -4,12 +4,11 @@ import copyClipboardIcon from '../../assets/icons/copy-clipboard.svg'
 import { QuestionItem } from './question-item'
 import './question-list.scss'
 import type { QuizQuestion } from 'model/quiz-question'
-import type { QuestionListGetResponse } from 'model/question-list-get-response'
+import type { QuestionList } from 'model/question-list'
 
 interface QuestionListProps {
-    readonly questionList: QuestionListGetResponse
+    readonly questionList: QuestionList
     readonly questions: readonly QuizQuestion[]
-    onRefresh?: () => Promise<void>
 }
 
 type EditQuestionButtonProps = { id: string; hash: string; onClick: () => void }
@@ -55,7 +54,7 @@ export const CreateQuizButton = ({ onClick }: WithOnClick) => (
     </Button>
 )
 
-export function QuestionList({ questionList, questions }: QuestionListProps) {
+export function QuestionListComponent({ questionList, questions }: QuestionListProps) {
     const navigate = useNavigate()
 
     const onCreateNewQuestion = () => {

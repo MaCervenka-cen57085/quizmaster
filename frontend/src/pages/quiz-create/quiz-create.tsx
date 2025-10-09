@@ -9,7 +9,7 @@ import './createQiuz.scss'
 export const QuizCreatePage = () => {
     const [searchParams] = useSearchParams()
     const listGuid = searchParams.get('listguid')
-    const [questionList, setQuestionList] = useState<QuizQuestion[]>([])
+    const [questionList, setQuestionList] = useState<readonly QuizQuestion[]>([])
     const [selectedIds, setSelectedIds] = useState<number[]>([])
     const [timeLimit, setTimeLimit] = useState<number>(600)
     const [passScore, setPassScore] = useState<number>(80)

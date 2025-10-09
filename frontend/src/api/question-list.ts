@@ -1,15 +1,19 @@
-import type { QuestionListCreateResponse } from 'model/question-list-create-response.ts'
-import type { QuestionListGetResponse } from 'model/question-list-get-response.ts'
 import { postJson, fetchJson } from './helpers.ts'
 import type { QuestionList } from 'model/question-list.ts'
 import type { QuizQuestion } from 'model/quiz-question.ts'
 
-export type QuestionListApiData = QuestionList
+export type QuestionListCreateRequest = {
+    readonly title: string
+}
 
-export const postQuestionList = async (questionListApiData: QuestionListApiData) =>
-    await postJson<QuestionListApiData, QuestionListCreateResponse>('/api/q-list', questionListApiData)
+export interface QuestionListCreateResponse {
+    readonly guid: string
+}
 
-export const getQuestionList = async (guid: string) => await fetchJson<QuestionListGetResponse>(`/api/q-list/${guid}`)
+export const postQuestionList = async (questionListApiData: QuestionListCreateRequest) =>
+    await postJson<QuestionListCreateRequest, QuestionListCreateResponse>('/api/q-list', questionListApiData)
+
+export const getQuestionList = async (guid: string) => await fetchJson<QuestionList>(`/api/q-list/${guid}`)
 
 export const getListQuestions = async (guid: string) =>
-    await fetchJson<QuizQuestion[]>(`/api/quiz-question/by-question-list/${guid}`)
+    await fetchJson<readonly QuizQuestion[]>(`/api/quiz-question/by-question-list/${guid}`)
