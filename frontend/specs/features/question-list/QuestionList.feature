@@ -44,17 +44,7 @@ Feature: Question list
     Then I can copy the link to the edit question "Xquestion"
     And I am notified about the copied link
 
-  @skip
-  Scenario: I remove the question from the question list
-    Given I saved the question list "X"
-    When I create new question to list "Xquestion"
-    Then I can remove the question "Xquestion"
-
   Scenario: I see an error message if format of existing question field is invalid
     Given I saved the question list "X"
     When I add an invalid question to the list
     Then I see an error message invalid question format
-
-  @skip
-  Scenario: Create new quiz
-    Given I click on button Create Quiz Button

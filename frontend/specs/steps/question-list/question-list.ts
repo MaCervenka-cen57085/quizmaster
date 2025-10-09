@@ -109,8 +109,6 @@ Then('I am notified about the copied link', async function () {
     })
 })
 
-Then('I can remove the question ', async () => {})
-
 When('I add an existing question {string} to the list', async function (questionBookmark: string) {
     const question = this.questionBookmarks[questionBookmark]
     const questionId = question.url.split('/').at(-1)
@@ -125,9 +123,4 @@ When('I add an invalid question to the list', async function () {
 
 Then('I see an error message invalid question format', async function () {
     await expectTextToContain(this.questionListPage.errorMessageLabel(), 'Invalid question format')
-})
-
-Given('I click on button Create Quiz Button', async function () {
-    const copyButton = this.page.locator('.question-item', { hasText: '' }).locator('.copy-edit-button button')
-    await copyButton.click()
 })
