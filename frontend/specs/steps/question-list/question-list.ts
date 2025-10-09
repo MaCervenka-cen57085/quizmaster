@@ -1,4 +1,4 @@
-import { expect, type Dialog } from '@playwright/test'
+import { expect } from '@playwright/test'
 import { expectedNumberOfChildrenToBe, expectTextToBe, expectTextToContain } from '../common.ts'
 import { Given, Then, When } from '../fixture.ts'
 import type { QuizmasterWorld } from '../world'
@@ -73,23 +73,10 @@ When('I edit question {string} from the list', async function (question: string)
     await editButton.click()
 })
 
-Then('I copy the take question URL {string} from the list', async function (question: string) {
-    const copyButton = this.page.locator('.question-item', { hasText: question }).locator('.copy-take-button button')
+Then(/I copy the (take|edit) question URL "(.+)" from the list/, async function (page: string, question: string) {
+    const copyButton = this.page.locator('.question-item', { hasText: question }).locator(`.copy-${page}-button button`)
     this.activeQuestionBookmark = question
     await copyButton.click()
-})
-
-Then('I can copy the link to the edit question {string}', async function (question: string) {
-    const copyButton = this.page.locator('.question-item', { hasText: question }).locator('.copy-edit-button button')
-    await copyButton.click()
-})
-
-Then('I am notified about the copied link', async function () {
-    this.page.once('dialog', async (dialog: Dialog) => {
-        // You can check the alert message here
-        expect(dialog.message()).toContain('Link copied') // or your expected message
-        await dialog.accept()
-    })
 })
 
 When('I add an existing question {string} to the list', async function (questionBookmark: string) {

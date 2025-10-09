@@ -1,4 +1,3 @@
-
 Feature: Question list
 
   Scenario: Take question in a question list
@@ -26,11 +25,13 @@ Feature: Question list
     Then I see question edit page
     And I see "2 + 2 = ?" in the question field
 
-  Scenario: I copy the edit question url
-    Given I saved the question list "X"
-    When I create new question to list "Xquestion"
-    Then I can copy the link to the edit question "Xquestion"
-    And I am notified about the copied link
+  Scenario: Copy an edit question URL
+    Given a question list with question
+      | question  | answers  |
+      | 2 + 2 = ? | 4 (*), 5 |
+    When I copy the edit question URL "2 + 2 = ?" from the list
+    And I follow the copied URL
+    Then I see question edit page
 
   Scenario: Add existing question to question list
     Given a question "What is the capital of Czech Republic?"
