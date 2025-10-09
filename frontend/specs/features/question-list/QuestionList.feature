@@ -32,20 +32,3 @@ Feature: Question list
     When I copy the edit question URL "2 + 2 = ?" from the list
     And I follow the copied URL
     Then I see question edit page
-
-  Scenario: Add existing question to question list
-    Given a question "What is the capital of Czech Republic?"
-    * with answers:
-      | Brno   |   | No Brno |
-      | Prague | * | Yes     |
-      | Berlin |   | Germany |
-    * with explanation "Czechia is a country in Europe. Czechs love beer."
-    * saved and bookmarked as "Czechia"
-    Given I saved the question list "X"
-    When I add an existing question "Czechia" to the list
-    Then I see question in list "What is the capital of Czech Republic?"
-
-  Scenario: I see an error message if format of existing question field is invalid
-    Given I saved the question list "X"
-    When I add an invalid question to the list
-    Then I see an error message invalid question format

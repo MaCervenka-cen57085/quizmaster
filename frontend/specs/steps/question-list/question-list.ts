@@ -45,19 +45,3 @@ Then(/I copy the (take|edit) question URL "(.+)" from the list/, async function 
     if (page === 'take') await this.questionListPage.copyTakeQuestion(question)
     else if (page === 'edit') await this.questionListPage.copyEditQuestion(question)
 })
-
-When('I add an existing question {string} to the list', async function (questionBookmark: string) {
-    const question = this.questionBookmarks[questionBookmark]
-    const questionId = question.url.split('/').at(-1)
-    this.questionListPage.fillInQuestion(`${questionId}`)
-    this.questionListPage.addExistingQuestion()
-})
-
-When('I add an invalid question to the list', async function () {
-    await this.questionListPage.fillInQuestion('qsdhsqfhdshfdsq')
-    await this.questionListPage.addExistingQuestion()
-})
-
-Then('I see an error message invalid question format', async function () {
-    await expectTextToContain(this.questionListPage.errorMessageLabel(), 'Invalid question format')
-})

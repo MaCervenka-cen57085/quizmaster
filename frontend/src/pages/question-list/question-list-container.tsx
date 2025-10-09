@@ -15,7 +15,7 @@ export function QuestionListContainer() {
     const [listQuestions, setListQuestions] = useState<readonly QuizQuestion[]>([])
 
     useApi(params.id, getQuestionList, setListInfo)
-    const refreshQuestions = useApi(params.id, getListQuestions, setListQuestions)
+    useApi(params.id, getListQuestions, setListQuestions)
 
-    return <QuestionList questionList={listInfo} questions={listQuestions} onRefresh={refreshQuestions} />
+    return <QuestionList questionList={listInfo} questions={listQuestions} />
 }

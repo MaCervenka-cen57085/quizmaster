@@ -94,18 +94,6 @@ public class QuizQuestionController {
         return response(findQuestion(id).map(Answers::from));
     }
 
-    @Transactional
-    @PatchMapping("/quiz-question/link-to-list/{id}")
-    public ResponseEntity<Boolean> linkQuestionToList(@PathVariable Integer id, @RequestBody QuestionLinkRequest listGuidRequest) {
-        var question = findQuestion(id);
-        if (question.isPresent()) {
-            question.get().setQuestionListGuid(listGuidRequest.getListGuid());
-            quizQuestionRepository.save(question.get());
-            return ResponseEntity.ok(true);
-        }
-        return ResponseEntity.ok(false);
-    }
-
     private Optional<QuizQuestion> findQuestion(Integer id) {
         var question = quizQuestionRepository.findById(id);
         if( question.isEmpty()) {
