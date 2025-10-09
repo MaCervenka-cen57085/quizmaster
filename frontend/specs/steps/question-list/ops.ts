@@ -1,5 +1,5 @@
-import { QuizmasterWorld } from '../world'
+import type { QuizmasterWorld } from '../world'
 
 export const openCreateQuestionListPage = async (world: QuizmasterWorld) => {
-    world.createQuestionListPage.gotoNew()
+    world.questionListCreatePage.gotoNew()
 }

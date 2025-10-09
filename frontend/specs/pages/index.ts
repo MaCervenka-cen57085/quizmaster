@@ -1,4 +1,4 @@
-export * from './create-question-list-page.ts'
+export * from './question-list-create-page.ts'
 export * from './home-page.ts'
 export * from './question-edit-page.ts'
 export * from './question-list-page.ts'
