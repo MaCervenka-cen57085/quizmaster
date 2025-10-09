@@ -5,6 +5,7 @@ import type { QuizQuestion } from 'model/quiz-question'
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import './createQiuz.scss'
+import { Field, Page } from 'pages/components'
 
 export const QuizCreatePage = () => {
     const [searchParams] = useSearchParams()
@@ -80,52 +81,51 @@ export const QuizCreatePage = () => {
     }
 
     return (
-        <form className="create-quiz" onSubmit={handleCreateQuiz}>
-            <h2>Create Quiz</h2>
-            <label className="form-label">
-                <div className="form-label__item">Quiz title</div>
-                <input type="text" id="quiz-title" className="form-element" />
-            </label>
-            <label className="form-label">
-                <div className="form-label__item">Quiz description</div>
-                <textarea id="quiz-description" className="form-element" />
-            </label>
-            <label className="form-label">
-                <div className="form-label__item">Time limit (in seconds)</div>
-                <input
-                    type="text"
-                    id="time-limit"
-                    value={timeLimit}
-                    onChange={ev => handleChangeTimeLimit(ev.target.value)}
-                    className="form-element"
-                />
-            </label>
-            <label className="form-label">
-                <div className="form-label__item">Required score to pass the quiz (in %)</div>
-                <input
-                    type="text"
-                    id="pass-score"
-                    value={passScore}
-                    onChange={ev => handleChangePassScore(ev.target.value)}
-                    className="form-element"
-                />
-            </label>
-            <div className="form-label__item">Select quiz questions</div>
-            {questionList.map(item => (
-                <div key={item.id} className="question-item">
-                    <input id={String(item.id)} type="checkbox" onChange={() => handleSelect(item.id)} />
-                    <label htmlFor={String(item.id)}>{item.question}</label>
-                </div>
-            ))}
-            {formError && <div className="alert error">{formError}</div>}
+        <Page>
+            <form className="create-quiz" onSubmit={handleCreateQuiz}>
+                <h2>Create Quiz</h2>
+                <Field label="Quiz title">
+                    <input type="text" id="quiz-title" />
+                </Field>
+                <Field label="Quiz description">
+                    <textarea id="quiz-description" />
+                </Field>
+                <Field label="Time limit (in seconds)">
+                    <input
+                        type="text"
+                        id="time-limit"
+                        value={timeLimit}
+                        onChange={ev => handleChangeTimeLimit(ev.target.value)}
+                    />
+                </Field>
+                <Field label="Required score to pass the quiz (in %)">
+                    <input
+                        type="text"
+                        id="pass-score"
+                        value={passScore}
+                        onChange={ev => handleChangePassScore(ev.target.value)}
+                        className="form-element"
+                    />
+                </Field>
+                <Field label="Select quiz questions">
+                    {questionList.map(item => (
+                        <div key={item.id} className="question-item">
+                            <input id={String(item.id)} type="checkbox" onChange={() => handleSelect(item.id)} />
+                            <label htmlFor={String(item.id)}>{item.question}</label>
+                        </div>
+                    ))}
+                </Field>
+                {formError && <div className="alert error">{formError}</div>}
 
-            {!quizId && <button type="submit">Create quiz</button>}
+                {!quizId && <button type="submit">Create quiz</button>}
 
-            {quizId && (
-                <div className="alert success">
-                    Quiz url: <a href={`${location.origin}/quiz/${quizId}`}>{`${location.origin}/quiz/${quizId}`}</a>
-                </div>
-            )}
-        </form>
+                {quizId && (
+                    <div className="alert success">
+                        Quiz url:{' '}
+                        <a href={`${location.origin}/quiz/${quizId}`}>{`${location.origin}/quiz/${quizId}`}</a>
+                    </div>
+                )}
+            </form>
+        </Page>
     )
 }
