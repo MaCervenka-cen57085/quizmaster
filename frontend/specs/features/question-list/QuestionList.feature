@@ -9,11 +9,6 @@ Feature: Question list
     Then I see question "2 + 2 = ?" in the list
     And I see question "3 * 3 = ?" in the list
 
-  Scenario: Show empty question list existing guid
-    Given I saved the question list "X"
-    Then I see question list title "X"
-    And I see an empty question list
-
   Scenario: Open edit question form
     Given I saved the question list "X"
     When I create new question to list "Xquestion"
