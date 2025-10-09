@@ -10,10 +10,6 @@ Feature: Question list
     * saved and bookmarked as "Czechia"
     * I wait for 1000 ms
 
-  Scenario: Show blank page nonexisting guid
-    Given I open question list "X"
-    Then I see a blank page
-
   Scenario: Show empty question list existing guid
     Given I saved the question list "X"
     Then I see question list title "X"

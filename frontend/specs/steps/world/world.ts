@@ -43,7 +43,6 @@ export class QuizmasterWorld {
 
     questionWip: Question = emptyQuestion()
     quizWip: Quiz = emptyQuiz()
-    questionListWipGuid = ''
     nextAnswerIdx = 0
     questionBookmarks: Record<string, Question> = {}
     activeQuestionBookmark = ''

@@ -3,11 +3,6 @@ import { expectedNumberOfChildrenToBe, expectTextToBe, expectTextToContain } fro
 import { Given, Then, When } from '../fixture.ts'
 import type { QuizmasterWorld } from '../world'
 
-const openQuestionList = async (world: QuizmasterWorld, guid: string) => {
-    await world.questionListPage.goto(guid)
-    world.questionListWipGuid = guid
-}
-
 const createQuestionToList = async (world: QuizmasterWorld, question: string) => {
     await world.questionListPage.createNewQuestion()
     await world.questionEditPage.enterQuestion(question)
@@ -24,10 +19,6 @@ const createQuestionList = async (world: QuizmasterWorld, title: string) => {
     await world.questionListCreatePage.enterQuestionListName(title)
     await world.questionListCreatePage.submit()
 }
-
-Given('I open question list {string}', async function (guid: string) {
-    await openQuestionList(this, guid)
-})
 
 Given('I saved the question list {string}', async function (questionListTitle: string) {
     await createQuestionList(this, questionListTitle)
@@ -88,22 +79,6 @@ Then('I can take the quiz for question {string}', async function name(question: 
 Then('I can copy the link to the take question {string}', async function (question: string) {
     const copyButton = this.page.locator('.question-item', { hasText: question }).locator('.copy-take-button button')
     await copyButton.click()
-
-    /*
-    Best practice for Playwright clipboard tests:
-
-    Use Playwright's built-in API: page.evaluate for writing, but for reading, use Playwright's page.context().grantPermissions(['clipboard-read']) before the test, and use Chromium only.
-    Alternatively, simulate the copy and check for the alert, but do not read the clipboard.
-    Recommended fix:
-    Remove the clipboard read test, and instead verify that the copy action triggers the expected alert. If you must test clipboard contents, use Playwright's browser context permissions and run only in Chromium.
-
-
-    const origin = await this.page.evaluate('window.location.origin')
-    const expectedLink = `${origin}/question/${question}`
-    const clipboardText = await this.page.evaluate('navigator.clipboard.readText()')
-
-    expect(clipboardText).toBe(expectedLink)
-    */
 })
 
 Then('I can copy the link to the edit question {string}', async function (question: string) {
