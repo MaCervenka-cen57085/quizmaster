@@ -1,30 +1,21 @@
 import './question-list.scss'
-import { useEffect, useState, useCallback } from 'react'
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { QuestionList } from './question-list'
+import { useApi } from 'api/hooks'
 import { getQuestionList, getListQuestions } from 'api/question-list'
-import type { QuestionListData } from '.'
+import type { QuestionListGetResponse } from 'model/question-list-get-response'
+import type { QuizQuestion } from 'model/quiz-question'
+import { QuestionList } from './question-list'
 
 export function QuestionListContainer() {
     const params = useParams()
 
-    const [questionListData, setQuestionListData] = useState<QuestionListData>()
+    const [listInfo, setListInfo] = useState<QuestionListGetResponse>({ guid: params.id || '', title: '' })
+    const [listQuestions, setListQuestions] = useState<readonly QuizQuestion[]>([])
 
-    const getQList = useCallback(async () => {
-        if (params.id) {
-            const listInfo = await getQuestionList(params.id)
-            const listQuestion = await getListQuestions(params.id)
-            setQuestionListData({
-                title: listInfo.title,
-                questions: Array.isArray(listQuestion) ? listQuestion : [listQuestion],
-            })
-        }
-    }, [params.id])
+    useApi(params.id, getQuestionList, setListInfo)
+    const refreshQuestions = useApi(params.id, getListQuestions, setListQuestions)
 
-    useEffect(() => {
-        getQList()
-    }, [getQList])
-
-    return <QuestionList questionListData={questionListData} onRefresh={getQList} />
+    return <QuestionList questionList={listInfo} questions={listQuestions} onRefresh={refreshQuestions} />
 }

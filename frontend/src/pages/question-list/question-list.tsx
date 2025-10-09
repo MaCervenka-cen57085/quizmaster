@@ -1,14 +1,16 @@
 import { linkQuestionToList } from 'api/quiz-question'
 import { Button, type WithOnClick } from 'pages/components/button'
 import { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import type { QuestionListData } from '.'
+import { useNavigate } from 'react-router-dom'
 import copyClipboardIcon from '../../assets/icons/copy-clipboard.svg'
 import { QuestionItem } from './question-item'
 import './question-list.scss'
+import type { QuizQuestion } from 'model/quiz-question'
+import type { QuestionListGetResponse } from 'model/question-list-get-response'
 
-type Props = {
-    questionListData?: QuestionListData
+interface QuestionListProps {
+    readonly questionList: QuestionListGetResponse
+    readonly questions: readonly QuizQuestion[]
     onRefresh?: () => Promise<void>
 }
 
@@ -61,16 +63,13 @@ export const CreateQuizButton = ({ onClick }: WithOnClick) => (
     </Button>
 )
 
-export function QuestionList({ questionListData, onRefresh }: Props) {
-    const params = useParams()
+export function QuestionList({ questionList, questions, onRefresh }: QuestionListProps) {
     const navigate = useNavigate()
     const [questionId, setQuestionId] = useState<string | undefined>()
     const [errorMessage, setErrorMessage] = useState<string | undefined>()
 
-    const questionListId = `${params.id}`
-
     const onCreateNewQuestion = () => {
-        navigate(`/question/new?listguid=${questionListId}`)
+        navigate(`/question/new?listguid=${questionList?.guid}`)
     }
 
     const onEditQuestion = (hash: string) => {
@@ -98,8 +97,8 @@ export function QuestionList({ questionListData, onRefresh }: Props) {
 
     const onAddExistingQuestion = async () => {
         if (questionId) {
-            console.log(`Adding existing question with id: ${questionId}, question list id: ${questionListId}`)
-            if (!questionListId) {
+            console.log(`Adding existing question with id: ${questionId}, question list id: ${questionList.guid}`)
+            if (!questionList.guid) {
                 alert('Question list id is missing')
                 return
             }
@@ -107,7 +106,7 @@ export function QuestionList({ questionListData, onRefresh }: Props) {
                 setErrorMessage('Invalid question format')
                 return
             }
-            const result = await linkQuestionToList(Number.parseInt(questionId), questionListId)
+            const result = await linkQuestionToList(Number.parseInt(questionId), questionList.guid)
             if (result) {
                 // Refresh the question list to show the newly added question
                 if (onRefresh) {
@@ -122,13 +121,13 @@ export function QuestionList({ questionListData, onRefresh }: Props) {
     }
 
     const onCreateQuiz = () => {
-        navigate(`/quiz-create/new?listguid=${questionListId}`)
+        navigate(`/quiz-create/new?listguid=${questionList.guid}`)
     }
 
-    return questionListData ? (
+    return (
         <div className="question-list-page">
             <h1 id="question-title-header" data-testid="question-list-title">
-                {questionListData.title}
+                {questionList.title}
             </h1>
             <div className="create-button">
                 <CreateQuestionButton onClick={onCreateNewQuestion} />
@@ -148,7 +147,7 @@ export function QuestionList({ questionListData, onRefresh }: Props) {
                 </div>
             </div>
             <div className="question-holder">
-                {questionListData.questions.map((q, index) => (
+                {questions.map((q, index) => (
                     <QuestionItem
                         key={q.id || index}
                         question={q}
@@ -162,5 +161,5 @@ export function QuestionList({ questionListData, onRefresh }: Props) {
             </div>
             <CreateQuizButton onClick={onCreateQuiz} />
         </div>
-    ) : null
+    )
 }
