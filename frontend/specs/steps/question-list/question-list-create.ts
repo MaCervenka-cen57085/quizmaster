@@ -9,7 +9,7 @@ Given('I start creating a question list', async function () {
     await openCreateQuestionListPage(this)
 })
 
-Given('a question list with questions and answers', async function (data: DataTable) {
+Given(/a question list with questions?/, async function (data: DataTable) {
     await createQuestionList(this, 'My List')
 
     for (const row of data.rows()) {
