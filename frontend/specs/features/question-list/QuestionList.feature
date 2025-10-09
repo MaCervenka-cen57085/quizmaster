@@ -1,15 +1,18 @@
 Feature: Question list
 
+  Scenario: Create a question in a question list
+    Given a question list "My List"
+    When I create questions within the list
+      | question  | answers  |
+      | 2 + 2 = ? | 4 (*), 5 |
+      | 3 * 3 = ? | 9 (*), 6 |
+    Then I see question "2 + 2 = ?" in the list
+    And I see question "3 * 3 = ?" in the list
+
   Scenario: Show empty question list existing guid
     Given I saved the question list "X"
     Then I see question list title "X"
     And I see an empty question list
-
-  Scenario: Show non empty question
-    Given I saved the question list "X"
-    When I create new question to list "Xquestion"
-    Then I see question list title "X"
-    And I see question in list "Xquestion"
 
   Scenario: Open edit question form
     Given I saved the question list "X"

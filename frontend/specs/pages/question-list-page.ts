@@ -8,7 +8,9 @@ export class QuestionListPage {
     private questionListNameLocator = () => this.page.getByTestId('question-list-title')
     questionListNameValue = () => this.questionListNameLocator().textContent()
 
-    createNewQuestion = async () => this.page.locator('#create-question').click()
+    private createQuestionButtonLocator = () => this.page.locator('#create-question')
+    createNewQuestion = async () => this.createQuestionButtonLocator().click()
+
     addExistingQuestion = async () => this.page.locator('#add-existing-question').click()
     fillInQuestion = async (question: string) => this.page.locator('#question-input-field').fill(question)
     errorMessageLabel = () => this.page.locator('#error-message-label')

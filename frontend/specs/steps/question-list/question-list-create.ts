@@ -1,9 +1,13 @@
 import { expect } from '@playwright/test'
 import { Given, When, Then } from '../fixture.ts'
-import { openCreateQuestionListPage } from './ops.ts'
+import { createQuestionList, openCreateQuestionListPage } from './ops.ts'
 
 Given('I start creating a question list', async function () {
     await openCreateQuestionListPage(this)
+})
+
+Given('a question list {string}', async function (name: string) {
+    await createQuestionList(this, name)
 })
 
 When('I enter question list name {string}', async function (name: string) {

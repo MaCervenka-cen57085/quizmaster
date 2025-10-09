@@ -1,6 +1,9 @@
+import type { DataTable } from '@cucumber/cucumber'
 import { expect, type Dialog } from '@playwright/test'
-import { expectedNumberOfChildrenToBe, expectTextToBe, expectTextToContain } from '../common.ts'
+import { expectedNumberOfChildrenToBe, expectTextToBe, expectTextToContain, type TableOf } from '../common.ts'
 import { Given, Then, When } from '../fixture.ts'
+import type { AnswerRaw } from '../question/ops.ts'
+import { createQuestionInList } from './ops.ts'
 import type { QuizmasterWorld } from '../world'
 
 const createQuestionToList = async (world: QuizmasterWorld, question: string) => {
@@ -26,6 +29,25 @@ Given('I saved the question list {string}', async function (questionListTitle: s
 
 When('I create new question to list {string}', async function (question: string) {
     await createQuestionToList(this, question)
+})
+
+When('I create questions within the list', async function (data: DataTable) {
+    for (const row of data.rows()) {
+        const [question, answers] = row
+        const answerRawTable = {
+            raw: () =>
+                answers.split(',').map(a => {
+                    const [answer, correct] = a.trim().split(' ')
+                    return [answer, correct === '(*)' ? '*' : '', '']
+                }),
+        } as TableOf<AnswerRaw>
+
+        await createQuestionInList(this, question, answerRawTable)
+    }
+})
+
+Then('I see question {string} in the list', async function (question: string) {
+    await expect(this.page.getByText(question)).toBeVisible()
 })
 
 When('I click {string} button', async function (buttonLabel: string) {
