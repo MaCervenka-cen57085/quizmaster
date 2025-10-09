@@ -3,17 +3,6 @@ import { expectedNumberOfChildrenToBe, expectTextToBe, expectTextToContain } fro
 import { Given, Then, When } from '../fixture.ts'
 import type { QuizmasterWorld } from '../world'
 
-const createQuestionToList = async (world: QuizmasterWorld, question: string) => {
-    await world.questionListPage.createNewQuestion()
-    await world.questionEditPage.enterQuestion(question)
-    world.questionWip.question = question
-    await world.questionEditPage.enterAnswer(0, 'Ne', true, '')
-    world.questionWip.answers[0] = { answer: 'Ne', isCorrect: true, explanation: 'ne' }
-    await world.questionEditPage.enterAnswer(1, 'Ano', false, '')
-    world.questionWip.answers[1] = { answer: 'Ano', isCorrect: false, explanation: 'jo' }
-    await world.questionEditPage.submit()
-}
-
 const createQuestionList = async (world: QuizmasterWorld, title: string) => {
     await world.questionListCreatePage.gotoNew()
     await world.questionListCreatePage.enterQuestionListName(title)
@@ -24,24 +13,8 @@ Given('I saved the question list {string}', async function (questionListTitle: s
     await createQuestionList(this, questionListTitle)
 })
 
-When('I create new question to list {string}', async function (question: string) {
-    await createQuestionToList(this, question)
-})
-
-Then('I see question {string} in the list', async function (question: string) {
-    await expect(this.page.getByText(question)).toBeVisible()
-})
-
-When('I click {string} button', async function (buttonLabel: string) {
-    await this.page.locator('button', { hasText: buttonLabel }).click()
-})
-
 Then('I see the {string} question list page', async function (name: string) {
     expect(await this.questionListPage.questionListNameValue()).toBe(name)
-})
-
-Then('I see a blank page', async function () {
-    await expectedNumberOfChildrenToBe(this.page.getByTestId('question-holder'), 0)
 })
 
 Then('I see an empty question list', async function () {
@@ -55,10 +28,6 @@ Then('I see question in list {string}', async function (question: string) {
 
 Then('I see question list title {string}', async function (title: string) {
     await expectTextToBe(this.page.getByTestId('question-list-title'), title)
-})
-
-Then('I see {string} form', async function (title: string) {
-    await expectTextToContain(this.page.getByText(title), title)
 })
 
 When('I take question {string} from the list', async function (question: string) {
