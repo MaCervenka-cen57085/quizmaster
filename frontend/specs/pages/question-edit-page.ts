@@ -12,6 +12,8 @@ export class QuestionEditPage {
 
     private editQuestionTitleLocator = () => this.page.locator('[data-testid="edit-question-title"]')
     editQuestionTitle = () => this.editQuestionTitleLocator().textContent()
+    isCreatePage = () => this.page.locator('[data-testid="create-question-title"]').isVisible()
+    isEditPage = () => this.page.locator('[data-testid="edit-question-title"]').isVisible()
 
     private questionLocator = () => this.page.locator('#question-text')
     enterQuestion = (question: string) => this.questionLocator().fill(question)

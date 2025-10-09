@@ -66,7 +66,7 @@ When('I click Edit button for question {string}', async function (question: stri
     await this.questionEditPage.waitForEditButton()
     const editButton = this.page.locator('.question-item', { hasText: question }).locator('.edit-button button')
     await editButton.click()
-    await this.questionEditPage.waitForLoadedTitle()
+    await this.questionEditPage.isEditPage()
 })
 
 Then('I see {string} editable form', async function (title: string) {
