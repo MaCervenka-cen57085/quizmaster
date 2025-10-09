@@ -5,9 +5,8 @@ export class QuestionListPage {
 
     goto = (guid: string) => this.page.goto(`/q-list/${guid}`)
 
-    private questionListTitleLocator = () => this.page.locator('#question-list-title')
-    enterQuestionListTitle = (title: string) => this.questionListTitleLocator().fill(title)
-    questionListTitleValue = () => this.questionListTitleLocator().inputValue()
+    private questionListNameLocator = () => this.page.getByTestId('question-list-title')
+    questionListNameValue = () => this.questionListNameLocator().textContent()
 
     waitForLoadedTitle = () => this.page.waitForSelector('#question-list-title')
 

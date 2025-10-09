@@ -1,18 +1,23 @@
-import { Given, When, Then } from '../fixture.ts'
-import type { QuizmasterWorld } from '../world'
 import { expect } from '@playwright/test'
-
-const openCreateQuestionListPage = async (world: QuizmasterWorld) => {
-    world.createQuestionListPage.gotoNew()
-}
+import { Given, When, Then } from '../fixture.ts'
+import { openCreateQuestionListPage } from './ops.ts'
+import type { QuizmasterWorld } from '../world'
 
 const createQuestionList = async (world: QuizmasterWorld, title: string) => {
-    world.createQuestionListPage.enterQuestionListTitle(title)
+    world.createQuestionListPage.enterQuestionListName(title)
     await world.createQuestionListPage.submit()
 }
 
-Given('I start creating question list', async function () {
+Given('I start creating a question list', async function () {
     await openCreateQuestionListPage(this)
+})
+
+When('I enter question list name {string}', async function (name: string) {
+    await this.createQuestionListPage.enterQuestionListName(name)
+})
+
+When('I submit the question list', async function () {
+    await this.createQuestionListPage.submit()
 })
 
 When('I save the question list {string}', async function (questionListTitle: string) {

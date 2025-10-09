@@ -6,7 +6,7 @@ export class CreateQuestionListPage {
     gotoNew = () => this.page.goto('/q-list/new')
 
     private questionListTitleLocator = () => this.page.locator('#question-list-title')
-    enterQuestionListTitle = (title: string) => this.questionListTitleLocator().fill(title)
+    enterQuestionListName = (title: string) => this.questionListTitleLocator().fill(title)
     questionListTitleValue = () => this.questionListTitleLocator().inputValue()
 
     submit = () => this.page.locator('button[type="submit"]').click()

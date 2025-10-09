@@ -21,7 +21,7 @@ const createQuestionToList = async (world: QuizmasterWorld, question: string) =>
 
 const createQuestionList = async (world: QuizmasterWorld, title: string) => {
     await world.createQuestionListPage.gotoNew()
-    await world.createQuestionListPage.enterQuestionListTitle(title)
+    await world.createQuestionListPage.enterQuestionListName(title)
     await world.createQuestionListPage.submit()
 }
 
@@ -39,6 +39,10 @@ When('I create new question to list {string}', async function (question: string)
 
 When('I click {string} button', async function (buttonLabel: string) {
     await this.page.locator('button', { hasText: buttonLabel }).click()
+})
+
+Then('I see the {string} question list page', async function (name: string) {
+    expect(await this.questionListPage.questionListNameValue()).toBe(name)
 })
 
 Then('I see a blank page', async function () {
