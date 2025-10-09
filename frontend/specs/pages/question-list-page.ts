@@ -8,6 +8,18 @@ export class QuestionListPage {
     private questionListNameLocator = () => this.page.getByTestId('question-list-title')
     questionListNameValue = () => this.questionListNameLocator().textContent()
 
+    private questionsLocator = () => this.page.locator('.question-item')
+    questionCount = () => this.questionsLocator().count()
+    private questionLocator = (question: string) => this.questionsLocator().filter({ hasText: question })
+
+    private clickQuestionButtonLocator = (button: string) => async (question: string) =>
+        await this.questionLocator(question).locator(button).click()
+
+    takeQuestion = this.clickQuestionButtonLocator('.take-button button')
+    editQuestion = this.clickQuestionButtonLocator('.edit-button button')
+    copyTakeQuestion = this.clickQuestionButtonLocator('.copy-take-button button')
+    copyEditQuestion = this.clickQuestionButtonLocator('.copy-edit-button button')
+
     private createQuestionButtonLocator = () => this.page.locator('#create-question')
     createNewQuestion = async () => this.createQuestionButtonLocator().click()
 

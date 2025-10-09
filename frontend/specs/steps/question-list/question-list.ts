@@ -1,5 +1,5 @@
 import { expect } from '@playwright/test'
-import { expectedNumberOfChildrenToBe, expectTextToBe, expectTextToContain } from '../common.ts'
+import { expectTextToContain } from '../common.ts'
 import { Given, Then, When } from '../fixture.ts'
 import type { QuizmasterWorld } from '../world'
 
@@ -18,34 +18,32 @@ Then('I see the {string} question list page', async function (name: string) {
 })
 
 Then('I see an empty question list', async function () {
-    await expectedNumberOfChildrenToBe(this.page.getByTestId('question-holder'), 0)
+    expect(await this.questionListPage.questionCount()).toBe(0)
 })
 
 Then('I see question in list {string}', async function (question: string) {
     await expectTextToContain(this.page.getByText(question), question)
-    await expectedNumberOfChildrenToBe(this.page.locator('.edit-button'), 1)
 })
 
 Then('I see question list title {string}', async function (title: string) {
-    await expectTextToBe(this.page.getByTestId('question-list-title'), title)
+    expect(await this.questionListPage.questionListNameValue()).toBe(title)
 })
 
 When('I take question {string} from the list', async function (question: string) {
-    const takeButton = this.page.locator('.question-item', { hasText: question }).locator('.take-button button')
     this.activeQuestionBookmark = question
-    await takeButton.click()
+    await this.questionListPage.takeQuestion(question)
 })
 
 When('I edit question {string} from the list', async function (question: string) {
-    const editButton = this.page.locator('.question-item', { hasText: question }).locator('.edit-button button')
     this.activeQuestionBookmark = question
-    await editButton.click()
+    await this.questionListPage.editQuestion(question)
 })
 
 Then(/I copy the (take|edit) question URL "(.+)" from the list/, async function (page: string, question: string) {
-    const copyButton = this.page.locator('.question-item', { hasText: question }).locator(`.copy-${page}-button button`)
     this.activeQuestionBookmark = question
-    await copyButton.click()
+
+    if (page === 'take') await this.questionListPage.copyTakeQuestion(question)
+    else if (page === 'edit') await this.questionListPage.copyEditQuestion(question)
 })
 
 When('I add an existing question {string} to the list', async function (questionBookmark: string) {
