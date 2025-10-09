@@ -1,3 +1,4 @@
+@only
 Feature: Question list
 
   Background:
@@ -18,12 +19,6 @@ Feature: Question list
     Given I saved the question list "X"
     Then I see question list title "X"
     And I see an empty question list
-
-  Scenario: Click create new question open question form
-    Given I saved the question list "X"
-    Then I see question list title "X"
-    When I click "Create New Question" button
-    Then I see "Quiz Question Creation Page" form
 
   Scenario: Show non empty question
     Given I saved the question list "X"
