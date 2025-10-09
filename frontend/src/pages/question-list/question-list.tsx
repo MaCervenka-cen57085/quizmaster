@@ -83,12 +83,7 @@ export function QuestionList({ questionListData, onRefresh }: Props) {
 
     const onCopyTakeQuestion = async (id: number) => {
         const link = `${window.location.origin}/question/${id}`
-        try {
-            await navigator.clipboard.writeText(link)
-            window.alert('link copied')
-        } catch (err) {
-            window.alert('Failed to copy link')
-        }
+        await navigator.clipboard.writeText(link)
     }
 
     const onCopyEditQuestion = async (hash: string) => {

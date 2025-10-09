@@ -73,8 +73,9 @@ When('I edit question {string} from the list', async function (question: string)
     await editButton.click()
 })
 
-Then('I can copy the link to the take question {string}', async function (question: string) {
+Then('I copy the take question URL {string} from the list', async function (question: string) {
     const copyButton = this.page.locator('.question-item', { hasText: question }).locator('.copy-take-button button')
+    this.activeQuestionBookmark = question
     await copyButton.click()
 })
 

@@ -9,6 +9,14 @@ Feature: Question list
     When I take question "2 + 2 = ?" from the list
     Then I see the question and the answers
 
+  Scenario: Copy a take question URL
+    Given a question list with question
+      | question  | answers  |
+      | 2 + 2 = ? | 4 (*), 5 |
+    When I copy the take question URL "2 + 2 = ?" from the list
+    And I follow the copied URL
+    Then I see the question and the answers
+
   Scenario: Edit question in a question list
     Given a question list with questions
       | question  | answers  |
@@ -17,12 +25,6 @@ Feature: Question list
     When I edit question "2 + 2 = ?" from the list
     Then I see question edit page
     And I see "2 + 2 = ?" in the question field
-
-  Scenario: I copy the take question url
-    Given I saved the question list "X"
-    When I create new question to list "Xquestion"
-    Then I can copy the link to the take question "Xquestion"
-    And I am notified about the copied link
 
   Scenario: I copy the edit question url
     Given I saved the question list "X"

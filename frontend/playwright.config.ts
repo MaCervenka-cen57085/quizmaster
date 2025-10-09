@@ -11,7 +11,14 @@ export default defineConfig({
     },
     workers: Number(process.env.PW_WORKERS) || 2,
     projects: [
-        { name: 'chromium', use: { browserName: 'chromium', baseURL: `http://localhost:${port}` } },
+        {
+            name: 'chromium',
+            use: {
+                browserName: 'chromium',
+                baseURL: `http://localhost:${port}`,
+                permissions: ['clipboard-read', 'clipboard-write'],
+            }
+        },
     ],
     testDir: defineBddConfig({
         features: 'specs/features',
