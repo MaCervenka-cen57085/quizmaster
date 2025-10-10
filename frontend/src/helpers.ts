@@ -1,4 +1,4 @@
-import type { SyntheticEvent } from 'react'
+import { useState, type SyntheticEvent } from 'react'
 
 type Handler<E extends SyntheticEvent> = (e: E) => void
 
@@ -8,3 +8,18 @@ export const preventDefault =
         e.preventDefault()
         handle(e)
     }
+
+type AlterValue<T> = (value: T) => void
+type StateArray<T> = [readonly T[], AlterValue<T>, AlterValue<T>, AlterValue<T>]
+
+export const useStateArray = <T>(initialValue: T[]): StateArray<T> => {
+    const [value, setValue] = useState<readonly T[]>(initialValue)
+
+    const addValue = (value: T) => setValue(prev => [...prev, value])
+    const removeValue = (value: T) => setValue(prev => prev.filter(v => v !== value))
+
+    const toggleValue = (value: T) =>
+        setValue(prev => (prev.includes(value) ? prev.filter(v => v !== value) : [...prev, value]))
+
+    return [value, toggleValue, addValue, removeValue]
+}

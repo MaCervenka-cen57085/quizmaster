@@ -31,12 +31,12 @@ export interface Quiz {
 }
 
 export interface QuizCreateRequest {
-    title: string
-    description: string
-    questionIds: number[]
-    afterEach: boolean
-    passScore: number
-    timeLimit: number
+    readonly title: string
+    readonly description: string
+    readonly questionIds: readonly number[]
+    readonly afterEach: boolean
+    readonly passScore: number
+    readonly timeLimit: number
 }
 
 export const isAnsweredCorrectly = (selectedAnswerIdxs: AnswerIdxs, correctAnswers: AnswerIdxs): boolean => {

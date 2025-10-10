@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-import { preventDefault } from 'helpers'
+import { preventDefault, useStateArray } from 'helpers'
 
 import { useApi } from 'api/hooks.ts'
 import { getListQuestions } from 'api/question-list.ts'
@@ -19,16 +19,12 @@ export const QuizCreatePage = () => {
     const [title, setTitle] = useState<string>('')
     const [description, setDescription] = useState<string>('')
     const [questionList, setQuestionList] = useState<readonly QuizQuestion[]>([])
-    const [selectedIds, setSelectedIds] = useState<number[]>([])
+    const [selectedIds, toggleSelectedId] = useStateArray<number>([])
     const [timeLimit, setTimeLimit] = useState<number>(600)
     const [passScore, setPassScore] = useState<number>(80)
     const [quizId, setQuizId] = useState<string | undefined>(undefined)
 
     useApi(listGuid || '', getListQuestions, setQuestionList)
-
-    const handleSelect = (id: number) => {
-        setSelectedIds(prev => (prev.includes(id) ? prev.filter(prevId => prevId !== id) : [...prev, id]))
-    }
 
     const handleCreateQuiz = preventDefault(async () => {
         const quizId = await postQuiz({
@@ -60,7 +56,7 @@ export const QuizCreatePage = () => {
                 </Field>
 
                 <div className="label">Select quiz questions</div>
-                <QuestionSelect questions={questionList} onSelect={handleSelect} />
+                <QuestionSelect questions={questionList} onSelect={toggleSelectedId} />
 
                 {quizId ? <QuizUrl quizId={quizId} /> : <SubmitButton />}
             </form>
