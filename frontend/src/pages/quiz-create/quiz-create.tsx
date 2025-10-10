@@ -1,13 +1,17 @@
-import { useApi } from 'api/hooks'
-import { getListQuestions } from 'api/question-list'
-import { postQuiz } from 'api/quiz'
-import type { QuizQuestion } from 'model/quiz-question'
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { Field, NumberInput, Page, SubmitButton, TextInput } from 'pages/components'
+
 import { preventDefault } from 'helpers'
-import { QuestionSelect } from './components/question-select'
-import { QuizUrl } from './components/quiz-url'
+
+import { useApi } from 'api/hooks.ts'
+import { getListQuestions } from 'api/question-list.ts'
+import { postQuiz } from 'api/quiz.ts'
+
+import type { QuizQuestion } from 'model/quiz-question.ts'
+
+import { Field, NumberInput, Page, SubmitButton, TextInput } from 'pages/components'
+import { QuestionSelect } from './components/question-select.tsx'
+import { QuizUrl } from './components/quiz-url.tsx'
 
 export const QuizCreatePage = () => {
     const [searchParams] = useSearchParams()
