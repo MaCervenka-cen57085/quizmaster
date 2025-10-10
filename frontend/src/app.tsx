@@ -9,7 +9,7 @@ import { QuestionListCreatePage } from 'pages/make/create-question-list/question
 import { CreateQuestionContainer } from 'pages/make/create-question/create-question-container'
 import { EditQuestionContainer } from 'pages/make/create-question/edit-question-container'
 import { QuestionListContainer } from 'pages/make/question-list/question-list-container'
-import { QuizCreatePage } from 'pages/make/quiz-create/quiz-create'
+import { QuizCreatePage } from 'pages/make/quiz-create/quiz-create-page.tsx'
 
 export const App = () => (
     <BrowserRouter>
