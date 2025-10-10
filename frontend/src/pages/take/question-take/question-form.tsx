@@ -6,7 +6,7 @@ import {
     useQuestionTakeState,
     QuestionCorrectness,
     QuestionExplanation,
-} from 'pages/question-take'
+} from 'pages/take/question-take'
 import { QuestionScore } from './components/question-score'
 
 export interface QuestionFormProps {

@@ -1,6 +1,6 @@
 import { SubmitButton } from 'pages/components'
 import { preventDefault } from 'helpers.ts'
-import { type QuestionListFormData, TitleEdit } from 'pages/create-question-list/form'
+import { type QuestionListFormData, TitleEdit } from 'pages/make/create-question-list/form'
 
 interface QuestionListEditProps {
     readonly questionListData: QuestionListFormData

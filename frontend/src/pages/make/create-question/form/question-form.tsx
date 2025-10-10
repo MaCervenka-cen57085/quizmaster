@@ -8,7 +8,7 @@ import {
     QuestionExplanationEdit,
     EasyModeChoiceEdit,
     type QuestionFormData,
-} from 'pages/create-question/form'
+} from 'pages/make/create-question/form'
 
 interface QuestionEditProps {
     readonly questionData: QuestionFormData

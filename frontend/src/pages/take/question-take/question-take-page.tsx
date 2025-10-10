@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom'
 import type { QuizQuestion } from 'model/quiz-question.ts'
 import { useApi } from 'api/hooks'
 import { getQuestion } from 'api/quiz-question.ts'
-import { QuestionForm } from 'pages/question-take'
+import { QuestionForm } from 'pages/take/question-take'
 
 export const QuestionTakePage = () => {
     const params = useParams()

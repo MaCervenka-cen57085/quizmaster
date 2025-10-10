@@ -5,11 +5,11 @@ import { QuizScore } from './quiz-score.tsx'
 import { ProgressBar } from './progress-bar.tsx'
 import { EvaluateButton, NextButton, BackButton, SkipButton, BookmarkButton } from './buttons.tsx'
 import { useParams } from 'react-router-dom'
-import { getQuiz } from '../../api/quiz.ts'
+import { getQuiz } from '../../../api/quiz.ts'
 
 import { Countdown } from './countdown.tsx'
 import { TimeOutReachedModal } from './timeout-reached-modal.tsx'
-import { BookmarkList } from '../components/bookmark-list.tsx'
+import { BookmarkList } from '../../components/bookmark-list.tsx'
 import { useApi } from 'api/hooks.ts'
 
 interface QuizQuestionProps {

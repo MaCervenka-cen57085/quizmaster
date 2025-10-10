@@ -1,15 +1,15 @@
-import { HomePage } from 'pages/home'
-import { QuestionTakePage } from 'pages/question-take'
-import { QuizPage } from 'pages/quiz-take/quiz'
+import { HomePage } from 'pages/make/home'
+import { QuestionTakePage } from 'pages/take/question-take'
+import { QuizPage } from 'pages/take/quiz-take/quiz'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-import { QuizWelcomePage } from 'pages/quiz-take/quiz-welcome/quiz-welcome-page'
+import { QuizWelcomePage } from 'pages/take/quiz-take/quiz-welcome/quiz-welcome-page'
 
-import { CreateQuestionListContainer } from 'pages/create-question-list/create-question-list-container'
-import { CreateQuestionContainer } from 'pages/create-question/create-question-container'
-import { EditQuestionContainer } from 'pages/create-question/edit-question-container'
-import { QuestionListContainer } from 'pages/question-list/question-list-container'
-import { QuizCreatePage } from 'pages/quiz-create/quiz-create'
+import { CreateQuestionListContainer } from 'pages/make/create-question-list/create-question-list-container'
+import { CreateQuestionContainer } from 'pages/make/create-question/create-question-container'
+import { EditQuestionContainer } from 'pages/make/create-question/edit-question-container'
+import { QuestionListContainer } from 'pages/make/question-list/question-list-container'
+import { QuizCreatePage } from 'pages/make/quiz-create/quiz-create'
 
 export const App = () => (
     <BrowserRouter>

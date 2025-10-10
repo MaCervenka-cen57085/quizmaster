@@ -1,6 +1,6 @@
 import { Button, type WithOnClick } from 'pages/components/button'
 import { useNavigate } from 'react-router-dom'
-import copyClipboardIcon from '../../assets/icons/copy-clipboard.svg'
+import copyClipboardIcon from 'assets/icons/copy-clipboard.svg'
 import { QuestionItem } from './question-item'
 import './question-list.scss'
 import type { QuizQuestion } from 'model/quiz-question'

@@ -1,4 +1,4 @@
-import { Explanation } from 'pages/question-take'
+import { Explanation } from 'pages/take/question-take'
 import './answer-feedback.scss'
 import successIcon from 'assets/icons/checkmark.svg'
 import errorIcon from 'assets/icons/error.svg'

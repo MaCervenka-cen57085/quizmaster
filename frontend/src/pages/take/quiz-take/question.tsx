@@ -1,8 +1,8 @@
 import './question.scss'
 
 import type { QuizQuestion } from 'model/quiz-question'
-import { Answer } from 'pages/question-take'
-import { QuestionExplanation } from 'pages/question-take'
+import { Answer } from 'pages/take/question-take'
+import { QuestionExplanation } from 'pages/take/question-take'
 import type { FC } from 'react'
 
 interface QuestionProps {
