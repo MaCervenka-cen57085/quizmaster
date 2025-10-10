@@ -7,6 +7,7 @@ import { useSearchParams } from 'react-router-dom'
 import './createQiuz.scss'
 import { Field, NumberInput, Page, TextInput } from 'pages/components'
 import { preventDefault } from 'helpers'
+import { QuestionSelect } from './components/question-select'
 
 export const QuizCreatePage = () => {
     const [searchParams] = useSearchParams()
@@ -54,13 +55,10 @@ export const QuizCreatePage = () => {
                 <Field label="Required score to pass the quiz (in %)">
                     <NumberInput id="pass-score" value={passScore} onChange={setPassScore} />
                 </Field>
+
                 <div className="label">Select quiz questions</div>
-                {questionList.map(item => (
-                    <div key={item.id} className="question-item">
-                        <input id={String(item.id)} type="checkbox" onChange={() => handleSelect(item.id)} />
-                        <label htmlFor={String(item.id)}>{item.question}</label>
-                    </div>
-                ))}
+                <QuestionSelect questions={questionList} onSelect={handleSelect} />
+
                 {!quizId && <button type="submit">Create quiz</button>}
 
                 {quizId && (
