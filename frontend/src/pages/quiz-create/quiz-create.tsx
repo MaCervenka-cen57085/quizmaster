@@ -41,9 +41,8 @@ export const QuizCreatePage = () => {
     })
 
     return (
-        <Page>
+        <Page title="Create Quiz">
             <form className="create-quiz" onSubmit={handleCreateQuiz}>
-                <h2>Create Quiz</h2>
                 <Field label="Quiz title">
                     <TextInput id="quiz-title" value={title} onChange={setTitle} />
                 </Field>
