@@ -1,5 +1,4 @@
-import { SubmitButton } from 'pages/components/submit-button.tsx'
-import { Button } from 'pages/components/button.tsx'
+import { Button, SubmitButton } from 'pages/components'
 import { preventDefault } from 'helpers.ts'
 import {
     type AnswerData,

@@ -1,4 +1,4 @@
-import { SubmitButton } from 'pages/components/submit-button.tsx'
+import { SubmitButton } from 'pages/components'
 import { preventDefault } from 'helpers.ts'
 import { type QuestionListFormData, TitleEdit } from 'pages/create-question-list/form'
 
