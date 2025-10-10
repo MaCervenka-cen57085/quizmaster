@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import { QuizWelcomePage } from 'pages/take/quiz-take/quiz-welcome/quiz-welcome-page'
 
-import { CreateQuestionListContainer } from 'pages/make/create-question-list/create-question-list-container'
+import { QuestionListCreatePage } from 'pages/make/create-question-list/question-list-create-page'
 import { CreateQuestionContainer } from 'pages/make/create-question/create-question-container'
 import { EditQuestionContainer } from 'pages/make/create-question/edit-question-container'
 import { QuestionListContainer } from 'pages/make/question-list/question-list-container'
@@ -15,7 +15,7 @@ export const App = () => (
     <BrowserRouter>
         <Routes>
             <Route path="/question/new" element={<CreateQuestionContainer />} />
-            <Route path="/q-list/new" element={<CreateQuestionListContainer />} />
+            <Route path="/q-list/new" element={<QuestionListCreatePage />} />
             <Route path="/q-list/:id" element={<QuestionListContainer />} />
             <Route path="/quiz/:id" element={<QuizWelcomePage />} />
             <Route path="/quiz/:id/questions" element={<QuizPage />} />

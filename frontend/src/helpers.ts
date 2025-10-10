@@ -1,5 +1,15 @@
 import { useState, type SyntheticEvent } from 'react'
 
+export const tryCatch = async <T>(setErrorMessage: (message: string) => void, fn: () => Promise<T>): Promise<T> => {
+    setErrorMessage('')
+    try {
+        return await fn()
+    } catch (error) {
+        setErrorMessage('Unexpected Error')
+        throw error
+    }
+}
+
 type Handler<E extends SyntheticEvent> = (e: E) => void
 
 export const preventDefault =
