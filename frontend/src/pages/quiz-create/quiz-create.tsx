@@ -5,9 +5,10 @@ import type { QuizQuestion } from 'model/quiz-question'
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import './createQiuz.scss'
-import { Field, NumberInput, Page, TextInput } from 'pages/components'
+import { Field, NumberInput, Page, SubmitButton, TextInput } from 'pages/components'
 import { preventDefault } from 'helpers'
 import { QuestionSelect } from './components/question-select'
+import { QuizUrl } from './components/quiz-url'
 
 export const QuizCreatePage = () => {
     const [searchParams] = useSearchParams()
@@ -59,14 +60,7 @@ export const QuizCreatePage = () => {
                 <div className="label">Select quiz questions</div>
                 <QuestionSelect questions={questionList} onSelect={handleSelect} />
 
-                {!quizId && <button type="submit">Create quiz</button>}
-
-                {quizId && (
-                    <div className="alert success">
-                        Quiz url:{' '}
-                        <a href={`${location.origin}/quiz/${quizId}`}>{`${location.origin}/quiz/${quizId}`}</a>
-                    </div>
-                )}
+                {quizId ? <QuizUrl quizId={quizId} /> : <SubmitButton />}
             </form>
         </Page>
     )
