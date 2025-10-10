@@ -90,9 +90,9 @@ export function QuestionListComponent({ questionList, questions }: QuestionListP
 
     return (
         <div className="question-list-page">
-            <h1 id="question-title-header" data-testid="question-list-title">
+            {questionList.title && <h1 id="question-title-header" data-testid="question-list-title">
                 {questionList.title}
-            </h1>
+            </h1>}
             <div className="create-button">
                 <CreateQuestionButton onClick={onCreateNewQuestion} />
             </div>
