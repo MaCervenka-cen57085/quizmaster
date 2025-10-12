@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { preventDefault, useStateArray } from 'helpers'
+import { preventDefault, useStateSet } from 'helpers'
 import type { QuizCreateRequest, QuizQuestion } from 'model/quiz-question.ts'
 
 import { Field, NumberInput, SubmitButton, TextInput } from 'pages/components'
@@ -16,14 +16,14 @@ interface QuizCreateProps {
 export const QuizCreateForm = ({ questions, onSubmit }: QuizCreateProps) => {
     const [title, setTitle] = useState<string>('')
     const [description, setDescription] = useState<string>('')
-    const [selectedIds, toggleSelectedId] = useStateArray<number>([])
+    const [selectedIds, toggleSelectedId] = useStateSet<number>()
     const [timeLimit, setTimeLimit] = useState<number>(600)
     const [passScore, setPassScore] = useState<number>(80)
 
     const toFormData = (): QuizCreateFormData => ({
         title,
         description,
-        questionIds: selectedIds,
+        questionIds: Array.from(selectedIds),
         afterEach: false,
         passScore,
         timeLimit,

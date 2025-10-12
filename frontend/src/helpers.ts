@@ -20,16 +20,19 @@ export const preventDefault =
     }
 
 type AlterValue<T> = (value: T) => void
-type StateArray<T> = [readonly T[], AlterValue<T>, AlterValue<T>, AlterValue<T>]
+type StateSet<T> = [ReadonlySet<T>, AlterValue<T>, AlterValue<T>, AlterValue<T>]
 
-export const useStateArray = <T>(initialValue: T[]): StateArray<T> => {
-    const [value, setValue] = useState<readonly T[]>(initialValue)
+export const useStateSet = <T>(): StateSet<T> => {
+    const [value, setValue] = useState<ReadonlySet<T>>(new Set())
 
-    const addValue = (value: T) => setValue(prev => [...prev, value])
-    const removeValue = (value: T) => setValue(prev => prev.filter(v => v !== value))
+    const withValue = (value: T) => (prev: ReadonlySet<T>) => new Set([...prev, value])
+    const withoutValue = (value: T) => (prev: ReadonlySet<T>) => new Set([...prev].filter(v => v !== value))
+
+    const addValue = (value: T) => setValue(withValue(value))
+    const removeValue = (value: T) => setValue(withoutValue(value))
 
     const toggleValue = (value: T) =>
-        setValue(prev => (prev.includes(value) ? prev.filter(v => v !== value) : [...prev, value]))
+        setValue(prev => (prev.has(value) ? withoutValue(value)(prev) : withValue(value)(prev)))
 
     return [value, toggleValue, addValue, removeValue]
 }
