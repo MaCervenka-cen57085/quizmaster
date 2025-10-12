@@ -11,6 +11,7 @@ import { Countdown } from './countdown.tsx'
 import { TimeOutReachedModal } from './timeout-reached-modal.tsx'
 import { BookmarkList } from '../../components/bookmark-list.tsx'
 import { useApi } from 'api/hooks.ts'
+import { useStateSet } from 'helpers.ts'
 
 interface QuizQuestionProps {
     readonly onEvaluate: () => void
@@ -26,7 +27,7 @@ type QuizState = readonly AnswerIdxs[]
 export const QuizQuestionForm = (props: QuizQuestionProps) => {
     const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0)
     const [skippedQuestions, setSkippedQuestions] = useState<number[]>([])
-    const [bookmarkedQuestions, setBookmarkedQuestions] = useState<number[]>([])
+    const [bookmarkedQuestions, toggleBookmarkQuestion, , removeBookmarkQuestion] = useStateSet<number>()
     const currentQuestion = props.quiz.questions[currentQuestionIdx]
     const isLastQuestion = currentQuestionIdx === props.quiz.questions.length - 1
     const isFirstQuestion = currentQuestionIdx === 0
@@ -78,24 +79,17 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
             onNext()
         }
     }
-    const onBookmark = () => {
-        setBookmarkedQuestions(
-            prev =>
-                prev.includes(currentQuestionIdx)
-                    ? prev.filter(idx => idx !== currentQuestionIdx) // Odebrat bookmark
-                    : [...prev, currentQuestionIdx], // Přidat bookmark
-        )
-    }
+    const onBookmark = () => toggleBookmarkQuestion(currentQuestionIdx)
 
     const handleBookmarkClick = (idx: number) => {
         setCurrentQuestionIdx(idx)
     }
 
     // Prepare bookmarks for BookmarkList
-    const bookmarks = bookmarkedQuestions.map(idx => ({
+    const bookmarks = Array.from(bookmarkedQuestions).map(idx => ({
         title: props.quiz.questions[idx].question,
         onClick: () => handleBookmarkClick(idx),
-        onDelete: () => setBookmarkedQuestions(prev => prev.filter(i => i !== idx)),
+        onDelete: () => removeBookmarkQuestion(idx),
     }))
 
     const anySkippedQuestions = skippedQuestions.length > 0
@@ -107,7 +101,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
             <ProgressBar current={currentQuestionIdx + 1} total={props.quiz.questions.length} />
 
             <div
-                className={bookmarkedQuestions.includes(currentQuestionIdx) ? 'bookmarked' : ''}
+                className={bookmarkedQuestions.has(currentQuestionIdx) ? 'bookmarked' : ''}
                 data-testid="bookmark-toggle"
             >
                 <QuestionForm
@@ -128,7 +122,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
                         <EvaluateButton onClick={props.onEvaluate} />
                     ))}
                 {isQuestionSkipable && <SkipButton onClick={onSkip} />}
-                <BookmarkButton isBookmarked={bookmarkedQuestions.includes(currentQuestionIdx)} onClick={onBookmark} />
+                <BookmarkButton isBookmarked={bookmarkedQuestions.has(currentQuestionIdx)} onClick={onBookmark} />
             </div>
 
             {/* Bookmark list visible for tests */}
