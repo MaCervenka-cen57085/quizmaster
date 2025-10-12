@@ -26,19 +26,13 @@ type QuizState = readonly AnswerIdxs[]
 
 export const QuizQuestionForm = (props: QuizQuestionProps) => {
     const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0)
-    const [skippedQuestions, setSkippedQuestions] = useState<number[]>([])
+    const [skippedQuestions, , addSkippedQuestion, removeSkippedQuestion] = useStateSet<number>()
     const [bookmarkedQuestions, toggleBookmarkQuestion, , removeBookmarkQuestion] = useStateSet<number>()
     const currentQuestion = props.quiz.questions[currentQuestionIdx]
     const isLastQuestion = currentQuestionIdx === props.quiz.questions.length - 1
     const isFirstQuestion = currentQuestionIdx === 0
 
     const isAnswered = props.quizState[currentQuestionIdx] !== undefined
-
-    const removeCurrentQuestionFromSkippedQuestions = () => {
-        setSkippedQuestions(prev => {
-            return prev.filter(skippedQuestionIdx => skippedQuestionIdx !== currentQuestionIdx)
-        })
-    }
 
     const onSubmitted = (selectedAnswerIdxs: AnswerIdxs) => {
         const newQuizState = Array.from(props.quizState)
@@ -51,25 +45,20 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
             props.setFirstQuizState(newFirstQuizState)
         }
 
-        removeCurrentQuestionFromSkippedQuestions()
+        removeSkippedQuestion(currentQuestionIdx)
         props.quiz.questions[currentQuestionIdx].userInput = selectedAnswerIdxs
     }
 
     const onNext = () => {
-        const shouldGoOnSkippedQuestion = isLastQuestion
-        if (shouldGoOnSkippedQuestion) {
-            setCurrentQuestionIdx(skippedQuestions[0])
+        if (isLastQuestion) {
+            const firstSkippedQuestion = Array.from(skippedQuestions).sort()[0]
+            setCurrentQuestionIdx(firstSkippedQuestion)
         } else {
             setCurrentQuestionIdx(prev => prev + 1)
         }
     }
     const onSkip = () => {
-        setSkippedQuestions(prev => {
-            if (!prev.includes(currentQuestionIdx)) {
-                return [...prev, currentQuestionIdx]
-            }
-            return prev
-        })
+        addSkippedQuestion(currentQuestionIdx)
         onNext()
     }
     const onBack = () => setCurrentQuestionIdx(prev => prev - 1)
@@ -92,7 +81,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
         onDelete: () => removeBookmarkQuestion(idx),
     }))
 
-    const anySkippedQuestions = skippedQuestions.length > 0
+    const anySkippedQuestions = skippedQuestions.size > 0
     const isQuestionSkipable = !isAnswered && (!isLastQuestion || anySkippedQuestions)
 
     return (
