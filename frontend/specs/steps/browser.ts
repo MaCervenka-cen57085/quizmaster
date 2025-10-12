@@ -9,6 +9,5 @@ When('I follow the copied URL', async function () {
         // @ts-ignore - navigator is a browser API
         () => navigator.clipboard.readText(),
     )
-    console.log('copiedURL', `'${copiedURL}'`)
     await this.page.goto(copiedURL)
 })
