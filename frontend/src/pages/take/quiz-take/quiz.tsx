@@ -120,24 +120,14 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
             <div
                 style={{ display: 'flex', gap: '10px', alignItems: 'center', marginTop: '10px', marginBottom: '20px' }}
             >
-                {(!isFirstQuestion || isAnswered) && (
-                    <>
-                        {!isFirstQuestion && (
-                            <div>
-                                <BackButton onClick={onBack} />
-                            </div>
-                        )}
-                        <div>
-                            {isAnswered &&
-                                (!isLastQuestion || anySkippedQuestions ? (
-                                    <NextButton onClick={onNext} />
-                                ) : (
-                                    <EvaluateButton onClick={props.onEvaluate} />
-                                ))}
-                        </div>
-                    </>
-                )}
-                <div>{isQuestionSkipable && <SkipButton onClick={onSkip} />}</div>
+                {!isFirstQuestion && <BackButton onClick={onBack} />}
+                {isAnswered &&
+                    (!isLastQuestion || anySkippedQuestions ? (
+                        <NextButton onClick={onNext} />
+                    ) : (
+                        <EvaluateButton onClick={props.onEvaluate} />
+                    ))}
+                {isQuestionSkipable && <SkipButton onClick={onSkip} />}
                 <BookmarkButton isBookmarked={bookmarkedQuestions.includes(currentQuestionIdx)} onClick={onBookmark} />
             </div>
 
