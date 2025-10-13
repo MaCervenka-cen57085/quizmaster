@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { EvaluateButton } from './buttons'
+import { EvaluateButton } from '../components/buttons'
 
 export const TimeOutReachedModal = ({
     timeoutReached,

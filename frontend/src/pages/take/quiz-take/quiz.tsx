@@ -6,8 +6,7 @@ import { EvaluateButton, NextButton, BackButton, SkipButton, BookmarkButton } fr
 
 import { BookmarkList } from './components/bookmark-list.tsx'
 import { useStateSet } from 'helpers.ts'
-import { Countdown } from './components/countdown.tsx'
-import { TimeOutReachedModal } from './components/timeout-reached-modal.tsx'
+import { TimeLimit } from './time-limit/with-time-limit.tsx'
 
 interface QuizQuestionProps {
     readonly onEvaluate: () => void
@@ -27,7 +26,6 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
     const currentQuestion = props.quiz.questions[currentQuestionIdx]
     const isLastQuestion = currentQuestionIdx === props.quiz.questions.length - 1
     const isFirstQuestion = currentQuestionIdx === 0
-    const [timeoutReached, setTimeoutReached] = useState(false)
 
     const isAnswered = props.quizState[currentQuestionIdx] !== undefined
 
@@ -83,8 +81,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
 
     return (
         <div>
-            <Countdown setTimeoutReached={setTimeoutReached} timeLimit={props.quiz.timeLimit} />
-            {timeoutReached && <TimeOutReachedModal onEvaluate={props.onEvaluate} timeoutReached={timeoutReached} />}
+            <TimeLimit timeLimit={props.quiz.timeLimit} onEvaluate={props.onEvaluate} />
             <h2>Quiz</h2>
             <ProgressBar current={currentQuestionIdx + 1} total={props.quiz.questions.length} />
 
