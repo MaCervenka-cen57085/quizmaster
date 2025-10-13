@@ -7,8 +7,8 @@ import { isAnsweredCorrectly, Quiz } from 'model/quiz-question.ts'
 
 import { QuizScore } from './quiz-score.tsx'
 import { QuizQuestionForm, QuizState } from './quiz.tsx'
-import { TimeOutReachedModal } from './timeout-reached-modal.tsx'
-import { Countdown } from './countdown.tsx'
+import { TimeOutReachedModal } from './components/timeout-reached-modal.tsx'
+import { Countdown } from "./components/countdown.tsx"
 
 export const QuizTakePage = () => {
     const params = useParams()

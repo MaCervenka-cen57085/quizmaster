@@ -1,5 +1,5 @@
 import type { QuizQuestion } from 'model/quiz-question'
-import { Question } from './question'
+import { Question } from './components/question'
 
 export interface QuizScore {
     readonly correct: number

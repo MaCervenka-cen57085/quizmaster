@@ -1,10 +1,10 @@
 import { type AnswerIdxs, type Quiz } from 'model/quiz-question'
 import { QuestionForm } from '../question-take/index.ts'
 import { useState } from 'react'
-import { ProgressBar } from './progress-bar.tsx'
-import { EvaluateButton, NextButton, BackButton, SkipButton, BookmarkButton } from './buttons.tsx'
+import { ProgressBar } from './components/progress-bar.tsx'
+import { EvaluateButton, NextButton, BackButton, SkipButton, BookmarkButton } from './components/buttons.tsx'
 
-import { BookmarkList } from '../../components/bookmark-list.tsx'
+import { BookmarkList } from './components/bookmark-list.tsx'
 import { useStateSet } from 'helpers.ts'
 
 interface QuizQuestionProps {
