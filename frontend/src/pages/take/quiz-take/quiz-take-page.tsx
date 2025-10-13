@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { useQuizApi } from './hooks.ts'
-import { evaluate, QuizScore } from './quiz-score.ts'
+import { evaluate, type QuizScore } from './quiz-score.ts'
 
 import { QuizScorePage } from './quiz-score-page.tsx'
 import { QuizQuestionForm, type QuizState } from './quiz.tsx'
@@ -23,12 +23,7 @@ export const QuizTakePage = () => {
 
     if (quiz) {
         return isEvaluated ? (
-            <QuizScorePage
-                score={quizScore}
-                questions={quiz.questions}
-                passScore={quiz.passScore}
-                showFirstAnwers={quiz.afterEach}
-            />
+            <QuizScorePage quiz={quiz} score={quizScore} />
         ) : (
             <QuizQuestionForm quiz={quiz} onEvaluate={onEvaluate} />
         )

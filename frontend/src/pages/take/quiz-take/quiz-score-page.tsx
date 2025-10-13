@@ -1,20 +1,18 @@
-import type { QuizQuestion } from 'model/quiz-question'
-import { QuizScore } from './quiz-score.ts'
+import type { Quiz } from 'model/quiz-question'
+import type { QuizScore } from './quiz-score.ts'
 import { Question } from './components/question'
 
 interface QuizScorePageProps {
+    readonly quiz: Quiz
     readonly score: QuizScore
-    readonly questions: QuizQuestion[]
-    readonly passScore: number
-    readonly showFirstAnwers: boolean
 }
 
-export const QuizScorePage = ({ score, questions, passScore, showFirstAnwers }: QuizScorePageProps) => {
+export const QuizScorePage = ({ quiz, score }: QuizScorePageProps) => {
     const { correct, firstCorrect, total } = score
     const percentage = (correct / total) * 100
     const firstPercentage = (firstCorrect / total) * 100
-    const result = percentage >= passScore ? 'passed' : 'failed'
-    const firstResult = firstPercentage >= passScore ? 'passed' : 'failed'
+    const result = percentage >= quiz.passScore ? 'passed' : 'failed'
+    const firstResult = firstPercentage >= quiz.passScore ? 'passed' : 'failed'
 
     return (
         <>
@@ -35,7 +33,7 @@ export const QuizScorePage = ({ score, questions, passScore, showFirstAnwers }: 
                         <span id="percentage-result">{percentage.toFixed(0)}</span> %
                     </div>
                     <div>
-                        <span id="pass-score">{passScore}</span> %
+                        <span id="pass-score">{quiz.passScore}</span> %
                     </div>
                     <div>
                         <span id="text-result">{result}</span>
@@ -43,7 +41,7 @@ export const QuizScorePage = ({ score, questions, passScore, showFirstAnwers }: 
                 </div>
             </div>
 
-            {showFirstAnwers && (
+            {quiz.afterEach && (
                 <div>
                     <h2>Original result</h2>
                     <div>how would you do if it was a quiz with no correction options</div>
@@ -63,7 +61,7 @@ export const QuizScorePage = ({ score, questions, passScore, showFirstAnwers }: 
                                 <span id="first-percentage-result">{firstPercentage.toFixed(0)}</span> %
                             </div>
                             <div>
-                                <span id="first-pass-score">{passScore}</span> %
+                                <span id="first-pass-score">{quiz.passScore}</span> %
                             </div>
                             <div>
                                 <span id="first-text-result">{firstResult}</span>
@@ -74,7 +72,7 @@ export const QuizScorePage = ({ score, questions, passScore, showFirstAnwers }: 
             )}
 
             <h2>Answer overview</h2>
-            {questions.map(question => (
+            {quiz.questions.map(question => (
                 <Question key={question.id} question={question} isMultipleChoice={question.correctAnswers.length > 1} />
             ))}
         </>
