@@ -1,0 +1,16 @@
+import { useState } from 'react'
+import { useParams } from 'react-router-dom'
+
+import { useApi } from 'api/hooks'
+import { getQuiz } from 'api/quiz'
+import type { Quiz } from 'model/quiz-question'
+
+export const useQuizApi = () => {
+    const params = useParams()
+    const quizId = params.id
+
+    const [quiz, setQuiz] = useState<Quiz>()
+    useApi(quizId, getQuiz, setQuiz)
+
+    return quiz
+}

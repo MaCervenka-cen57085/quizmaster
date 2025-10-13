@@ -1,20 +1,15 @@
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
 
-import { useApi } from 'api/hooks.ts'
-import { getQuiz } from 'api/quiz.ts'
-import { isAnsweredCorrectly, type Quiz } from 'model/quiz-question.ts'
+import { useQuizApi } from './hooks.ts'
+import { isAnsweredCorrectly } from 'model/quiz-question.ts'
 
 import { QuizScore } from './quiz-score.tsx'
 import { QuizQuestionForm, type QuizState } from './quiz.tsx'
 
 export const QuizTakePage = () => {
-    const params = useParams()
-    const quizId = params.id
+    const quiz = useQuizApi()
     const [quizScore, setQuizScore] = useState<QuizScore | null>(null)
     const isEvaluated = quizScore !== null
-
-    const [quiz, setQuiz] = useState<Quiz>()
 
     const onEvaluate = (quizState: QuizState, firstQuizState: QuizState) => {
         if (quiz) {
@@ -32,8 +27,6 @@ export const QuizTakePage = () => {
             })
         }
     }
-
-    useApi(quizId, getQuiz, setQuiz)
 
     if (quiz) {
         return isEvaluated ? (
