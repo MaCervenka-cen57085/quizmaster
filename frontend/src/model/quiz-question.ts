@@ -20,15 +20,6 @@ export interface Answers {
     readonly questionExplanation: string
 }
 
-export interface QuizCreateRequest {
-    readonly title: string
-    readonly description: string
-    readonly questionIds: readonly number[]
-    readonly afterEach: boolean
-    readonly passScore: number
-    readonly timeLimit: number
-}
-
 export const isAnsweredCorrectly = (selectedAnswerIdxs: AnswerIdxs, correctAnswers: AnswerIdxs): boolean => {
     if (selectedAnswerIdxs) {
         return (

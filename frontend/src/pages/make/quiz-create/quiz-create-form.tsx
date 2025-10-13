@@ -1,7 +1,8 @@
 import { useState } from 'react'
 
 import { preventDefault, useStateSet } from 'helpers'
-import type { QuizCreateRequest, QuizQuestion } from 'model/quiz-question.ts'
+import type { QuizQuestion } from 'model/quiz-question.ts'
+import type { QuizCreateRequest } from 'api/quiz.ts'
 
 import { Field, NumberInput, SubmitButton, TextInput } from 'pages/components'
 import { QuestionSelect } from './components/question-select.tsx'
