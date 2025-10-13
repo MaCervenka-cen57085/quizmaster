@@ -36,3 +36,9 @@ export const useStateSet = <T>(): StateSet<T> => {
 
     return [value, toggleValue, addValue, removeValue]
 }
+
+export const updated = <T>(answers: readonly T[], questionIdx: number, answerIdxs: T): readonly T[] => {
+    const newAnswers = Array.from(answers)
+    newAnswers[questionIdx] = answerIdxs
+    return newAnswers
+}
