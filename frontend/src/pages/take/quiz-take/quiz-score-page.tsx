@@ -7,14 +7,14 @@ export interface QuizScore {
     readonly total: number
 }
 
-interface QuizScoreProps {
+interface QuizScorePageProps {
     readonly score: QuizScore
     readonly questions: QuizQuestion[]
     readonly passScore: number
     readonly showFirstAnwers: boolean
 }
 
-export const QuizScore = ({ score, questions, passScore, showFirstAnwers }: QuizScoreProps) => {
+export const QuizScorePage = ({ score, questions, passScore, showFirstAnwers }: QuizScorePageProps) => {
     const { correct, firstCorrect, total } = score
     const percentage = (correct / total) * 100
     const firstPercentage = (firstCorrect / total) * 100
