@@ -1,7 +1,6 @@
-import { isAnsweredCorrectly, type AnswerIdxs } from 'model/quiz-question.ts'
+import { isAnsweredCorrectly } from 'model/quiz-question.ts'
 import type { Quiz } from 'model/quiz.ts'
-
-export type SelectedAnswers = readonly AnswerIdxs[]
+import type { QuizAnswers } from './quiz-take-state'
 
 export interface QuizScore {
     readonly correct: number
@@ -9,11 +8,12 @@ export interface QuizScore {
     readonly total: number
 }
 
-export const evaluate = (quiz: Quiz, firstAnswers: SelectedAnswers, finalAnswers: SelectedAnswers) => ({
-    correct: quiz.questions.filter((question, idx) => isAnsweredCorrectly(finalAnswers[idx], question.correctAnswers))
-        .length,
+export const evaluate = (quiz: Quiz, quizAnswers: QuizAnswers): QuizScore => ({
+    correct: quiz.questions.filter((question, idx) =>
+        isAnsweredCorrectly(quizAnswers.finalAnswers[idx], question.correctAnswers),
+    ).length,
     firstCorrect: quiz.questions.filter((question, idx) =>
-        isAnsweredCorrectly(firstAnswers[idx], question.correctAnswers),
+        isAnsweredCorrectly(quizAnswers.firstAnswers[idx], question.correctAnswers),
     ).length,
     total: quiz.questions.length,
 })

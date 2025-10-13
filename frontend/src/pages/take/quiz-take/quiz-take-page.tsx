@@ -1,29 +1,29 @@
 import { useState } from 'react'
 
 import { useQuizApi } from './hooks.ts'
-import { evaluate, type QuizScore } from './quiz-score.ts'
 
 import { QuizScorePage } from './quiz-score-page.tsx'
-import { QuizQuestionForm, type QuizState } from './quiz.tsx'
+import { QuizQuestionForm } from './quiz.tsx'
+import type { QuizAnswers } from './quiz-take-state.ts'
 
 export const QuizTakePage = () => {
     const quiz = useQuizApi()
-    const [quizScore, setQuizScore] = useState<QuizScore | null>(null)
-    const isEvaluated = quizScore !== null
+    const [quizAnswers, setQuizAnswers] = useState<QuizAnswers | null>(null)
+    const isEvaluated = quizAnswers !== null
 
-    const onEvaluate = (quizState: QuizState, firstQuizState: QuizState) => {
+    const onEvaluate = (quizAnswers: QuizAnswers) => {
         if (!quiz) return
 
-        setQuizScore(evaluate(quiz, firstQuizState, quizState))
+        setQuizAnswers(quizAnswers)
         // TODO wtf?
         quiz.questions.forEach((question, idx) => {
-            question.userInput = quizState[idx]
+            question.userInput = quizAnswers.finalAnswers[idx]
         })
     }
 
     if (quiz) {
         return isEvaluated ? (
-            <QuizScorePage quiz={quiz} score={quizScore} />
+            <QuizScorePage quiz={quiz} quizAnswers={quizAnswers} />
         ) : (
             <QuizQuestionForm quiz={quiz} onEvaluate={onEvaluate} />
         )

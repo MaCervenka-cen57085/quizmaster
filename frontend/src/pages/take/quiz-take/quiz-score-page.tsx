@@ -1,14 +1,17 @@
 import type { Quiz } from 'model/quiz.ts'
-import type { QuizScore } from './quiz-score.ts'
+import { evaluate } from './quiz-score.ts'
+import type { QuizAnswers } from './quiz-take-state.ts'
 import { Question } from './components/question'
 
 interface QuizScorePageProps {
     readonly quiz: Quiz
-    readonly score: QuizScore
+    readonly quizAnswers: QuizAnswers
 }
 
-export const QuizScorePage = ({ quiz, score }: QuizScorePageProps) => {
+export const QuizScorePage = ({ quiz, quizAnswers }: QuizScorePageProps) => {
+    const score = evaluate(quiz, quizAnswers)
     const { correct, firstCorrect, total } = score
+
     const percentage = (correct / total) * 100
     const firstPercentage = (firstCorrect / total) * 100
     const result = percentage >= quiz.passScore ? 'passed' : 'failed'

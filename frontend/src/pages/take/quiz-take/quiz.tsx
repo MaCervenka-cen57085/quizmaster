@@ -8,10 +8,11 @@ import { EvaluateButton, NextButton, BackButton, SkipButton, BookmarkButton } fr
 import { BookmarkList } from './components/bookmark-list.tsx'
 import { useStateSet } from 'helpers.ts'
 import { TimeLimit } from './time-limit/with-time-limit.tsx'
+import type { QuizAnswers } from './quiz-take-state.ts'
 
 interface QuizQuestionProps {
     readonly quiz: Quiz
-    readonly onEvaluate: (quizState: QuizState, firstQuizState: QuizState) => void
+    readonly onEvaluate: (quizAnswers: QuizAnswers) => void
 }
 
 export type QuizState = readonly AnswerIdxs[]
@@ -76,7 +77,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
         onDelete: () => removeBookmarkQuestion(idx),
     }))
 
-    const onEvaluate = () => props.onEvaluate(quizState, firstQuizState)
+    const onEvaluate = () => props.onEvaluate({ firstAnswers: firstQuizState, finalAnswers: quizState })
 
     const anySkippedQuestions = skippedQuestions.size > 0
     const isQuestionSkipable = !isAnswered && (!isLastQuestion || anySkippedQuestions)
