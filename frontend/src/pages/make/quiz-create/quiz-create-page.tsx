@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 import { useApi } from 'api/hooks'
-import { getListQuestions } from 'api/question-list'
+import { fetchListQuestions } from 'api/question-list'
 
 import type { QuizQuestion } from 'model/quiz-question'
 import { postQuiz } from 'api/quiz'
@@ -19,7 +19,7 @@ export const QuizCreatePage = () => {
     const [quizId, setQuizId] = useState<string | undefined>(undefined)
     const [errorMessage, setErrorMessage] = useState<string>('')
 
-    useApi(listGuid || '', getListQuestions, setQuestionList)
+    useApi(listGuid || '', fetchListQuestions, setQuestionList)
 
     const onSubmit = (data: QuizCreateFormData) =>
         tryCatch(setErrorMessage, async () => {

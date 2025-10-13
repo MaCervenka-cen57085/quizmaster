@@ -2,10 +2,10 @@ import type { QuizQuestion } from 'model/quiz-question.ts'
 import type { QuestionCreateResponse } from 'model/question-create-response.ts'
 import { fetchJson, postJson, patchJson, deleteJson } from './helpers.ts'
 
-export const getQuestion = async (questionId: string) =>
+export const fetchQuestion = async (questionId: string) =>
     await fetchJson<QuizQuestion>(`/api/quiz-question/${questionId}`)
 
-export const getQuestionByHash = async (hash: string) =>
+export const fetchQuestionByHash = async (hash: string) =>
     await fetchJson<QuizQuestion>(`/api/quiz-question/${hash}/edit`)
 
 export type QuestionApiData = Omit<QuizQuestion, 'id'>

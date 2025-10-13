@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { useApi } from 'api/hooks'
-import { getQuiz } from 'api/quiz'
+import { fetchQuiz } from 'api/quiz'
 import type { Quiz } from 'model/quiz-question'
 
 export const useQuizApi = () => {
@@ -10,7 +10,7 @@ export const useQuizApi = () => {
     const quizId = params.id
 
     const [quiz, setQuiz] = useState<Quiz>()
-    useApi(quizId, getQuiz, setQuiz)
+    useApi(quizId, fetchQuiz, setQuiz)
 
     return quiz
 }

@@ -13,7 +13,7 @@ export interface QuestionListCreateResponse {
 export const postQuestionList = async (questionListApiData: QuestionListCreateRequest) =>
     await postJson<QuestionListCreateRequest, QuestionListCreateResponse>('/api/q-list', questionListApiData)
 
-export const getQuestionList = async (guid: string) => await fetchJson<QuestionList>(`/api/q-list/${guid}`)
+export const fetchQuestionList = async (guid: string) => await fetchJson<QuestionList>(`/api/q-list/${guid}`)
 
-export const getListQuestions = async (guid: string) =>
+export const fetchListQuestions = async (guid: string) =>
     await fetchJson<readonly QuizQuestion[]>(`/api/quiz-question/by-question-list/${guid}`)
