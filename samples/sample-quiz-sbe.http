@@ -80,5 +80,6 @@ Content-Type: application/json
     "description": "A quiz about Specification by Example",
     "afterEach": true,
     "questionIds": [1, 2, 3],
+    "timeLimit": 600,
     "passScore": 100
 }
