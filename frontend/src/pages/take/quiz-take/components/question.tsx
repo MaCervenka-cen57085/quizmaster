@@ -3,14 +3,14 @@ import './question.scss'
 import type { QuizQuestion } from 'model/quiz-question'
 import { Answer } from 'pages/take/question-take'
 import { QuestionExplanation } from 'pages/take/question-take'
-import type { FC } from 'react'
 
 interface QuestionProps {
-    question: QuizQuestion
-    isMultipleChoice: boolean
+    readonly question: QuizQuestion
 }
 
-export const Question: FC<QuestionProps> = ({ question, isMultipleChoice }) => {
+export const Question = ({ question }: QuestionProps) => {
+    const isMultipleChoice = question.correctAnswers.length > 1
+
     const isAnswerCorrect = (idx: number) =>
         (question.correctAnswers.includes(idx) && question.userInput?.includes(idx)) ||
         (!question.correctAnswers.includes(idx) && !question.userInput?.includes(idx))

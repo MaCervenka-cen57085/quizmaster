@@ -73,7 +73,7 @@ export const QuizScorePage = ({ quiz, score }: QuizScorePageProps) => {
 
             <h2>Answer overview</h2>
             {quiz.questions.map(question => (
-                <Question key={question.id} question={question} isMultipleChoice={question.correctAnswers.length > 1} />
+                <Question key={question.id} question={question} />
             ))}
         </>
     )
