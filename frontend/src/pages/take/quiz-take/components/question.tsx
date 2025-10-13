@@ -1,19 +1,20 @@
 import './question.scss'
 
-import type { QuizQuestion } from 'model/quiz-question'
+import type { AnswerIdxs, QuizQuestion } from 'model/quiz-question'
 import { Answer } from 'pages/take/question-take'
 import { QuestionExplanation } from 'pages/take/question-take'
 
 interface QuestionProps {
     readonly question: QuizQuestion
+    readonly selectedAnswerIdxs?: AnswerIdxs
 }
 
-export const Question = ({ question }: QuestionProps) => {
+export const Question = ({ question, selectedAnswerIdxs }: QuestionProps) => {
     const isMultipleChoice = question.correctAnswers.length > 1
 
     const isAnswerCorrect = (idx: number) =>
-        (question.correctAnswers.includes(idx) && question.userInput?.includes(idx)) ||
-        (!question.correctAnswers.includes(idx) && !question.userInput?.includes(idx))
+        (question.correctAnswers.includes(idx) && selectedAnswerIdxs?.includes(idx)) ||
+        (!question.correctAnswers.includes(idx) && !selectedAnswerIdxs?.includes(idx))
 
     return (
         <fieldset
@@ -34,12 +35,12 @@ export const Question = ({ question }: QuestionProps) => {
                         questionId={question.id}
                         answer={answer}
                         isCorrect={isAnswerCorrect(idx)}
-                        isUserSelected={question.userInput?.includes(idx) ?? false}
+                        isUserSelected={selectedAnswerIdxs?.includes(idx) ?? false}
                         explanation={question.explanations[idx]}
                         showFeedback={true}
                         onAnswerChange={() => {}}
                         disabled={true}
-                        isAnswerChecked={() => question.userInput?.includes(idx) ?? false}
+                        isAnswerChecked={() => selectedAnswerIdxs?.includes(idx) ?? false}
                     />
                 ))}
             </ul>

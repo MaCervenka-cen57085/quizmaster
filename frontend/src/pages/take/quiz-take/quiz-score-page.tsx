@@ -75,8 +75,8 @@ export const QuizScorePage = ({ quiz, quizAnswers }: QuizScorePageProps) => {
             )}
 
             <h2>Answer overview</h2>
-            {quiz.questions.map(question => (
-                <Question key={question.id} question={question} />
+            {quiz.questions.map((question, idx) => (
+                <Question question={question} selectedAnswerIdxs={quizAnswers.finalAnswers[idx]} />
             ))}
         </>
     )

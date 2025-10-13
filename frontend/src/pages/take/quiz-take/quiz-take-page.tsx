@@ -9,23 +9,12 @@ import type { QuizAnswers } from './quiz-take-state.ts'
 export const QuizTakePage = () => {
     const quiz = useQuizApi()
     const [quizAnswers, setQuizAnswers] = useState<QuizAnswers | null>(null)
-    const isEvaluated = quizAnswers !== null
-
-    const onEvaluate = (quizAnswers: QuizAnswers) => {
-        if (!quiz) return
-
-        setQuizAnswers(quizAnswers)
-        // TODO wtf?
-        quiz.questions.forEach((question, idx) => {
-            question.userInput = quizAnswers.finalAnswers[idx]
-        })
-    }
 
     if (quiz) {
-        return isEvaluated ? (
+        return quizAnswers ? (
             <QuizScorePage quiz={quiz} quizAnswers={quizAnswers} />
         ) : (
-            <QuizQuestionForm quiz={quiz} onEvaluate={onEvaluate} />
+            <QuizQuestionForm quiz={quiz} onEvaluate={setQuizAnswers} />
         )
     }
 }
