@@ -3,19 +3,16 @@ import { useParams } from 'react-router-dom'
 
 import { useApi } from 'api/hooks.ts'
 import { getQuiz } from 'api/quiz.ts'
-import { isAnsweredCorrectly, Quiz } from 'model/quiz-question.ts'
+import { isAnsweredCorrectly, type Quiz } from 'model/quiz-question.ts'
 
 import { QuizScore } from './quiz-score.tsx'
-import { QuizQuestionForm, QuizState } from './quiz.tsx'
-import { TimeOutReachedModal } from './components/timeout-reached-modal.tsx'
-import { Countdown } from "./components/countdown.tsx"
+import { QuizQuestionForm, type QuizState } from './quiz.tsx'
 
 export const QuizTakePage = () => {
     const params = useParams()
     const quizId = params.id
     const [quizScore, setQuizScore] = useState<QuizScore | null>(null)
     const isEvaluated = quizScore !== null
-    const [timeoutReached, setTimeoutReached] = useState(false)
     const [quizState, setQuizState] = useState<QuizState>([])
     const [firstQuizState, setFirstQuizState] = useState<QuizState>([])
 
@@ -49,18 +46,14 @@ export const QuizTakePage = () => {
                 showFirstAnwers={quiz.afterEach}
             />
         ) : (
-            <>
-                <Countdown setTimeoutReached={setTimeoutReached} timeLimit={quiz.timeLimit} />
-                {timeoutReached && <TimeOutReachedModal onEvaluate={onEvaluate} timeoutReached={timeoutReached} />}
-                <QuizQuestionForm
-                    setFirstQuizState={setFirstQuizState}
-                    setQuizState={setQuizState}
-                    firstQuizState={firstQuizState}
-                    quizState={quizState}
-                    onEvaluate={onEvaluate}
-                    quiz={quiz}
-                />
-            </>
+            <QuizQuestionForm
+                setFirstQuizState={setFirstQuizState}
+                setQuizState={setQuizState}
+                firstQuizState={firstQuizState}
+                quizState={quizState}
+                onEvaluate={onEvaluate}
+                quiz={quiz}
+            />
         )
     }
 }

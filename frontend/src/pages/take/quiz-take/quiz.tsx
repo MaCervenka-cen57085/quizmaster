@@ -1,4 +1,4 @@
-import { type AnswerIdxs, type Quiz } from 'model/quiz-question'
+import type { AnswerIdxs, Quiz } from 'model/quiz-question'
 import { QuestionForm } from '../question-take/index.ts'
 import { useState } from 'react'
 import { ProgressBar } from './components/progress-bar.tsx'
@@ -6,6 +6,8 @@ import { EvaluateButton, NextButton, BackButton, SkipButton, BookmarkButton } fr
 
 import { BookmarkList } from './components/bookmark-list.tsx'
 import { useStateSet } from 'helpers.ts'
+import { Countdown } from './components/countdown.tsx'
+import { TimeOutReachedModal } from './components/timeout-reached-modal.tsx'
 
 interface QuizQuestionProps {
     readonly onEvaluate: () => void
@@ -25,6 +27,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
     const currentQuestion = props.quiz.questions[currentQuestionIdx]
     const isLastQuestion = currentQuestionIdx === props.quiz.questions.length - 1
     const isFirstQuestion = currentQuestionIdx === 0
+    const [timeoutReached, setTimeoutReached] = useState(false)
 
     const isAnswered = props.quizState[currentQuestionIdx] !== undefined
 
@@ -80,6 +83,8 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
 
     return (
         <div>
+            <Countdown setTimeoutReached={setTimeoutReached} timeLimit={props.quiz.timeLimit} />
+            {timeoutReached && <TimeOutReachedModal onEvaluate={props.onEvaluate} timeoutReached={timeoutReached} />}
             <h2>Quiz</h2>
             <ProgressBar current={currentQuestionIdx + 1} total={props.quiz.questions.length} />
 
