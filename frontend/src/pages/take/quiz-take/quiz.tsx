@@ -9,12 +9,8 @@ import { useStateSet } from 'helpers.ts'
 import { TimeLimit } from './time-limit/with-time-limit.tsx'
 
 interface QuizQuestionProps {
-    readonly onEvaluate: () => void
     readonly quiz: Quiz
-    firstQuizState: QuizState
-    quizState: QuizState
-    setFirstQuizState: (firstQuizState: QuizState) => void
-    setQuizState: (quizState: QuizState) => void
+    readonly onEvaluate: (quizState: QuizState, firstQuizState: QuizState) => void
 }
 
 export type QuizState = readonly AnswerIdxs[]
@@ -27,17 +23,20 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
     const isLastQuestion = currentQuestionIdx === props.quiz.questions.length - 1
     const isFirstQuestion = currentQuestionIdx === 0
 
-    const isAnswered = props.quizState[currentQuestionIdx] !== undefined
+    const [quizState, setQuizState] = useState<QuizState>([])
+    const [firstQuizState, setFirstQuizState] = useState<QuizState>([])
+
+    const isAnswered = quizState[currentQuestionIdx] !== undefined
 
     const onSubmitted = (selectedAnswerIdxs: AnswerIdxs) => {
-        const newQuizState = Array.from(props.quizState)
+        const newQuizState = Array.from(quizState)
         newQuizState[currentQuestionIdx] = selectedAnswerIdxs
-        props.setQuizState(newQuizState)
+        setQuizState(newQuizState)
 
-        if (props.firstQuizState[currentQuestionIdx] === undefined) {
-            const newFirstQuizState = Array.from(props.firstQuizState)
+        if (firstQuizState[currentQuestionIdx] === undefined) {
+            const newFirstQuizState = Array.from(firstQuizState)
             newFirstQuizState[currentQuestionIdx] = selectedAnswerIdxs
-            props.setFirstQuizState(newFirstQuizState)
+            setFirstQuizState(newFirstQuizState)
         }
 
         removeSkippedQuestion(currentQuestionIdx)
@@ -76,12 +75,14 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
         onDelete: () => removeBookmarkQuestion(idx),
     }))
 
+    const onEvaluate = () => props.onEvaluate(quizState, firstQuizState)
+
     const anySkippedQuestions = skippedQuestions.size > 0
     const isQuestionSkipable = !isAnswered && (!isLastQuestion || anySkippedQuestions)
 
     return (
         <div>
-            <TimeLimit timeLimit={props.quiz.timeLimit} onConfirm={props.onEvaluate} />
+            <TimeLimit timeLimit={props.quiz.timeLimit} onConfirm={onEvaluate} />
             <h2>Quiz</h2>
             <ProgressBar current={currentQuestionIdx + 1} total={props.quiz.questions.length} />
 
@@ -104,7 +105,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
                     (!isLastQuestion || anySkippedQuestions ? (
                         <NextButton onClick={onNext} />
                     ) : (
-                        <EvaluateButton onClick={props.onEvaluate} />
+                        <EvaluateButton onClick={onEvaluate} />
                     ))}
                 {isQuestionSkipable && <SkipButton onClick={onSkip} />}
                 <BookmarkButton isBookmarked={bookmarkedQuestions.has(currentQuestionIdx)} onClick={onBookmark} />

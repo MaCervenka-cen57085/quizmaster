@@ -13,12 +13,10 @@ export const QuizTakePage = () => {
     const quizId = params.id
     const [quizScore, setQuizScore] = useState<QuizScore | null>(null)
     const isEvaluated = quizScore !== null
-    const [quizState, setQuizState] = useState<QuizState>([])
-    const [firstQuizState, setFirstQuizState] = useState<QuizState>([])
 
     const [quiz, setQuiz] = useState<Quiz>()
 
-    const onEvaluate = () => {
+    const onEvaluate = (quizState: QuizState, firstQuizState: QuizState) => {
         if (quiz) {
             setQuizScore({
                 correct: quiz.questions.filter((question, idx) =>
@@ -46,14 +44,7 @@ export const QuizTakePage = () => {
                 showFirstAnwers={quiz.afterEach}
             />
         ) : (
-            <QuizQuestionForm
-                setFirstQuizState={setFirstQuizState}
-                setQuizState={setQuizState}
-                firstQuizState={firstQuizState}
-                quizState={quizState}
-                onEvaluate={onEvaluate}
-                quiz={quiz}
-            />
+            <QuizQuestionForm quiz={quiz} onEvaluate={onEvaluate} />
         )
     }
 }
