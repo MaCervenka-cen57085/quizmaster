@@ -1,11 +1,6 @@
 import type { QuizQuestion } from 'model/quiz-question'
+import { QuizScore } from './quiz-score.ts'
 import { Question } from './components/question'
-
-export interface QuizScore {
-    readonly correct: number
-    readonly firstCorrect: number
-    readonly total: number
-}
 
 interface QuizScorePageProps {
     readonly score: QuizScore

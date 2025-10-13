@@ -1,9 +1,9 @@
 import { useState } from 'react'
 
 import { useQuizApi } from './hooks.ts'
-import { isAnsweredCorrectly } from 'model/quiz-question.ts'
+import { evaluate, QuizScore } from './quiz-score.ts'
 
-import { QuizScorePage, type QuizScore } from './quiz-score-page.tsx'
+import { QuizScorePage } from './quiz-score-page.tsx'
 import { QuizQuestionForm, type QuizState } from './quiz.tsx'
 
 export const QuizTakePage = () => {
@@ -12,20 +12,13 @@ export const QuizTakePage = () => {
     const isEvaluated = quizScore !== null
 
     const onEvaluate = (quizState: QuizState, firstQuizState: QuizState) => {
-        if (quiz) {
-            setQuizScore({
-                correct: quiz.questions.filter((question, idx) =>
-                    isAnsweredCorrectly(quizState[idx], question.correctAnswers),
-                ).length,
-                firstCorrect: quiz.questions.filter((question, idx) =>
-                    isAnsweredCorrectly(firstQuizState[idx], question.correctAnswers),
-                ).length,
-                total: quiz.questions.length,
-            })
-            quiz.questions.forEach((question, idx) => {
-                question.userInput = quizState[idx]
-            })
-        }
+        if (!quiz) return
+
+        setQuizScore(evaluate(quiz, firstQuizState, quizState))
+        // TODO wtf?
+        quiz.questions.forEach((question, idx) => {
+            question.userInput = quizState[idx]
+        })
     }
 
     if (quiz) {
