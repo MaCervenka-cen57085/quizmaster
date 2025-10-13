@@ -4,16 +4,16 @@ import { TimeOutReachedModal } from './timeout-reached-modal.tsx'
 
 interface TimeLimitProps {
     readonly timeLimit: number
-    readonly onEvaluate: () => void
+    readonly onConfirm: () => void
 }
 
-export const TimeLimit = ({ timeLimit, onEvaluate }: TimeLimitProps) => {
+export const TimeLimit = ({ timeLimit, onConfirm }: TimeLimitProps) => {
     const [timeoutReached, setTimeoutReached] = useState(false)
 
     return (
         <div>
-            <Countdown setTimeoutReached={setTimeoutReached} timeLimit={timeLimit} />
-            {timeoutReached && <TimeOutReachedModal onEvaluate={onEvaluate} timeoutReached={timeoutReached} />}
+            <Countdown timeLimit={timeLimit} onTimeLimit={() => setTimeoutReached(true)} />
+            {timeoutReached && <TimeOutReachedModal onConfirm={onConfirm} />}
         </div>
     )
 }

@@ -81,7 +81,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
 
     return (
         <div>
-            <TimeLimit timeLimit={props.quiz.timeLimit} onEvaluate={props.onEvaluate} />
+            <TimeLimit timeLimit={props.quiz.timeLimit} onConfirm={props.onEvaluate} />
             <h2>Quiz</h2>
             <ProgressBar current={currentQuestionIdx + 1} total={props.quiz.questions.length} />
 

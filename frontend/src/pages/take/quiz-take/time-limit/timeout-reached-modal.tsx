@@ -1,16 +1,14 @@
 import { useEffect, useRef } from 'react'
-import { EvaluateButton } from '../components/buttons'
+import { EvaluateButton } from '../components/buttons.tsx'
 
-export const TimeOutReachedModal = ({
-    timeoutReached,
-    onEvaluate,
-}: {
-    timeoutReached: boolean
-    onEvaluate: () => void
-}) => {
+interface TimeOutReachedModalProps {
+    readonly onConfirm: () => void
+}
+
+export const TimeOutReachedModal = ({ onConfirm }: TimeOutReachedModalProps) => {
     const dialogRef = useRef<HTMLDialogElement>(null)
     useEffect(() => {
-        if (timeoutReached && dialogRef.current) {
+        if (dialogRef.current) {
             dialogRef.current.showModal()
         }
     })
@@ -18,7 +16,7 @@ export const TimeOutReachedModal = ({
     return (
         <dialog ref={dialogRef}>
             <p>Game over time</p>
-            <EvaluateButton onClick={onEvaluate} />
+            <EvaluateButton onClick={onConfirm} />
         </dialog>
     )
 }
