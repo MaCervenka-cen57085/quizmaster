@@ -20,16 +20,6 @@ export interface Answers {
     readonly questionExplanation: string
 }
 
-export interface Quiz {
-    readonly id: number
-    readonly title: string
-    readonly description: string
-    readonly questions: QuizQuestion[]
-    readonly afterEach: boolean
-    readonly passScore: number
-    readonly timeLimit: number
-}
-
 export interface QuizCreateRequest {
     readonly title: string
     readonly description: string

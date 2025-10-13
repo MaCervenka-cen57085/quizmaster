@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import type { Quiz } from 'model/quiz-question.ts'
+import type { Quiz } from 'model/quiz.ts'
 import { useApi } from 'api/hooks.ts'
 import { fetchQuiz } from 'api/quiz.ts'
 import { QuizDetails } from './quiz-details.tsx'

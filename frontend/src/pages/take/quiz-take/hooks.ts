@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 
 import { useApi } from 'api/hooks'
 import { fetchQuiz } from 'api/quiz'
-import type { Quiz } from 'model/quiz-question'
+import type { Quiz } from 'model/quiz.ts'
 
 export const useQuizApi = () => {
     const params = useParams()

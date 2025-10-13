@@ -1,4 +1,5 @@
-import type { AnswerIdxs, Quiz } from 'model/quiz-question'
+import type { AnswerIdxs } from 'model/quiz-question'
+import type { Quiz } from 'model/quiz.ts'
 import { QuestionForm } from '../question-take/index.ts'
 import { useState } from 'react'
 import { ProgressBar } from './components/progress-bar.tsx'

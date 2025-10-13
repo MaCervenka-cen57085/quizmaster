@@ -1,4 +1,5 @@
-import { isAnsweredCorrectly, type AnswerIdxs, type Quiz } from 'model/quiz-question.ts'
+import { isAnsweredCorrectly, type AnswerIdxs } from 'model/quiz-question.ts'
+import type { Quiz } from 'model/quiz.ts'
 
 export type SelectedAnswers = readonly AnswerIdxs[]
 

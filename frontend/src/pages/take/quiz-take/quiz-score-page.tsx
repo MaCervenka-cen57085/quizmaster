@@ -1,4 +1,4 @@
-import type { Quiz } from 'model/quiz-question'
+import type { Quiz } from 'model/quiz.ts'
 import type { QuizScore } from './quiz-score.ts'
 import { Question } from './components/question'
 
