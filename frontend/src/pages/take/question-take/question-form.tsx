@@ -11,6 +11,7 @@ import { QuestionScore } from './components/question-score'
 
 export interface QuestionFormProps {
     readonly question: QuizQuestion
+    readonly selectedAnswerIdxs?: AnswerIdxs
     readonly onSubmitted?: (selectedAnswerIdxs: AnswerIdxs) => void
     readonly afterEach: boolean
 }

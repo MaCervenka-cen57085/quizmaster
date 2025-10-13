@@ -42,7 +42,6 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
         }
 
         removeSkippedQuestion(currentQuestionIdx)
-        props.quiz.questions[currentQuestionIdx].userInput = selectedAnswerIdxs
     }
 
     const onNext = () => {
@@ -95,6 +94,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
                 <QuestionForm
                     key={currentQuestion.id}
                     question={currentQuestion}
+                    selectedAnswerIdxs={quizState[currentQuestionIdx]}
                     onSubmitted={props.quiz.afterEach ? onSubmitted : onSubmittedAndNext}
                     afterEach={props.quiz.afterEach}
                 />

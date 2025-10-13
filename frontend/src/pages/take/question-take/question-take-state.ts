@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import type { AnswerIdxs } from 'model/quiz-question'
 import type { QuestionFormProps } from './question-form'
 
@@ -15,18 +15,13 @@ export const useQuestionTakeState = (props: QuestionFormProps): QuestionTakeStat
     const question = props.question
     const isMultipleChoice = question.correctAnswers.length > 1
 
-    const [selectedAnswerIdxs, setSelectedAnswerIdxs] = useState<AnswerIdxs>([])
+    const [selectedAnswerIdxs, setSelectedAnswerIdxs] = useState<AnswerIdxs>(props.selectedAnswerIdxs ?? [])
 
     const setSelectedAnswerIdx = (idx: number) => setSelectedAnswerIdxs([idx])
     const addSelectedAnswerIdx = (idx: number) => setSelectedAnswerIdxs(prev => [...prev, idx])
     const removeSelectedAnswerIdx = (idx: number) => setSelectedAnswerIdxs(prev => prev.filter(i => i !== idx))
 
     const [submitted, setSubmitted] = useState(false)
-
-    useEffect(() => {
-        if (props.question.userInput && props.question.userInput.length > 0)
-            setSelectedAnswerIdxs(props.question.userInput)
-    }, [props.question.userInput])
 
     const submit = () => setSubmitted(true)
 

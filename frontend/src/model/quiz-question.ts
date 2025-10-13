@@ -10,7 +10,6 @@ export interface QuizQuestion {
     readonly correctAnswers: AnswerIdxs
     readonly isDeletable?: boolean
     questionListGuid: string | null
-    userInput?: AnswerIdxs
     easyMode: boolean
 }
 
