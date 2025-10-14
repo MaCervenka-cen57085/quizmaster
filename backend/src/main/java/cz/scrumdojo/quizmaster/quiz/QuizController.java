@@ -85,7 +85,7 @@ public class QuizController {
 
      @Transactional
     @PutMapping("/quiz/{id}")
-    public ResponseEntity<Void> updateQuiz(@PathVariable Integer id, @RequestBody Quiz quizInput) {
+    public ResponseEntity<Void> updateQuizCounts(@PathVariable Integer id) {
         Quiz quiz = this.quizRepository.findById(id).orElse(null);
 
         if (quiz == null) {

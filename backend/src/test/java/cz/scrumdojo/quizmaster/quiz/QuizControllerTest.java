@@ -168,7 +168,7 @@ public class QuizControllerTest {
     }
 
     @Test
-    public void updateQuizOnly() {
+    public void updateQuizCountsOnly() {
         // Vytvoření quizu
         Quiz quizInput = createQuizInput();
         Integer quizId = createQuiz(quizInput);
@@ -180,7 +180,7 @@ public class QuizControllerTest {
         quizInput.setPassScore(90);
 
         // Aktualizace quizu a kontrola statusu
-        ResponseEntity<Void> resp = quizController.updateQuiz(quizInput.getId(), quizInput);
+        ResponseEntity<Void> resp = quizController.updateQuizCounts(quizInput.getId());
         assertNotNull(resp);
         assertEquals(HttpStatus.OK, resp.getStatusCode());
     }
