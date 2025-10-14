@@ -7,6 +7,14 @@ Feature: Create Quiz from Question list
       | 3 * 3 = ? | 9 (*), 6 |
       | 4 / 2 = ? | 2 (*), 3 |
 
+  Scenario: Create quiz with default values
+    When I start creating a new quiz
+    Then I see empty quiz title
+    And I see empty quiz description
+    And I see time limit 600 seconds
+    And I see pass score 80
+    And I see quiz question "2 + 2 = ?"
+
   Scenario: Create quiz with 3 questions
     When I start creating a new quiz
     * I enter quiz name "Math Quiz"

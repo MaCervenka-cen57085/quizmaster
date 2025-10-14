@@ -5,9 +5,13 @@ export class QuizCreatePage {
     timeLimitInput = () => this.page.locator('#time-limit')
     passScoreInput = () => this.page.locator('#pass-score')
     questionsInList = () => this.page.locator('.create-quiz > .question-item')
+    getQuestion = (question: string) => this.page.locator('label', { hasText: question })
     selectQuestion = (question: string) => this.page.locator('label', { hasText: question }).click()
     private submitLocator = () => this.page.locator('button[type="submit"]')
     submit = () => this.submitLocator().click()
+
+    getQuizTitleValue = () => this.page.locator('#quiz-title').inputValue()
+    getQuizDescriptionValue = () => this.page.locator('#quiz-description').inputValue()
     enterQuizName = (title: string) => this.page.locator('#quiz-title').fill(title)
     enterDescription = (description: string) => this.page.locator('#quiz-description').fill(description)
     private quizUrlLocator = () => this.page.locator('.alert.success a')
