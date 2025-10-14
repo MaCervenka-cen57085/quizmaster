@@ -43,7 +43,13 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
         onDelete: () => bookmarks.remove(questionIdx),
     }))
 
-    const evaluate = () => props.onEvaluate(quizAnswers)
+    const evaluate = async () => {
+        const quizId = props.quiz.id
+        await fetch(`/api/quiz/${quizId}`, {
+            method: 'PUT',
+        })
+        props.onEvaluate(quizAnswers)
+    }
 
     const currentQuestion = props.quiz.questions[nav.currentQuestionIdx]
     const currentAnswers = quizAnswers.finalAnswers[nav.currentQuestionIdx]
