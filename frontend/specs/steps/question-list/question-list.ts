@@ -45,3 +45,7 @@ Then(/I copy the (take|edit) question URL "(.+)" from the list/, async function 
     if (page === 'take') await this.questionListPage.copyTakeQuestion(question)
     else if (page === 'edit') await this.questionListPage.copyEditQuestion(question)
 })
+
+Then('I see the quiz {string} in the question list', async function (quizName: string)  {
+    await expectTextToContain(this.page.getByText(quizName), quizName)
+})

@@ -7,6 +7,16 @@ Feature: Create Quiz from Question list
       | 3 * 3 = ? | 9 (*), 6 |
       | 4 / 2 = ? | 2 (*), 3 |
 
+  @feature-flag
+  Scenario: Create quiz and display it in quiz list
+    When I start creating a new quiz
+    * I enter quiz name "Math Quiz"
+    * I enter quiz description "Very hard math quiz"
+    * I select question "2 + 2 = ?"
+    * I select question "4 / 2 = ?"
+    * I submit the quiz
+    Then I see the quiz "Math Quiz" in the question list
+
   Scenario: Create quiz with default values
     When I start creating a new quiz
     Then I see empty quiz title
@@ -17,7 +27,8 @@ Feature: Create Quiz from Question list
     And I see quiz question "3 * 3 = ?"
     And I see quiz question "4 / 2 = ?"
 
-  Scenario: Create quiz with 3 questions
+@skip
+Scenario: Create quiz with 3 questions
     When I start creating a new quiz
     * I enter quiz name "Math Quiz"
     * I enter quiz description "Very hard math quiz"

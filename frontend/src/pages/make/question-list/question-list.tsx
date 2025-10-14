@@ -5,10 +5,14 @@ import { QuestionItem } from './question-item'
 import './question-list.scss'
 import type { QuizQuestion } from 'model/quiz-question'
 import type { QuestionList } from 'model/question-list'
+import type { Quiz } from 'model/quiz'
+import { QuizItem } from '../quiz-create/quiz-item'
+
 
 interface QuestionListProps {
     readonly questionList: QuestionList
     readonly questions: readonly QuizQuestion[]
+    readonly quizes?: readonly Quiz[]
 }
 
 type EditQuestionButtonProps = { id: string; hash: string; onClick: () => void }
@@ -111,7 +115,14 @@ export function QuestionListComponent({ questionList, questions }: QuestionListP
                     />
                 ))}
             </div>
+
             <CreateQuizButton onClick={onCreateQuiz} />
+
+            <div>
+                {FEATURE_FLAG_ENABLED && (
+                    <QuizItem />
+                )}
+            </div>
         </div>
     )
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { useApi } from 'api/hooks'
 import { fetchListQuestions } from 'api/question-list'
@@ -15,6 +15,7 @@ import { QuizInfoUrl } from './components/quiz-info-url'
 export const QuizCreatePage = () => {
     const [searchParams] = useSearchParams()
     const listGuid = searchParams.get('listguid')
+    const navigate = useNavigate()
 
     const [questionList, setQuestionList] = useState<readonly QuizQuestion[]>([])
     const [quizId, setQuizId] = useState<string | undefined>(undefined)
@@ -26,6 +27,9 @@ export const QuizCreatePage = () => {
         tryCatch(setErrorMessage, async () => {
             const quizId = await postQuiz(data)
             setQuizId(quizId)
+            if (FEATURE_FLAG_ENABLED) {
+                navigate(`/q-list/${listGuid}`)
+            }
         })
 
     return (

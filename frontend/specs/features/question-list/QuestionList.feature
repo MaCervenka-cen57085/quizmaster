@@ -1,4 +1,4 @@
-Feature: Question list
+Feature: Question list (TODO: will be renamed to "Workspace" where question list and quiz list will be displayed)
 
   Scenario: Take question in a question list
     Given a question list with questions
