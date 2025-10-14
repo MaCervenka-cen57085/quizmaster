@@ -82,4 +82,17 @@ public class QuizController {
         Quiz output = quizRepository.save(quiz);
         return ResponseEntity.ok(output.getId());
     }
+
+     @Transactional
+    @PutMapping("/quiz/{id}")
+    public ResponseEntity<Void> updateQuiz(@PathVariable Integer id, @RequestBody Quiz quizInput) {
+        Quiz quiz = this.quizRepository.findById(id).orElse(null);
+
+        if (quiz == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Quiz output = quizRepository.save(quiz);
+        return ResponseEntity.ok().build();
+    }
 }

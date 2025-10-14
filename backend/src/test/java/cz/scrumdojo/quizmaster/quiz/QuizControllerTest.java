@@ -166,4 +166,22 @@ public class QuizControllerTest {
         assertEquals(quizInput.getQuestionIds().length, quizGetBodyQuestions.length);
         assertEquals(quizInput.getQuestionIds()[0], quizGetBodyQuestions[0].getId());
     }
+
+    @Test
+    public void updateQuizOnly() {
+        // Vytvoření quizu
+        Quiz quizInput = createQuizInput();
+        Integer quizId = createQuiz(quizInput);
+
+        // Změna dat quizu
+        quizInput.setId(quizId);
+        quizInput.setTitle("Updated title");
+        quizInput.setDescription("Updated description");
+        quizInput.setPassScore(90);
+
+        // Aktualizace quizu a kontrola statusu
+        ResponseEntity<Void> resp = quizController.updateQuiz(quizInput.getId(), quizInput);
+        assertNotNull(resp);
+        assertEquals(HttpStatus.OK, resp.getStatusCode());
+    }
 }
