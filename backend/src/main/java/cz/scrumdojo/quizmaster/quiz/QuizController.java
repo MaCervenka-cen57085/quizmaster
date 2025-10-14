@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import cz.scrumdojo.quizmaster.model.QuizCreateWithListRequest;
+import cz.scrumdojo.quizmaster.model.ScoreRequest;
 import java.util.ArrayList;
 
 @Slf4j
@@ -47,6 +48,9 @@ public class QuizController {
             .afterEach(quiz.isAfterEach())
             .passScore(quiz.getPassScore())
             .timeLimit(quiz.getTimeLimit())
+            .timesTaken(quiz.getTimesTaken())
+            .timesFinished(quiz.getTimesFinished())
+            .averageScore(quiz.getAverageScore())
             .build();
 
         return ResponseEntity.ok(build);
@@ -84,7 +88,7 @@ public class QuizController {
     }
 
      @Transactional
-    @PutMapping("/quiz/{id}")
+    @PutMapping("/quiz/{id}/start")
     public ResponseEntity<Void> updateQuizCounts(@PathVariable Integer id) {
         Quiz quiz = this.quizRepository.findById(id).orElse(null);
 
@@ -92,7 +96,28 @@ public class QuizController {
             return ResponseEntity.notFound().build();
         }
 
+        quiz.setTimesTaken(quiz.getTimesTaken() + 1);
+
         Quiz output = quizRepository.save(quiz);
+        return ResponseEntity.ok().build();
+    }
+
+
+    @Transactional
+    @PutMapping("/quiz/{id}/evaluate")
+    public ResponseEntity<Void> updateQuizFinishedCounts(@PathVariable Integer id, @RequestBody ScoreRequest payload) {
+        int score = payload.getScore();
+
+        Quiz quiz = this.quizRepository.findById(id).orElse(null);
+
+        if (quiz == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        quiz.setTimesFinished(quiz.getTimesFinished() + 1);
+        quiz.setAverageScore(quiz.getAverageScore() + (score - quiz.getAverageScore()) / (quiz.getTimesFinished()));
+
+        quizRepository.save(quiz);
         return ResponseEntity.ok().build();
     }
 }

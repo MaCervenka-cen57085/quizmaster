@@ -1,6 +1,7 @@
 package cz.scrumdojo.quizmaster.quiz;
 
 import cz.scrumdojo.quizmaster.model.QuizCreateWithListRequest;
+import cz.scrumdojo.quizmaster.model.ScoreRequest;
 import cz.scrumdojo.quizmaster.question.QuizQuestion;
 import cz.scrumdojo.quizmaster.question.QuizQuestionRepository;
 import cz.scrumdojo.quizmaster.questionList.QuestionList;
@@ -169,19 +170,38 @@ public class QuizControllerTest {
 
     @Test
     public void updateQuizCountsOnly() {
-        // Vytvoření quizu
         Quiz quizInput = createQuizInput();
         Integer quizId = createQuiz(quizInput);
 
-        // Změna dat quizu
         quizInput.setId(quizId);
         quizInput.setTitle("Updated title");
         quizInput.setDescription("Updated description");
         quizInput.setPassScore(90);
 
-        // Aktualizace quizu a kontrola statusu
         ResponseEntity<Void> resp = quizController.updateQuizCounts(quizInput.getId());
         assertNotNull(resp);
         assertEquals(HttpStatus.OK, resp.getStatusCode());
+    }
+
+
+    @Test
+    public void updateQuizFinishedCountsOnly() {
+        Quiz quizInput = createQuizInput();
+        Integer quizId = createQuiz(quizInput);
+
+        quizInput.setId(quizId);
+        quizInput.setTitle("Updated title");
+        quizInput.setDescription("Updated description");
+        quizInput.setPassScore(90);
+
+        quizController.updateQuizFinishedCounts(quizInput.getId(), new ScoreRequest(80));
+        quizController.updateQuizFinishedCounts(quizInput.getId(), new ScoreRequest(90));
+        quizController.updateQuizFinishedCounts(quizInput.getId(), new ScoreRequest(100));
+
+        Optional<Quiz> byId = quizRepository.findById(quizId);
+        assertTrue(byId.isPresent());
+        Quiz quiz = byId.get();
+        assertEquals(90.0, quiz.getAverageScore());
+        assertEquals(3, quiz.getTimesFinished());
     }
 }

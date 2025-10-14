@@ -29,4 +29,8 @@ public class Quiz {
     private boolean afterEach;
     private int passScore;
     private Integer timeLimit; // time limit in seconds, null means no limit
+
+    private int timesTaken;
+    private int timesFinished;
+    private double averageScore;
 }

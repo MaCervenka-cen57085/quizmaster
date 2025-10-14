@@ -15,7 +15,7 @@ export const QuizWelcomePage = () => {
 
     const onStart = async () => {
         const quizId = params.id
-        await fetch(`/api/quiz/${quizId}`, {
+        await fetch(`/api/quiz/${quizId}/start`, {
             method: 'PUT',
         })
         navigate(`/quiz/${quizId}/questions`)
