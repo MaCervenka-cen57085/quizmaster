@@ -14,6 +14,8 @@ Feature: Create Quiz from Question list
     And I see time limit 600 seconds
     And I see pass score 80
     And I see quiz question "2 + 2 = ?"
+    And I see quiz question "3 * 3 = ?"
+    And I see quiz question "4 / 2 = ?"
 
   Scenario: Create quiz with 3 questions
     When I start creating a new quiz
