@@ -8,7 +8,6 @@ import type { QuestionList } from 'model/question-list'
 import type { Quiz } from 'model/quiz'
 import { QuizItem } from '../quiz-create/quiz-item'
 
-
 interface QuestionListProps {
     readonly questionList: QuestionList
     readonly questions: readonly QuizQuestion[]
@@ -118,9 +117,7 @@ export function QuestionListComponent({ questionList, questions }: QuestionListP
 
             <CreateQuizButton onClick={onCreateQuiz} />
 
-            <div>
-                {FEATURE_FLAG_ENABLED && <QuizItem />}
-            </div>
+            <div>{FEATURE_FLAG_ENABLED && <QuizItem />}</div>
         </div>
     )
 }
