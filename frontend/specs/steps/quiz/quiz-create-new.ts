@@ -19,15 +19,25 @@ When('I see empty quiz description', async function () {
 })
 
 When('I see time limit 600 seconds', async function () {
-    await this.quizCreatePage.timeLimitInput().inputValue().then(value => expect(value).toBe('600'))
+    await this.quizCreatePage
+        .timeLimitInput()
+        .inputValue()
+        .then(value => expect(value).toBe('600'))
 })
 
 When('I see pass score 80', async function () {
-    await this.quizCreatePage.passScoreInput().inputValue().then(value => expect(value).toBe('80'))
+    await this.quizCreatePage
+        .passScoreInput()
+        .inputValue()
+        .then(value => expect(value).toBe('80'))
 })
 
 When('I see quiz question {string}', async function (title: string) {
-    await this.quizCreatePage.getQuestion(title).first().isVisible().then(visible => expect(visible).toEqual(true))
+    await this.quizCreatePage
+        .getQuestion(title)
+        .first()
+        .isVisible()
+        .then(visible => expect(visible).toEqual(true))
 })
 
 When('I enter quiz description {string}', async function (title: string) {
