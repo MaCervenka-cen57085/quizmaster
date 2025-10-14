@@ -18,4 +18,7 @@ public class QuizResponse {
     private int passScore;
     private String description;
     private Integer timeLimit;
+    private int timesTaken;
+    private int timesFinished;
+    private double averageScore;
 }
