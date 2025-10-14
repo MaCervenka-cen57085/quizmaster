@@ -27,7 +27,7 @@ Scenario: Create quiz with default values
     And I see quiz question "3 * 3 = ?"
     And I see quiz question "4 / 2 = ?"
 
-@skip
+@not-feature-flag
 Scenario: Create quiz with 3 questions
     When I start creating a new quiz
     * I enter quiz name "Math Quiz"
