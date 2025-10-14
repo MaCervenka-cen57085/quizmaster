@@ -33,7 +33,11 @@ export const QuizCreatePage = () => {
             <QuizCreateForm questions={questionList} onSubmit={onSubmit} />
 
             {errorMessage && <Alert type="error">{errorMessage}</Alert>}
-            {quizId && <><QuizUrl quizId={quizId} /> <QuizInfoUrl quizId={quizId} /></>}
+            {quizId && (
+                <>
+                    <QuizUrl quizId={quizId} /> <QuizInfoUrl quizId={quizId} />
+                </>
+            )}
         </Page>
     )
 }
