@@ -1,6 +1,6 @@
 Feature: Create Quiz from Question list
 
-  Background:
+Background:
     Given a question list with questions
       | question  | answers  |
       | 2 + 2 = ? | 4 (*), 5 |
@@ -17,7 +17,7 @@ Feature: Create Quiz from Question list
     * I submit the quiz
     Then I see the quiz "Math Quiz" in the question list
 
-  Scenario: Create quiz with default values
+Scenario: Create quiz with default values
     When I start creating a new quiz
     Then I see empty quiz title
     And I see empty quiz description
