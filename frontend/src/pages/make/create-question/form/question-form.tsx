@@ -85,7 +85,7 @@ export const QuestionEditForm = ({
                         onClick={handleQuestionDelete}
                         disabled={!questionData.isDeletable}
                         title={!questionData.isDeletable ? 'Otázku nelze smazat je obsažena v kvízu!' : ''}
-                        dataTestId="delete-button"
+                        data-testid="delete-button"
                         className="secondary button"
                     >
                         Delete question

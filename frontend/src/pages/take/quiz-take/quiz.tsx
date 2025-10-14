@@ -61,15 +61,13 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
             <h2>Quiz</h2>
             <ProgressBar current={nav.currentQuestionIdx + 1} total={props.quiz.questions.length} />
 
-            <div className={bookmarks.has(nav.currentQuestionIdx) ? 'bookmarked' : ''} data-testid="bookmark-toggle">
-                <QuestionForm
-                    key={currentQuestion.id}
-                    question={currentQuestion}
-                    selectedAnswerIdxs={quizAnswers.finalAnswers[nav.currentQuestionIdx]}
-                    onSubmitted={props.quiz.afterEach ? answer : answerAndNext}
-                    afterEach={props.quiz.afterEach}
-                />
-            </div>
+            <QuestionForm
+                key={currentQuestion.id}
+                question={currentQuestion}
+                selectedAnswerIdxs={quizAnswers.finalAnswers[nav.currentQuestionIdx]}
+                onSubmitted={props.quiz.afterEach ? answer : answerAndNext}
+                afterEach={props.quiz.afterEach}
+            />
             <div
                 style={{ display: 'flex', gap: '10px', alignItems: 'center', marginTop: '10px', marginBottom: '20px' }}
             >

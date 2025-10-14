@@ -2,31 +2,25 @@ import { expect } from '@playwright/test'
 import { When, Then } from '../fixture.ts'
 
 Then('I see bookmarked question {string}', async function () {
-    const indicator = this.quizQuestionPage.bookmarkIndicator()
-    await indicator.waitFor({ state: 'attached' })
-    await expect(indicator).toHaveClass(/bookmarked/)
+    expect(await this.quizQuestionPage.isCurrentQuestionBookmarked()).toBe(true)
 })
 
 When('I click bookmark {string}', async function (questionTitle: string) {
-    await this.quizQuestionPage.clickBookmark(questionTitle)
+    await this.quizQuestionPage.gotoBookmark(questionTitle)
 })
 
 When('I bookmark question {string}', async function () {
-    await this.quizQuestionPage.clickAddQuestionToBookmark()
-})
-
-When('I remove bookmark {string}', async function () {
-    await this.quizQuestionPage.clickAddQuestionToBookmark()
+    await this.quizQuestionPage.bookmark()
 })
 
 When('I delete bookmark {string}', async function (questionTitle: string) {
-    await this.quizQuestionPage.deleteBookmark(questionTitle)
+    await this.quizQuestionPage.unBookmark(questionTitle)
 })
 
 Then('I see bookmark link {string}', async function (questionTitle: string) {
-    await expect(this.quizQuestionPage.bookmarkLink(questionTitle)).toBeVisible()
+    await expect(this.quizQuestionPage.bookmarkListLocator(questionTitle)).toBeVisible()
 })
 
 Then("I don't see bookmark link {string}", async function (questionTitle: string) {
-    await expect(this.quizQuestionPage.bookmarkLink(questionTitle)).toBeHidden()
+    await expect(this.quizQuestionPage.bookmarkListLocator(questionTitle)).toBeHidden()
 })

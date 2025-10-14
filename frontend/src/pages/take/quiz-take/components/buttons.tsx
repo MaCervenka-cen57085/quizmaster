@@ -1,4 +1,3 @@
-import type React from 'react'
 import { Button, type WithOnClick } from 'pages/components/button'
 
 export const NextButton = ({ onClick }: WithOnClick) => (
@@ -31,12 +30,12 @@ export const StartButton = ({ onClick }: WithOnClick) => (
 )
 
 interface BookmarkButtonProps {
-    isBookmarked: boolean
-    onClick: () => void
+    readonly isBookmarked: boolean
+    readonly onClick: () => void
 }
 
-export const BookmarkButton: React.FC<BookmarkButtonProps> = ({ isBookmarked, onClick }) => (
-    <Button id="add-question-to-bookmark" type="button" onClick={onClick}>
+export const BookmarkButton = ({ isBookmarked, onClick }: BookmarkButtonProps) => (
+    <Button type="button" onClick={onClick} data-testid="bookmark-toggle" data-bookmarked={isBookmarked}>
         {isBookmarked ? 'Unbookmark ⭐' : 'Bookmark ☆'}
     </Button>
 )

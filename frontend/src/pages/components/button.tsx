@@ -9,7 +9,6 @@ interface ButtonProps extends WithOnClick {
     readonly children: React.ReactNode
     readonly disabled?: boolean
     readonly title?: string
-    readonly dataTestId?: string
 }
 
 export const Button = ({
@@ -20,8 +19,8 @@ export const Button = ({
     children,
     disabled,
     title,
-    dataTestId,
-}: ButtonProps) => (
+    ...data
+}: ButtonProps & React.HTMLAttributes<HTMLButtonElement>) => (
     <button
         id={id}
         type={type}
@@ -29,7 +28,7 @@ export const Button = ({
         onClick={onClick}
         disabled={disabled}
         title={title}
-        data-testid={dataTestId}
+        {...data}
     >
         {children}
     </button>
