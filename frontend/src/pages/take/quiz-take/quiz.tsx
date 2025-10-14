@@ -5,10 +5,10 @@ import { ProgressBar } from './components/progress-bar.tsx'
 import { EvaluateButton, NextButton, BackButton, SkipButton, BookmarkButton } from './components/buttons.tsx'
 
 import { BookmarkList } from './components/bookmark-list.tsx'
-import { useStateSet } from 'helpers.ts'
 import { TimeLimit } from './time-limit/with-time-limit.tsx'
 import { useQuizAnswersState, type QuizAnswers } from './quiz-answers-state.ts'
 import { useQuizNavigationState } from './quiz-navigation-state.ts'
+import { useQuizBookmarkState } from './quiz-bookmark-state.ts'
 
 interface QuizQuestionProps {
     readonly quiz: Quiz
@@ -18,10 +18,9 @@ interface QuizQuestionProps {
 export type QuizState = readonly AnswerIdxs[]
 
 export const QuizQuestionForm = (props: QuizQuestionProps) => {
-    const [bookmarkedQuestions, toggleBookmarkQuestion, , removeBookmarkQuestion] = useStateSet<number>()
-
     const { quizAnswers, answerQuestion } = useQuizAnswersState()
     const nav = useQuizNavigationState(props.quiz)
+    const bookmarks = useQuizBookmarkState()
 
     const answer = (selectedAnswerIdxs: AnswerIdxs) => {
         answerQuestion(nav.currentQuestionIdx, selectedAnswerIdxs)
@@ -35,13 +34,13 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
         }
     }
 
-    const onBookmark = () => toggleBookmarkQuestion(nav.currentQuestionIdx)
+    const bookmark = () => bookmarks.toggle(nav.currentQuestionIdx)
 
     // Prepare bookmarks for BookmarkList
-    const bookmarks = Array.from(bookmarkedQuestions).map(idx => ({
-        title: props.quiz.questions[idx].question,
-        onClick: () => nav.goto(idx),
-        onDelete: () => removeBookmarkQuestion(idx),
+    const bookmarkList = Array.from(bookmarks.questionIdxs).map(questionIdx => ({
+        title: props.quiz.questions[questionIdx].question,
+        onClick: () => nav.goto(questionIdx),
+        onDelete: () => bookmarks.remove(questionIdx),
     }))
 
     const evaluate = () => props.onEvaluate(quizAnswers)
@@ -56,10 +55,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
             <h2>Quiz</h2>
             <ProgressBar current={nav.currentQuestionIdx + 1} total={props.quiz.questions.length} />
 
-            <div
-                className={bookmarkedQuestions.has(nav.currentQuestionIdx) ? 'bookmarked' : ''}
-                data-testid="bookmark-toggle"
-            >
+            <div className={bookmarks.has(nav.currentQuestionIdx) ? 'bookmarked' : ''} data-testid="bookmark-toggle">
                 <QuestionForm
                     key={currentQuestion.id}
                     question={currentQuestion}
@@ -75,11 +71,11 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
                 {isAnswered && nav.canNext && <NextButton onClick={nav.next} />}
                 {isAnswered && !nav.canNext && <EvaluateButton onClick={evaluate} />}
                 {!isAnswered && nav.canNext && <SkipButton onClick={nav.skip} />}
-                <BookmarkButton isBookmarked={bookmarkedQuestions.has(nav.currentQuestionIdx)} onClick={onBookmark} />
+                <BookmarkButton isBookmarked={bookmarks.has(nav.currentQuestionIdx)} onClick={bookmark} />
             </div>
 
             {/* Bookmark list visible for tests */}
-            <BookmarkList bookmarks={bookmarks} />
+            <BookmarkList bookmarks={bookmarkList} />
         </div>
     )
 }
