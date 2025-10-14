@@ -56,6 +56,10 @@ When('I take the quiz', async function () {
     await this.quizCreatePage.takeQuiz()
 })
 
+Then('I display the quiz statistics', async function () {
+    await this.quizCreatePage.showQuizStatistics()
+})
+
 Then('I see question list with {int} available questions', async function (count: number) {
     await expectedNumberOfChildrenToBe(this.quizCreatePage.questionsInList(), count)
 })

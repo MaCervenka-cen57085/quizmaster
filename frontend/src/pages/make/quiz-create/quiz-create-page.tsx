@@ -10,6 +10,7 @@ import { QuizCreateForm, type QuizCreateFormData } from './quiz-create-form'
 import { tryCatch } from 'helpers'
 import { Alert, Page } from 'pages/components'
 import { QuizUrl } from './components/quiz-url'
+import { QuizInfoUrl } from './components/quiz-info-url'
 
 export const QuizCreatePage = () => {
     const [searchParams] = useSearchParams()
@@ -32,7 +33,7 @@ export const QuizCreatePage = () => {
             <QuizCreateForm questions={questionList} onSubmit={onSubmit} />
 
             {errorMessage && <Alert type="error">{errorMessage}</Alert>}
-            {quizId && <QuizUrl quizId={quizId} />}
+            {quizId && <><QuizUrl quizId={quizId} /> <QuizInfoUrl quizId={quizId} /></>}
         </Page>
     )
 }
