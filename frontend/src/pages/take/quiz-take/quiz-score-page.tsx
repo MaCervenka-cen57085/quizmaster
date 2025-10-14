@@ -1,6 +1,6 @@
 import type { Quiz } from 'model/quiz.ts'
 import { evaluate } from './quiz-score.ts'
-import type { QuizAnswers } from './quiz-take-state.ts'
+import type { QuizAnswers } from './quiz-answers-state.ts'
 import { Question } from './components/question'
 
 interface QuizScorePageProps {

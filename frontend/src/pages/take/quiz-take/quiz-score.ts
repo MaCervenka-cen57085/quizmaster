@@ -1,6 +1,6 @@
 import { isAnsweredCorrectly } from 'model/quiz-question.ts'
 import type { Quiz } from 'model/quiz.ts'
-import type { QuizAnswers } from './quiz-take-state'
+import type { QuizAnswers } from './quiz-answers-state'
 
 export interface QuizScore {
     readonly correct: number

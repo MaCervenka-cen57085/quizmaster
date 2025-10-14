@@ -7,7 +7,8 @@ import { EvaluateButton, NextButton, BackButton, SkipButton, BookmarkButton } fr
 import { BookmarkList } from './components/bookmark-list.tsx'
 import { useStateSet } from 'helpers.ts'
 import { TimeLimit } from './time-limit/with-time-limit.tsx'
-import { useQuizAnswersState, useQuizNavigationState, type QuizAnswers } from './quiz-take-state.ts'
+import { useQuizAnswersState, type QuizAnswers } from './quiz-answers-state.ts'
+import { useQuizNavigationState } from './quiz-navigation-state.ts'
 
 interface QuizQuestionProps {
     readonly quiz: Quiz

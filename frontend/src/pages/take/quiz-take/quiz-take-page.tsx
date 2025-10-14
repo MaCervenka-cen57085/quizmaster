@@ -4,7 +4,7 @@ import { useQuizApi } from './hooks.ts'
 
 import { QuizScorePage } from './quiz-score-page.tsx'
 import { QuizQuestionForm } from './quiz.tsx'
-import type { QuizAnswers } from './quiz-take-state.ts'
+import type { QuizAnswers } from './quiz-answers-state.ts'
 
 export const QuizTakePage = () => {
     const quiz = useQuizApi()
