@@ -119,9 +119,7 @@ export function QuestionListComponent({ questionList, questions }: QuestionListP
             <CreateQuizButton onClick={onCreateQuiz} />
 
             <div>
-                {FEATURE_FLAG_ENABLED && (
-                    <QuizItem />
-                )}
+                {FEATURE_FLAG_ENABLED && <QuizItem />}
             </div>
         </div>
     )
