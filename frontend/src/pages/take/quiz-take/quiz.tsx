@@ -44,11 +44,11 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
     }))
 
     const evaluate = async () => {
+        props.onEvaluate(quizAnswers)
         const quizId = props.quiz.id
         await fetch(`/api/quiz/${quizId}`, {
             method: 'PUT',
         })
-        props.onEvaluate(quizAnswers)
     }
 
     const currentQuestion = props.quiz.questions[nav.currentQuestionIdx]
