@@ -1,6 +1,7 @@
 import { expect } from '@playwright/test'
 import { expectedNumberOfChildrenToBe } from '../common.ts'
 import { Then, When } from '../fixture.ts'
+import type { DataTable } from '@cucumber/cucumber'
 
 When('I start creating a new quiz', async function () {
     await this.questionListPage.createNewQuiz()
@@ -18,18 +19,18 @@ When('I see empty quiz description', async function () {
     await this.quizCreatePage.getQuizDescriptionValue().then(value => expect(value).toBe(''))
 })
 
-When('I see time limit 600 seconds', async function () {
+When('I see time limit {string} seconds', async function (timeLimit: string) {
     await this.quizCreatePage
         .timeLimitInput()
         .inputValue()
-        .then(value => expect(value).toBe('600'))
+        .then(value => expect(value).toBe(timeLimit))
 })
 
-When('I see pass score 80', async function () {
+When('I see pass score {string}', async function (score: string) {
     await this.quizCreatePage
         .passScoreInput()
         .inputValue()
-        .then(value => expect(value).toBe('80'))
+        .then(value => expect(value).toBe(score))
 })
 
 When('I see quiz question {string}', async function (title: string) {
@@ -64,6 +65,42 @@ Then('I see question list with {int} available questions', async function (count
     await expectedNumberOfChildrenToBe(this.quizCreatePage.questionsInList(), count)
 })
 
-Then('I see error message {string}', async function (message: string) {
-    await expect(this.quizCreatePage.errorMessageLocator()).toContainText(message)
+Then('I clear time limit', async function () {
+    await this.quizCreatePage.clearTimeLimit()
+})
+
+Then('I clear score', async function () {
+    await this.quizCreatePage.clearScore()
+})
+
+// Error messages assertions
+
+//const expectErrorCount = async (world: QuizmasterWorld, n: number, testId?: string) => {
+//const errorCount = await world.quizCreatePage.errorMessageCount(testId)
+//expect(errorCount).toBe(n)
+//}
+
+Then('I see error messages in quiz form', async function (table: DataTable) {
+    //const inputIds = table.raw().map(column  => column[0])
+    //const expectedErrors = table.raw().map(column => column[1])
+    const tableRows = table.raw()
+
+    //await expectErrorCount(this, expectedErrors.length, fields[0])
+
+    for (const tableRow of tableRows) {
+        const inputId = tableRow[0]
+        const expectedError = tableRow[1]
+        const field = await this.quizCreatePage.getFieldByInputId(inputId)
+        console.log('Field: ')
+        console.log(field)
+        await this.quizCreatePage.locator('')
+    }
+
+    //  for (const error of expectedErrors) {
+    //    await this.quizCreatePage.hasError(error)
+    //    }
+})
+
+Then('I see no error messages in quiz form', async function () {
+    await this.quizCreatePage.hasAnyError().then(result => expect(result).toBe(false))
 })

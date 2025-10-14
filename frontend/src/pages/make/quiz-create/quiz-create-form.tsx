@@ -6,6 +6,7 @@ import type { QuizCreateRequest } from 'api/quiz.ts'
 
 import { Field, NumberInput, SubmitButton, TextInput } from 'pages/components'
 import { QuestionSelect } from './components/question-select.tsx'
+import { FormFieldError } from 'pages/components/forms/form-field-error.tsx'
 
 export type QuizCreateFormData = QuizCreateRequest
 
@@ -20,6 +21,7 @@ export const QuizCreateForm = ({ questions, onSubmit }: QuizCreateProps) => {
     const [selectedIds, toggleSelectedId] = useStateSet<number>()
     const [timeLimit, setTimeLimit] = useState<number>(600)
     const [passScore, setPassScore] = useState<number>(80)
+    const [isSubmitted, setIsSubmitted] = useState(false)
 
     const toFormData = (): QuizCreateFormData => ({
         title,
@@ -31,17 +33,31 @@ export const QuizCreateForm = ({ questions, onSubmit }: QuizCreateProps) => {
     })
 
     return (
-        <form className="create-quiz" onSubmit={preventDefault(() => onSubmit(toFormData()))}>
-            <Field label="Quiz title">
+        <form
+            className="create-quiz"
+            onSubmit={preventDefault(() => {
+                setIsSubmitted(true)
+                onSubmit(toFormData())
+            })}
+        >
+            <Field label="Quiz title" isSubmitted={isSubmitted} errorCode={!title ? 'required' : undefined}>
                 <TextInput id="quiz-title" value={title} onChange={setTitle} />
             </Field>
-            <Field label="Quiz description">
+            <Field label="Quiz description" isSubmitted={isSubmitted} errorCode={!description ? 'required' : undefined}>
                 <TextInput id="quiz-description" value={description} onChange={setDescription} />
             </Field>
-            <Field label="Time limit (in seconds)">
+            <Field
+                label="Time limit (in seconds)"
+                isSubmitted={isSubmitted}
+                errorCode={timeLimit < 0 ? 'required' : undefined}
+            >
                 <NumberInput id="time-limit" value={timeLimit} onChange={setTimeLimit} />
             </Field>
-            <Field label="Required score to pass the quiz (in %)">
+            <Field
+                label="Required score to pass the quiz (in %)"
+                isSubmitted={isSubmitted}
+                errorCode={passScore < 0 ? 'required' : undefined}
+            >
                 <NumberInput id="pass-score" value={passScore} onChange={setPassScore} />
             </Field>
 

@@ -1,4 +1,4 @@
-import type { Page } from '@playwright/test'
+import type { Locator, Page } from '@playwright/test'
 
 export class QuizCreatePage {
     constructor(private page: Page) {}
@@ -21,4 +21,13 @@ export class QuizCreatePage {
 
     showQuizStatistics = () => this.quizStatisticsUrlLocator().click()
     errorMessageLocator = () => this.page.locator('.alert.error')
+    getFieldByInputId = (inputId: string) => this.page.locator(`label[for="${inputId}"]`)
+
+    //hasError = (field: Locator, errorCode: string) => field.getByTestId(errorCode).isVisible()
+    //hasError = (field: Locator, errorCode: string) => field.locator(`.alert.error[data-testid="${errorCode}"]`).isVisible()
+
+    //hasError = (error: string) => this.page.locator(`.errors .${error}`).waitFor({ state: 'visible' })
+    clearTimeLimit = () => this.timeLimitInput().fill('')
+    clearScore = () => this.passScoreInput().fill('')
+    hasAnyError = () => this.page.locator('.alert.error').isVisible()
 }
