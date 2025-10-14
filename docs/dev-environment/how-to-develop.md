@@ -87,12 +87,19 @@ but runs in end-to-end tests in GitHub Actions CI/CD build.
     }
     ```
 
-- in specifications, mark scenario that pass only with feature flag with @feature-flag
+- in specifications, mark scenario with @feature-flag that pass only when feature flag is enabled
 
     ```gherkin
     @feature-flag
     Scenario: Unfinished scenario
         # Passes only when feature flag is set
+    ```
+- in specifications, mark scenario with flag @not-feature-flag that pass only when feature flag is disabled
+
+    ```gherkin
+    @not-feature-flag
+    Scenario: Former scenario
+        # Passes only when feature flag is not set (i.e. is false)
     ```
 
 ### Enable Feature Flag

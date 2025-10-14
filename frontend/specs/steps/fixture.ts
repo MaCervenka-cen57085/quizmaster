@@ -20,7 +20,9 @@ const FEATURE_FLAG_ENABLED: boolean = process.env.FEATURE_FLAG === 'true'
 
 BeforeScenario(async function ({ $tags, $test }) {
     const hasFeatureFlag = $tags.includes('@feature-flag')
+    const hasNotFeatureFlag = $tags.includes('@not-feature-flag')
     if (hasFeatureFlag && !FEATURE_FLAG_ENABLED) $test.skip()
+    if (hasNotFeatureFlag && FEATURE_FLAG_ENABLED) $test.skip()
 
     if (!ENABLE_COVERAGE) return
 
