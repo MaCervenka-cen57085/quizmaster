@@ -15,7 +15,7 @@ export const QuizDetails = ({ quiz, onStart }: QuizDetailsProps) => (
             Time limit: <span id="time-limit">{quiz.timeLimit}</span> seconds
         </p>
         <p>
-           Question count: <span id="question-count">{quiz.size || quiz.questions.length}</span>
+            Question count: <span id="question-count">{quiz.size || quiz.questions.length}</span>
         </p>
         <p>
             Pass score: <span id="pass-score">{quiz.passScore}</span>%

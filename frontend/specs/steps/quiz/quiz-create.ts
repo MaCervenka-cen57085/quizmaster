@@ -74,7 +74,7 @@ const toQuiz = async (world: QuizmasterWorld, row: Record<string, string>): Prom
         mode: row.mode as QuizMode,
         passScore: Number.parseInt(row['pass score']),
         timeLimit: Number.parseInt(row['time limit']),
-        size: Number.parseInt(row ['size']),
+        size: Number.parseInt(row.size),
     }
 }
 
