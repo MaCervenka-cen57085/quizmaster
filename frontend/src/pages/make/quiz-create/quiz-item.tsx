@@ -30,8 +30,8 @@ export const QuizItem: React.FC<Props> = ({ quiz }) => {
                         <img
                             id={quiz.id.toString()}
                             src={copyClipboardIcon}
-                            alt={`Copy the quiz url to clipboard`}
-                            title={`Copy the quiz url to clipboard`}
+                            alt="Copy the quiz url to clipboard"
+                            title="Copy the quiz url to clipboard"
                             style={{ width: '1em', height: '1em', verticalAlign: 'middle' }}
                             onError={e => {e.currentTarget.style.display = 'none'}}
                         />
