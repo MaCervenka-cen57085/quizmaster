@@ -49,7 +49,7 @@ public class QuizControllerTest {
         quizInput.setPassScore(85);
         quizInput.setQuestionIds(questions);
         quizInput.setTimeLimit(10);
-        quizInput.setSize(10);
+        quizInput.setSize(1);
 
         return quizInput;
     }
