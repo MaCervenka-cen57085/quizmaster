@@ -59,6 +59,7 @@ Scenario: Create quiz with 3 questions
     Then I see error messages in quiz form
       | quiz-description | required |
 
+  @not-feature-flag
   Scenario: Display no error when timelimit is cleared
     When I start creating a new quiz
     And I enter quiz name "Math Quiz"
@@ -69,6 +70,7 @@ Scenario: Create quiz with 3 questions
     Then I see no error messages in quiz form
     And I see time limit "0" seconds
 
+  @not-feature-flag
   Scenario: Display no error when score is cleared
     When I start creating a new quiz
     And I enter quiz name "Math Quiz"
