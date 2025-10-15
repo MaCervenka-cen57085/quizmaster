@@ -73,32 +73,11 @@ Then('I clear score', async function () {
     await this.quizCreatePage.clearScore()
 })
 
-// Error messages assertions
-
-//const expectErrorCount = async (world: QuizmasterWorld, n: number, testId?: string) => {
-//const errorCount = await world.quizCreatePage.errorMessageCount(testId)
-//expect(errorCount).toBe(n)
-//}
-
 Then('I see error messages in quiz form', async function (table: DataTable) {
-    //const inputIds = table.raw().map(column  => column[0])
-    //const expectedErrors = table.raw().map(column => column[1])
-    const tableRows = table.raw()
-
-    //await expectErrorCount(this, expectedErrors.length, fields[0])
-
-    for (const tableRow of tableRows) {
-        const inputId = tableRow[0]
-        //  const expectedError = tableRow[1]
-        const field = await this.quizCreatePage.getFieldByInputId(inputId)
-        console.log('Field: ')
-        console.log(field)
-        //    await this.quizCreatePage.locator('')
+    const expectedErrors = table.rows().map(row => row[0])
+    for (const error of expectedErrors) {
+        await this.quizCreatePage.hasError(error)
     }
-
-    //  for (const error of expectedErrors) {
-    //    await this.quizCreatePage.hasError(error)
-    //    }
 })
 
 Then('I see no error messages in quiz form', async function () {

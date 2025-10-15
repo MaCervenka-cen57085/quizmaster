@@ -39,24 +39,20 @@ export const QuizCreateForm = ({ questions, onSubmit }: QuizCreateProps) => {
                 onSubmit(toFormData())
             })}
         >
-            <Field label="Quiz title" isSubmitted={isSubmitted} errorCode={!title ? 'required' : undefined}>
+            <Field label="Quiz title" isSubmitted={isSubmitted} errorCode={!title ? 'titleRequired' : undefined}>
                 <TextInput id="quiz-title" value={title} onChange={setTitle} />
             </Field>
-            <Field label="Quiz description" isSubmitted={isSubmitted} errorCode={!description ? 'required' : undefined}>
+            <Field
+                label="Quiz description"
+                isSubmitted={isSubmitted}
+                errorCode={!description ? 'descriptionRequired' : undefined}
+            >
                 <TextInput id="quiz-description" value={description} onChange={setDescription} />
             </Field>
-            <Field
-                label="Time limit (in seconds)"
-                isSubmitted={isSubmitted}
-                errorCode={timeLimit < 0 ? 'required' : undefined}
-            >
+            <Field label="Time limit (in seconds)" isSubmitted={isSubmitted}>
                 <NumberInput id="time-limit" value={timeLimit} onChange={setTimeLimit} />
             </Field>
-            <Field
-                label="Required score to pass the quiz (in %)"
-                isSubmitted={isSubmitted}
-                errorCode={passScore < 0 ? 'required' : undefined}
-            >
+            <Field label="Required score to pass the quiz (in %)" isSubmitted={isSubmitted}>
                 <NumberInput id="pass-score" value={passScore} onChange={setPassScore} />
             </Field>
 

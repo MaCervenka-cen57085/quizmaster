@@ -2,7 +2,8 @@ import type { FC } from 'react'
 import { Alert } from '../alert'
 
 const errorMessages = {
-    required: 'This field is required.',
+    titleRequired: 'Title is required.',
+    descriptionRequired: 'Description is required.',
 }
 
 export type FormFieldErrorCode = keyof typeof errorMessages
