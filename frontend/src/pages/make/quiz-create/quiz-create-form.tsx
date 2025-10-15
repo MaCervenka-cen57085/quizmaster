@@ -32,6 +32,12 @@ export const QuizCreateForm = ({ questions, onSubmit }: QuizCreateProps) => {
         timeLimit,
     })
 
+    const quizTitleError = !title ? 'titleRequired' : undefined
+    const quizDescriptionError = !description ? 'descriptionRequired' : undefined
+    const timeLimitError = timeLimit < 0 ? 'negativeTimeLimit' : timeLimit > 21600 ? 'timeLimitAboveMax' : undefined
+    const passScoreError = passScore > 100 ? 'scoreAboveMax' : undefined
+    const atLeastOneQuestionError = isSubmitted && selectedIds.size === 0 ? 'atLeastOneQuestionRequired' : undefined
+
     return (
         <form
             className="create-quiz"
@@ -40,34 +46,22 @@ export const QuizCreateForm = ({ questions, onSubmit }: QuizCreateProps) => {
                 onSubmit(toFormData())
             })}
         >
-            <Field label="Quiz title" isSubmitted={isSubmitted} errorCode={!title ? 'titleRequired' : undefined}>
+            <Field label="Quiz title" isSubmitted={isSubmitted} errorCode={quizTitleError}>
                 <TextInput id="quiz-title" value={title} onChange={setTitle} />
             </Field>
-            <Field
-                label="Quiz description"
-                isSubmitted={isSubmitted}
-                errorCode={!description ? 'descriptionRequired' : undefined}
-            >
+            <Field label="Quiz description" isSubmitted={isSubmitted} errorCode={quizDescriptionError}>
                 <TextInput id="quiz-description" value={description} onChange={setDescription} />
             </Field>
-            <Field
-                label="Time limit (in seconds)"
-                isSubmitted={isSubmitted}
-                errorCode={timeLimit < 0 ? 'negativeTimeLimit' : timeLimit > 21600 ? 'timeLimitAboveMax' : undefined}
-            >
+            <Field label="Time limit (in seconds)" isSubmitted={isSubmitted} errorCode={timeLimitError}>
                 <NumberInput id="time-limit" value={timeLimit} onChange={setTimeLimit} />
             </Field>
-            <Field
-                label="Required score to pass the quiz (in %)"
-                isSubmitted={isSubmitted}
-                errorCode={passScore > 100 ? 'scoreAboveMax' : undefined}
-            >
+            <Field label="Required score to pass the quiz (in %)" isSubmitted={isSubmitted} errorCode={passScoreError}>
                 <NumberInput id="pass-score" value={passScore} onChange={setPassScore} />
             </Field>
 
             <div className="label">Select quiz questions</div>
             <QuestionSelect questions={questions} onSelect={toggleSelectedId} />
-            {isSubmitted && selectedIds.size === 0 && <FormFieldError errorCode="atLeastOneQuestionRequired" />}
+            {atLeastOneQuestionError && <FormFieldError errorCode="atLeastOneQuestionRequired" />}
             <SubmitButton />
         </form>
     )
