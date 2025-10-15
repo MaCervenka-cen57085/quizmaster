@@ -1,5 +1,11 @@
 import { expect } from '@playwright/test'
-import { Then } from '../fixture.ts'
+import { When, Then } from '../fixture.ts'
+import type { QuizmasterWorld } from '../world'
+
+const openStats = async (world: QuizmasterWorld, quizId: string) => {
+    const quizUrl = `${world.quizBookmarks[quizId]?.url}/stats` || `/quiz/${quizId}/stats`
+    await world.page.goto(quizUrl)
+}
 
 Then('I see the quiz statistics page', async function () {
     expect(await this.quizStatisticsPage.header()).toBe('Quiz statistics')
@@ -23,4 +29,8 @@ Then('I see times finished {int}', async function (timesFinished: number) {
 
 Then('I see average score {int} %', async function (averageScore: number) {
     expect(await this.quizStatisticsPage.averageScore()).toBe(averageScore)
+})
+
+When('I open quiz stats', async function () {
+    await openStats(this, this.activeQuizBookmark)
 })

@@ -19,11 +19,11 @@ export const QuizStatisticsPage = () => {
     }, [quizId])
 
     return (
-        <>
-            <h2>Quiz statistics</h2>
-            for quiz: <h3 id="quiz-name">{quizData?.title}</h3>
-            <p id="quiz-description">{quizData?.description}</p>
-            {quizData && (
+        quizData && (
+            <>
+                <h2>Quiz statistics</h2>
+                for quiz: <h3 id="quiz-name">{quizData?.title}</h3>
+                <p id="quiz-description">{quizData?.description}</p>
                 <div>
                     <p>
                         Times taken: <span id="times-taken">{quizData?.timesTaken}</span>
@@ -35,7 +35,7 @@ export const QuizStatisticsPage = () => {
                         Average score: <span id="average-score">{quizData?.averageScore} %</span>
                     </p>
                 </div>
-            )}
-        </>
+            </>
+        )
     )
 }
