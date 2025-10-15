@@ -14,7 +14,7 @@ import org.hibernate.type.SqlTypes;
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
-public class merQuiz {
+public class Quiz {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
