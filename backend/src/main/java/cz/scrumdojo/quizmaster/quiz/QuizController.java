@@ -35,8 +35,12 @@ public class QuizController {
             return ResponseEntity.notFound().build();
         }
 
-        QuizQuestion[] questions = new QuizQuestion[quiz.getQuestionIds().length];
-        for (int i = 0; i < quiz.getQuestionIds().length; i++) {
+
+        int questionsLimit = (quiz.getSize() != null &&  quiz.getSize() > 0 ) ? quiz.getSize() : quiz.getQuestionIds().length;
+
+        QuizQuestion[] questions = new QuizQuestion[questionsLimit];
+
+        for (int i = 0; i < questionsLimit; i++) {
             questions[i] = this.quizQuestionRepository.getReferenceById(quiz.getQuestionIds()[i]);
         }
 
