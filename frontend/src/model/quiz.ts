@@ -8,4 +8,8 @@ export interface Quiz {
     readonly afterEach: boolean
     readonly passScore: number
     readonly timeLimit: number
+
+    readonly timesTaken: number
+    readonly timesFinished: number
+    readonly averageScore: number
 }

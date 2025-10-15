@@ -1,12 +1,13 @@
 import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import type { Quiz } from 'model/quiz.ts'
 
 export const QuizStatisticsPage = () => {
     const params = useParams()
 
-    const quizId = params.id;
+    const quizId = params.id
 
-    const [quizData, setQuizData] = useState<any>(null)
+    const [quizData, setQuizData] = useState<Quiz | null>(null)
 
     useEffect(() => {
         const fetchQuiz = async () => {
@@ -24,9 +25,15 @@ export const QuizStatisticsPage = () => {
             <p id="quiz-description">{quizData?.description}</p>
             {quizData && (
                 <div>
-                    <p>Times taken: <span id='times-taken'>{quizData.timesTaken}</span></p>
-                    <p>Times finished: <span id='times-finished'>{quizData.timesFinished}</span></p>
-                    <p>Average score: <span id='average-score'>{quizData.averageScore} %</span></p>
+                    <p>
+                        Times taken: <span id="times-taken">{quizData?.timesTaken}</span>
+                    </p>
+                    <p>
+                        Times finished: <span id="times-finished">{quizData?.timesFinished}</span>
+                    </p>
+                    <p>
+                        Average score: <span id="average-score">{quizData?.averageScore} %</span>
+                    </p>
                 </div>
             )}
         </>
