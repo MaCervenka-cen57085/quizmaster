@@ -49,7 +49,11 @@ export const QuizCreateForm = ({ questions, onSubmit }: QuizCreateProps) => {
             >
                 <TextInput id="quiz-description" value={description} onChange={setDescription} />
             </Field>
-            <Field label="Time limit (in seconds)" isSubmitted={isSubmitted}>
+            <Field
+                label="Time limit (in seconds)"
+                isSubmitted={isSubmitted}
+                errorCode={timeLimit < 0 ? 'negativeTimeLimit' : undefined}
+            >
                 <NumberInput id="time-limit" value={timeLimit} onChange={setTimeLimit} />
             </Field>
             <Field

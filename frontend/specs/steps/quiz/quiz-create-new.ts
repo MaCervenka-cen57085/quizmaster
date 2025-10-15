@@ -61,6 +61,10 @@ When('I enter pass score {string}', async function (score: string) {
     await this.quizCreatePage.passScoreInput().fill(score)
 })
 
+When('I enter time limit {string}', async function (limit: string) {
+    await this.quizCreatePage.timeLimitInput().fill(limit)
+})
+
 Then('I display the quiz statistics', async function () {
     await this.quizCreatePage.showQuizStatistics()
 })
