@@ -57,6 +57,10 @@ When('I take the quiz', async function () {
     await this.quizCreatePage.takeQuiz()
 })
 
+When('I enter pass score {string}', async function (score: string) {
+    await this.quizCreatePage.passScoreInput().fill(score)
+})
+
 Then('I display the quiz statistics', async function () {
     await this.quizCreatePage.showQuizStatistics()
 })
@@ -74,9 +78,10 @@ Then('I clear score', async function () {
 })
 
 Then('I see error messages in quiz form', async function (table: DataTable) {
-    const expectedErrors = table.rows().map(row => row[0])
+    const expectedErrors = table.raw().map(row => row[0])
     for (const error of expectedErrors) {
-        await this.quizCreatePage.hasError(error)
+        const hasError = await this.quizCreatePage.hasError(error)
+        expect(hasError).toBe(true)
     }
 })
 

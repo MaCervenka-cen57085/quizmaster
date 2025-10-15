@@ -22,7 +22,11 @@ export class QuizCreatePage {
     showQuizStatistics = () => this.quizStatisticsUrlLocator().click()
     errorMessageLocator = () => this.page.locator('.alert.error')
     getFieldByInputId = (inputId: string) => this.page.locator(`label[for="${inputId}"]`)
-    hasError = (errorTestId: string) => this.page.getByTestId(errorTestId).waitFor({ state: 'visible' })
+    hasError = (errorTestId: string) => {
+        const result = this.page.getByTestId(errorTestId)
+        console.log(result)
+        return result.isVisible()
+    }
     clearTimeLimit = () => this.timeLimitInput().fill('')
     clearScore = () => this.passScoreInput().fill('')
     hasAnyError = () => this.page.locator('.alert.error').isVisible()

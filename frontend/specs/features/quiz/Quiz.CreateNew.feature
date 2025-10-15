@@ -50,6 +50,17 @@ Scenario: Create quiz with 3 questions
       | descriptionRequired |
 
   @not-feature-flag
+  Scenario: Display error when score is above 100
+    When I start creating a new quiz
+    And I enter quiz name "Math Quiz"
+    And I enter quiz description "Very hard math quiz"
+    And I enter pass score "220"
+    And I submit the quiz
+    Then I see error messages in quiz form
+      | scoreAboveMax |
+
+
+  @not-feature-flag
   Scenario: Display no error when timelimit is cleared
     When I start creating a new quiz
     And I enter quiz name "Math Quiz"

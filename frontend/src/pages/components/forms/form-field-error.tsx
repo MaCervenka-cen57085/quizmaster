@@ -4,6 +4,7 @@ import { Alert } from '../alert'
 const errorMessages = {
     titleRequired: 'Title is required.',
     descriptionRequired: 'Description is required.',
+    scoreAboveMax: 'Score cannot be above 100%.',
 }
 
 export type FormFieldErrorCode = keyof typeof errorMessages
