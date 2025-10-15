@@ -101,6 +101,7 @@ export function QuestionListComponent({ questionList, questions, quizzes }: Ques
             <div className="create-button">
                 <CreateQuestionButton onClick={onCreateNewQuestion} />
             </div>
+            <h3>My Questions</h3>
             <div className="question-holder">
                 {questions.map((q, index) => (
                     <QuestionItem
@@ -116,7 +117,7 @@ export function QuestionListComponent({ questionList, questions, quizzes }: Ques
             </div>
 
             <CreateQuizButton onClick={onCreateQuiz} />
-
+            <h3>My quizzes</h3>
             <div>{FEATURE_FLAG_ENABLED && quizzes.map(quiz => <QuizItem key={quiz.id} quiz={quiz} />)}</div>
         </div>
     )
