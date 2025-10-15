@@ -7,7 +7,6 @@ interface Props {
 }
 
 export const QuizItem: React.FC<Props> = ({ quiz }) => {
-
     const onTakeQuiz = () => {
         const takeUrl = `${window.location.origin}/quiz/${quiz.id}`
         window.open(takeUrl, '_self')
@@ -15,7 +14,7 @@ export const QuizItem: React.FC<Props> = ({ quiz }) => {
 
     const copyQuizLink = () => {
         const takeUrl = `${window.location.origin}/quiz/${quiz.id}`
-        navigator.clipboard.writeText(takeUrl);
+        navigator.clipboard.writeText(takeUrl)
     }
 
     return (
@@ -23,7 +22,9 @@ export const QuizItem: React.FC<Props> = ({ quiz }) => {
             <span id="quiz-text">
                 {quiz.title}
                 <span className="take-quiz-button take-button">
-                    <Button className="take-quiz" onClick={onTakeQuiz}>Take</Button>
+                    <Button className="take-quiz" onClick={onTakeQuiz}>
+                        Take
+                    </Button>
                 </span>
                 <span className="copy-take-button copy-button">
                     <Button className="copy-take" onClick={copyQuizLink}>
@@ -33,7 +34,9 @@ export const QuizItem: React.FC<Props> = ({ quiz }) => {
                             alt="Copy the quiz url to clipboard"
                             title="Copy the quiz url to clipboard"
                             style={{ width: '1em', height: '1em', verticalAlign: 'middle' }}
-                            onError={e => {e.currentTarget.style.display = 'none'}}
+                            onError={e => {
+                                e.currentTarget.style.display = 'none'
+                            }}
                         />
                     </Button>
                 </span>
