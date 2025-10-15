@@ -41,23 +41,13 @@ Scenario: Create quiz with 3 questions
     * I see quiz description "Very hard math quiz"
     * I see question count 2
 
-@Skip
-  Scenario: Display error message when title is empty
+@not-feature-flag
+  Scenario: Quiz form with only default values
     When I start creating a new quiz
-    And I enter quiz description "Very hard math quiz"
-    And I select question "2 + 2 = ?"
     And I submit the quiz
     Then I see error messages in quiz form
-      | quiz-title | blbost |
-
-@Skip
-  Scenario: Display error message when description is empty
-    When I start creating a new quiz
-    And I enter quiz name "Math Quiz"
-    And I select question "2 + 2 = ?"
-    And I submit the quiz
-    Then I see error messages in quiz form
-      | quiz-description | required |
+      | titleRequired |
+      | descriptionRequired |
 
   @not-feature-flag
   Scenario: Display no error when timelimit is cleared
