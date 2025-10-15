@@ -6,6 +6,7 @@ const errorMessages = {
     descriptionRequired: 'Description is required.',
     scoreAboveMax: 'Score cannot be above 100%.',
     negativeTimeLimit: 'Time limit cannot be negative.',
+    timeLimitAboveMax: 'Time limit cannot be above 21600 seconds (6 hours).',
 }
 
 export type FormFieldErrorCode = keyof typeof errorMessages
