@@ -89,11 +89,11 @@ Then('I see error messages in quiz form', async function (table: DataTable) {
 
     for (const tableRow of tableRows) {
         const inputId = tableRow[0]
-        const expectedError = tableRow[1]
+        //  const expectedError = tableRow[1]
         const field = await this.quizCreatePage.getFieldByInputId(inputId)
         console.log('Field: ')
         console.log(field)
-        await this.quizCreatePage.locator('')
+        //    await this.quizCreatePage.locator('')
     }
 
     //  for (const error of expectedErrors) {

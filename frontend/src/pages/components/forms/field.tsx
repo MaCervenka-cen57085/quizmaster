@@ -1,5 +1,5 @@
 import './field.scss'
-import { FormFieldError, FormFieldErrorCode } from './form-field-error'
+import { FormFieldError, type FormFieldErrorCode } from './form-field-error'
 
 interface FieldProps {
     readonly label: string
