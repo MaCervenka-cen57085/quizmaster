@@ -4,6 +4,7 @@ import { QuizTakePage } from 'pages/take/quiz-take/quiz-take-page.tsx'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import { QuizWelcomePage } from 'pages/take/quiz-take/quiz-welcome/quiz-welcome-page'
+import { QuizStatisticsPage } from 'pages/take/quiz-take/quiz-statistics-page.tsx'
 
 import { QuestionListCreatePage } from 'pages/make/create-question-list/question-list-create-page'
 import { CreateQuestionContainer } from 'pages/make/create-question/create-question-container'
@@ -18,6 +19,7 @@ export const App = () => (
             <Route path="/q-list/new" element={<QuestionListCreatePage />} />
             <Route path="/q-list/:id" element={<QuestionListContainer />} />
             <Route path="/quiz/:id" element={<QuizWelcomePage />} />
+            <Route path="/quiz/:id/stats" element={<QuizStatisticsPage />} />
             <Route path="/quiz/:id/questions" element={<QuizTakePage />} />
             <Route path="/quiz-create/new" element={<QuizCreatePage />} />
             <Route path="/question/:id/edit" element={<EditQuestionContainer />} />

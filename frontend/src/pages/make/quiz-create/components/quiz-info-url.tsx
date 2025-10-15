@@ -5,7 +5,7 @@ interface QuizInfoUrlProps {
 }
 
 export const QuizInfoUrl = ({ quizId }: QuizInfoUrlProps) => {
-    const url = `${location.origin}/quiz-info/${quizId}`
+    const url = `${location.origin}/quiz/${quizId}/stats`
 
     return (
         <Alert type="info">

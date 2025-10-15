@@ -16,3 +16,9 @@ Feature: Display Quiz Statistics from Quiz
     * I select question "4 / 2 = ?"
     * I submit the quiz
     * I display the quiz statistics
+  Then I see the quiz statistics page
+    * I see quiz name on stats page "Math Quiz"
+    * I see quiz description on stats page "Very hard math quiz"
+    * I see times taken 0
+    * I see times finished 0
+    * I see average score 0 %
