@@ -7,6 +7,7 @@ const errorMessages = {
     scoreAboveMax: 'Score cannot be above 100%.',
     negativeTimeLimit: 'Time limit cannot be negative.',
     timeLimitAboveMax: 'Time limit cannot be above 21600 seconds (6 hours).',
+    atLeastOneQuestionRequired: 'At least one question must be selected.',
 }
 
 export type FormFieldErrorCode = keyof typeof errorMessages

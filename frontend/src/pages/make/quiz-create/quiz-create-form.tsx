@@ -6,6 +6,7 @@ import type { QuizCreateRequest } from 'api/quiz.ts'
 
 import { Field, NumberInput, SubmitButton, TextInput } from 'pages/components'
 import { QuestionSelect } from './components/question-select.tsx'
+import { FormFieldError } from 'pages/components/forms/form-field-error.tsx'
 
 export type QuizCreateFormData = QuizCreateRequest
 
@@ -66,7 +67,7 @@ export const QuizCreateForm = ({ questions, onSubmit }: QuizCreateProps) => {
 
             <div className="label">Select quiz questions</div>
             <QuestionSelect questions={questions} onSelect={toggleSelectedId} />
-
+            {isSubmitted && selectedIds.size === 0 && <FormFieldError errorCode="atLeastOneQuestionRequired" />}
             <SubmitButton />
         </form>
     )

@@ -48,6 +48,7 @@ Scenario: Create quiz with 3 questions
     Then I see error messages in quiz form
       | titleRequired |
       | descriptionRequired |
+      | atLeastOneQuestionRequired |
 
   @not-feature-flag
   Scenario: Display error when score is above 100
