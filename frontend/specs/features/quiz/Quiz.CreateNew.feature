@@ -7,8 +7,8 @@ Background:
       | 3 * 3 = ? | 9 (*), 6 |
       | 4 / 2 = ? | 2 (*), 3 |
 
-  @feature-flag
-  Scenario: Create quiz and display it in quiz list
+@feature-flag
+Scenario: Create quiz and display it in quiz list
     When I start creating a new quiz
     * I enter quiz name "Math Quiz"
     * I enter quiz description "Very hard math quiz"
@@ -16,6 +16,7 @@ Background:
     * I select question "4 / 2 = ?"
     * I submit the quiz
     Then I see the quiz "Math Quiz" in the question list
+    * I take quiz "Math Quiz"
 
 Scenario: Create quiz with default values
     When I start creating a new quiz

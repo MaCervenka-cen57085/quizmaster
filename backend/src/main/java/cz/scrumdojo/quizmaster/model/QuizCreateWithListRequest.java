@@ -16,4 +16,5 @@ public class QuizCreateWithListRequest {
     private boolean afterEach;
     private int passScore;
     private Integer timeLimit;
+    private String questionList; // Question list GUID
 }

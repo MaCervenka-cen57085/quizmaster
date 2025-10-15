@@ -1,6 +1,7 @@
 import { postJson, fetchJson } from './helpers.ts'
 import type { QuestionList } from 'model/question-list.ts'
 import type { QuizQuestion } from 'model/quiz-question.ts'
+import type { Quiz } from 'model/quiz.ts'
 
 export type QuestionListCreateRequest = {
     readonly title: string
@@ -17,3 +18,6 @@ export const fetchQuestionList = async (guid: string) => await fetchJson<Questio
 
 export const fetchListQuestions = async (guid: string) =>
     await fetchJson<readonly QuizQuestion[]>(`/api/quiz-question/by-question-list/${guid}`)
+
+export const fetchListQuizzes = async (guid: string) =>
+    await fetchJson<readonly Quiz[]>(`/api/quiz/by-question-list/${guid}`)

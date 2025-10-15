@@ -17,4 +17,5 @@ public class QuizCreateRequest {
 
     private boolean afterEach;
     private int passScore;
+    private String questionList; // Question list GUID
 }

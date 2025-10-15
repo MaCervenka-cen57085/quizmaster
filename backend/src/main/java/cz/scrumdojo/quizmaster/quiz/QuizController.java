@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import cz.scrumdojo.quizmaster.model.QuizCreateWithListRequest;
 import cz.scrumdojo.quizmaster.model.ScoreRequest;
 import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -86,6 +87,7 @@ public class QuizController {
             .afterEach(true)
             .passScore(quizInput.getPassScore())
             .timeLimit(quizInput.getTimeLimit())
+            .questionList(quizInput.getQuestionList())
             .build();
 
         Quiz output = quizRepository.save(quiz);
@@ -124,5 +126,13 @@ public class QuizController {
 
         quizRepository.save(quiz);
         return ResponseEntity.ok().build();
+    }
+
+
+    @Transactional
+    @GetMapping("/quiz/by-question-list/{guid}")
+    public ResponseEntity<List<Quiz>> getQuizzesByQuestionList(@PathVariable String guid) {
+        List<Quiz> quizzes = quizRepository.findByQuestionListGuid(guid);
+        return quizzes != null ? ResponseEntity.ok(quizzes) : ResponseEntity.notFound().build();
     }
 }

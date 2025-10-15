@@ -11,7 +11,7 @@ import { QuizItem } from '../quiz-create/quiz-item'
 interface QuestionListProps {
     readonly questionList: QuestionList
     readonly questions: readonly QuizQuestion[]
-    readonly quizes?: readonly Quiz[]
+    readonly quizzes: readonly Quiz[]
 }
 
 type EditQuestionButtonProps = { id: string; hash: string; onClick: () => void }
@@ -57,7 +57,7 @@ export const CreateQuizButton = ({ onClick }: WithOnClick) => (
     </Button>
 )
 
-export function QuestionListComponent({ questionList, questions }: QuestionListProps) {
+export function QuestionListComponent({ questionList, questions, quizzes }: QuestionListProps) {
     const navigate = useNavigate()
 
     const onCreateNewQuestion = () => {
@@ -117,7 +117,13 @@ export function QuestionListComponent({ questionList, questions }: QuestionListP
 
             <CreateQuizButton onClick={onCreateQuiz} />
 
-            <div>{FEATURE_FLAG_ENABLED && <QuizItem />}</div>
+            <div>
+            {FEATURE_FLAG_ENABLED &&
+            quizzes.map((quiz, index) => (
+                    <QuizItem key={index} quiz={quiz} />
+                ))
+            }
+            </div>
         </div>
     )
 }

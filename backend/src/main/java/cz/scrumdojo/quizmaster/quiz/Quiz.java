@@ -14,7 +14,7 @@ import org.hibernate.type.SqlTypes;
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
-public class Quiz {
+public class merQuiz {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -33,5 +33,6 @@ public class Quiz {
     private int timesTaken;
     private int timesFinished;
     private double averageScore;
+    private String questionList; // Question list GUID
     private Integer size;
 }

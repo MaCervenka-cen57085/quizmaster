@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
 import { preventDefault, useStateSet } from 'helpers'
 import type { QuizQuestion } from 'model/quiz-question.ts'
@@ -22,6 +23,7 @@ export const QuizCreateForm = ({ questions, onSubmit }: QuizCreateProps) => {
     const [timeLimit, setTimeLimit] = useState<number>(600)
     const [passScore, setPassScore] = useState<number>(80)
     const [isSubmitted, setIsSubmitted] = useState(false)
+    const [searchParams] = useSearchParams()
 
     const toFormData = (): QuizCreateFormData => ({
         title,
@@ -30,6 +32,7 @@ export const QuizCreateForm = ({ questions, onSubmit }: QuizCreateProps) => {
         afterEach: false,
         passScore,
         timeLimit,
+        questionList: searchParams.get('listguid') || '',
     })
 
     const quizTitleError = !title ? 'titleRequired' : undefined
