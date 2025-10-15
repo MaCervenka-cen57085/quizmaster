@@ -27,7 +27,7 @@ Then('I see times finished {int}', async function (timesFinished: number) {
     expect(await this.quizStatisticsPage.timesFinished()).toBe(timesFinished)
 })
 
-Then('I see average score {int} %', async function (averageScore: number) {
+Then('I see average score {float} %', async function (averageScore: number) {
     expect(await this.quizStatisticsPage.averageScore()).toBe(averageScore)
 })
 
