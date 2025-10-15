@@ -6,23 +6,23 @@ interface Props {
 }
 
 export const QuizItem: React.FC<Props> = ({ quiz }) => {
-
     const onTakeQuiz = () => {
         const takeUrl = `${window.location.origin}/take/${quiz.id}`
         window.open(takeUrl, '_self')
     }
 
-    return  <div className="quiz-item question-item">
-                <span id="quiz-text">{quiz.title}
-                    <span className="take-quiz-button">
-                        <Button onClick={onTakeQuiz}>
-                                Take
-                            </Button>
-                    </span>
+    return (
+        <div className="quiz-item question-item">
+            <span id="quiz-text">
+                {quiz.title}
+                <span className="take-quiz-button">
+                    <Button onClick={onTakeQuiz}>Take</Button>
                 </span>
-                {/*<div className="copy-take-button">
+            </span>
+            {/*<div className="copy-take-button">
                     <CopyQuizButton id={quiz.id} hash={quiz.hash} kind="take" onClick={onCopyTakeQuiz} />
                 </div>
                 */}
-            </div>
+        </div>
+    )
 }

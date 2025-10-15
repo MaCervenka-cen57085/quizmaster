@@ -12,7 +12,7 @@ export function CreateQuestionContainer() {
     const [searchParams] = useSearchParams()
     const questionListGuid = searchParams.get('listguid') ? searchParams.get('listguid') : ''
     const navigate = useNavigate()
-                
+
     const [questionData, setQuestionData] = useState(emptyQuestionFormData())
     const [linkToQuestion, setLinkToQuestion] = useState<string>('')
     const [linkToEditQuestion, setLinkToEditQuestion] = useState<string>('')

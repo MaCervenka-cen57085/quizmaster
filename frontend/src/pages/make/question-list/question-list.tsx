@@ -117,13 +117,7 @@ export function QuestionListComponent({ questionList, questions, quizzes }: Ques
 
             <CreateQuizButton onClick={onCreateQuiz} />
 
-            <div>
-            {FEATURE_FLAG_ENABLED &&
-            quizzes.map((quiz, index) => (
-                    <QuizItem key={index} quiz={quiz} />
-                ))
-            }
-            </div>
+            <div>{FEATURE_FLAG_ENABLED && quizzes.map(quiz => <QuizItem key={quiz.id} quiz={quiz} />)}</div>
         </div>
     )
 }

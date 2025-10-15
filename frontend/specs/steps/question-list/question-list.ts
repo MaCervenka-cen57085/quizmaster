@@ -53,4 +53,3 @@ Then('I see the quiz {string} in the question list', async function (quizName: s
 Then('I take quiz {string}', async function (quiz: string) {
     await this.questionListPage.takeQuiz(quiz)
 })
-
