@@ -51,6 +51,7 @@ public class QuizController {
             .timesTaken(quiz.getTimesTaken())
             .timesFinished(quiz.getTimesFinished())
             .averageScore(quiz.getAverageScore())
+            .size(quiz.getSize())
             .build();
 
         return ResponseEntity.ok(build);

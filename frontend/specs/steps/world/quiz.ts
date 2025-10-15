@@ -7,6 +7,7 @@ export interface Quiz {
     mode: QuizMode
     passScore: number
     timeLimit: number
+    size?: number
 }
 
 export interface QuizBookmark extends Quiz {

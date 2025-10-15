@@ -13,6 +13,7 @@ const postQuiz = async (world: QuizmasterWorld, bookmark: string, quiz: Quiz) =>
         afterEach: quiz.mode === 'learn',
         passScore: quiz.passScore,
         timeLimit: quiz.timeLimit,
+        size: quiz.size,
     }
 
     const response = await world.page.request.post('/api/quiz', { data: quizPayload })

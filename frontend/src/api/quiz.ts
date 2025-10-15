@@ -8,6 +8,7 @@ export interface QuizCreateRequest {
     readonly afterEach: boolean
     readonly passScore: number
     readonly timeLimit: number
+    readonly size?: number
 }
 
 export const fetchQuiz = async (quizId: string) => await fetchJson<Quiz>(`/api/quiz/${quizId}`)

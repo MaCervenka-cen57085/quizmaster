@@ -12,4 +12,5 @@ export interface Quiz {
     readonly timesTaken: number
     readonly timesFinished: number
     readonly averageScore: number
+    readonly size?: number
 }

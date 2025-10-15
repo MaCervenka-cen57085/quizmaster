@@ -21,4 +21,5 @@ public class QuizResponse {
     private int timesTaken;
     private int timesFinished;
     private double averageScore;
+    private Integer size;
 }
