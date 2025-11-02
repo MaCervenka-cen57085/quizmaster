@@ -88,7 +88,7 @@ public class QuizQuestionControllerTest {
         assertEquals(question.getId(), result.get(0).getId());
         assertEquals(question.getQuestion(), result.get(0).getQuestion());
 
-        assertEquals(questionCreateResponse.getHash(), result.get(0).getHash());
+        assertEquals(questionCreateResponse.getEditId(), result.get(0).getEditId());
     }
 
     @Test
@@ -96,7 +96,7 @@ public class QuizQuestionControllerTest {
         var question = createSingleChoiceQuestion();
         var questionCreateResponse = quizQuestionController.saveQuestion(question);
         var updatedQuestion = createMultipleChoiceQuestion();
-        quizQuestionController.updateQuestion(updatedQuestion, questionCreateResponse.getHash());
+        quizQuestionController.updateQuestion(updatedQuestion, questionCreateResponse.getEditId());
 
         var result = quizQuestionController.getQuestion(questionCreateResponse.getId()).getBody();
 
@@ -115,7 +115,7 @@ public class QuizQuestionControllerTest {
         var questionCreateResponse = quizQuestionController.saveQuestion(question);
         // update to TRUE
         var updatedQuestionTrue = createMultipleChoiceQuestionWithEasyMode(true);
-        quizQuestionController.updateQuestion(updatedQuestionTrue, questionCreateResponse.getHash());
+        quizQuestionController.updateQuestion(updatedQuestionTrue, questionCreateResponse.getEditId());
 
         var result = quizQuestionController.getQuestion(questionCreateResponse.getId()).getBody();
 
@@ -124,7 +124,7 @@ public class QuizQuestionControllerTest {
 
         // update back to FALSE
         var updatedQuestionWithFalse = createMultipleChoiceQuestionWithEasyMode(false);
-        quizQuestionController.updateQuestion(updatedQuestionWithFalse, questionCreateResponse.getHash());
+        quizQuestionController.updateQuestion(updatedQuestionWithFalse, questionCreateResponse.getEditId());
 
         result = quizQuestionController.getQuestion(questionCreateResponse.getId()).getBody();
 
@@ -133,10 +133,10 @@ public class QuizQuestionControllerTest {
     }
 
     @Test
-    public void getQuestionByHash() {
+    public void getQuestionByEditId() {
         var question = createSingleChoiceQuestion();
         var questionCreateResponse = quizQuestionController.saveQuestion(question);
-        var result = quizQuestionController.getQuestionByHash(questionCreateResponse.getHash()).getBody();
+        var result = quizQuestionController.getQuestionByEditId(questionCreateResponse.getEditId()).getBody();
 
         assertNotNull(result);
         assertEquals(question.getQuestion(), result.getQuestion());
@@ -160,7 +160,7 @@ public class QuizQuestionControllerTest {
 
         assertNotNull(questionCreateResponse);
         assertNotNull(questionCreateResponse.getId());
-        assertNotNull(questionCreateResponse.getHash());
+        assertNotNull(questionCreateResponse.getEditId());
     }
 
     @Test
@@ -181,7 +181,7 @@ public class QuizQuestionControllerTest {
 
         assertNotNull(questionCreateResponse);
         assertNotNull(questionCreateResponse.getId());
-        assertNotNull(questionCreateResponse.getHash());
+        assertNotNull(questionCreateResponse.getEditId());
         assertEquals(question.isEasyMode(), result.isEasyMode());
     }
 

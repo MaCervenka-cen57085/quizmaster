@@ -24,8 +24,8 @@ export function CreateQuestionContainer() {
         await saveQuestion(formData)
             .then(response => {
                 setLinkToQuestion(`${location.origin}/question/${response.id}`)
-                setLinkToEditQuestion(`${location.origin}/question/${response.hash}/edit`)
-                editUrl = `/question/${response.hash}/edit`
+                setLinkToEditQuestion(`${location.origin}/question/${response.editId}/edit`)
+                editUrl = `/question/${response.editId}/edit`
             })
             .catch(error => setLinkToQuestion(error.message))
     }

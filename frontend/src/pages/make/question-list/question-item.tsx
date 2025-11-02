@@ -23,16 +23,16 @@ export const QuestionItem: React.FC<Props> = ({
             {index !== undefined && <span className="question-index">Q{index + 1}. </span>}
             <span id="question-text">{question.question}</span>
             <div className="edit-button">
-                <EditQuestionButton id={question.hash} hash={question.hash} onClick={onEditQuestion} />
+                <EditQuestionButton id={question.editId} editId={question.editId} onClick={onEditQuestion} />
             </div>
             <div className="copy-edit-button">
-                <CopyQuestionButton id={question.hash} hash={question.hash} kind="edit" onClick={onCopyEditQuestion} />
+                <CopyQuestionButton id={question.editId} editId={question.editId} kind="edit" onClick={onCopyEditQuestion} />
             </div>
             <div className="take-button">
-                <TakeQuestionButton id={question.hash} hash={question.hash} onClick={onTakeQuestion} />
+                <TakeQuestionButton id={question.editId} editId={question.editId} onClick={onTakeQuestion} />
             </div>
             <div className="copy-take-button">
-                <CopyQuestionButton id={question.hash} hash={question.hash} kind="take" onClick={onCopyTakeQuestion} />
+                <CopyQuestionButton id={question.editId} editId={question.editId} kind="take" onClick={onCopyTakeQuestion} />
             </div>
         </div>
     )

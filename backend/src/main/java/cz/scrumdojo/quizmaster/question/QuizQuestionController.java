@@ -1,6 +1,5 @@
 package cz.scrumdojo.quizmaster.question;
 
-import cz.scrumdojo.quizmaster.service.EncryptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,15 +15,10 @@ import java.util.Optional;
 public class QuizQuestionController {
 
     private final QuizQuestionRepository quizQuestionRepository;
-    private final EncryptionService encryptionService;
 
     @Autowired
-    public QuizQuestionController(
-        QuizQuestionRepository quizQuestionRepository,
-        EncryptionService encryptionService) {
-
+    public QuizQuestionController(QuizQuestionRepository quizQuestionRepository) {
         this.quizQuestionRepository = quizQuestionRepository;
-        this.encryptionService = encryptionService;
     }
 
     @Transactional
@@ -54,15 +48,15 @@ public class QuizQuestionController {
     public List<QuestionListItem> getQuestionsByQuestionList(@PathVariable String guid) {
         List<QuizQuestion> questions = quizQuestionRepository.findByQuestionListGuid(guid);
         return questions.stream()
-            .map(q -> new QuestionListItem( q.getId(),q.getQuestion(), encryptionService.encryptQuestionId(q.getId())))
+            .map(q -> new QuestionListItem(q.getId(), q.getQuestion(), q.getEditId()))
             .toList();
     }
 
     @Transactional
-    @GetMapping("/quiz-question/{hash}/edit")
-    public ResponseEntity<QuizQuestion> getQuestionByHash(@PathVariable String hash) {
-        var id = encryptionService.decryptQuestionId(hash);
-        return response(findQuestion(id));
+    @GetMapping("/quiz-question/{editId}/edit")
+    public ResponseEntity<QuizQuestion> getQuestionByEditId(@PathVariable String editId) {
+        var question = quizQuestionRepository.findByEditId(editId);
+        return response(question.map(q -> isQuestionsInQuiz(List.of(q)).stream().findFirst().orElse(null)));
     }
 
     @Transactional
@@ -75,17 +69,18 @@ public class QuizQuestionController {
     @PostMapping("/quiz-question")
     public QuestionCreateResponse saveQuestion(@RequestBody QuizQuestion question) {
         var createdQuestion = quizQuestionRepository.save(question);
-        var hash = encryptionService.encryptQuestionId(createdQuestion.getId());
-        return new QuestionCreateResponse(createdQuestion.getId(), hash);
+        return new QuestionCreateResponse(createdQuestion.getId(), createdQuestion.getEditId());
     }
 
     @Transactional
-    @PatchMapping("/quiz-question/{hash}")
-    public Integer updateQuestion(@RequestBody QuizQuestion question, @PathVariable String hash) {
-        var id = encryptionService.decryptQuestionId(hash);
-        question.setId(id);
+    @PatchMapping("/quiz-question/{editId}")
+    public Integer updateQuestion(@RequestBody QuizQuestion question, @PathVariable String editId) {
+        var existingQuestion = quizQuestionRepository.findByEditId(editId)
+            .orElseThrow(() -> new IllegalArgumentException("Question not found with editId: " + editId));
+        question.setId(existingQuestion.getId());
+        question.setEditId(editId);
         quizQuestionRepository.save(question);
-        return id;
+        return existingQuestion.getId();
     }
 
     @Transactional

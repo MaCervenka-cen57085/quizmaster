@@ -1,6 +1,7 @@
 package cz.scrumdojo.quizmaster.question;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,6 +15,8 @@ public interface QuizQuestionRepository extends JpaRepository<QuizQuestion, Inte
     Long getQuestionIndex(@Param("id") Integer id);
 
     List<QuizQuestion> findByQuestionListGuid(String guid);
+
+    Optional<QuizQuestion> findByEditId(String editId);
 
     @Query(value = "SELECT questions FROM quiz WHERE questions && ARRAY[:ids]", nativeQuery = true)
     List<Integer> findQuestionsInQuizs(@Param("ids") List<Integer> ids);

@@ -14,9 +14,9 @@ interface QuestionListProps {
     readonly quizzes: readonly Quiz[]
 }
 
-type EditQuestionButtonProps = { id: string; hash: string; onClick: () => void }
-type TakeQuestionButtonProps = { id: string; hash: string; onClick: () => void }
-type CopyQuestionButtonProps = { id: string; kind: string; hash: string; onClick: () => void }
+type EditQuestionButtonProps = { id: string; editId: string; onClick: () => void }
+type TakeQuestionButtonProps = { id: string; editId: string; onClick: () => void }
+type CopyQuestionButtonProps = { id: string; kind: string; editId: string; onClick: () => void }
 
 export const CreateQuestionButton = ({ onClick }: WithOnClick) => (
     <Button id="create-question" onClick={onClick}>
@@ -64,8 +64,8 @@ export function QuestionListComponent({ questionList, questions, quizzes }: Ques
         navigate(`/question/new?listguid=${questionList?.guid}`)
     }
 
-    const onEditQuestion = (hash: string) => {
-        navigate(`/question/${hash}/edit`)
+    const onEditQuestion = (editId: string) => {
+        navigate(`/question/${editId}/edit`)
     }
 
     const onTakeQuestion = (id: number) => {
@@ -77,8 +77,8 @@ export function QuestionListComponent({ questionList, questions, quizzes }: Ques
         await navigator.clipboard.writeText(link)
     }
 
-    const onCopyEditQuestion = async (hash: string) => {
-        const link = `${window.location.origin}/question/${hash}/edit`
+    const onCopyEditQuestion = async (editId: string) => {
+        const link = `${window.location.origin}/question/${editId}/edit`
         try {
             await navigator.clipboard.writeText(link)
             window.alert('link copied')
@@ -108,8 +108,8 @@ export function QuestionListComponent({ questionList, questions, quizzes }: Ques
                         key={q.id || index}
                         question={q}
                         index={index}
-                        onEditQuestion={() => onEditQuestion(q.hash)}
-                        onCopyEditQuestion={() => onCopyEditQuestion(q.hash)}
+                        onEditQuestion={() => onEditQuestion(q.editId)}
+                        onCopyEditQuestion={() => onCopyEditQuestion(q.editId)}
                         onTakeQuestion={() => onTakeQuestion(q.id)}
                         onCopyTakeQuestion={() => onCopyTakeQuestion(q.id)}
                     />

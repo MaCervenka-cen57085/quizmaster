@@ -6,5 +6,5 @@ import lombok.*;
 public class QuestionListItem {
     Integer id;
     String question;
-    String hash;
+    String editId;
 }

@@ -10,7 +10,7 @@ Feature: Create question GUI
   Scenario: Question take and question edit URLs
     Successfully created question has two URLs:
     - question take URL the quiz maker can share with quiz takers
-    - private hashed edit URL for future edits
+    - private edit URL (with UUID editId) for future edits
 
     Given I start creating a question
     * I enter question "2 + 2 = ?"
