@@ -72,7 +72,6 @@ pnpm test:e2e:ui       # Playwright UI at :3333
 **Quiz Management:**
 - `GET /api/quiz/{id}` - Get quiz with all questions
 - `POST /api/quiz` - Create quiz with question IDs array
-- `POST /api/quiz-with-list` - Create quiz from question list GUIDs
 - `PUT /api/quiz/{id}/start` - Increment `timesTaken` counter
 - `PUT /api/quiz/{id}/evaluate` - Submit score, update `timesFinished` and `averageScore`
 - `GET /api/quiz/by-question-list/{guid}` - Find quizzes using a question list

@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import cz.scrumdojo.quizmaster.model.QuizCreateWithListRequest;
 import cz.scrumdojo.quizmaster.model.ScoreRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -67,30 +65,6 @@ public class QuizController {
     public ResponseEntity<Integer> createQuiz(@RequestBody Quiz quizInput) {
         Quiz output = quizRepository.save(quizInput);
 
-        return ResponseEntity.ok(output.getId());
-    }
-
-    @Transactional
-    @PostMapping("/quiz-with-list")
-    public ResponseEntity<Integer> createQuizWithListIds(@RequestBody QuizCreateWithListRequest quizInput) {
-        ArrayList<QuizQuestion> questions = new ArrayList<QuizQuestion>();
-        for (String quizList : quizInput.getQuestionListIds()) {
-            var quizzes = quizQuestionRepository.findByQuestionListGuid(quizList);
-            questions.addAll(quizzes);
-        }
-
-        var quiz = Quiz.builder()
-            .id(-1)
-            .title(quizInput.getTitle())
-            .description(quizInput.getDescription())
-            .questionIds(questions.stream().mapToInt(q -> q.getId()).toArray())
-            .afterEach(true)
-            .passScore(quizInput.getPassScore())
-            .timeLimit(quizInput.getTimeLimit())
-            .questionList(quizInput.getQuestionList())
-            .build();
-
-        Quiz output = quizRepository.save(quiz);
         return ResponseEntity.ok(output.getId());
     }
 
