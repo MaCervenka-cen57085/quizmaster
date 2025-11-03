@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 import { useApi } from 'api/hooks'
 import { fetchWorkspace, fetchWorkspaceQuestions, fetchWorkspaceQuizzes } from 'api/workspace'
 import type { QuestionListItem } from 'model/question-list-item'
-import type { Quiz } from 'model/quiz'
+import type { QuizListItem } from 'model/quiz-list-item'
 import type { Workspace } from 'model/workspace'
 import { WorkspaceComponent } from './workspace'
 
@@ -14,7 +14,7 @@ export function WorkspaceContainer() {
 
     const [workspaceInfo, setWorkspaceInfo] = useState<Workspace>({ guid: params.id || '', title: '' })
     const [workspaceQuestions, setWorkspaceQuestions] = useState<readonly QuestionListItem[]>([])
-    const [workspaceQuizzes, setWorkspaceQuizzes] = useState<readonly Quiz[]>([])
+    const [workspaceQuizzes, setWorkspaceQuizzes] = useState<readonly QuizListItem[]>([])
 
     useApi(params.id, fetchWorkspace, setWorkspaceInfo)
     useApi(params.id, fetchWorkspaceQuestions, setWorkspaceQuestions)

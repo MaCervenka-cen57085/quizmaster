@@ -1,9 +1,9 @@
 import type React from 'react'
-import type { Quiz } from 'model/quiz'
+import type { QuizListItem } from 'model/quiz-list-item'
 import { Button } from 'pages/components/button'
 import copyClipboardIcon from 'assets/icons/copy-clipboard.svg'
 interface Props {
-    quiz: Quiz
+    quiz: QuizListItem
 }
 
 export const QuizItem: React.FC<Props> = ({ quiz }) => {

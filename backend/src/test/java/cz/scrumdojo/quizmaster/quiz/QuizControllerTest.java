@@ -161,18 +161,17 @@ public class QuizControllerTest {
         createQuiz(quizInput3);
 
         // Test the endpoint
-        ResponseEntity<List<Quiz>> response = quizController.getQuizzesByWorkspace(workspaceGuid);
+        ResponseEntity<List<QuizListItem>> response = quizController.getQuizzesByWorkspace(workspaceGuid);
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
-        List<Quiz> quizzes = response.getBody();
+        List<QuizListItem> quizzes = response.getBody();
         assertNotNull(quizzes);
         assertEquals(2, quizzes.size());
 
         // Verify both quizzes are associated with the workspace
-        assertTrue(quizzes.stream().anyMatch(q -> q.getId() == quizId1));
-        assertTrue(quizzes.stream().anyMatch(q -> q.getId() == quizId2));
-        assertTrue(quizzes.stream().allMatch(q -> workspaceGuid.equals(q.getWorkspaceGuid())));
+        assertTrue(quizzes.stream().anyMatch(q -> q.getId().equals(quizId1)));
+        assertTrue(quizzes.stream().anyMatch(q -> q.getId().equals(quizId2)));
     }
 
     @Test
@@ -185,11 +184,11 @@ public class QuizControllerTest {
         String workspaceGuid = savedWorkspace.getGuid();
 
         // Test the endpoint
-        ResponseEntity<List<Quiz>> response = quizController.getQuizzesByWorkspace(workspaceGuid);
+        ResponseEntity<List<QuizListItem>> response = quizController.getQuizzesByWorkspace(workspaceGuid);
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
-        List<Quiz> quizzes = response.getBody();
+        List<QuizListItem> quizzes = response.getBody();
         assertNotNull(quizzes);
         assertEquals(0, quizzes.size());
     }

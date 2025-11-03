@@ -5,13 +5,13 @@ import { QuestionItem } from './question-item'
 import './workspace.scss'
 import type { QuestionListItem } from 'model/question-list-item'
 import type { Workspace } from 'model/workspace'
-import type { Quiz } from 'model/quiz'
+import type { QuizListItem } from 'model/quiz-list-item'
 import { QuizItem } from '../quiz-create/quiz-item'
 
 interface WorkspaceProps {
     readonly workspace: Workspace
     readonly questions: readonly QuestionListItem[]
-    readonly quizzes: readonly Quiz[]
+    readonly quizzes: readonly QuizListItem[]
 }
 
 type EditQuestionButtonProps = { id: string; editId: string; onClick: () => void }
