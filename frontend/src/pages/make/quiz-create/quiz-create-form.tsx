@@ -29,7 +29,7 @@ export const QuizCreateForm = ({ questions, onSubmit }: QuizCreateProps) => {
         title,
         description,
         questionIds: Array.from(selectedIds),
-        afterEach: false,
+        mode: 'EXAM' as const,
         passScore,
         timeLimit,
         questionList: searchParams.get('listguid') || '',

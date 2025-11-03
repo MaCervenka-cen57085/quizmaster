@@ -10,7 +10,7 @@ const postQuiz = async (world: QuizmasterWorld, bookmark: string, quiz: Quiz) =>
         title: quiz.title,
         description: quiz.description,
         questionIds,
-        afterEach: quiz.mode === 'learn',
+        mode: quiz.mode.toUpperCase() as QuizMode,
         passScore: quiz.passScore,
         timeLimit: quiz.timeLimit,
         size: quiz.size,

@@ -38,7 +38,7 @@ public class QuizControllerTest {
         Quiz quizInput = new Quiz();
         quizInput.setTitle("Title");
         quizInput.setDescription("Description");
-        quizInput.setAfterEach(true);
+        quizInput.setMode(QuizMode.LEARN);
         quizInput.setPassScore(85);
         quizInput.setQuestionIds(questions);
         quizInput.setTimeLimit(10);
@@ -73,7 +73,7 @@ public class QuizControllerTest {
         assertEquals(quizInput.getDescription(), quiz.getDescription());
         assertEquals(quizInput.getPassScore(), quiz.getPassScore());
         assertArrayEquals(quizInput.getQuestionIds(), quiz.getQuestionIds());
-        assertEquals(quizInput.isAfterEach(), quiz.isAfterEach());
+        assertEquals(quizInput.getMode(), quiz.getMode());
         assertEquals(quizInput.getTimeLimit(), quiz.getTimeLimit());
         assertEquals(quizInput.getSize(), quiz.getSize());
 

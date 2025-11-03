@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 
 import cz.scrumdojo.quizmaster.quiz.Quiz;
 import cz.scrumdojo.quizmaster.quiz.QuizController;
+import cz.scrumdojo.quizmaster.quiz.QuizMode;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -230,7 +231,7 @@ public class QuizQuestionControllerTest {
         Quiz quizInput = new Quiz();
         quizInput.setTitle("Title");
         quizInput.setDescription("Description");
-        quizInput.setAfterEach(true);
+        quizInput.setMode(QuizMode.LEARN);
         quizInput.setPassScore(85);
         quizInput.setQuestionIds(new int[]{question.getId()});
         quizController.createQuiz(quizInput);

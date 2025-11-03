@@ -26,13 +26,23 @@ export const QuestionItem: React.FC<Props> = ({
                 <EditQuestionButton id={question.editId} editId={question.editId} onClick={onEditQuestion} />
             </div>
             <div className="copy-edit-button">
-                <CopyQuestionButton id={question.editId} editId={question.editId} kind="edit" onClick={onCopyEditQuestion} />
+                <CopyQuestionButton
+                    id={question.editId}
+                    editId={question.editId}
+                    kind="edit"
+                    onClick={onCopyEditQuestion}
+                />
             </div>
             <div className="take-button">
                 <TakeQuestionButton id={question.editId} editId={question.editId} onClick={onTakeQuestion} />
             </div>
             <div className="copy-take-button">
-                <CopyQuestionButton id={question.editId} editId={question.editId} kind="take" onClick={onCopyTakeQuestion} />
+                <CopyQuestionButton
+                    id={question.editId}
+                    editId={question.editId}
+                    kind="take"
+                    onClick={onCopyTakeQuestion}
+                />
             </div>
         </div>
     )

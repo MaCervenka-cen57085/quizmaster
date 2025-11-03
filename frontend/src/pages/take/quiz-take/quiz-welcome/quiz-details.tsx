@@ -20,7 +20,7 @@ export const QuizDetails = ({ quiz, onStart }: QuizDetailsProps) => (
         <p>
             Pass score: <span id="pass-score">{quiz.passScore}</span>%
         </p>
-        <p id="question-feedback">{quiz.afterEach ? 'Continuous feedback' : 'Feedback at the end'}</p>
+        <p id="question-feedback">{quiz.mode === 'LEARN' ? 'Continuous feedback' : 'Feedback at the end'}</p>
         <StartButton onClick={onStart} />
     </>
 )

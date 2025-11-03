@@ -56,7 +56,7 @@ export const QuizScorePage = ({ quiz, quizAnswers }: QuizScorePageProps) => {
                 </div>
             </div>
 
-            {quiz.afterEach && (
+            {quiz.mode === 'LEARN' && (
                 <div>
                     <h2>Original result</h2>
                     <div>how would you do if it was a quiz with no correction options</div>

@@ -26,7 +26,8 @@ public class Quiz {
     @JdbcTypeCode(SqlTypes.ARRAY)
     private int[] questionIds;
 
-    private boolean afterEach;
+    @Enumerated(EnumType.STRING)
+    private QuizMode mode;
     private int passScore;
     private Integer timeLimit; // time limit in seconds, null means no limit
 

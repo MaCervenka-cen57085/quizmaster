@@ -1,5 +1,6 @@
 package cz.scrumdojo.quizmaster.model;
 
+import cz.scrumdojo.quizmaster.quiz.QuizMode;
 import lombok.*;
 
 @Data
@@ -13,7 +14,7 @@ public class QuizCreateWithListRequest {
     private String id;
     private String description;
     private String[] questionListIds;
-    private boolean afterEach;
+    private QuizMode mode;
     private int passScore;
     private Integer timeLimit;
     private String questionList; // Question list GUID

@@ -61,8 +61,8 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
                 key={currentQuestion.id}
                 question={currentQuestion}
                 selectedAnswerIdxs={quizAnswers.finalAnswers[nav.currentQuestionIdx]}
-                onSubmitted={props.quiz.afterEach ? answer : answerAndNext}
-                afterEach={props.quiz.afterEach}
+                onSubmitted={props.quiz.mode === 'LEARN' ? answer : answerAndNext}
+                mode={props.quiz.mode}
             />
             <div
                 style={{ display: 'flex', gap: '10px', alignItems: 'center', marginTop: '10px', marginBottom: '20px' }}

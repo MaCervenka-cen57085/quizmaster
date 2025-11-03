@@ -8,12 +8,13 @@ import {
     QuestionExplanation,
 } from 'pages/take/question-take'
 import { QuestionScore } from './components/question-score'
+import type { QuizMode } from 'model/quiz.ts'
 
 export interface QuestionFormProps {
     readonly question: QuizQuestion
     readonly selectedAnswerIdxs?: AnswerIdxs
     readonly onSubmitted?: (selectedAnswerIdxs: AnswerIdxs) => void
-    readonly afterEach: boolean
+    readonly mode: QuizMode
 }
 
 export const QuestionForm = (props: QuestionFormProps) => {
@@ -59,7 +60,7 @@ export const QuestionForm = (props: QuestionFormProps) => {
                             isCorrect={feedback.isAnswerCorrect(idx)}
                             isUserSelected={feedback.isUserSelected(idx)}
                             explanation={props.question.explanations ? props.question.explanations[idx] : 'not defined'}
-                            showFeedback={state.submitted && feedback.showFeedback(idx) && props.afterEach}
+                            showFeedback={state.submitted && feedback.showFeedback(idx) && props.mode === 'LEARN'}
                             onAnswerChange={state.onSelectedAnswerChange}
                             isAnswerChecked={state.isAnswerChecked}
                         />
@@ -69,7 +70,7 @@ export const QuestionForm = (props: QuestionFormProps) => {
                 {!state.submitted && (
                     <input type="submit" value="Submit" className="submit-btn" disabled={!isAnswerChecked} />
                 )}
-                {state.submitted && props.afterEach && (
+                {state.submitted && props.mode === 'LEARN' && (
                     <>
                         <QuestionCorrectness
                             score={feedback.score.score}

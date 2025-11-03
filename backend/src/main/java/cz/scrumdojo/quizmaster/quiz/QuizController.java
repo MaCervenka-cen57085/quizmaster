@@ -48,7 +48,7 @@ public class QuizController {
             .title(quiz.getTitle())
             .description(quiz.getDescription())
             .questions(questions)
-            .afterEach(quiz.isAfterEach())
+            .mode(quiz.getMode())
             .passScore(quiz.getPassScore())
             .timeLimit(quiz.getTimeLimit())
             .timesTaken(quiz.getTimesTaken())
