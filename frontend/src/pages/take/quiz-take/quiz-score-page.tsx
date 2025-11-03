@@ -1,7 +1,7 @@
 import type { Quiz } from 'model/quiz.ts'
 import { evaluate } from './quiz-score.ts'
 import type { QuizAnswers } from './quiz-answers-state.ts'
-import { Question } from './components/question'
+import { QuestionFeedback } from './components/question'
 import { useEffect } from 'react'
 
 interface QuizScorePageProps {
@@ -88,7 +88,7 @@ export const QuizScorePage = ({ quiz, quizAnswers }: QuizScorePageProps) => {
 
             <h2>Answer overview</h2>
             {quiz.questions.map((question, idx) => (
-                <Question question={question} selectedAnswerIdxs={quizAnswers.finalAnswers[idx]} />
+                <QuestionFeedback question={question} selectedAnswerIdxs={quizAnswers.finalAnswers[idx]} />
             ))}
         </>
     )

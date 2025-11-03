@@ -1,5 +1,5 @@
-import type { AnswerIdxs } from 'model/quiz-question'
-import type { QuestionApiData } from 'api/quiz-question'
+import type { AnswerIdxs } from 'model/question'
+import type { QuestionApiData } from 'api/question'
 
 export interface AnswerData {
     readonly answer: string

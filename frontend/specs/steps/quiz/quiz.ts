@@ -32,31 +32,31 @@ Then('I see question {string}', async function (bookmark: string) {
 })
 
 Then('I should see the next button', async function () {
-    await expect(this.quizQuestionPage.nextButtonLocator()).toBeVisible()
+    await expect(this.questionPage.nextButtonLocator()).toBeVisible()
 })
 
 Then('I should see the skip button', async function () {
-    await expect(this.quizQuestionPage.skipButtonLocator()).toBeVisible()
+    await expect(this.questionPage.skipButtonLocator()).toBeVisible()
 })
 
 Then('I should not see the skip button', async function () {
-    await expect(this.quizQuestionPage.skipButtonLocator()).not.toBeVisible()
+    await expect(this.questionPage.skipButtonLocator()).not.toBeVisible()
 })
 
 Then('I should not see the next button', async function () {
-    await expect(this.quizQuestionPage.nextButtonLocator()).not.toBeVisible()
+    await expect(this.questionPage.nextButtonLocator()).not.toBeVisible()
 })
 
 When('I proceed to the next question', async function () {
-    await this.quizQuestionPage.next()
+    await this.questionPage.next()
 })
 
 When('I click the next button', async function () {
-    await this.quizQuestionPage.next()
+    await this.questionPage.next()
 })
 
 When('I click the skip button', async function () {
-    await this.quizQuestionPage.skip()
+    await this.questionPage.skip()
 })
 
 When('I click the start button', async function () {
@@ -64,27 +64,27 @@ When('I click the start button', async function () {
 })
 
 Then('I should see the evaluate button', async function () {
-    await expect(this.quizQuestionPage.evaluateButtonLocator()).toBeVisible()
+    await expect(this.questionPage.evaluateButtonLocator()).toBeVisible()
 })
 
 Then('I should see the dialog evaluate button', async function () {
-    await expect(this.quizQuestionPage.evaluateModalButtonLocator()).toBeVisible()
+    await expect(this.questionPage.evaluateModalButtonLocator()).toBeVisible()
 })
 
 Then('I click on the dialog evaluate button', async function () {
-    expect(await this.quizQuestionPage.evaluateModalButtonLocator().click())
+    expect(await this.questionPage.evaluateModalButtonLocator().click())
 })
 
 Then('I should not see the evaluate button', async function () {
-    await expect(this.quizQuestionPage.evaluateButtonLocator()).not.toBeVisible()
+    await expect(this.questionPage.evaluateButtonLocator()).not.toBeVisible()
 })
 
 Then('I click the evaluate button', async function () {
-    await this.quizQuestionPage.evaluate()
+    await this.questionPage.evaluate()
 })
 
 Then('I proceed to the score page', async function () {
-    await this.quizQuestionPage.evaluate()
+    await this.questionPage.evaluate()
 })
 
 Given('I refresh page', async function () {
@@ -114,8 +114,8 @@ Then('I should see the answer', async function () {
 })
 
 Then('progress shows {int} of {int}', async function (current: number, max: number) {
-    expect(await this.quizQuestionPage.progressCurrent()).toBe(current)
-    expect(await this.quizQuestionPage.progressMax()).toBe(max)
+    expect(await this.questionPage.progressCurrent()).toBe(current)
+    expect(await this.questionPage.progressMax()).toBe(max)
 })
 
 Then('I should see the text "Game over time"', async function () {
@@ -123,15 +123,15 @@ Then('I should see the text "Game over time"', async function () {
 })
 
 Then('I should see the back button', async function () {
-    await expect(this.quizQuestionPage.backButtonLocator()).toBeVisible()
+    await expect(this.questionPage.backButtonLocator()).toBeVisible()
 })
 
 Then('I should not see the back button', async function () {
-    await expect(this.quizQuestionPage.backButtonLocator()).not.toBeVisible()
+    await expect(this.questionPage.backButtonLocator()).not.toBeVisible()
 })
 
 When('I click the back button', async function () {
-    await this.quizQuestionPage.back()
+    await this.questionPage.back()
 })
 
 Then('I should see the countdown timer {string}', async function (timer: string) {

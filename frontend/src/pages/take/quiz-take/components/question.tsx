@@ -1,15 +1,15 @@
 import './question.scss'
 
-import type { AnswerIdxs, QuizQuestion } from 'model/quiz-question'
+import type { AnswerIdxs, Question } from 'model/question'
 import { Answer } from 'pages/take/question-take'
 import { QuestionExplanation } from 'pages/take/question-take'
 
-interface QuestionProps {
-    readonly question: QuizQuestion
+interface QuestionFeedbackProps {
+    readonly question: Question
     readonly selectedAnswerIdxs?: AnswerIdxs
 }
 
-export const Question = ({ question, selectedAnswerIdxs }: QuestionProps) => {
+export const QuestionFeedback = ({ question, selectedAnswerIdxs }: QuestionFeedbackProps) => {
     const isMultipleChoice = question.correctAnswers.length > 1
 
     const isAnswerCorrect = (idx: number) =>

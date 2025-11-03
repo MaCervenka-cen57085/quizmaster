@@ -1,4 +1,4 @@
-import { isAnsweredCorrectly } from 'model/quiz-question.ts'
+import { isAnsweredCorrectly } from 'model/question.ts'
 import type { Quiz } from 'model/quiz.ts'
 import type { QuizAnswers } from './quiz-answers-state'
 

@@ -6,7 +6,7 @@ import {
     QuestionEditPage,
     WorkspacePage,
     QuizCreatePage,
-    QuizQuestionPage,
+    QuestionPage,
     QuizScorePage,
     QuizWelcomePage,
     TakeQuestionPage,
@@ -23,7 +23,7 @@ export class QuizmasterWorld {
         this.questionEditPage = new QuestionEditPage(this.page)
         this.workspaceCreatePage = new WorkspaceCreatePage(this.page)
         this.takeQuestionPage = new TakeQuestionPage(this.page)
-        this.quizQuestionPage = new QuizQuestionPage(this.page)
+        this.questionPage = new QuestionPage(this.page)
         this.quizWelcomePage = new QuizWelcomePage(this.page)
         this.quizStatisticsPage = new QuizStatisticsPage(this.page)
         this.quizScorePage = new QuizScorePage(this.page)
@@ -35,7 +35,7 @@ export class QuizmasterWorld {
     readonly questionEditPage: QuestionEditPage
     readonly workspaceCreatePage: WorkspaceCreatePage
     readonly takeQuestionPage: TakeQuestionPage
-    readonly quizQuestionPage: QuizQuestionPage
+    readonly questionPage: QuestionPage
     readonly quizWelcomePage: QuizWelcomePage
     readonly quizStatisticsPage: QuizStatisticsPage
     readonly quizScorePage: QuizScorePage

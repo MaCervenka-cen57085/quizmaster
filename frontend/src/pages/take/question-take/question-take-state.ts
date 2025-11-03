@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { AnswerIdxs } from 'model/quiz-question'
+import type { AnswerIdxs } from 'model/question'
 import type { QuestionFormProps } from './question-form'
 
 export interface QuestionTakeState {

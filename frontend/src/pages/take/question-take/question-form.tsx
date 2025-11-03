@@ -1,5 +1,5 @@
 import './question-form.scss'
-import type { AnswerIdxs, QuizQuestion } from 'model/quiz-question.ts'
+import type { AnswerIdxs, Question } from 'model/question.ts'
 import {
     Answer,
     useQuestionFeedbackState,
@@ -11,7 +11,7 @@ import { QuestionScore } from './components/question-score'
 import type { QuizMode } from 'model/quiz.ts'
 
 export interface QuestionFormProps {
-    readonly question: QuizQuestion
+    readonly question: Question
     readonly selectedAnswerIdxs?: AnswerIdxs
     readonly onSubmitted?: (selectedAnswerIdxs: AnswerIdxs) => void
     readonly mode: QuizMode

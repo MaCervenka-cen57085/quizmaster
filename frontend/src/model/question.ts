@@ -1,6 +1,6 @@
 export type AnswerIdxs = readonly number[]
 
-export interface QuizQuestion {
+export interface Question {
     readonly id: number
     readonly editId: string
     readonly question: string

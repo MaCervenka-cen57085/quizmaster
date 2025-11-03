@@ -1,6 +1,6 @@
-import type { AnswerIdxs } from 'model/quiz-question'
+import type { AnswerIdxs } from 'model/question'
 import type { Quiz } from 'model/quiz.ts'
-import { QuestionForm } from '../question-take/index.ts'
+import { QuestionForm as StandaloneQuestionForm } from '../question-take/index.ts'
 import { ProgressBar } from './components/progress-bar.tsx'
 import { EvaluateButton, NextButton, BackButton, SkipButton, BookmarkButton } from './components/buttons.tsx'
 
@@ -10,14 +10,14 @@ import { useQuizAnswersState, type QuizAnswers } from './quiz-answers-state.ts'
 import { useQuizNavigationState } from './quiz-navigation-state.ts'
 import { useQuizBookmarkState } from './quiz-bookmark-state.ts'
 
-interface QuizQuestionProps {
+interface QuestionProps {
     readonly quiz: Quiz
     readonly onEvaluate: (quizAnswers: QuizAnswers) => void
 }
 
 export type QuizState = readonly AnswerIdxs[]
 
-export const QuizQuestionForm = (props: QuizQuestionProps) => {
+export const QuestionForm = (props: QuestionProps) => {
     const { quizAnswers, answerQuestion } = useQuizAnswersState()
     const nav = useQuizNavigationState(props.quiz)
     const bookmarks = useQuizBookmarkState()
@@ -57,7 +57,7 @@ export const QuizQuestionForm = (props: QuizQuestionProps) => {
             <h2>Quiz</h2>
             <ProgressBar current={nav.currentQuestionIdx + 1} total={props.quiz.questions.length} />
 
-            <QuestionForm
+            <StandaloneQuestionForm
                 key={currentQuestion.id}
                 question={currentQuestion}
                 selectedAnswerIdxs={quizAnswers.finalAnswers[nav.currentQuestionIdx]}

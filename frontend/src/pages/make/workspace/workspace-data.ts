@@ -1,6 +1,6 @@
-import type { QuizQuestion } from 'model/quiz-question'
+import type { Question } from 'model/question'
 
 export interface WorkspaceData {
     readonly title: string
-    readonly questions: readonly QuizQuestion[]
+    readonly questions: readonly Question[]
 }

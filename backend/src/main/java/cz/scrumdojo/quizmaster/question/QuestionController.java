@@ -22,13 +22,13 @@ public class QuestionController {
     }
 
     @Transactional
-    @GetMapping("/quiz-question/{id}")
+    @GetMapping("/question/{id}")
     public ResponseEntity<Question> getQuestion(@PathVariable Integer id) {
         return response(findQuestion(id));
     }
 
     @Transactional
-    @DeleteMapping("/quiz-question/{id}")
+    @DeleteMapping("/question/{id}")
     public ResponseEntity<Void> deleteQuestion(@PathVariable Integer id) {
         try {
             Question question = questionRepository.findById(id).orElse(null);
@@ -44,21 +44,21 @@ public class QuestionController {
     }
 
     @Transactional
-    @GetMapping("/quiz-question/{editId}/edit")
+    @GetMapping("/question/{editId}/edit")
     public ResponseEntity<Question> getQuestionByEditId(@PathVariable String editId) {
         var question = questionRepository.findByEditId(editId);
         return response(question.map(q -> isQuestionsInQuiz(List.of(q)).stream().findFirst().orElse(null)));
     }
 
     @Transactional
-    @PostMapping("/quiz-question")
+    @PostMapping("/question")
     public QuestionCreateResponse saveQuestion(@RequestBody Question question) {
         var createdQuestion = questionRepository.save(question);
         return new QuestionCreateResponse(createdQuestion.getId(), createdQuestion.getEditId());
     }
 
     @Transactional
-    @PatchMapping("/quiz-question/{editId}")
+    @PatchMapping("/question/{editId}")
     public Integer updateQuestion(@RequestBody Question question, @PathVariable String editId) {
         var existingQuestion = questionRepository.findByEditId(editId)
             .orElseThrow(() -> new IllegalArgumentException("Question not found with editId: " + editId));

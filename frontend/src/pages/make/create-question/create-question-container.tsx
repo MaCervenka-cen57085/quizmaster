@@ -1,7 +1,7 @@
 import './create-question.scss'
 import { useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { type QuestionApiData, saveQuestion } from 'api/quiz-question.ts'
+import { type QuestionApiData, saveQuestion } from 'api/question.ts'
 
 import { emptyQuestionFormData, toQuestionApiData } from './form'
 import { CreateQuestionForm } from './create-question'

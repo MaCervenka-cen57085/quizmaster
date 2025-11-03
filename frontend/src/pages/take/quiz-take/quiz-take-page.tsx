@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useQuizApi } from './hooks.ts'
 
 import { QuizScorePage } from './quiz-score-page.tsx'
-import { QuizQuestionForm } from './quiz.tsx'
+import { QuestionForm } from './quiz.tsx'
 import type { QuizAnswers } from './quiz-answers-state.ts'
 
 export const QuizTakePage = () => {
@@ -14,7 +14,7 @@ export const QuizTakePage = () => {
         return quizAnswers ? (
             <QuizScorePage quiz={quiz} quizAnswers={quizAnswers} />
         ) : (
-            <QuizQuestionForm quiz={quiz} onEvaluate={setQuizAnswers} />
+            <QuestionForm quiz={quiz} onEvaluate={setQuizAnswers} />
         )
     }
 }

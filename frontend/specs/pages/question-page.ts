@@ -1,6 +1,6 @@
 import type { Page } from '@playwright/test'
 
-export class QuizQuestionPage {
+export class QuestionPage {
     constructor(private page: Page) {}
 
     backButtonLocator = () => this.page.locator('button#back')

@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useApi } from 'api/hooks'
 import { useNavigate } from 'react-router-dom'
-import { type QuestionApiData, fetchQuestionByEditId, updateQuestion, deleteQuestion } from 'api/quiz-question.ts'
+import { type QuestionApiData, fetchQuestionByEditId, updateQuestion, deleteQuestion } from 'api/question.ts'
 
 import { emptyQuestionFormData, toQuestionApiData, toQuestionFormData } from './form'
 import { CreateQuestionForm } from './create-question'
@@ -23,11 +23,11 @@ export function EditQuestionContainer() {
     const [errors, setErrors] = useState<ErrorCodes>(new Set())
     const [questionId, setQuestionId] = useState<number>(0)
 
-    useApi(questionEditId, fetchQuestionByEditId, quizQuestion => {
-        setQuestionData(toQuestionFormData(quizQuestion))
-        setLinkToQuestion(`${location.origin}/question/${quizQuestion.id}`)
+    useApi(questionEditId, fetchQuestionByEditId, question => {
+        setQuestionData(toQuestionFormData(question))
+        setLinkToQuestion(`${location.origin}/question/${question.id}`)
         setLinkToEditQuestion(`${location.origin}/question/${questionEditId}/edit`)
-        setQuestionId(quizQuestion.id)
+        setQuestionId(question.id)
         setIsLoaded(true)
     })
 
