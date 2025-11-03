@@ -51,4 +51,4 @@ Feature: Edit question GUI
     When I click delete button
     Then I am on the home page
     And I should see a link to create a new question
-    And I should see a link to create a new question list
+    And I should see a link to create a new workspace

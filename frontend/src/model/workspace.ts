@@ -1,4 +1,4 @@
-export interface QuestionList {
+export interface Workspace {
     readonly guid: string
     readonly title: string
 }

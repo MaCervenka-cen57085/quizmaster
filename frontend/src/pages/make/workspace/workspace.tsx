@@ -2,14 +2,14 @@ import { Button, type WithOnClick } from 'pages/components/button'
 import { useNavigate } from 'react-router-dom'
 import copyClipboardIcon from 'assets/icons/copy-clipboard.svg'
 import { QuestionItem } from './question-item'
-import './question-list.scss'
+import './workspace.scss'
 import type { QuizQuestion } from 'model/quiz-question'
-import type { QuestionList } from 'model/question-list'
+import type { Workspace } from 'model/workspace'
 import type { Quiz } from 'model/quiz'
 import { QuizItem } from '../quiz-create/quiz-item'
 
-interface QuestionListProps {
-    readonly questionList: QuestionList
+interface WorkspaceProps {
+    readonly workspace: Workspace
     readonly questions: readonly QuizQuestion[]
     readonly quizzes: readonly Quiz[]
 }
@@ -57,11 +57,11 @@ export const CreateQuizButton = ({ onClick }: WithOnClick) => (
     </Button>
 )
 
-export function QuestionListComponent({ questionList, questions, quizzes }: QuestionListProps) {
+export function WorkspaceComponent({ workspace, questions, quizzes }: WorkspaceProps) {
     const navigate = useNavigate()
 
     const onCreateNewQuestion = () => {
-        navigate(`/question/new?listguid=${questionList?.guid}`)
+        navigate(`/question/new?workspaceguid=${workspace?.guid}`)
     }
 
     const onEditQuestion = (editId: string) => {
@@ -88,14 +88,14 @@ export function QuestionListComponent({ questionList, questions, quizzes }: Ques
     }
 
     const onCreateQuiz = () => {
-        navigate(`/quiz-create/new?listguid=${questionList.guid}`)
+        navigate(`/quiz-create/new?workspaceguid=${workspace.guid}`)
     }
 
     return (
-        <div className="question-list-page">
-            {questionList.title && (
-                <h1 id="question-title-header" data-testid="question-list-title">
-                    {questionList.title}
+        <div className="workspace-page">
+            {workspace.title && (
+                <h1 id="question-title-header" data-testid="workspace-title">
+                    {workspace.title}
                 </h1>
             )}
             <div className="create-button">

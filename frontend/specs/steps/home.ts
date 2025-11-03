@@ -2,20 +2,17 @@ import { Given, Then } from './fixture.ts'
 import { expect } from '@playwright/test'
 import type { QuizmasterWorld } from './world/world.ts'
 
-// Given step: Navigate to the home page
 Given('I am on the home page', async function (this: QuizmasterWorld) {
     await this.homePage.goto()
     await this.homePage.waitForLoaded()
 })
 
-// Then step: Check if the create question link exists
 Then('I should see a link to create a new question', async function (this: QuizmasterWorld) {
     const hasLink = await this.homePage.hasCreateQuestionLink()
     expect(hasLink).toBeTruthy()
 })
 
-// Then step: Check if the create question list link exists
-Then('I should see a link to create a new question list', async function (this: QuizmasterWorld) {
-    const hasLink = await this.homePage.hasCreateQuestionListLink()
+Then('I should see a link to create a new workspace', async function (this: QuizmasterWorld) {
+    const hasLink = await this.homePage.hasCreateWorkspaceLink()
     expect(hasLink).toBeTruthy()
 })

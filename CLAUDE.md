@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project Overview
 
 Quizmaster is a training application for Scrum workshops at ScrumDojo.cz. Core features:
-- Create and manage questions, question lists, and quizzes
+- Create and manage questions, workspaces, and quizzes
 - Take standalone questions or complete quizzes
 - Track quiz performance (times taken/finished, average scores)
 
@@ -58,11 +58,11 @@ pnpm test:e2e:ui       # Playwright UI at :3333
 
 **Three entities:**
 1. **QuizQuestion** - Question text, multiple answers, correct answer indices, explanations
-2. **QuestionList** - Collection of questions (identified by GUID/UUID)
-3. **Quiz** - Assessment config: title, question IDs array, pass score, time limit, `afterEach` mode, statistics
+2. **Workspace** - Collection of questions and quizzes (identified by GUID/UUID)
+3. **Quiz** - Assessment config: title, question IDs array, pass score, time limit, `mode` (EXAM/LEARNING), statistics
 
 **Key concepts:**
-- **`afterEach` flag**: `true` = learning mode (feedback after each question), `false` = exam mode (feedback at end)
+- **`mode` field**: `EXAM` = exam mode (feedback at end), `LEARNING` = learning mode (feedback after each question)
 - **`size` field**: Limits quiz to N random questions from larger pool (may be unfinished feature)
 - **No authentication**: Questions use encrypted/hashed IDs for edit URLs to prevent unauthorized editing
 - **Standalone questions**: Original feature; users can take individual questions outside quizzes
@@ -74,7 +74,7 @@ pnpm test:e2e:ui       # Playwright UI at :3333
 - `POST /api/quiz` - Create quiz with question IDs array
 - `PUT /api/quiz/{id}/start` - Increment `timesTaken` counter
 - `PUT /api/quiz/{id}/evaluate` - Submit score, update `timesFinished` and `averageScore`
-- `GET /api/quiz/by-question-list/{guid}` - Find quizzes using a question list
+- `GET /api/quiz/by-workspace/{guid}` - Find quizzes in a workspace
 
 **Question Management:**
 - `GET /api/quiz-question/{id}` - Get question (with `deletable` flag)
@@ -84,11 +84,11 @@ pnpm test:e2e:ui       # Playwright UI at :3333
 - `GET /api/quiz-question/{hash}/edit` - Get question by hash for editing
 - `GET /api/quiz-question/{id}/answers` - Get answers for evaluation
 - `GET /api/quiz-question/{id}/progress-state` - Get question index and total count
-- `GET /api/quiz-question/by-question-list/{guid}` - Get questions in a list
+- `GET /api/quiz-question/by-workspace/{guid}` - Get questions in a workspace
 
-**Question List Management:**
-- `GET /api/q-list/{guid}` - Get question list
-- `POST /api/q-list` - Create question list, returns GUID
+**Workspace Management:**
+- `GET /api/workspace/{guid}` - Get workspace
+- `POST /api/workspace` - Create workspace, returns GUID
 
 **Quiz-Taking Workflow:**
 1. Frontend loads quiz via `GET /api/quiz/{id}` (shows welcome page)
@@ -102,8 +102,8 @@ pnpm test:e2e:ui       # Playwright UI at :3333
 - `/question/new` - Create question
 - `/question/:id` - Take standalone question
 - `/question/:id/edit` - Edit question (uses hash)
-- `/q-list/new` - Create question list
-- `/q-list/:id` - View question list
+- `/workspace/new` - Create workspace
+- `/workspace/:id` - View workspace (questions and quizzes)
 - `/quiz-create/new` - Create quiz
 - `/quiz/:id` - Quiz welcome/info page
 - `/quiz/:id/questions` - Take quiz
@@ -139,8 +139,7 @@ Training repository emphasizing:
 
 ## Known Technical Debt / Future Improvements
 
-1. **Rename `afterEach`** → `learningMode` or `examMode` for clarity
-2. **Replace encrypted question IDs** → Simple UUIDs (encryption is excessive)
-3. **Quiz-Question relationship** → Refactor int array to M:N junction table with referential integrity
-4. **Progress state endpoint** → May not be optimal implementation
-5. **Standalone questions** → Consider deprecation (kept for backward compatibility)
+1. **Replace encrypted question IDs** → Simple UUIDs (encryption is excessive)
+2. **Quiz-Question relationship** → Refactor int array to M:N junction table with referential integrity
+3. **Progress state endpoint** → May not be optimal implementation
+4. **Standalone questions** → Consider deprecation (kept for backward compatibility)

@@ -21,14 +21,14 @@ public class WorkspaceController {
 
 
     @Transactional
-    @GetMapping("/q-list/{guid}")
-    public ResponseEntity<Workspace> getQuestionList(@PathVariable String guid) {
+    @GetMapping("/workspace/{guid}")
+    public ResponseEntity<Workspace> getWorkspace(@PathVariable String guid) {
         return response(workspaceRepository.findById(guid));
     }
 
     @Transactional
-    @PostMapping("/q-list")
-    public WorkspaceCreateResponse saveQuestionList(@RequestBody Workspace workspace) {
+    @PostMapping("/workspace")
+    public WorkspaceCreateResponse saveWorkspace(@RequestBody Workspace workspace) {
         var createdWorkspace = workspaceRepository.save(workspace);
         return new WorkspaceCreateResponse(createdWorkspace.getGuid());
     }

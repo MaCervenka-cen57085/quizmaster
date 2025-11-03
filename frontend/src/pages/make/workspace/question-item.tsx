@@ -1,5 +1,5 @@
 import type { QuizQuestion } from 'model/quiz-question'
-import { EditQuestionButton, TakeQuestionButton, CopyQuestionButton } from './question-list.tsx'
+import { EditQuestionButton, TakeQuestionButton, CopyQuestionButton } from './workspace.tsx'
 
 interface Props {
     question: QuizQuestion

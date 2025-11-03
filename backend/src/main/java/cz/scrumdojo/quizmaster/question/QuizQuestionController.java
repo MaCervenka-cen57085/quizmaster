@@ -44,7 +44,7 @@ public class QuizQuestionController {
     }
 
     @Transactional
-    @GetMapping("/quiz-question/by-question-list/{guid}")
+    @GetMapping("/quiz-question/by-workspace/{guid}")
     public List<WorkspaceItem> getQuestionsByWorkspace(@PathVariable String guid) {
         List<QuizQuestion> questions = quizQuestionRepository.findByWorkspaceGuid(guid);
         return questions.stream()

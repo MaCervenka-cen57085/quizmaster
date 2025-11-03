@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { useApi } from 'api/hooks'
-import { fetchListQuestions } from 'api/question-list'
+import { fetchWorkspaceQuestions } from 'api/workspace'
 
 import type { QuizQuestion } from 'model/quiz-question'
 import { postQuiz } from 'api/quiz'
@@ -14,27 +14,27 @@ import { QuizInfoUrl } from './components/quiz-info-url'
 
 export const QuizCreatePage = () => {
     const [searchParams] = useSearchParams()
-    const listGuid = searchParams.get('listguid')
+    const workspaceGuid = searchParams.get('workspaceguid')
     const navigate = useNavigate()
 
-    const [questionList, setQuestionList] = useState<readonly QuizQuestion[]>([])
+    const [workspaceQuestions, setWorkspaceQuestions] = useState<readonly QuizQuestion[]>([])
     const [quizId, setQuizId] = useState<string | undefined>(undefined)
     const [errorMessage, setErrorMessage] = useState<string>('')
 
-    useApi(listGuid || '', fetchListQuestions, setQuestionList)
+    useApi(workspaceGuid || '', fetchWorkspaceQuestions, setWorkspaceQuestions)
 
     const onSubmit = (data: QuizCreateFormData) =>
         tryCatch(setErrorMessage, async () => {
             const quizId = await postQuiz(data)
             setQuizId(quizId)
-            if (listGuid) {
-                navigate(`/q-list/${listGuid}`)
+            if (workspaceGuid) {
+                navigate(`/workspace/${workspaceGuid}`)
             }
         })
 
     return (
         <Page title="Create Quiz">
-            <QuizCreateForm questions={questionList} onSubmit={onSubmit} />
+            <QuizCreateForm questions={workspaceQuestions} onSubmit={onSubmit} />
 
             {errorMessage && <Alert type="error">{errorMessage}</Alert>}
             {quizId && (

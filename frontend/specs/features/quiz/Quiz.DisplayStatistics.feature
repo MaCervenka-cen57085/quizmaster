@@ -2,7 +2,7 @@
 Feature: Display Quiz Statistics from Quiz
 
   Background:
-    Given a question list with questions
+    Given a workspace with questions
       | question  | answers  |
       | 2 + 2 = ? | 4 (*), 5 |
       | 3 * 3 = ? | 9 (*), 6 |

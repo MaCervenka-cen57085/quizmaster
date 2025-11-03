@@ -6,8 +6,8 @@ import './question/question-create.ts'
 import './question/question-edit-gui.ts'
 import './question/question-take.ts'
 
-import './question-list/question-list-create.ts'
-import './question-list/question-list.ts'
+import './workspace/workspace-create.ts'
+import './workspace/workspace.ts'
 
 import './quiz/quiz-bookmarks.ts'
 import './quiz/quiz-create-new.ts'

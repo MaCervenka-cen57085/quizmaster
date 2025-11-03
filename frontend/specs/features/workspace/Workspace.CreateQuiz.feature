@@ -1,7 +1,7 @@
-Feature: Create Quiz from Question list
+Feature: Create Quiz from Workspace
 
   Background:
-    Given a question list with questions
+    Given a workspace with questions
       | question  | answers  |
       | 2 + 2 = ? | 4 (*), 5 |
       | 3 * 3 = ? | 9 (*), 6 |
@@ -15,4 +15,4 @@ Feature: Create Quiz from Question list
     * I select question "4 / 2 = ?"
     * I submit the quiz
 
-    Then I see the quiz "Math Quiz" in the question list
+    Then I see the quiz "Math Quiz" in the workspace

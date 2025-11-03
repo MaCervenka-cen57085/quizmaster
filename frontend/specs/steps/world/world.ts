@@ -1,10 +1,10 @@
 import type { Page, TestInfo } from '@playwright/test'
 
 import {
-    QuestionListCreatePage,
+    WorkspaceCreatePage,
     HomePage,
     QuestionEditPage,
-    QuestionListPage,
+    WorkspacePage,
     QuizCreatePage,
     QuizQuestionPage,
     QuizScorePage,
@@ -21,25 +21,25 @@ export class QuizmasterWorld {
         public testInfo: TestInfo,
     ) {
         this.questionEditPage = new QuestionEditPage(this.page)
-        this.questionListCreatePage = new QuestionListCreatePage(this.page)
+        this.workspaceCreatePage = new WorkspaceCreatePage(this.page)
         this.takeQuestionPage = new TakeQuestionPage(this.page)
         this.quizQuestionPage = new QuizQuestionPage(this.page)
         this.quizWelcomePage = new QuizWelcomePage(this.page)
         this.quizStatisticsPage = new QuizStatisticsPage(this.page)
         this.quizScorePage = new QuizScorePage(this.page)
-        this.questionListPage = new QuestionListPage(this.page)
+        this.workspacePage = new WorkspacePage(this.page)
         this.quizCreatePage = new QuizCreatePage(this.page)
         this.homePage = new HomePage(this.page)
     }
 
     readonly questionEditPage: QuestionEditPage
-    readonly questionListCreatePage: QuestionListCreatePage
+    readonly workspaceCreatePage: WorkspaceCreatePage
     readonly takeQuestionPage: TakeQuestionPage
     readonly quizQuestionPage: QuizQuestionPage
     readonly quizWelcomePage: QuizWelcomePage
     readonly quizStatisticsPage: QuizStatisticsPage
     readonly quizScorePage: QuizScorePage
-    readonly questionListPage: QuestionListPage
+    readonly workspacePage: WorkspacePage
     readonly quizCreatePage: QuizCreatePage
     readonly homePage: HomePage
     quizId = ''

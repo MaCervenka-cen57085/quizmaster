@@ -2,23 +2,23 @@ import { useState } from 'react'
 import { preventDefault } from 'helpers.ts'
 import { Field, SubmitButton, TextInput } from 'pages/components'
 
-export interface QuestionListFormData {
+export interface WorkspaceFormData {
     readonly title: string
 }
 
-interface QuestionListCreateProps {
-    readonly onSubmit: (data: QuestionListFormData) => void
+interface WorkspaceCreateProps {
+    readonly onSubmit: (data: WorkspaceFormData) => void
 }
 
-export const QuestionListCreateForm = ({ onSubmit }: QuestionListCreateProps) => {
+export const WorkspaceCreateForm = ({ onSubmit }: WorkspaceCreateProps) => {
     const [title, setTitle] = useState<string>('')
 
-    const toFormData = (title: string): QuestionListFormData => ({ title })
+    const toFormData = (title: string): WorkspaceFormData => ({ title })
 
     return (
         <form onSubmit={preventDefault(() => onSubmit(toFormData(title)))}>
-            <Field label="Question List Title">
-                <TextInput id="question-list-title" value={title} onChange={setTitle} />
+            <Field label="Workspace Title">
+                <TextInput id="workspace-title" value={title} onChange={setTitle} />
             </Field>
             <div>
                 <SubmitButton />

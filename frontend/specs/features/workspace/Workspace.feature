@@ -1,7 +1,7 @@
-Feature: Question list (TODO: will be renamed to "Workspace" where question list and quiz list will be displayed)
+Feature: Workspace - where workspace and quiz list are displayed
 
-  Scenario: Take question in a question list
-    Given a question list with questions
+  Scenario: Take question in a workspace
+    Given a workspace with questions
       | question  | answers  |
       | 2 + 2 = ? | 4 (*), 5 |
       | 3 * 3 = ? | 9 (*), 6 |
@@ -9,15 +9,15 @@ Feature: Question list (TODO: will be renamed to "Workspace" where question list
     Then I see the question and the answers
 
   Scenario: Copy a take question URL
-    Given a question list with question
+    Given a workspace with question
       | question  | answers  |
       | 2 + 2 = ? | 4 (*), 5 |
     When I copy the take question URL "2 + 2 = ?" from the list
     And I follow the copied URL
     Then I see the question and the answers
 
-  Scenario: Edit question in a question list
-    Given a question list with questions
+  Scenario: Edit question in a workspace
+    Given a workspace with questions
       | question  | answers  |
       | 2 + 2 = ? | 4 (*), 5 |
       | 3 * 3 = ? | 9 (*), 6 |
@@ -26,7 +26,7 @@ Feature: Question list (TODO: will be renamed to "Workspace" where question list
     And I see "2 + 2 = ?" in the question field
 
   Scenario: Copy an edit question URL
-    Given a question list with question
+    Given a workspace with question
       | question  | answers  |
       | 2 + 2 = ? | 4 (*), 5 |
     When I copy the edit question URL "2 + 2 = ?" from the list

@@ -5,10 +5,10 @@ interface TitleEditProps {
 
 export const TitleEdit = ({ title, setTitle }: TitleEditProps) => (
     <>
-        <label htmlFor="question-text">Enter list title:</label>
+        <label htmlFor="question-text">Enter workspace title:</label>
         <textarea
-            id="question-list-title"
-            data-testId="question-list-title"
+            id="workspace-title"
+            data-testId="workspace-title"
             value={title}
             onChange={e => setTitle(e.target.value)}
             rows={1}

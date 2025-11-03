@@ -32,7 +32,7 @@ export const QuizCreateForm = ({ questions, onSubmit }: QuizCreateProps) => {
         mode: 'EXAM' as const,
         passScore,
         timeLimit,
-        workspaceGuid: searchParams.get('listguid') || '',
+        workspaceGuid: searchParams.get('workspaceguid') || '',
     })
 
     const quizTitleError = !title ? 'titleRequired' : undefined

@@ -18,9 +18,9 @@ public class WorkspaceControllerTest {
     final String title = "TEST_TITLE";
 
     @Test
-    public void getQuestionList() {
+    public void getWorkspace() {
         var createdWorkspace = workspaceRepository.save(new Workspace(null, title));
-        var result = workspaceController.getQuestionList(createdWorkspace.getGuid()).getBody();
+        var result = workspaceController.getWorkspace(createdWorkspace.getGuid()).getBody();
 
         assertNotNull(result);
         assertNotNull(result.getGuid());
@@ -28,8 +28,8 @@ public class WorkspaceControllerTest {
     }
 
     @Test
-    public void saveQuestionList() {
-        WorkspaceCreateResponse response = workspaceController.saveQuestionList(new Workspace(null, title));
+    public void saveWorkspace() {
+        WorkspaceCreateResponse response = workspaceController.saveWorkspace(new Workspace(null, title));
         assertNotNull(response);
 
         var createdWorkspace = workspaceRepository.findById(response.getGuid());

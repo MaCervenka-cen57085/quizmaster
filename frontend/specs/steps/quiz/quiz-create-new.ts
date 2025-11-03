@@ -4,7 +4,7 @@ import { Then, When } from '../fixture.ts'
 import type { DataTable } from '@cucumber/cucumber'
 
 When('I start creating a new quiz', async function () {
-    await this.questionListPage.createNewQuiz()
+    await this.workspacePage.createNewQuiz()
 })
 
 When('I enter quiz name {string}', async function (title: string) {
@@ -69,7 +69,7 @@ Then('I display the quiz statistics', async function () {
     await this.quizCreatePage.showQuizStatistics()
 })
 
-Then('I see question list with {int} available questions', async function (count: number) {
+Then('I see workspace with {int} available questions', async function (count: number) {
     await expectedNumberOfChildrenToBe(this.quizCreatePage.questionsInList(), count)
 })
 

@@ -11,7 +11,7 @@ export class HomePage {
 
     // Locators for the links
     createQuestionLink = () => this.page.locator('a[href="/question/new"]')
-    createQuestionListLink = () => this.page.locator('a[href="/q-list/new"]')
+    createWorkspaceLink = () => this.page.locator('a[href="/workspace/new"]')
 
     // Methods to check if links exist and have correct href
     hasCreateQuestionLink = async () => {
@@ -20,8 +20,8 @@ export class HomePage {
         return link.isVisible()
     }
 
-    hasCreateQuestionListLink = async () => {
-        const link = this.createQuestionListLink()
+    hasCreateWorkspaceLink = async () => {
+        const link = this.createWorkspaceLink()
         await link.waitFor({ state: 'visible' })
         return link.isVisible()
     }

@@ -1,12 +1,12 @@
 import type { Page } from '@playwright/test'
 
-export class QuestionListPage {
+export class WorkspacePage {
     constructor(private page: Page) {}
 
-    goto = (guid: string) => this.page.goto(`/q-list/${guid}`)
+    goto = (guid: string) => this.page.goto(`/workspace/${guid}`)
 
-    private questionListNameLocator = () => this.page.getByTestId('question-list-title')
-    questionListNameValue = () => this.questionListNameLocator().textContent()
+    private workspaceNameLocator = () => this.page.getByTestId('workspace-title')
+    workspaceNameValue = () => this.workspaceNameLocator().textContent()
 
     private questionsLocator = () => this.page.locator('.question-item')
 

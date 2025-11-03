@@ -104,7 +104,7 @@ public class QuizController {
 
 
     @Transactional
-    @GetMapping("/quiz/by-question-list/{guid}")
+    @GetMapping("/quiz/by-workspace/{guid}")
     public ResponseEntity<List<Quiz>> getQuizzesByWorkspace(@PathVariable String guid) {
         List<Quiz> quizzes = quizRepository.findByWorkspaceGuid(guid);
         return quizzes != null ? ResponseEntity.ok(quizzes) : ResponseEntity.notFound().build();

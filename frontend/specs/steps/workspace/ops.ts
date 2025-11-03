@@ -2,14 +2,14 @@ import type { TableOf } from '../common'
 import { addAnswers, type AnswerRaw, enterQuestion } from '../question/ops'
 import { emptyQuestion, type QuizmasterWorld } from '../world'
 
-export const openCreateQuestionListPage = async (world: QuizmasterWorld) => {
-    world.questionListCreatePage.gotoNew()
+export const openCreateWorkspacePage = async (world: QuizmasterWorld) => {
+    world.workspaceCreatePage.gotoNew()
 }
 
-export const createQuestionList = async (world: QuizmasterWorld, name: string) => {
-    await openCreateQuestionListPage(world)
-    await world.questionListCreatePage.enterQuestionListName(name)
-    await world.questionListCreatePage.submit()
+export const createWorkspace = async (world: QuizmasterWorld, name: string) => {
+    await openCreateWorkspacePage(world)
+    await world.workspaceCreatePage.enterWorkspaceName(name)
+    await world.workspaceCreatePage.submit()
 }
 
 export const createQuestionInList = async (
@@ -17,7 +17,7 @@ export const createQuestionInList = async (
     question: string,
     answerRawTable: TableOf<AnswerRaw>,
 ) => {
-    await world.questionListPage.createNewQuestion()
+    await world.workspacePage.createNewQuestion()
     world.questionWip = emptyQuestion()
     await enterQuestion(world, question)
     await addAnswers(world, answerRawTable)

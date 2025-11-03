@@ -10,7 +10,7 @@ import { validateQuestionFormData } from './validators'
 
 export function CreateQuestionContainer() {
     const [searchParams] = useSearchParams()
-    const questionListGuid = searchParams.get('listguid') ? searchParams.get('listguid') : ''
+    const workspaceGuid = searchParams.get('workspaceguid') ? searchParams.get('workspaceguid') : ''
     const navigate = useNavigate()
 
     const [questionData, setQuestionData] = useState(emptyQuestionFormData())
@@ -38,14 +38,14 @@ export function CreateQuestionContainer() {
         }
         const apiData = toQuestionApiData(questionData)
 
-        if (questionListGuid !== '') {
-            apiData.workspaceGuid = questionListGuid
+        if (workspaceGuid !== '') {
+            apiData.workspaceGuid = workspaceGuid
         }
 
         postData(apiData).then(() => {
-            if (questionListGuid !== '') {
+            if (workspaceGuid !== '') {
                 //to be refactored we should not wait post data to finish
-                navigate(`/q-list/${questionListGuid}`)
+                navigate(`/workspace/${workspaceGuid}`)
             } else {
                 navigate(editUrl)
             }

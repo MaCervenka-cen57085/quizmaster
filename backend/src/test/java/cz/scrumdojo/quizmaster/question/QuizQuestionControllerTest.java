@@ -78,7 +78,7 @@ public class QuizQuestionControllerTest {
     }
 
     @Test
-    public void getQuestionsByQuestionList() {
+    public void getQuestionsByWorkspace() {
         var question = createSingleChoiceQuestion();
         var questionCreateResponse = quizQuestionController.saveQuestion(question);
 
