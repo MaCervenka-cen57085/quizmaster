@@ -1,8 +1,8 @@
 import './question-select.scss'
-import type { QuizQuestion } from 'model/quiz-question'
+import type { QuestionListItem } from 'model/question-list-item.ts'
 
 interface QuestionItemProps {
-    readonly question: QuizQuestion
+    readonly question: QuestionListItem
     readonly onSelect: (id: number) => void
 }
 
@@ -18,7 +18,7 @@ export const QuestionItem = ({ question, onSelect }: QuestionItemProps) => {
 }
 
 interface QuestionSelectProps {
-    readonly questions: readonly QuizQuestion[]
+    readonly questions: readonly QuestionListItem[]
     readonly onSelect: (id: number) => void
 }
 

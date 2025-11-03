@@ -4,7 +4,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useApi } from 'api/hooks'
 import { fetchWorkspaceQuestions } from 'api/workspace'
 
-import type { QuizQuestion } from 'model/quiz-question'
+import type { QuestionListItem } from 'model/question-list-item.ts'
 import { postQuiz } from 'api/quiz'
 import { QuizCreateForm, type QuizCreateFormData } from './quiz-create-form'
 import { tryCatch } from 'helpers'
@@ -17,7 +17,7 @@ export const QuizCreatePage = () => {
     const workspaceGuid = searchParams.get('workspaceguid')
     const navigate = useNavigate()
 
-    const [workspaceQuestions, setWorkspaceQuestions] = useState<readonly QuizQuestion[]>([])
+    const [workspaceQuestions, setWorkspaceQuestions] = useState<readonly QuestionListItem[]>([])
     const [quizId, setQuizId] = useState<string | undefined>(undefined)
     const [errorMessage, setErrorMessage] = useState<string>('')
 

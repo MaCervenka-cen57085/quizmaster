@@ -1,8 +1,8 @@
-import type { QuizQuestion } from 'model/quiz-question'
+import type { QuestionListItem } from 'model/question-list-item'
 import { EditQuestionButton, TakeQuestionButton, CopyQuestionButton } from './workspace.tsx'
 
 interface Props {
-    question: QuizQuestion
+    question: QuestionListItem
     index?: number
     onEditQuestion: () => void
     onCopyEditQuestion: () => void

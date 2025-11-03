@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 import { preventDefault, useStateSet } from 'helpers'
-import type { QuizQuestion } from 'model/quiz-question.ts'
+import type { QuestionListItem } from 'model/question-list-item.ts'
 import type { QuizCreateRequest } from 'api/quiz.ts'
 
 import { Field, NumberInput, SubmitButton, TextInput } from 'pages/components'
@@ -12,7 +12,7 @@ import { FormFieldError } from 'pages/components/forms/form-field-error.tsx'
 export type QuizCreateFormData = QuizCreateRequest
 
 interface QuizCreateProps {
-    readonly questions: readonly QuizQuestion[]
+    readonly questions: readonly QuestionListItem[]
     readonly onSubmit: (data: QuizCreateFormData) => void
 }
 

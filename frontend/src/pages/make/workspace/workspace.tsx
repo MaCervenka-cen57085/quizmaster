@@ -3,14 +3,14 @@ import { useNavigate } from 'react-router-dom'
 import copyClipboardIcon from 'assets/icons/copy-clipboard.svg'
 import { QuestionItem } from './question-item'
 import './workspace.scss'
-import type { QuizQuestion } from 'model/quiz-question'
+import type { QuestionListItem } from 'model/question-list-item'
 import type { Workspace } from 'model/workspace'
 import type { Quiz } from 'model/quiz'
 import { QuizItem } from '../quiz-create/quiz-item'
 
 interface WorkspaceProps {
     readonly workspace: Workspace
-    readonly questions: readonly QuizQuestion[]
+    readonly questions: readonly QuestionListItem[]
     readonly quizzes: readonly Quiz[]
 }
 
