@@ -12,18 +12,18 @@ import java.util.Optional;
 @Slf4j
 @RestController
 @RequestMapping("/api")
-public class QuizQuestionController {
+public class QuestionController {
 
-    private final QuizQuestionRepository quizQuestionRepository;
+    private final QuestionRepository questionRepository;
 
     @Autowired
-    public QuizQuestionController(QuizQuestionRepository quizQuestionRepository) {
-        this.quizQuestionRepository = quizQuestionRepository;
+    public QuestionController(QuestionRepository questionRepository) {
+        this.questionRepository = questionRepository;
     }
 
     @Transactional
     @GetMapping("/quiz-question/{id}")
-    public ResponseEntity<QuizQuestion> getQuestion(@PathVariable Integer id) {
+    public ResponseEntity<Question> getQuestion(@PathVariable Integer id) {
         return response(findQuestion(id));
     }
 
@@ -31,9 +31,9 @@ public class QuizQuestionController {
     @DeleteMapping("/quiz-question/{id}")
     public ResponseEntity<Void> deleteQuestion(@PathVariable Integer id) {
         try {
-            QuizQuestion question = quizQuestionRepository.findById(id).orElse(null);
+            Question question = questionRepository.findById(id).orElse(null);
             if (question != null) {
-                quizQuestionRepository.delete(question);
+                questionRepository.delete(question);
                 return ResponseEntity.ok().build();
             }
             return ResponseEntity.notFound().build();
@@ -46,7 +46,7 @@ public class QuizQuestionController {
     @Transactional
     @GetMapping("/quiz-question/by-workspace/{guid}")
     public List<WorkspaceItem> getQuestionsByWorkspace(@PathVariable String guid) {
-        List<QuizQuestion> questions = quizQuestionRepository.findByWorkspaceGuid(guid);
+        List<Question> questions = questionRepository.findByWorkspaceGuid(guid);
         return questions.stream()
             .map(q -> new WorkspaceItem(q.getId(), q.getQuestion(), q.getEditId()))
             .toList();
@@ -54,8 +54,8 @@ public class QuizQuestionController {
 
     @Transactional
     @GetMapping("/quiz-question/{editId}/edit")
-    public ResponseEntity<QuizQuestion> getQuestionByEditId(@PathVariable String editId) {
-        var question = quizQuestionRepository.findByEditId(editId);
+    public ResponseEntity<Question> getQuestionByEditId(@PathVariable String editId) {
+        var question = questionRepository.findByEditId(editId);
         return response(question.map(q -> isQuestionsInQuiz(List.of(q)).stream().findFirst().orElse(null)));
     }
 
@@ -67,19 +67,19 @@ public class QuizQuestionController {
 
     @Transactional
     @PostMapping("/quiz-question")
-    public QuestionCreateResponse saveQuestion(@RequestBody QuizQuestion question) {
-        var createdQuestion = quizQuestionRepository.save(question);
+    public QuestionCreateResponse saveQuestion(@RequestBody Question question) {
+        var createdQuestion = questionRepository.save(question);
         return new QuestionCreateResponse(createdQuestion.getId(), createdQuestion.getEditId());
     }
 
     @Transactional
     @PatchMapping("/quiz-question/{editId}")
-    public Integer updateQuestion(@RequestBody QuizQuestion question, @PathVariable String editId) {
-        var existingQuestion = quizQuestionRepository.findByEditId(editId)
+    public Integer updateQuestion(@RequestBody Question question, @PathVariable String editId) {
+        var existingQuestion = questionRepository.findByEditId(editId)
             .orElseThrow(() -> new IllegalArgumentException("Question not found with editId: " + editId));
         question.setId(existingQuestion.getId());
         question.setEditId(editId);
-        quizQuestionRepository.save(question);
+        questionRepository.save(question);
         return existingQuestion.getId();
     }
 
@@ -89,16 +89,16 @@ public class QuizQuestionController {
         return response(findQuestion(id).map(Answers::from));
     }
 
-    private Optional<QuizQuestion> findQuestion(Integer id) {
-        var question = quizQuestionRepository.findById(id);
+    private Optional<Question> findQuestion(Integer id) {
+        var question = questionRepository.findById(id);
         if( question.isEmpty()) {
             return question;
         }
         return Optional.of(isQuestionsInQuiz(question.stream().toList()).stream().findFirst().orElse(null));
     }
 
-    private List<QuizQuestion> isQuestionsInQuiz(List<QuizQuestion> questions) {
-        var idsInQuiz = quizQuestionRepository.findQuestionsInQuizs(questions.stream().map(QuizQuestion::getId).toList());
+    private List<Question> isQuestionsInQuiz(List<Question> questions) {
+        var idsInQuiz = questionRepository.findQuestionsInQuizs(questions.stream().map(Question::getId).toList());
         return questions.stream().map(question -> {
             if (idsInQuiz.contains(question.getId())) {
                 question.setDeletable(false);
@@ -109,11 +109,11 @@ public class QuizQuestionController {
     }
 
     private Long findAllQuestionsCount() {
-        return quizQuestionRepository.count();
+        return questionRepository.count();
     }
 
     private Long getQuestionIndex(Integer id) {
-        return quizQuestionRepository.getQuestionIndex(id);
+        return questionRepository.getQuestionIndex(id);
     }
 
     private <T> ResponseEntity<T> response(Optional<T> entity) {

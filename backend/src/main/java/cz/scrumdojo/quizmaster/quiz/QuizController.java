@@ -1,8 +1,8 @@
 
 package cz.scrumdojo.quizmaster.quiz;
 
-import cz.scrumdojo.quizmaster.question.QuizQuestion;
-import cz.scrumdojo.quizmaster.question.QuizQuestionRepository;
+import cz.scrumdojo.quizmaster.question.Question;
+import cz.scrumdojo.quizmaster.question.QuestionRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,12 +16,12 @@ import java.util.List;
 @RequestMapping("/api")
 public class QuizController {
 
-    private final QuizQuestionRepository quizQuestionRepository;
+    private final QuestionRepository questionRepository;
     private final QuizRepository quizRepository;
 
     @Autowired
-    public QuizController(QuizQuestionRepository quizQuestionRepository, QuizRepository quizRepository) {
-        this.quizQuestionRepository = quizQuestionRepository;
+    public QuizController(QuestionRepository questionRepository, QuizRepository quizRepository) {
+        this.questionRepository = questionRepository;
         this.quizRepository = quizRepository;
     }
 
@@ -37,10 +37,10 @@ public class QuizController {
 
         int questionsLimit = (quiz.getSize() != null &&  quiz.getSize() > 0 ) ? quiz.getSize() : quiz.getQuestionIds().length;
 
-        QuizQuestion[] questions = new QuizQuestion[questionsLimit];
+        Question[] questions = new Question[questionsLimit];
 
         for (int i = 0; i < questionsLimit; i++) {
-            questions[i] = this.quizQuestionRepository.getReferenceById(quiz.getQuestionIds()[i]);
+            questions[i] = this.questionRepository.getReferenceById(quiz.getQuestionIds()[i]);
         }
 
         QuizResponse build = QuizResponse.builder()

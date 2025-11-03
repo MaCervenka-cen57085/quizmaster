@@ -11,7 +11,7 @@ public class Answers {
 
     private String questionExplanation;
 
-    public static Answers from(QuizQuestion question) {
+    public static Answers from(Question question) {
         return new Answers(question.getCorrectAnswers(), question.getExplanations(), question.getQuestionExplanation());
     }
 }

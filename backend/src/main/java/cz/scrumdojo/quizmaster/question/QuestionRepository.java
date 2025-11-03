@@ -7,16 +7,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface QuizQuestionRepository extends JpaRepository<QuizQuestion, Integer> {
+public interface QuestionRepository extends JpaRepository<Question, Integer> {
     @Query(value = "SELECT question_index FROM (" +
     "  SELECT ROW_NUMBER() OVER (ORDER BY id) AS question_index, id " +
-    "  FROM quiz_question" +
+    "  FROM question" +
     ") AS subquery WHERE id = :id", nativeQuery = true)
     Long getQuestionIndex(@Param("id") Integer id);
 
-    List<QuizQuestion> findByWorkspaceGuid(String guid);
+    List<Question> findByWorkspaceGuid(String guid);
 
-    Optional<QuizQuestion> findByEditId(String editId);
+    Optional<Question> findByEditId(String editId);
 
     @Query(value = "SELECT questions FROM quiz WHERE questions && ARRAY[:ids]", nativeQuery = true)
     List<Integer> findQuestionsInQuizs(@Param("ids") List<Integer> ids);

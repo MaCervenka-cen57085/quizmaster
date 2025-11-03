@@ -11,7 +11,7 @@ import org.hibernate.type.SqlTypes;
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class QuizQuestion {
+public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

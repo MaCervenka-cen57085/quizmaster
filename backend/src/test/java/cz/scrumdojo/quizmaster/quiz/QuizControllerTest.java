@@ -1,8 +1,8 @@
 package cz.scrumdojo.quizmaster.quiz;
 
 import cz.scrumdojo.quizmaster.model.ScoreRequest;
-import cz.scrumdojo.quizmaster.question.QuizQuestion;
-import cz.scrumdojo.quizmaster.question.QuizQuestionRepository;
+import cz.scrumdojo.quizmaster.question.Question;
+import cz.scrumdojo.quizmaster.question.QuestionRepository;
 import cz.scrumdojo.quizmaster.workspace.Workspace;
 import cz.scrumdojo.quizmaster.workspace.WorkspaceRepository;
 import org.assertj.core.util.Arrays;
@@ -23,7 +23,7 @@ public class QuizControllerTest {
     private QuizController quizController;
 
     @Autowired
-    private QuizQuestionRepository quizQuestionRepository;
+    private QuestionRepository questionRepository;
 
     @Autowired
     private QuizRepository quizRepository;
@@ -32,14 +32,14 @@ public class QuizControllerTest {
     private WorkspaceRepository workspaceRepository;
 
     private Quiz createQuizInput() {
-        QuizQuestion question = new QuizQuestion();
+        Question question = new Question();
         question.setQuestion("nějakej string");
         question.setAnswers(Arrays.array("Odp1", "Odp2"));
         question.setCorrectAnswers(new int[] { 1 });
-        QuizQuestion quizQuestion = quizQuestionRepository.save(question);
+        Question savedQuestion = questionRepository.save(question);
 
         int[] questions = new int[1];
-        questions[0] = quizQuestion.getId();
+        questions[0] = savedQuestion.getId();
 
         Quiz quizInput = new Quiz();
         quizInput.setTitle("Title");
@@ -91,7 +91,7 @@ public class QuizControllerTest {
         assertEquals(quizId, quizGetBody.getId());
         assertEquals(quizInput.getTitle(), quizGetBody.getTitle());
         assertEquals(quizInput.getDescription(), quizGetBody.getDescription());
-        QuizQuestion[] quizGetBodyQuestions = quizGetBody.getQuestions();
+        Question[] quizGetBodyQuestions = quizGetBody.getQuestions();
         assertNotNull(quizGetBodyQuestions);
         assertEquals(quizInput.getQuestionIds().length, quizGetBodyQuestions.length);
         assertEquals(quizInput.getQuestionIds()[0], quizGetBodyQuestions[0].getId());

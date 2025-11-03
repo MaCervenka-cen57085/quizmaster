@@ -1,6 +1,6 @@
 package cz.scrumdojo.quizmaster.quiz;
 
-import cz.scrumdojo.quizmaster.question.QuizQuestion;
+import cz.scrumdojo.quizmaster.question.Question;
 import lombok.*;
 
 @Getter
@@ -13,7 +13,7 @@ public class QuizResponse {
 
     private Integer id;
     private String title;
-    private QuizQuestion[] questions;
+    private Question[] questions;
     private QuizMode mode;
     private int passScore;
     private String description;
