@@ -3,8 +3,8 @@ package cz.scrumdojo.quizmaster.quiz;
 import cz.scrumdojo.quizmaster.model.ScoreRequest;
 import cz.scrumdojo.quizmaster.question.QuizQuestion;
 import cz.scrumdojo.quizmaster.question.QuizQuestionRepository;
-import cz.scrumdojo.quizmaster.questionList.QuestionList;
-import cz.scrumdojo.quizmaster.questionList.QuestionListRepository;
+import cz.scrumdojo.quizmaster.workspace.Workspace;
+import cz.scrumdojo.quizmaster.workspace.WorkspaceRepository;
 import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class QuizControllerTest {
     private QuizRepository quizRepository;
 
     @Autowired
-    private QuestionListRepository questionListRepository;
+    private WorkspaceRepository workspaceRepository;
 
     private Quiz createQuizInput() {
         QuizQuestion question = new QuizQuestion();
@@ -136,32 +136,32 @@ public class QuizControllerTest {
 
     @Test
     public void getQuizzesByQuestionList() {
-        // Create a question list
-        QuestionList questionList = QuestionList.builder()
-            .title("Test Question List")
+        // Create a workspace
+        Workspace workspace = Workspace.builder()
+            .title("Test Workspace")
             .build();
-        QuestionList savedQuestionList = questionListRepository.save(questionList);
-        String questionListGuid = savedQuestionList.getGuid();
+        Workspace savedWorkspace = workspaceRepository.save(workspace);
+        String workspaceGuid = savedWorkspace.getGuid();
 
-        // Create first quiz with question list
+        // Create first quiz with workspace
         Quiz quizInput1 = createQuizInput();
         quizInput1.setTitle("Quiz 1");
-        quizInput1.setQuestionList(questionListGuid);
+        quizInput1.setWorkspaceGuid(workspaceGuid);
         Integer quizId1 = createQuiz(quizInput1);
 
-        // Create second quiz with same question list
+        // Create second quiz with same workspace
         Quiz quizInput2 = createQuizInput();
         quizInput2.setTitle("Quiz 2");
-        quizInput2.setQuestionList(questionListGuid);
+        quizInput2.setWorkspaceGuid(workspaceGuid);
         Integer quizId2 = createQuiz(quizInput2);
 
-        // Create third quiz WITHOUT question list
+        // Create third quiz WITHOUT workspace
         Quiz quizInput3 = createQuizInput();
         quizInput3.setTitle("Quiz 3");
         createQuiz(quizInput3);
 
         // Test the endpoint
-        ResponseEntity<List<Quiz>> response = quizController.getQuizzesByQuestionList(questionListGuid);
+        ResponseEntity<List<Quiz>> response = quizController.getQuizzesByWorkspace(workspaceGuid);
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
@@ -169,23 +169,23 @@ public class QuizControllerTest {
         assertNotNull(quizzes);
         assertEquals(2, quizzes.size());
 
-        // Verify both quizzes are associated with the question list
+        // Verify both quizzes are associated with the workspace
         assertTrue(quizzes.stream().anyMatch(q -> q.getId() == quizId1));
         assertTrue(quizzes.stream().anyMatch(q -> q.getId() == quizId2));
-        assertTrue(quizzes.stream().allMatch(q -> questionListGuid.equals(q.getQuestionList())));
+        assertTrue(quizzes.stream().allMatch(q -> workspaceGuid.equals(q.getWorkspaceGuid())));
     }
 
     @Test
     public void getQuizzesByQuestionListReturnsEmptyList() {
-        // Create a question list with no quizzes
-        QuestionList questionList = QuestionList.builder()
-            .title("Empty Question List")
+        // Create a workspace with no quizzes
+        Workspace workspace = Workspace.builder()
+            .title("Empty Workspace")
             .build();
-        QuestionList savedQuestionList = questionListRepository.save(questionList);
-        String questionListGuid = savedQuestionList.getGuid();
+        Workspace savedWorkspace = workspaceRepository.save(workspace);
+        String workspaceGuid = savedWorkspace.getGuid();
 
         // Test the endpoint
-        ResponseEntity<List<Quiz>> response = quizController.getQuizzesByQuestionList(questionListGuid);
+        ResponseEntity<List<Quiz>> response = quizController.getQuizzesByWorkspace(workspaceGuid);
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
 

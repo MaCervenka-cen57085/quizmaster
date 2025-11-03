@@ -14,7 +14,7 @@ public interface QuizQuestionRepository extends JpaRepository<QuizQuestion, Inte
     ") AS subquery WHERE id = :id", nativeQuery = true)
     Long getQuestionIndex(@Param("id") Integer id);
 
-    List<QuizQuestion> findByQuestionListGuid(String guid);
+    List<QuizQuestion> findByWorkspaceGuid(String guid);
 
     Optional<QuizQuestion> findByEditId(String editId);
 

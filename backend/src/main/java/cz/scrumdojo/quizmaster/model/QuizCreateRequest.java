@@ -18,5 +18,5 @@ public class QuizCreateRequest {
 
     private QuizMode mode;
     private int passScore;
-    private String questionList; // Question list GUID
+    private String workspaceGuid; // Workspace GUID
 }

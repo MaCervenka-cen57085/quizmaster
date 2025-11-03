@@ -13,9 +13,9 @@ public class QuizCreateWithListRequest {
     private String title;
     private String id;
     private String description;
-    private String[] questionListIds;
+    private String[] workspaceIds;
     private QuizMode mode;
     private int passScore;
     private Integer timeLimit;
-    private String questionList; // Question list GUID
+    private String workspaceGuid; // Workspace GUID
 }

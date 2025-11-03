@@ -14,7 +14,7 @@ export interface QuestionFormData {
     readonly answers: readonly AnswerData[]
     readonly questionExplanation: string
     readonly isMultipleChoice: boolean
-    readonly questionListGuid: string | null
+    readonly workspaceGuid: string | null
     readonly isEasyModeChoice: boolean
     readonly isDeletable?: boolean
 }
@@ -24,7 +24,7 @@ export const emptyQuestionFormData = (): QuestionFormData => ({
     answers: [emptyAnswerData(), emptyAnswerData()],
     questionExplanation: '',
     isMultipleChoice: false,
-    questionListGuid: '',
+    workspaceGuid: '',
     isEasyModeChoice: false,
 })
 
@@ -40,7 +40,7 @@ export const toQuestionFormData = (questionData: QuestionApiData): QuestionFormD
         answers: answerData,
         questionExplanation: questionData.questionExplanation,
         isMultipleChoice: questionData.correctAnswers.length > 1,
-        questionListGuid: questionData.questionListGuid,
+        workspaceGuid: questionData.workspaceGuid,
         isEasyModeChoice: questionData.easyMode,
         isDeletable: questionData.isDeletable ?? true,
     }
@@ -57,7 +57,7 @@ export const toQuestionApiData = (questionData: QuestionFormData): QuestionApiDa
     return {
         question: questionData.question,
         editId: '',
-        questionListGuid: questionData.questionListGuid,
+        workspaceGuid: questionData.workspaceGuid,
         answers,
         correctAnswers,
         explanations,

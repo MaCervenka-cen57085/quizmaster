@@ -32,9 +32,9 @@ public class QuizQuestion {
     @JdbcTypeCode(SqlTypes.ARRAY)
     private int[] correctAnswers;
 
-    @Column(name = "question_list_guid", columnDefinition = "varchar(36)")
+    @Column(name = "workspace_guid", columnDefinition = "varchar(36)")
     @JdbcTypeCode(SqlTypes.VARCHAR)
-    private String questionListGuid;
+    private String workspaceGuid;
 
     @Column(name = "easy_mode", columnDefinition = "boolean")
     @JdbcTypeCode(SqlTypes.BOOLEAN)

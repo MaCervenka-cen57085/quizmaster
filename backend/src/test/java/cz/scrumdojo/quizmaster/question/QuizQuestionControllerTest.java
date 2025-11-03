@@ -32,7 +32,7 @@ public class QuizQuestionControllerTest {
             .answers(new String[] { "Naples", "Rome", "Florence", "Palermo" })
             .explanations(new String[] { "Nope", "Of course!", "You wish", "Sicilia!" })
             .correctAnswers(new int[] { 2 })
-            .questionListGuid(UUID.randomUUID().toString())
+            .workspaceGuid(UUID.randomUUID().toString())
             .isDeletable(true)
             .isEasyMode(false)
             .build();
@@ -44,7 +44,7 @@ public class QuizQuestionControllerTest {
             .answers(new String[] { "Naples", "Rome", "Astana", "Paris" })
             .explanations(new String[] { "Si!", "Of course!", "Salem, but no.", "Bonjour! But no." })
             .correctAnswers(new int[] { 1, 2 })
-            .questionListGuid(UUID.randomUUID().toString())
+            .workspaceGuid(UUID.randomUUID().toString())
             .isEasyMode(false)
             .build();
     }
@@ -56,7 +56,7 @@ public class QuizQuestionControllerTest {
             .answers(new String[] { "Naples", "Rome", "Astana", "Paris" })
             .explanations(new String[] { "Si!", "Of course!", "Salem, but no.", "Bonjour! But no." })
             .correctAnswers(new int[] { 1, 2 })
-            .questionListGuid(UUID.randomUUID().toString())
+            .workspaceGuid(UUID.randomUUID().toString())
             .isEasyMode(easyMode)
             .build();
     }
@@ -73,7 +73,7 @@ public class QuizQuestionControllerTest {
         assertArrayEquals(question.getAnswers(), result.getAnswers());
         assertArrayEquals(question.getExplanations(), result.getExplanations());
         assertArrayEquals(question.getCorrectAnswers(), result.getCorrectAnswers());
-        assertEquals(question.getQuestionListGuid(), result.getQuestionListGuid());
+        assertEquals(question.getWorkspaceGuid(), result.getWorkspaceGuid());
         assertEquals(question.isEasyMode(), result.isEasyMode());
     }
 
@@ -82,7 +82,7 @@ public class QuizQuestionControllerTest {
         var question = createSingleChoiceQuestion();
         var questionCreateResponse = quizQuestionController.saveQuestion(question);
 
-        var result = quizQuestionController.getQuestionsByQuestionList(question.getQuestionListGuid());
+        var result = quizQuestionController.getQuestionsByWorkspace(question.getWorkspaceGuid());
 
         assertNotNull(result);
         assertEquals(1, result.size());
@@ -106,7 +106,7 @@ public class QuizQuestionControllerTest {
         assertArrayEquals(updatedQuestion.getAnswers(), result.getAnswers());
         assertArrayEquals(updatedQuestion.getExplanations(), result.getExplanations());
         assertArrayEquals(updatedQuestion.getCorrectAnswers(), result.getCorrectAnswers());
-        assertEquals(updatedQuestion.getQuestionListGuid(), result.getQuestionListGuid());
+        assertEquals(updatedQuestion.getWorkspaceGuid(), result.getWorkspaceGuid());
         assertEquals(updatedQuestion.isEasyMode(), result.isEasyMode());
     }
 

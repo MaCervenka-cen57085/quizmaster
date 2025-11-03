@@ -39,7 +39,7 @@ export function CreateQuestionContainer() {
         const apiData = toQuestionApiData(questionData)
 
         if (questionListGuid !== '') {
-            apiData.questionListGuid = questionListGuid
+            apiData.workspaceGuid = questionListGuid
         }
 
         postData(apiData).then(() => {

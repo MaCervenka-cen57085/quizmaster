@@ -34,6 +34,6 @@ public class Quiz {
     private int timesTaken;
     private int timesFinished;
     private double averageScore;
-    private String questionList; // Question list GUID
+    private String workspaceGuid; // Workspace GUID
     private Integer size;
 }

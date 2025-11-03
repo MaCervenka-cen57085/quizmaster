@@ -45,10 +45,10 @@ public class QuizQuestionController {
 
     @Transactional
     @GetMapping("/quiz-question/by-question-list/{guid}")
-    public List<QuestionListItem> getQuestionsByQuestionList(@PathVariable String guid) {
-        List<QuizQuestion> questions = quizQuestionRepository.findByQuestionListGuid(guid);
+    public List<WorkspaceItem> getQuestionsByWorkspace(@PathVariable String guid) {
+        List<QuizQuestion> questions = quizQuestionRepository.findByWorkspaceGuid(guid);
         return questions.stream()
-            .map(q -> new QuestionListItem(q.getId(), q.getQuestion(), q.getEditId()))
+            .map(q -> new WorkspaceItem(q.getId(), q.getQuestion(), q.getEditId()))
             .toList();
     }
 
