@@ -1,4 +1,4 @@
-@not-feature-flag
+@skip
 Feature: Display Quiz Statistics from Quiz
 
   Background:

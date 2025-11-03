@@ -1,4 +1,3 @@
-@not-feature-flag
 Feature: Display Quiz Statistics from Quiz
 
   Background:

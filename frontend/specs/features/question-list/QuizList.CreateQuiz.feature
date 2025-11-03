@@ -7,7 +7,6 @@ Feature: Create Quiz from Question list
       | 3 * 3 = ? | 9 (*), 6 |
       | 4 / 2 = ? | 2 (*), 3 |
 
-@feature-flag
   Scenario: Display created quiz Math quiz
     When I start creating a new quiz
     * I enter quiz name "Math Quiz"

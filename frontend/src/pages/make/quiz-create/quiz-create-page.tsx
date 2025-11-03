@@ -27,7 +27,7 @@ export const QuizCreatePage = () => {
         tryCatch(setErrorMessage, async () => {
             const quizId = await postQuiz(data)
             setQuizId(quizId)
-            if (FEATURE_FLAG_ENABLED) {
+            if (listGuid) {
                 navigate(`/q-list/${listGuid}`)
             }
         })

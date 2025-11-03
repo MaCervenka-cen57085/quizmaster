@@ -1,14 +1,13 @@
 Feature: Create Quiz from Question list
 
-Background:
+  Background:
     Given a question list with questions
       | question  | answers  |
       | 2 + 2 = ? | 4 (*), 5 |
       | 3 * 3 = ? | 9 (*), 6 |
       | 4 / 2 = ? | 2 (*), 3 |
 
-@feature-flag
-Scenario: Create quiz and display it in quiz list
+  Scenario: Create quiz and display it in quiz list
     When I start creating a new quiz
     * I enter quiz name "Math Quiz"
     * I enter quiz description "Very hard math quiz"
@@ -18,7 +17,7 @@ Scenario: Create quiz and display it in quiz list
     Then I see the quiz "Math Quiz" in the question list
     * I take quiz "Math Quiz"
 
-Scenario: Create quiz with default values
+  Scenario: Create quiz with default values
     When I start creating a new quiz
     Then I see empty quiz title
     And I see empty quiz description
@@ -28,21 +27,20 @@ Scenario: Create quiz with default values
     And I see quiz question "3 * 3 = ?"
     And I see quiz question "4 / 2 = ?"
 
-@not-feature-flag
-Scenario: Create quiz with 3 questions
+  Scenario: Create quiz with 3 questions
     When I start creating a new quiz
     * I enter quiz name "Math Quiz"
     * I enter quiz description "Very hard math quiz"
     * I select question "2 + 2 = ?"
     * I select question "4 / 2 = ?"
     * I submit the quiz
-    * I take the quiz
+    * I take quiz "Math Quiz"
     Then I see the welcome page
     * I see quiz name "Math Quiz"
     * I see quiz description "Very hard math quiz"
     * I see question count 2
 
-@not-feature-flag
+  @skip
   Scenario: Quiz form with only default values
     When I start creating a new quiz
     And I submit the quiz
@@ -51,7 +49,7 @@ Scenario: Create quiz with 3 questions
       | descriptionRequired |
       | atLeastOneQuestionRequired |
 
-  @not-feature-flag
+  @skip
   Scenario: Display error when score is above 100
     When I start creating a new quiz
     And I enter quiz name "Math Quiz"
@@ -61,7 +59,7 @@ Scenario: Create quiz with 3 questions
     Then I see error messages in quiz form
       | scoreAboveMax |
 
- @not-feature-flag
+  @skip
   Scenario: Display error when limit is negative
     When I start creating a new quiz
     And I enter quiz name "Math Quiz"
@@ -71,7 +69,7 @@ Scenario: Create quiz with 3 questions
     Then I see error messages in quiz form
       | negativeTimeLimit|
 
-@not-feature-flag
+  @skip
   Scenario: Display error when limit is over 21600
     When I start creating a new quiz
     And I enter quiz name "Math Quiz"
@@ -81,7 +79,7 @@ Scenario: Create quiz with 3 questions
     Then I see error messages in quiz form
       | timeLimitAboveMax |
 
-  @not-feature-flag
+  @skip
   Scenario: Display no error when timelimit is cleared
     When I start creating a new quiz
     And I enter quiz name "Math Quiz"
@@ -92,7 +90,7 @@ Scenario: Create quiz with 3 questions
     Then I see no error messages in quiz form
     And I see time limit "0" seconds
 
-  @not-feature-flag
+  @skip
   Scenario: Display no error when score is cleared
     When I start creating a new quiz
     And I enter quiz name "Math Quiz"

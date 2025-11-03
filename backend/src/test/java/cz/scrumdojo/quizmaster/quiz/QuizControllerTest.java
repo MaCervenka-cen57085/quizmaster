@@ -3,12 +3,15 @@ package cz.scrumdojo.quizmaster.quiz;
 import cz.scrumdojo.quizmaster.model.ScoreRequest;
 import cz.scrumdojo.quizmaster.question.QuizQuestion;
 import cz.scrumdojo.quizmaster.question.QuizQuestionRepository;
+import cz.scrumdojo.quizmaster.questionList.QuestionList;
+import cz.scrumdojo.quizmaster.questionList.QuestionListRepository;
 import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,6 +27,9 @@ public class QuizControllerTest {
 
     @Autowired
     private QuizRepository quizRepository;
+
+    @Autowired
+    private QuestionListRepository questionListRepository;
 
     private Quiz createQuizInput() {
         QuizQuestion question = new QuizQuestion();
@@ -126,5 +132,65 @@ public class QuizControllerTest {
         Quiz quiz = byId.get();
         assertEquals(90.0, quiz.getAverageScore());
         assertEquals(3, quiz.getTimesFinished());
+    }
+
+    @Test
+    public void getQuizzesByQuestionList() {
+        // Create a question list
+        QuestionList questionList = QuestionList.builder()
+            .title("Test Question List")
+            .build();
+        QuestionList savedQuestionList = questionListRepository.save(questionList);
+        String questionListGuid = savedQuestionList.getGuid();
+
+        // Create first quiz with question list
+        Quiz quizInput1 = createQuizInput();
+        quizInput1.setTitle("Quiz 1");
+        quizInput1.setQuestionList(questionListGuid);
+        Integer quizId1 = createQuiz(quizInput1);
+
+        // Create second quiz with same question list
+        Quiz quizInput2 = createQuizInput();
+        quizInput2.setTitle("Quiz 2");
+        quizInput2.setQuestionList(questionListGuid);
+        Integer quizId2 = createQuiz(quizInput2);
+
+        // Create third quiz WITHOUT question list
+        Quiz quizInput3 = createQuizInput();
+        quizInput3.setTitle("Quiz 3");
+        createQuiz(quizInput3);
+
+        // Test the endpoint
+        ResponseEntity<List<Quiz>> response = quizController.getQuizzesByQuestionList(questionListGuid);
+        assertNotNull(response);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        List<Quiz> quizzes = response.getBody();
+        assertNotNull(quizzes);
+        assertEquals(2, quizzes.size());
+
+        // Verify both quizzes are associated with the question list
+        assertTrue(quizzes.stream().anyMatch(q -> q.getId() == quizId1));
+        assertTrue(quizzes.stream().anyMatch(q -> q.getId() == quizId2));
+        assertTrue(quizzes.stream().allMatch(q -> questionListGuid.equals(q.getQuestionList())));
+    }
+
+    @Test
+    public void getQuizzesByQuestionListReturnsEmptyList() {
+        // Create a question list with no quizzes
+        QuestionList questionList = QuestionList.builder()
+            .title("Empty Question List")
+            .build();
+        QuestionList savedQuestionList = questionListRepository.save(questionList);
+        String questionListGuid = savedQuestionList.getGuid();
+
+        // Test the endpoint
+        ResponseEntity<List<Quiz>> response = quizController.getQuizzesByQuestionList(questionListGuid);
+        assertNotNull(response);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        List<Quiz> quizzes = response.getBody();
+        assertNotNull(quizzes);
+        assertEquals(0, quizzes.size());
     }
 }
