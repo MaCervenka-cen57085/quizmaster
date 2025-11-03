@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import cz.scrumdojo.quizmaster.model.ScoreRequest;
-import java.util.List;
 
 @Slf4j
 @RestController
@@ -100,24 +99,5 @@ public class QuizController {
 
         quizRepository.save(quiz);
         return ResponseEntity.ok().build();
-    }
-
-
-    @Transactional
-    @GetMapping("/quiz/by-workspace/{guid}")
-    public ResponseEntity<List<QuizListItem>> getQuizzesByWorkspace(@PathVariable String guid) {
-        List<Quiz> quizzes = quizRepository.findByWorkspaceGuid(guid);
-        if (quizzes == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        List<QuizListItem> quizListItems = quizzes.stream()
-            .map(quiz -> QuizListItem.builder()
-                .id(quiz.getId())
-                .title(quiz.getTitle())
-                .build())
-            .toList();
-
-        return ResponseEntity.ok(quizListItems);
     }
 }

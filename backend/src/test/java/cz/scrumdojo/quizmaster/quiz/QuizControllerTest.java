@@ -3,15 +3,12 @@ package cz.scrumdojo.quizmaster.quiz;
 import cz.scrumdojo.quizmaster.model.ScoreRequest;
 import cz.scrumdojo.quizmaster.question.Question;
 import cz.scrumdojo.quizmaster.question.QuestionRepository;
-import cz.scrumdojo.quizmaster.workspace.Workspace;
-import cz.scrumdojo.quizmaster.workspace.WorkspaceRepository;
 import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,9 +24,6 @@ public class QuizControllerTest {
 
     @Autowired
     private QuizRepository quizRepository;
-
-    @Autowired
-    private WorkspaceRepository workspaceRepository;
 
     private Quiz createQuizInput() {
         Question question = new Question();
@@ -132,64 +126,5 @@ public class QuizControllerTest {
         Quiz quiz = byId.get();
         assertEquals(90.0, quiz.getAverageScore());
         assertEquals(3, quiz.getTimesFinished());
-    }
-
-    @Test
-    public void getQuizzesByQuestionList() {
-        // Create a workspace
-        Workspace workspace = Workspace.builder()
-            .title("Test Workspace")
-            .build();
-        Workspace savedWorkspace = workspaceRepository.save(workspace);
-        String workspaceGuid = savedWorkspace.getGuid();
-
-        // Create first quiz with workspace
-        Quiz quizInput1 = createQuizInput();
-        quizInput1.setTitle("Quiz 1");
-        quizInput1.setWorkspaceGuid(workspaceGuid);
-        Integer quizId1 = createQuiz(quizInput1);
-
-        // Create second quiz with same workspace
-        Quiz quizInput2 = createQuizInput();
-        quizInput2.setTitle("Quiz 2");
-        quizInput2.setWorkspaceGuid(workspaceGuid);
-        Integer quizId2 = createQuiz(quizInput2);
-
-        // Create third quiz WITHOUT workspace
-        Quiz quizInput3 = createQuizInput();
-        quizInput3.setTitle("Quiz 3");
-        createQuiz(quizInput3);
-
-        // Test the endpoint
-        ResponseEntity<List<QuizListItem>> response = quizController.getQuizzesByWorkspace(workspaceGuid);
-        assertNotNull(response);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-
-        List<QuizListItem> quizzes = response.getBody();
-        assertNotNull(quizzes);
-        assertEquals(2, quizzes.size());
-
-        // Verify both quizzes are associated with the workspace
-        assertTrue(quizzes.stream().anyMatch(q -> q.getId().equals(quizId1)));
-        assertTrue(quizzes.stream().anyMatch(q -> q.getId().equals(quizId2)));
-    }
-
-    @Test
-    public void getQuizzesByQuestionListReturnsEmptyList() {
-        // Create a workspace with no quizzes
-        Workspace workspace = Workspace.builder()
-            .title("Empty Workspace")
-            .build();
-        Workspace savedWorkspace = workspaceRepository.save(workspace);
-        String workspaceGuid = savedWorkspace.getGuid();
-
-        // Test the endpoint
-        ResponseEntity<List<QuizListItem>> response = quizController.getQuizzesByWorkspace(workspaceGuid);
-        assertNotNull(response);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-
-        List<QuizListItem> quizzes = response.getBody();
-        assertNotNull(quizzes);
-        assertEquals(0, quizzes.size());
     }
 }

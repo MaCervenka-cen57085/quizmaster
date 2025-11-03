@@ -12,12 +12,12 @@ export interface WorkspaceCreateResponse {
 }
 
 export const postWorkspace = async (workspaceApiData: WorkspaceCreateRequest) =>
-    await postJson<WorkspaceCreateRequest, WorkspaceCreateResponse>('/api/workspace', workspaceApiData)
+    await postJson<WorkspaceCreateRequest, WorkspaceCreateResponse>('/api/workspaces', workspaceApiData)
 
-export const fetchWorkspace = async (guid: string) => await fetchJson<Workspace>(`/api/workspace/${guid}`)
+export const fetchWorkspace = async (guid: string) => await fetchJson<Workspace>(`/api/workspaces/${guid}`)
 
 export const fetchWorkspaceQuestions = async (guid: string) =>
-    await fetchJson<readonly QuestionListItem[]>(`/api/quiz-question/by-workspace/${guid}`)
+    await fetchJson<readonly QuestionListItem[]>(`/api/workspaces/${guid}/questions`)
 
 export const fetchWorkspaceQuizzes = async (guid: string) =>
-    await fetchJson<readonly QuizListItem[]>(`/api/quiz/by-workspace/${guid}`)
+    await fetchJson<readonly QuizListItem[]>(`/api/workspaces/${guid}/quizzes`)

@@ -75,21 +75,6 @@ public class QuestionControllerTest {
     }
 
     @Test
-    public void getQuestionsByWorkspace() {
-        var question = createSingleChoiceQuestion();
-        var questionCreateResponse = questionController.saveQuestion(question);
-
-        var result = questionController.getQuestionsByWorkspace(question.getWorkspaceGuid());
-
-        assertNotNull(result);
-        assertEquals(1, result.size());
-        assertEquals(question.getId(), result.get(0).getId());
-        assertEquals(question.getQuestion(), result.get(0).getQuestion());
-
-        assertEquals(questionCreateResponse.getEditId(), result.get(0).getEditId());
-    }
-
-    @Test
     public void updateQuestion() {
         var question = createSingleChoiceQuestion();
         var questionCreateResponse = questionController.saveQuestion(question);

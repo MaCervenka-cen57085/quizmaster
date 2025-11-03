@@ -1,4 +1,4 @@
-package cz.scrumdojo.quizmaster.question;
+package cz.scrumdojo.quizmaster.workspace;
 
 import lombok.*;
 
