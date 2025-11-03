@@ -60,12 +60,6 @@ public class QuestionController {
     }
 
     @Transactional
-    @GetMapping("/quiz-question/{id}/progress-state")
-    public ResponseEntity<ProgressState> getProgressState(@PathVariable Integer id) {
-        return response(Optional.of(new ProgressState(findAllQuestionsCount(), getQuestionIndex(id))));
-    }
-
-    @Transactional
     @PostMapping("/quiz-question")
     public QuestionCreateResponse saveQuestion(@RequestBody Question question) {
         var createdQuestion = questionRepository.save(question);
@@ -81,12 +75,6 @@ public class QuestionController {
         question.setEditId(editId);
         questionRepository.save(question);
         return existingQuestion.getId();
-    }
-
-    @Transactional
-    @GetMapping("/quiz-question/{id}/answers")
-    public ResponseEntity<Answers> getAnswers(@PathVariable Integer id) {
-        return response(findQuestion(id).map(Answers::from));
     }
 
     private Optional<Question> findQuestion(Integer id) {
@@ -108,19 +96,9 @@ public class QuestionController {
             return question;}).toList();
     }
 
-    private Long findAllQuestionsCount() {
-        return questionRepository.count();
-    }
-
-    private Long getQuestionIndex(Integer id) {
-        return questionRepository.getQuestionIndex(id);
-    }
-
     private <T> ResponseEntity<T> response(Optional<T> entity) {
         return entity
             .map(ResponseEntity::ok)
             .orElse(ResponseEntity.notFound().build());
     }
-
-
 }

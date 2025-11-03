@@ -21,9 +21,6 @@ public class QuestionControllerTest {
     private QuestionController questionController;
 
     @Autowired
-    private QuestionRepository questionRepository;
-
-    @Autowired
     private QuizController quizController;
 
     private static Question createSingleChoiceQuestion() {
@@ -145,16 +142,6 @@ public class QuestionControllerTest {
     }
 
     @Test
-    public void getProgressState() {
-        var questionCreateResponse = questionController.saveQuestion(createSingleChoiceQuestion());
-        var result = (ProgressState) questionController.getProgressState(questionCreateResponse.getId()).getBody();
-
-        assertNotNull(result);
-        assertEquals(questionRepository.count(), result.getTotal());
-        assertEquals(questionRepository.getQuestionIndex(questionCreateResponse.getId()), result.getCurrent());
-    }
-
-    @Test
     public void saveQuestion() {
         var question = createSingleChoiceQuestion();
         var questionCreateResponse = questionController.saveQuestion(question);
@@ -189,25 +176,6 @@ public class QuestionControllerTest {
     @Test
     public void nonExistingQuestion() {
         ResponseEntity<?> response = questionController.getQuestion(-1);
-
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-    }
-
-    @Test
-    public void getAnswers() {
-        var question = createSingleChoiceQuestion();
-        var questionCreateResult = questionController.saveQuestion(question);
-        Answers answers = questionController.getAnswers(questionCreateResult.getId()).getBody();
-
-        assertNotNull(answers);
-        assertArrayEquals(question.getCorrectAnswers(), answers.getCorrectAnswers());
-        assertArrayEquals(question.getExplanations(), answers.getExplanations());
-        assertSame(question.getQuestionExplanation(), answers.getQuestionExplanation());
-    }
-
-    @Test
-    public void getAnswersForNonExistingQuestion() {
-        ResponseEntity<?> response = questionController.getAnswers(-1);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }

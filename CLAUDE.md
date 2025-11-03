@@ -82,8 +82,6 @@ pnpm test:e2e:ui       # Playwright UI at :3333
 - `PATCH /api/quiz-question/{hash}` - Update question by hash
 - `DELETE /api/quiz-question/{id}` - Delete if not used in any quiz
 - `GET /api/quiz-question/{hash}/edit` - Get question by hash for editing
-- `GET /api/quiz-question/{id}/answers` - Get answers for evaluation
-- `GET /api/quiz-question/{id}/progress-state` - Get question index and total count
 - `GET /api/quiz-question/by-workspace/{guid}` - Get questions in a workspace
 
 **Workspace Management:**
