@@ -40,8 +40,8 @@ export const QuizItem: React.FC<Props> = ({ quiz }) => {
                         />
                     </Button>
                 </span>
-                <span className="take-quiz-button take-button">
-                    <Button className="take-quiz" onClick={onStatsQuiz}>
+                <span className="stats-quiz-button take-button">
+                    <Button className="stats-quiz" onClick={onStatsQuiz}>
                         Stats
                     </Button>
                 </span>
