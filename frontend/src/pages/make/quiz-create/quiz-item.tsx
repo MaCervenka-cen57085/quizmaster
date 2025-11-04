@@ -1,21 +1,21 @@
 import type React from 'react'
+import { useNavigate } from 'react-router-dom'
 import type { QuizListItem } from 'model/quiz-list-item'
 import { Button } from 'pages/components/button'
 import copyClipboardIcon from 'assets/icons/copy-clipboard.svg'
+
 interface Props {
-    quiz: QuizListItem
+    readonly quiz: QuizListItem
 }
 
 export const QuizItem: React.FC<Props> = ({ quiz }) => {
-    const onTakeQuiz = () => {
-        const takeUrl = `${window.location.origin}/quiz/${quiz.id}`
-        window.open(takeUrl, '_self')
-    }
+    const navigate = useNavigate()
 
-    const copyQuizLink = () => {
-        const takeUrl = `${window.location.origin}/quiz/${quiz.id}`
-        navigator.clipboard.writeText(takeUrl)
-    }
+    const onTakeQuiz = () => navigate(`/quiz/${quiz.id}`)
+
+    const copyQuizLink = () => navigator.clipboard.writeText(`${window.location.origin}/quiz/${quiz.id}`)
+
+    const onStatsQuiz = () => navigate(`/quiz/${quiz.id}/stats`)
 
     return (
         <div className="quiz-item question-item">
@@ -38,6 +38,11 @@ export const QuizItem: React.FC<Props> = ({ quiz }) => {
                                 e.currentTarget.style.display = 'none'
                             }}
                         />
+                    </Button>
+                </span>
+                <span className="take-quiz-button take-button">
+                    <Button className="take-quiz" onClick={onStatsQuiz}>
+                        Stats
                     </Button>
                 </span>
             </span>
