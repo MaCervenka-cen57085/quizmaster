@@ -1,15 +1,12 @@
 package cz.scrumdojo.quizmaster.quiz;
 
+import cz.scrumdojo.quizmaster.TestFixtures;
 import cz.scrumdojo.quizmaster.model.ScoreRequest;
 import cz.scrumdojo.quizmaster.question.Question;
-import cz.scrumdojo.quizmaster.question.QuestionRepository;
-import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,111 +17,53 @@ public class QuizControllerTest {
     private QuizController quizController;
 
     @Autowired
-    private QuestionRepository questionRepository;
-
-    @Autowired
-    private QuizRepository quizRepository;
-
-    private Quiz createQuizInput() {
-        Question question = new Question();
-        question.setQuestion("nějakej string");
-        question.setAnswers(Arrays.array("Odp1", "Odp2"));
-        question.setCorrectAnswers(new int[] { 1 });
-        Question savedQuestion = questionRepository.save(question);
-
-        int[] questions = new int[1];
-        questions[0] = savedQuestion.getId();
-
-        Quiz quizInput = new Quiz();
-        quizInput.setTitle("Title");
-        quizInput.setDescription("Description");
-        quizInput.setMode(QuizMode.LEARN);
-        quizInput.setPassScore(85);
-        quizInput.setQuestionIds(questions);
-        quizInput.setTimeLimit(10);
-        quizInput.setSize(1);
-
-        return quizInput;
-    }
-
-    private int createQuiz(Quiz quizInput) {
-        ResponseEntity<Integer> resp = quizController.createQuiz(quizInput);
-
-        assertNotNull(resp);
-        assertEquals(HttpStatus.OK, resp.getStatusCode());
-        Integer id = resp.getBody();
-        assertNotNull(id);
-
-        return id;
-    }
+    private TestFixtures fixtures;
 
     @Test
     public void createAndGetQuiz() {
+        Question question = fixtures.save(fixtures.question());
+        Quiz quiz = fixtures.quiz(question).build();
 
-        Quiz quizInput = createQuizInput();
-        Integer quizId = createQuiz(quizInput);
+        Integer quizId = quizController.createQuiz(quiz).getBody();
+        assertNotNull(quizId);
 
-        Optional<Quiz> byId = quizRepository.findById(quizId);
-        assertTrue(byId.isPresent());
+        QuizResponse quizResponse = quizController.getQuiz(quizId).getBody();
+        assertNotNull(quizResponse);
 
-        Quiz quiz = byId.get();
-        assertEquals(quizId, quiz.getId());
-        assertEquals(quizInput.getTitle(), quiz.getTitle());
-        assertEquals(quizInput.getDescription(), quiz.getDescription());
-        assertEquals(quizInput.getPassScore(), quiz.getPassScore());
-        assertArrayEquals(quizInput.getQuestionIds(), quiz.getQuestionIds());
-        assertEquals(quizInput.getMode(), quiz.getMode());
-        assertEquals(quizInput.getTimeLimit(), quiz.getTimeLimit());
-        assertEquals(quizInput.getSize(), quiz.getSize());
+        assertEquals(quiz.getId(), quizResponse.getId());
+        assertEquals(quiz.getTitle(), quizResponse.getTitle());
+        assertEquals(quiz.getDescription(), quizResponse.getDescription());
+        assertEquals(quiz.getMode(), quizResponse.getMode());
+        assertEquals(quiz.getPassScore(), quizResponse.getPassScore());
+        assertEquals(quiz.getTimeLimit(), quizResponse.getTimeLimit());
+        assertEquals(quiz.getSize(), quizResponse.getSize());
 
-        ResponseEntity<QuizResponse> quizGet = quizController.getQuiz(quizId);
-        assertNotNull(quizGet);
-        assertEquals(HttpStatus.OK, quizGet.getStatusCode());
-        QuizResponse quizGetBody = quizGet.getBody();
-        assertNotNull(quizGetBody);
-        assertEquals(quizId, quizGetBody.getId());
-        assertEquals(quizInput.getTitle(), quizGetBody.getTitle());
-        assertEquals(quizInput.getDescription(), quizGetBody.getDescription());
-        Question[] quizGetBodyQuestions = quizGetBody.getQuestions();
-        assertNotNull(quizGetBodyQuestions);
-        assertEquals(quizInput.getQuestionIds().length, quizGetBodyQuestions.length);
-        assertEquals(quizInput.getQuestionIds()[0], quizGetBodyQuestions[0].getId());
+        assertEquals(quiz.getTimesTaken(), quizResponse.getTimesTaken());
+        assertEquals(quiz.getTimesFinished(), quizResponse.getTimesFinished());
+        assertEquals(quiz.getAverageScore(), quizResponse.getAverageScore());
+
+        assertEquals(1, quizResponse.getQuestions().length);
+        assertEquals(question.getId(), quizResponse.getQuestions()[0].getId());
     }
 
     @Test
     public void updateQuizCountsOnly() {
-        Quiz quizInput = createQuizInput();
-        Integer quizId = createQuiz(quizInput);
+        Integer quizId = fixtures.save(fixtures.quiz()).getId();
 
-        quizInput.setId(quizId);
-        quizInput.setTitle("Updated title");
-        quizInput.setDescription("Updated description");
-        quizInput.setPassScore(90);
-
-        ResponseEntity<Void> resp = quizController.updateQuizCounts(quizInput.getId());
-        assertNotNull(resp);
-        assertEquals(HttpStatus.OK, resp.getStatusCode());
+        assertEquals(HttpStatus.OK, quizController.updateQuizCounts(quizId).getStatusCode());
     }
-
 
     @Test
     public void updateQuizFinishedCountsOnly() {
-        Quiz quizInput = createQuizInput();
-        Integer quizId = createQuiz(quizInput);
+        Integer quizId = fixtures.save(fixtures.quiz()).getId();
 
-        quizInput.setId(quizId);
-        quizInput.setTitle("Updated title");
-        quizInput.setDescription("Updated description");
-        quizInput.setPassScore(90);
+        quizController.updateQuizFinishedCounts(quizId, new ScoreRequest(80));
+        quizController.updateQuizFinishedCounts(quizId, new ScoreRequest(90));
+        quizController.updateQuizFinishedCounts(quizId, new ScoreRequest(100));
 
-        quizController.updateQuizFinishedCounts(quizInput.getId(), new ScoreRequest(80));
-        quizController.updateQuizFinishedCounts(quizInput.getId(), new ScoreRequest(90));
-        quizController.updateQuizFinishedCounts(quizInput.getId(), new ScoreRequest(100));
-
-        Optional<Quiz> byId = quizRepository.findById(quizId);
-        assertTrue(byId.isPresent());
-        Quiz quiz = byId.get();
-        assertEquals(90.0, quiz.getAverageScore());
-        assertEquals(3, quiz.getTimesFinished());
+        QuizResponse quizResponse = quizController.getQuiz(quizId).getBody();
+        assertNotNull(quizResponse);
+        assertEquals(90.0, quizResponse.getAverageScore());
+        assertEquals(3, quizResponse.getTimesFinished());
     }
 }

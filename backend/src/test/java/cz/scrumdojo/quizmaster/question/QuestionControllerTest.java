@@ -1,161 +1,86 @@
 package cz.scrumdojo.quizmaster.question;
 
+import cz.scrumdojo.quizmaster.TestFixtures;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import cz.scrumdojo.quizmaster.quiz.Quiz;
-import cz.scrumdojo.quizmaster.quiz.QuizController;
-import cz.scrumdojo.quizmaster.quiz.QuizMode;
-
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.UUID;
 
 @SpringBootTest
 public class QuestionControllerTest {
 
     @Autowired
-    private QuestionController questionController;
+    private TestFixtures fixtures;
 
     @Autowired
-    private QuizController quizController;
-
-    private static Question createSingleChoiceQuestion() {
-        return Question.builder()
-            .question("What is the capital of Italy?")
-            .answers(new String[] { "Naples", "Rome", "Florence", "Palermo" })
-            .explanations(new String[] { "Nope", "Of course!", "You wish", "Sicilia!" })
-            .correctAnswers(new int[] { 2 })
-            .workspaceGuid(UUID.randomUUID().toString())
-            .isDeletable(true)
-            .isEasyMode(false)
-            .build();
-    }
-
-    private static Question createMultipleChoiceQuestion() {
-        return Question.builder()
-            .question("What is the cities of Italy?")
-            .answers(new String[] { "Naples", "Rome", "Astana", "Paris" })
-            .explanations(new String[] { "Si!", "Of course!", "Salem, but no.", "Bonjour! But no." })
-            .correctAnswers(new int[] { 1, 2 })
-            .workspaceGuid(UUID.randomUUID().toString())
-            .isEasyMode(false)
-            .build();
-    }
-
-
-    private static Question createMultipleChoiceQuestionWithEasyMode(boolean easyMode) {
-        return Question.builder()
-            .question("What is the cities of Italy?")
-            .answers(new String[] { "Naples", "Rome", "Astana", "Paris" })
-            .explanations(new String[] { "Si!", "Of course!", "Salem, but no.", "Bonjour! But no." })
-            .correctAnswers(new int[] { 1, 2 })
-            .workspaceGuid(UUID.randomUUID().toString())
-            .isEasyMode(easyMode)
-            .build();
-    }
+    private QuestionController questionController;
 
     @Test
-    public void getQuestion() {
-        var question = createSingleChoiceQuestion();
-        var questionCreateResponse = questionController.saveQuestion(question);
+    public void saveAndGetQuestion() {
+        var question = fixtures.question().build();
+        var response = questionController.saveQuestion(question);
+        assertNotNull(response.getId());
 
-        var result = questionController.getQuestion(questionCreateResponse.getId()).getBody();
-
+        Question result = questionController.getQuestion(response.getId()).getBody();
         assertNotNull(result);
-        assertEquals(question.getQuestion(), result.getQuestion());
-        assertArrayEquals(question.getAnswers(), result.getAnswers());
-        assertArrayEquals(question.getExplanations(), result.getExplanations());
-        assertArrayEquals(question.getCorrectAnswers(), result.getCorrectAnswers());
-        assertEquals(question.getWorkspaceGuid(), result.getWorkspaceGuid());
-        assertEquals(question.isEasyMode(), result.isEasyMode());
+        assertQuestion(question, result);
     }
 
     @Test
     public void updateQuestion() {
-        var question = createSingleChoiceQuestion();
-        var questionCreateResponse = questionController.saveQuestion(question);
-        var updatedQuestion = createMultipleChoiceQuestion();
-        questionController.updateQuestion(updatedQuestion, questionCreateResponse.getEditId());
+        var originalQuestion = fixtures.save(fixtures.question());
 
-        var result = questionController.getQuestion(questionCreateResponse.getId()).getBody();
+        var updatedQuestion = fixtures.multipleChoiceQuestion().build();
+        questionController.updateQuestion(updatedQuestion, originalQuestion.getEditId());
 
+        var result = questionController.getQuestion(originalQuestion.getId()).getBody();
         assertNotNull(result);
-        assertEquals(updatedQuestion.getQuestion(), result.getQuestion());
-        assertArrayEquals(updatedQuestion.getAnswers(), result.getAnswers());
-        assertArrayEquals(updatedQuestion.getExplanations(), result.getExplanations());
-        assertArrayEquals(updatedQuestion.getCorrectAnswers(), result.getCorrectAnswers());
-        assertEquals(updatedQuestion.getWorkspaceGuid(), result.getWorkspaceGuid());
-        assertEquals(updatedQuestion.isEasyMode(), result.isEasyMode());
+        assertQuestion(updatedQuestion, result);
     }
 
-    @Test
-    public void updateEasyModeQuestion() {
-        var question = createSingleChoiceQuestion();
-        var questionCreateResponse = questionController.saveQuestion(question);
-        // update to TRUE
-        var updatedQuestionTrue = createMultipleChoiceQuestionWithEasyMode(true);
-        questionController.updateQuestion(updatedQuestionTrue, questionCreateResponse.getEditId());
-
-        var result = questionController.getQuestion(questionCreateResponse.getId()).getBody();
-
-        assertNotNull(result);
-        assertEquals(updatedQuestionTrue.isEasyMode(), result.isEasyMode());
-
-        // update back to FALSE
-        var updatedQuestionWithFalse = createMultipleChoiceQuestionWithEasyMode(false);
-        questionController.updateQuestion(updatedQuestionWithFalse, questionCreateResponse.getEditId());
-
-        result = questionController.getQuestion(questionCreateResponse.getId()).getBody();
-
-        assertNotNull(result);
-        assertEquals(updatedQuestionWithFalse.isEasyMode(), result.isEasyMode());
+    private void assertQuestion(Question question, Question result) {
+        assertEquals(question.getId(), result.getId());
+        assertEquals(question.getEditId(), result.getEditId());
+        assertEquals(question.getWorkspaceGuid(), result.getWorkspaceGuid());
+        assertEquals(question.getQuestion(), result.getQuestion());
+        assertArrayEquals(question.getAnswers(), result.getAnswers());
+        assertArrayEquals(question.getExplanations(), result.getExplanations());
+        assertArrayEquals(question.getCorrectAnswers(), result.getCorrectAnswers());
+        assertEquals(question.getQuestionExplanation(), result.getQuestionExplanation());
+        assertEquals(question.isEasyMode(), result.isEasyMode());
     }
 
     @Test
     public void getQuestionByEditId() {
-        var question = createSingleChoiceQuestion();
-        var questionCreateResponse = questionController.saveQuestion(question);
-        var result = questionController.getQuestionByEditId(questionCreateResponse.getEditId()).getBody();
+        var question = fixtures.save(fixtures.question());
+
+        Question result = questionController.getQuestionByEditId(question.getEditId()).getBody();
 
         assertNotNull(result);
-        assertEquals(question.getQuestion(), result.getQuestion());
-        assertArrayEquals(question.getAnswers(), result.getAnswers());
+        assertEquals(question.getId(), result.getId());
     }
 
     @Test
     public void saveQuestion() {
-        var question = createSingleChoiceQuestion();
-        var questionCreateResponse = questionController.saveQuestion(question);
+        var question = fixtures.question().build();
+        var response = questionController.saveQuestion(question);
 
-        assertNotNull(questionCreateResponse);
-        assertNotNull(questionCreateResponse.getId());
-        assertNotNull(questionCreateResponse.getEditId());
+        assertNotNull(response.getId());
+        assertNotNull(response.getEditId());
     }
 
     @Test
     public void deleteQuestion() {
-        var question = createSingleChoiceQuestion();
-        var questionCreateResponse = questionController.saveQuestion(question);
-        questionController.deleteQuestion(questionCreateResponse.getId());
-        var result = questionController.getQuestion(questionCreateResponse.getId()).getBody();
-        assertEquals(null, result);
-    }
+        var question = fixtures.save(fixtures.question());
 
-    @Test
-    public void saveQuestionWithEasyMode() {
-        var question = createMultipleChoiceQuestionWithEasyMode(true);
-        var questionCreateResponse = questionController.saveQuestion(question);
+        questionController.deleteQuestion(question.getId());
 
-        var result = questionController.getQuestion(questionCreateResponse.getId()).getBody();
-
-        assertNotNull(questionCreateResponse);
-        assertNotNull(questionCreateResponse.getId());
-        assertNotNull(questionCreateResponse.getEditId());
-        assertEquals(question.isEasyMode(), result.isEasyMode());
+        var response = questionController.getQuestion(question.getId());
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertNull(response.getBody());
     }
 
     @Test
@@ -167,30 +92,22 @@ public class QuestionControllerTest {
 
     @Test
     public void isQuestionDefaultDeletable() {
-        var question = createSingleChoiceQuestion();
-        var questionCreateResponse = questionController.saveQuestion(question);
+        var question = fixtures.save(fixtures.question());
 
-        var result = questionController.getQuestion(questionCreateResponse.getId()).getBody();
+        var response = questionController.getQuestion(question.getId()).getBody();
+        assertNotNull(response);
 
-        assertNotNull(result);
-        assertTrue(result.isDeletable());
+        assertTrue(response.isDeletable());
     }
 
     @Test
     public void questionInQuizIsNotDeletable() {
-        var question = createSingleChoiceQuestion();
-        questionController.saveQuestion(question);
+        var question = fixtures.save(fixtures.question());
+        fixtures.save(fixtures.quiz(question));
 
-        Quiz quizInput = new Quiz();
-        quizInput.setTitle("Title");
-        quizInput.setDescription("Description");
-        quizInput.setMode(QuizMode.LEARN);
-        quizInput.setPassScore(85);
-        quizInput.setQuestionIds(new int[]{question.getId()});
-        quizController.createQuiz(quizInput);
-        var result = questionController.getQuestion(question.getId()).getBody();
+        var response = questionController.getQuestion(question.getId()).getBody();
+        assertNotNull(response);
 
-        assertNotNull(result);
-        assertFalse(result.isDeletable());
+        assertFalse(response.isDeletable());
     }
 }

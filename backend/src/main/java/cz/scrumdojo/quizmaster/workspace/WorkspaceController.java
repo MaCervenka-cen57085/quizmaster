@@ -56,20 +56,15 @@ public class WorkspaceController {
 
     @Transactional
     @GetMapping("/{guid}/quizzes")
-    public ResponseEntity<List<QuizListItem>> getWorkspaceQuizzes(@PathVariable String guid) {
+    public List<QuizListItem> getWorkspaceQuizzes(@PathVariable String guid) {
         List<Quiz> quizzes = quizRepository.findByWorkspaceGuid(guid);
-        // if (quizzes == null) {
-        //     return ResponseEntity.notFound().build();
-        // }
 
-        List<QuizListItem> quizListItems = quizzes.stream()
+        return quizzes.stream()
             .map(quiz -> QuizListItem.builder()
                 .id(quiz.getId())
                 .title(quiz.getTitle())
                 .build())
             .toList();
-
-        return ResponseEntity.ok(quizListItems);
     }
 
     private <T> ResponseEntity<T> response(Optional<T> entity) {
