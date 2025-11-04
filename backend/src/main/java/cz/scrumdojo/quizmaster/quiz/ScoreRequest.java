@@ -1,4 +1,4 @@
-package cz.scrumdojo.quizmaster.model;
+package cz.scrumdojo.quizmaster.quiz;
 
 import lombok.*;
 

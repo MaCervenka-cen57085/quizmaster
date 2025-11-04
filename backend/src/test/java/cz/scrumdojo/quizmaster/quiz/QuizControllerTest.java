@@ -1,7 +1,6 @@
 package cz.scrumdojo.quizmaster.quiz;
 
 import cz.scrumdojo.quizmaster.TestFixtures;
-import cz.scrumdojo.quizmaster.model.ScoreRequest;
 import cz.scrumdojo.quizmaster.question.Question;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
